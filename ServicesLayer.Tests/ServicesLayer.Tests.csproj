@@ -64,6 +64,8 @@
     <Compile Include="RotaServicesDataAccessTests.cs" />
     <Compile Include="RotaServicesFixture.cs" />
     <Compile Include="RotaServicesValidationTests.cs" />
+    <Compile Include="TelefoneVendedoraServicesFixture.cs" />
+    <Compile Include="TelefoneVendedoraServicesValidationTests.cs" />
     <Compile Include="VendedoraServicesDataAccessTests.cs" />
     <Compile Include="VendedoraServicesFixture.cs" />
     <Compile Include="VendedoraServicesValidationTests.cs" />

@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace ServicesLayer.Tests
 {
-    [Trait("Category", "Rota Model Validations")]
+    [Trait("Category: Model Validations", "Rota")]
     public class RotaServicesValidationTests : IClassFixture<RotaServicesFixture>
     {
         private readonly ITestOutputHelper _testOutputHelper;

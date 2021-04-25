@@ -20,7 +20,7 @@ using System.Runtime.CompilerServices;
 
 namespace ServicesLayer.Tests
 {
-    [Trait("Category Rota", "Data Access Validations")]
+    [Trait("Category: Data Access Validations", "Rota")]
     public class RotaServicesDataAccessTests
     {
         private readonly ITestOutputHelper _testOutputHelper;

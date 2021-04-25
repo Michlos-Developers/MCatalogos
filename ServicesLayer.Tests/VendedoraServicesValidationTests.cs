@@ -14,7 +14,7 @@ using Xunit.Abstractions;
 
 namespace ServicesLayer.Tests
 {
-    [Trait("Category", "Vendedora Model Validations")]
+    [Trait("Category: Model Validations", "Vendedora")]
     public class VendedoraServicesValidationTests : IClassFixture<VendedoraServicesFixture>
     {
         private readonly ITestOutputHelper _testOutputHelper;

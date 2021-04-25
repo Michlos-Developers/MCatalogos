@@ -2,6 +2,7 @@
 
 using DomainLayer.Models.Vendedora;
 
+using ServiceLayer.Services.RotaServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
@@ -46,7 +47,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             {
                 try
                 {
-                    string sql = "SELECT * FROM Vendedoras";
+                    string sql = "SELECT * FROM Vendedoras ";
 
                     sQLiteConnection.Open();
 
@@ -75,6 +76,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
                                 vendedoraModel.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
                                 vendedoraModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
+                                vendedoraModel.Rota = new RotaModel { RotaId = Int32.Parse(reader["RotaId"].ToString()) };
+                                //vendedoraModel.Rota.Numero = 
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());

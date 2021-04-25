@@ -9,7 +9,7 @@ namespace DomainLayer.Models.CommonModels.Address
 {
     public class EstadoModel : IEstadoModel
     {
-        public int EstadoId { get { return this.EstadoId; } set { this.EstadoId = value; } }
+        public int EstadoId { get; set; }
         public string Nome { get; set; }
         public string Uf { get; set; }
         public string CodIbge { get; set; }

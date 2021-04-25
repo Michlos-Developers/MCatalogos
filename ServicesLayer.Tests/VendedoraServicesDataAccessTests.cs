@@ -23,7 +23,7 @@ using Xunit.Abstractions;
 
 namespace ServicesLayer.Tests
 {
-    [Trait("Category", "Data Acess Validations")]
+    [Trait("Category: Data Access Validations", "Vendedora")]
     public class VendedoraServicesDataAccessTests
     {
         private readonly ITestOutputHelper _testOutputHelper;
@@ -52,6 +52,8 @@ namespace ServicesLayer.Tests
                     + $"\nNome: {vm.Nome}"
                     + $"\nCpf: {vm.Cpf}"
                     + $"\nEmail: {vm.Email}"
+                    + $"\nRotaId: {vm.RotaId}"
+                    + $"\nRota: {vm.Rota.RotaId}-{vm.Rota.Letra}/{vm.Rota.Numero}"
                     );
             }
         }

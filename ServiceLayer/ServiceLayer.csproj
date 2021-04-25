@@ -48,6 +48,9 @@
     <Compile Include="Services\RotaServices\IRotaRepository.cs" />
     <Compile Include="Services\RotaServices\IRotaServices.cs" />
     <Compile Include="Services\RotaServices\RotaServices.cs" />
+    <Compile Include="Services\TelefoneVendedoraServices\ITelefoneVendedoraRepository.cs" />
+    <Compile Include="Services\TelefoneVendedoraServices\ITelefoneVendedoraServices.cs" />
+    <Compile Include="Services\TelefoneVendedoraServices\TelefoneVendedoraServices.cs" />
     <Compile Include="Services\VendedoraServices\IVendedoraRepository.cs" />
     <Compile Include="Services\VendedoraServices\IVendedoraService.cs" />
     <Compile Include="Services\VendedoraServices\VendedoraServices.cs" />

@@ -1,4 +1,5 @@
 ﻿using DomainLayer.DataAttribute;
+using DomainLayer.Models.CommonModels.Enums;
 
 using System;
 using System.Collections.Generic;
@@ -12,23 +13,21 @@ namespace DomainLayer.Models.Vendedora
 {
     public class TelefoneVendedoraModel : ITelefoneVendedoraModel
     {
-        public enum TipoTelefone
-        {
-            Fixo,
-            Oi,
-            Claro,
-            Vivo,
-            Tim
-        }
-
         [Key]
         public int TelefoneId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O número do telfone de ser informado")]
         [StringLength(11)]
         [Index("UK_TelVend", IsUnique = true)]
+        [RegularExpression(@"[0-9]", ErrorMessage = "Utilize somente números")]
         public string Numero { get; set; }
-        public TipoTelefone Tipo { get; set; }
+
+        [Required]
+        public int TipoTelefoneId { get; set; }
+        public virtual TipoTelefoneModel TipoTelefone { get; set; }
+
+        [Required]
+        public int VendedoraId { get; set; }
 
         [Required]
         [CascadeDelete]
