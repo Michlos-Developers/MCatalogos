@@ -12,14 +12,14 @@ using Xunit.Abstractions;
 namespace ServicesLayer.Tests
 {
     [Trait("Category", "Rota Model Validations")]
-    public class RotaServicesValidationTests
+    public class RotaServicesValidationTests : IClassFixture<RotaServicesFixture>
     {
         private readonly ITestOutputHelper _testOutputHelper;
         private RotaServicesFixture _rotaServicesFixture;
 
-        public RotaServicesValidationTests(RotaServicesFixture rotaServiceFixture, ITestOutputHelper testOutputHelper)
+        public RotaServicesValidationTests(RotaServicesFixture rotaServicesFixture, ITestOutputHelper testOutputHelper)
         {
-            _rotaServicesFixture = rotaServiceFixture;
+            this._rotaServicesFixture = rotaServicesFixture;
             _testOutputHelper = testOutputHelper;
 
             SetValidSampleValues();
@@ -44,7 +44,6 @@ namespace ServicesLayer.Tests
 
             CallExecptionValidateDataAnnotation();
         }
-
 
         private void WriteExceptionTestResult(Exception exception)
         {

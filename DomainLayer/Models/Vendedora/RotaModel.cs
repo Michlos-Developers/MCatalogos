@@ -13,12 +13,14 @@ namespace DomainLayer.Models.Vendedora
         public int RotaId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "A Letra da Rota deve ser informada")]
-        [StringLength(1, ErrorMessage = "Você deve utilizar somente uma letra")]
-        [RegularExpression(@"[A-Z]{1}", ErrorMessage = "Utilize somente letras")]
+        [StringLength(1, ErrorMessage = "Escolha apenas Uma Letra")]
+        [MaxLength(1, ErrorMessage = "Apenas uma letra")]
+        [RegularExpression(@"[A-Z]", ErrorMessage = "Utilize somente letras")]
         public string Letra { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Número da Rota deve ser informado")]
         [StringLength(2, ErrorMessage = "Utilize números de 0 a 99, apenas")]
+        [MaxLength(2, ErrorMessage = "Utilize apenas de 0 a 99. Não pode 3 dígitos.")]
         [RegularExpression(@"[0-9]{2}", ErrorMessage = "Utilize somente números")]
         public string Numero { get; set; }
     }
