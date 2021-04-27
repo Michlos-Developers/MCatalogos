@@ -85,8 +85,78 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
                 return telefoneVendedoraModelList;
             }
-            
+
         }
+
+        public IEnumerable<ITelefoneVendedoraModel> GetByVendedoraId(int vendedoraId)
+        {
+            List<TelefoneVendedoraModel> telefoneModelList = new List<TelefoneVendedoraModel>();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            bool MatchingRecordFound = false;
+            string sql = " SELECT * FROM TelefonesVendedoras " +
+                          " WHERE VendedoraId = @VendedoraId";
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    try
+                    {
+                        using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
+                        {
+                            cmd.CommandText = sql;
+                            cmd.Prepare();
+                            cmd.Parameters.Add(new SQLiteParameter("@VendedoraId", vendedoraId));
+                            try
+                            {
+                                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                                {
+                                    MatchingRecordFound = reader.HasRows;
+                                    while (reader.Read())
+                                    {
+                                        TelefoneVendedoraModel telefoneModel = new TelefoneVendedoraModel();
+
+                                        telefoneModel.TelefoneId = Int32.Parse(reader["TelefoneId"].ToString());
+                                        telefoneModel.Numero = reader["Numero"].ToString();
+                                        telefoneModel.TipoTelefoneId = Int32.Parse(reader["TipoTelefoneId"].ToString());
+                                        telefoneModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
+
+                                        telefoneModelList.Add(telefoneModel);
+                                    }
+                                }
+                                connection.Close();
+                            }
+                            catch (SQLiteException e)
+                            {
+
+                                dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Unable to Read TelefoneVendedoraModel in DataBase", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+
+                                throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                            }
+                        }
+                    }
+                    catch (SQLiteException e)
+                    {
+
+                        dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Unable to Execute Command in DataBase", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+                        throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Unable to open Connection with DataBase", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+            }
+            return telefoneModelList;
+        }
+
         public TelefoneVendedoraModel GetById(int telefoneId)
         {
             TelefoneVendedoraModel telefoneVendedoraModel = new TelefoneVendedoraModel();
@@ -95,8 +165,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             bool MatchingRecordFound = false;
             string sql = "SELECT TelefoneId, Numero, TipoTelefoneId, VendedoraId " +
                          " FROM TelefonesVendedoras " +
-                         " INNER JOIN TiposTelefones ON TelefonesVendedoras.TipoTelefoneId = TiposTelefones.TipoId " +
-                         " INNER JOIN Vendedoras ON TelefonesVendedoras.VendedoraId = Vendedoras.VendedoraId " +
+                         //" INNER JOIN TiposTelefones ON TelefonesVendedoras.TipoTelefoneId = TiposTelefones.TipoId " +
+                         //" INNER JOIN Vendedoras ON TelefonesVendedoras.VendedoraId = Vendedoras.VendedoraId " +
                          " WHERE TelefonesVendedoras.TelefoneId = @TelefoneId ";
 
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
@@ -118,7 +188,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                                 while (reader.Read())
                                 {
-                                    telefoneVendedoraModel.TelefoneId = Int32.Parse(reader["TipoId"].ToString());
+                                    telefoneVendedoraModel.TelefoneId = Int32.Parse(reader["TelefoneId"].ToString());
                                     telefoneVendedoraModel.Numero = reader["Numero"].ToString();
                                     telefoneVendedoraModel.TipoTelefoneId = Int32.Parse(reader["TipoTelefoneId"].ToString());
                                     telefoneVendedoraModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
@@ -134,7 +204,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     {
 
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unabel to get TelefoneVendedoraMOdel from DataBase", helpLink: e.HelpLink,
+                                   customMessage: "Unabel to get TelefoneVendedoraModel from DataBase", helpLink: e.HelpLink,
                                    errorCode: e.ErrorCode, stackTrace: e.StackTrace);
                         throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                     }
@@ -159,6 +229,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 return telefoneVendedoraModel;
             }
         }
+
         public void Add(ITelefoneVendedoraModel telefoneVendedoraModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
@@ -171,8 +242,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     try
                     {
                         string sql =
-                            "INERT INTO TelefonesVendedoras (Numero, TipoTelefoneId, VendedoraId) " +
-                            " VALUES (@Numero, @TipoTelefoneId, @VendedoraId ";
+                            "INSERT INTO TelefonesVendedoras (Numero, TipoTelefoneId, VendedoraId) " +
+                            " VALUES (@Numero, @TipoTelefoneId, @VendedoraId) ";
                         using (SQLiteCommand cmd = new SQLiteCommand(connection))
                         {
                             try
@@ -200,7 +271,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                             catch (SQLiteException e)
                             {
                                 dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to Add TelefoneVendedoraModel", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+                                   customMessage: "Unable to Execute Command to Add TelefoneVendedoraModel", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
 
 
                                 throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
@@ -220,7 +291,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                                 throw e;
                             }
-                            
+
                         }
                         connection.Close();
                     }
@@ -243,6 +314,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
             }
         }
+
         public void Update(ITelefoneVendedoraModel telefoneVendedoraModel)
         {
             int result = -1;
@@ -255,9 +327,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     string sql =
                         "UPDATE TelefonesVendedoras " +
-                        "SET Numero = @Numero, TipoTelefoneId= @TipoTelefoneId";
+                        " SET Numero = @Numero, TipoTelefoneId = @TipoTelefoneId " +
+                        " WHERE TelefoneId = @TelefoneId AND VendedoraId = @VendedoraId";
 
-                    using (SQLiteCommand cmd = new SQLiteCommand (connection))
+                    using (SQLiteCommand cmd = new SQLiteCommand(connection))
                     {
                         try
                         {
@@ -278,6 +351,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         cmd.Parameters.AddWithValue("@TelefoneId", telefoneVendedoraModel.TelefoneId);
                         cmd.Parameters.AddWithValue("@Numero", telefoneVendedoraModel.Numero);
                         cmd.Parameters.AddWithValue("@TipoTelefoneId", telefoneVendedoraModel.TipoTelefoneId);
+                        cmd.Parameters.AddWithValue("@VendedoraId", telefoneVendedoraModel.VendedoraId);
 
                         try
                         {
@@ -305,6 +379,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
+
         public void Delete(ITelefoneVendedoraModel telefoneVendedoraModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
@@ -373,6 +448,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
+
         private bool RecordExistCheck(SQLiteCommand cmd, ITelefoneVendedoraModel telefoneVendedoraModel, TypeOfExistenceCheck typeOfExistenceCheck, RequestType requestType)
         {
             Int32 countOfRecsFound = 0;
@@ -419,9 +495,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
             return RecordExistsCheckPassed;
         }
-
-
-
 
     }
 }

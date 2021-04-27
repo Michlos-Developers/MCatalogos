@@ -14,6 +14,7 @@ namespace ServiceLayer.Services.TelefoneVendedoraServices
         void Update(ITelefoneVendedoraModel telefoneVendedoraModel);
         void Delete(ITelefoneVendedoraModel telefoneVendedoraModel);
         IEnumerable<ITelefoneVendedoraModel> GetAll();
+        IEnumerable<ITelefoneVendedoraModel> GetByVendedoraId(int vendedoraId);
         TelefoneVendedoraModel GetById(int id);
 
     }

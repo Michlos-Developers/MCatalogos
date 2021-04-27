@@ -11,5 +11,6 @@ namespace ServiceLayer.Services.RotaServices
         void Delete(IRotaModel rotaModel);
         IEnumerable<IRotaModel> GetAll();
         RotaModel GetById(int id);
+        
     }
 }

@@ -61,14 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotaServicesDataAccessTests.cs" />
-    <Compile Include="RotaServicesFixture.cs" />
-    <Compile Include="RotaServicesValidationTests.cs" />
-    <Compile Include="TelefoneVendedoraServicesFixture.cs" />
-    <Compile Include="TelefoneVendedoraServicesValidationTests.cs" />
-    <Compile Include="VendedoraServicesDataAccessTests.cs" />
-    <Compile Include="VendedoraServicesFixture.cs" />
-    <Compile Include="VendedoraServicesValidationTests.cs" />
+    <Compile Include="Rota\RotaServicesDataAccessTests.cs" />
+    <Compile Include="Rota\RotaServicesFixture.cs" />
+    <Compile Include="Rota\RotaServicesValidationTests.cs" />
+    <Compile Include="TelefoneVendedora\TelefoneVendedoraDataAccessTest.cs" />
+    <Compile Include="TelefoneVendedora\TelefoneVendedoraServicesFixture.cs" />
+    <Compile Include="TelefoneVendedora\TelefoneVendedoraServicesValidationTests.cs" />
+    <Compile Include="Vendedora\VendedoraServicesDataAccessTests.cs" />
+    <Compile Include="Vendedora\VendedoraServicesFixture.cs" />
+    <Compile Include="Vendedora\VendedoraServicesValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonComponents\CommonComponents.csproj">

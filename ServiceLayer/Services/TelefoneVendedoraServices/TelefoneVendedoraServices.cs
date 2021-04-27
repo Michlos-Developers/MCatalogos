@@ -37,6 +37,11 @@ namespace ServiceLayer.Services.TelefoneVendedoraServices
             return _telefoneVendedoraRepository.GetAll();
         }
 
+        public IEnumerable<ITelefoneVendedoraModel> GetByVendedoraId(int vendedoraId)
+        {
+            return _telefoneVendedoraRepository.GetByVendedoraId(vendedoraId);
+        }
+
         public TelefoneVendedoraModel GetById(int id)
         {
             return _telefoneVendedoraRepository.GetById(id);
