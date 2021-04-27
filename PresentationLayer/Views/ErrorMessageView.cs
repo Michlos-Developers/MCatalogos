@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PresentationLayer.Views
 {
-    public partial class ErrorMessageView : Form
+    public partial class ErrorMessageView : Form, IErrorMessageView
     {
         public ErrorMessageView()
         {

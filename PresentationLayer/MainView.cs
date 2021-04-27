@@ -10,9 +10,13 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    public partial class Form1 : Form
+    public partial class MainView : Form, IMainView
     {
-        public Form1()
+        public void ShowMainVeiw()
+        {
+            this.Show();
+        }
+        public MainView()
         {
             InitializeComponent();
         }
