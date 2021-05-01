@@ -20,16 +20,16 @@ namespace PresentationLayer.Views
 
         public void ShowErrorMessageView(string windowsTitle, string errorMessage)
         {
-            this.Text = windowsTitle;
-            this.messageTextBox.Text = errorMessage;
-            this.ShowDialog();
-            this.Close();
+            Text = windowsTitle;
+            messageTextBox.Text = errorMessage;
+            ShowDialog();
+            //Close();
         }
         private void BtnCopy_Click(object sender, EventArgs e)
         {
             if (messageTextBox.Text != "")
             {
-                System.Windows.Forms.Clipboard.SetText(messageTextBox.Text);
+                Clipboard.SetText(messageTextBox.Text);
             }
         }
 

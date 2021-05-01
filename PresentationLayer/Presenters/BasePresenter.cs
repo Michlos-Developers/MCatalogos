@@ -17,15 +17,16 @@ namespace PresentationLayer.Presenters
 
         }
 
-        BasePresenter(IErrorMessageView errorMessageView)
+        //o construtor dele não está público
+        public BasePresenter(IErrorMessageView errorMessageView)
         {
             _errorMessageView = errorMessageView;
         }
 
         public void ShowErrorMessage(string windowTitle, string errorMessage)
         {
-            ErrorMessageView errorMessageView = new ErrorMessageView();
-            errorMessageView.ShowErrorMessageView(windowTitle, errorMessage);
+            //ErrorMessageView errorMessageView = new ErrorMessageView();
+            _errorMessageView.ShowErrorMessageView(windowTitle, errorMessage);
         }
     }
 }

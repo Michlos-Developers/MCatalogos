@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PresentationLayer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MCatalogo - Gestão de Catálogos")]
+[assembly: AssemblyDescription("MCatalogo - Software de Gerenciamento de Catálogos e Vendedoras\nGerenciamento e Gestão de Pedidos\nControle Financeiro de Contas a Pagar e a Receber")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Michlos Develpers")]
 [assembly: AssemblyProduct("PresentationLayer")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]

@@ -55,6 +55,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ButtonHelper.cs" />
+    <Compile Include="Common\FormHelper.cs" />
+    <Compile Include="Common\PictureBoxHelper.cs" />
     <Compile Include="IMainView.cs" />
     <Compile Include="MainView.cs">
       <SubType>Form</SubType>
@@ -63,7 +66,9 @@
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
     <Compile Include="Presenters\BasePresenter.cs" />
+    <Compile Include="Presenters\HelpAboutPresenter.cs" />
     <Compile Include="Presenters\IBasePresenter.cs" />
+    <Compile Include="Presenters\IHelpAboutPresenter.cs" />
     <Compile Include="Presenters\IMainPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
@@ -74,7 +79,14 @@
     <Compile Include="Views\ErrorMessageView.Designer.cs">
       <DependentUpon>ErrorMessageView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HelpAboutView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HelpAboutView.Designer.cs">
+      <DependentUpon>HelpAboutView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\IErrorMessageView.cs" />
+    <Compile Include="Views\IHelpAboutView.cs" />
     <EmbeddedResource Include="MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +102,9 @@
     </Compile>
     <EmbeddedResource Include="Views\ErrorMessageView.resx">
       <DependentUpon>ErrorMessageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HelpAboutView.resx">
+      <DependentUpon>HelpAboutView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -240,6 +255,10 @@
       <Project>{533a3dc1-7e95-4ced-8cde-118a1369eb01}</Project>
       <Name>CommonComponents</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\catlog.ico" />
+    <Content Include="Resources\CatLogIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

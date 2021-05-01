@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommonComponents
 {
-    public class EventHelpers
+    public static class EventHelpers
     {
         public static void RaiseEvent(Object objectRaisingEvent,
                                       EventHandler<AccessTypeEventArgs> eventHandlerRaised,
@@ -18,9 +18,8 @@ namespace CommonComponents
             }
         }
 
-        public static void RaiseEvent(Object objectRaisingEvent,
-                                      EventHandler eventHandlerRaised,
-                                      EventArgs eventArgs)
+        //HelpAbout deve chamar esse evento.
+        public static void RaiseEvent(Object objectRaisingEvent, EventHandler eventHandlerRaised, EventArgs eventArgs)
         {
             if (eventHandlerRaised != null)//Check if any subscribed to this event
             {
