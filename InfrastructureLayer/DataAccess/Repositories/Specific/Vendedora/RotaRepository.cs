@@ -8,7 +8,6 @@ using ServiceLayer.Services.RotaServices;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Data.SQLite;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
