@@ -71,6 +71,7 @@
     <Compile Include="Presenters\IHelpAboutPresenter.cs" />
     <Compile Include="Presenters\IMainPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
+    <Compile Include="Presenters\UserControls\VendedoraListPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ErrorMessageView.cs">
@@ -87,6 +88,22 @@
     </Compile>
     <Compile Include="Views\IErrorMessageView.cs" />
     <Compile Include="Views\IHelpAboutView.cs" />
+    <Compile Include="Views\UserControls\BaseUserControlUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\IVendedoraListViewUC.cs" />
+    <Compile Include="Views\UserControls\VendedoraDetailViewUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\VendedoraDetailViewUC.Designer.cs">
+      <DependentUpon>VendedoraDetailViewUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\VendedoraListViewUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\VendedoraListViewUC.Designer.cs">
+      <DependentUpon>VendedoraListViewUC.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +122,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HelpAboutView.resx">
       <DependentUpon>HelpAboutView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\BaseUserControlUC.resx">
+      <DependentUpon>BaseUserControlUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\VendedoraDetailViewUC.resx">
+      <DependentUpon>VendedoraDetailViewUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\VendedoraListViewUC.resx">
+      <DependentUpon>VendedoraListViewUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -240,10 +266,7 @@
   <ItemGroup>
     <None Include="Resources\iconVendedora50x50.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presenters\UserControls\" />
-    <Folder Include="Views\UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\CatLogLogoBranco.png" />
   </ItemGroup>
@@ -254,6 +277,10 @@
     <ProjectReference Include="..\CommonComponents\CommonComponents.csproj">
       <Project>{533a3dc1-7e95-4ced-8cde-118a1369eb01}</Project>
       <Name>CommonComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
+      <Project>{6225ABFE-9E55-4B43-AE65-B3856A5846D7}</Project>
+      <Name>ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

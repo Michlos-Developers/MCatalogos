@@ -36,7 +36,7 @@ namespace PresentationLayer
             this.UserBtn = new System.Windows.Forms.Button();
             this.pictureLogo = new System.Windows.Forms.PictureBox();
             this.VendedorasBtn = new System.Windows.Forms.Button();
-            this.UserControlPanel = new System.Windows.Forms.Panel();
+            this.mainUserControl = new System.Windows.Forms.Panel();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.pictureMenu = new System.Windows.Forms.PictureBox();
             this.moreOptionContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -44,10 +44,11 @@ namespace PresentationLayer
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VendedoraDetailTimer = new System.Windows.Forms.Timer(this.components);
+            this.userControlPanel = new System.Windows.Forms.Panel();
             this.PanelMenu.SuspendLayout();
             this.PanelUserProperties.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).BeginInit();
-            this.UserControlPanel.SuspendLayout();
+            this.mainUserControl.SuspendLayout();
             this.optionsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMenu)).BeginInit();
             this.moreOptionContextMenuStrip.SuspendLayout();
@@ -124,14 +125,15 @@ namespace PresentationLayer
             this.VendedorasBtn.UseVisualStyleBackColor = false;
             this.VendedorasBtn.Click += new System.EventHandler(this.VendedorasBtn_Click);
             // 
-            // UserControlPanel
+            // mainUserControl
             // 
-            this.UserControlPanel.Controls.Add(this.optionsPanel);
-            this.UserControlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UserControlPanel.Location = new System.Drawing.Point(200, 0);
-            this.UserControlPanel.Name = "UserControlPanel";
-            this.UserControlPanel.Size = new System.Drawing.Size(758, 520);
-            this.UserControlPanel.TabIndex = 0;
+            this.mainUserControl.Controls.Add(this.userControlPanel);
+            this.mainUserControl.Controls.Add(this.optionsPanel);
+            this.mainUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainUserControl.Location = new System.Drawing.Point(200, 0);
+            this.mainUserControl.Name = "mainUserControl";
+            this.mainUserControl.Size = new System.Drawing.Size(758, 520);
+            this.mainUserControl.TabIndex = 0;
             // 
             // optionsPanel
             // 
@@ -189,12 +191,20 @@ namespace PresentationLayer
             // 
             this.VendedoraDetailTimer.Tick += new System.EventHandler(this.vendedoraDetailTimer_Tick);
             // 
+            // userControlPanel
+            // 
+            this.userControlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlPanel.Location = new System.Drawing.Point(0, 23);
+            this.userControlPanel.Name = "userControlPanel";
+            this.userControlPanel.Size = new System.Drawing.Size(758, 497);
+            this.userControlPanel.TabIndex = 1;
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 520);
-            this.Controls.Add(this.UserControlPanel);
+            this.Controls.Add(this.mainUserControl);
             this.Controls.Add(this.PanelMenu);
             this.Name = "MainView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -204,7 +214,7 @@ namespace PresentationLayer
             this.PanelUserProperties.ResumeLayout(false);
             this.PanelUserProperties.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).EndInit();
-            this.UserControlPanel.ResumeLayout(false);
+            this.mainUserControl.ResumeLayout(false);
             this.optionsPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureMenu)).EndInit();
             this.moreOptionContextMenuStrip.ResumeLayout(false);
@@ -220,7 +230,7 @@ namespace PresentationLayer
         private System.Windows.Forms.Button UserBtn;
         private System.Windows.Forms.PictureBox pictureLogo;
         private System.Windows.Forms.Button VendedorasBtn;
-        private System.Windows.Forms.Panel UserControlPanel;
+        private System.Windows.Forms.Panel mainUserControl;
         private System.Windows.Forms.ContextMenuStrip moreOptionContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem helpAboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
@@ -228,6 +238,7 @@ namespace PresentationLayer
         private System.Windows.Forms.Timer VendedoraDetailTimer;
         private System.Windows.Forms.Panel optionsPanel;
         private System.Windows.Forms.PictureBox pictureMenu;
+        private System.Windows.Forms.Panel userControlPanel;
     }
 }
 

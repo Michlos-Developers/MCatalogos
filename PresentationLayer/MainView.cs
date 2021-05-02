@@ -44,9 +44,9 @@ namespace PresentationLayer
         }
         public void ResetUserControlPanelSizeAndLocation()
         {
-            UserControlPanel.Height = _userControlPanelOrigValues.Height;
-            UserControlPanel.Width = _userControlPanelOrigValues.Width;
-            UserControlPanel.Location = _userControlPanelOrigValues.Location;
+            userControlPanel.Height = _userControlPanelOrigValues.Height;
+            userControlPanel.Width = _userControlPanelOrigValues.Width;
+            userControlPanel.Location = _userControlPanelOrigValues.Location;
             SetVisibilityOfControlsForPanelSliding(true);
         }
         public void ShowMainVeiw()
@@ -63,7 +63,7 @@ namespace PresentationLayer
 
         public Panel GetUserControlPanel()
         {
-            return UserControlPanel;
+            return userControlPanel;
         }
 
         private void SetVisibilityOfControlsForPanelSliding(bool visibility)
@@ -80,9 +80,9 @@ namespace PresentationLayer
 
             _userControlPanelOrigValues = new Panel();
 
-            _userControlPanelOrigValues.Height = UserControlPanel.Height;
-            _userControlPanelOrigValues.Width= UserControlPanel.Width;
-            _userControlPanelOrigValues.Location = new Point(UserControlPanel.Location.X, UserControlPanel.Location.Y);
+            _userControlPanelOrigValues.Height = userControlPanel.Height;
+            _userControlPanelOrigValues.Width= userControlPanel.Width;
+            _userControlPanelOrigValues.Location = new Point(userControlPanel.Location.X, userControlPanel.Location.Y);
 
             //TODO: Lembrar de fazer isso com os demais botões
             ButtonHelper.SetUnselectedButton(VendedorasBtn);
@@ -106,7 +106,7 @@ namespace PresentationLayer
             if (_userControlPanelTimerLoopCount == 0)
             {
                 _userControlPanelTimerLoopCount++;
-                UserControlPanel.Location = new Point(5, this.Height);
+                userControlPanel.Location = new Point(5, this.Height);
 
                 _userControlPanelMovingLocation = new Point(_userControlPanelOrigValues.Location.X,
                     _userControlPanelOrigValues.Location.Y);
@@ -115,8 +115,8 @@ namespace PresentationLayer
             if (_userControlPanelMovingLocation.Y > _userControlPanelEndingStretchTopYPos)
             {
                 _userControlPanelMovingLocation.Y = _userControlPanelMovingLocation.Y - _userControlPanelStretchIncrement;
-                UserControlPanel.Location = _userControlPanelMovingLocation;
-                UserControlPanel.Height += _userControlPanelStretchIncrement;
+                userControlPanel.Location = _userControlPanelMovingLocation;
+                userControlPanel.Height += _userControlPanelStretchIncrement;
             }
             else
             {

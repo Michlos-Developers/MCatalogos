@@ -1,5 +1,6 @@
 ﻿
 using PresentationLayer.Views;
+using PresentationLayer.Views.UserControls;
 
 using System;
 using System.CodeDom;
@@ -17,6 +18,7 @@ namespace PresentationLayer.Presenters
 
         IMainView _mainView;
         Panel _userControlPanel;
+        private IVendedoraListViewUC _vendedoraListViewUC;
         private IHelpAboutPresenter _helpAboutPresenter;
 
         private List<UserControl> _userControlList;

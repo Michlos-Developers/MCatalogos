@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +44,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessTypeEventArgs.cs" />
+    <Compile Include="ComboxInputUnderlineNoBoxUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ComboxInputUnderlineNoBoxUC.Designer.cs">
+      <DependentUpon>ComboxInputUnderlineNoBoxUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessException.cs" />
     <Compile Include="DataAccessStatus.cs" />
     <Compile Include="EventHelpers.cs" />
     <Compile Include="IAccessTypeEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextInputUnderlineNoBoxUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextInputUnderlineNoBoxUC.Designer.cs">
+      <DependentUpon>TextInputUnderlineNoBoxUC.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ComboxInputUnderlineNoBoxUC.resx">
+      <DependentUpon>ComboxInputUnderlineNoBoxUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextInputUnderlineNoBoxUC.resx">
+      <DependentUpon>TextInputUnderlineNoBoxUC.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
