@@ -32,8 +32,7 @@ namespace ServicesLayer.Tests
 
         public VendedoraServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = "Data Source=" +
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\MCatalogo\MCatalogo.sqlite;Version= 3;";
+            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
         }
@@ -52,8 +51,8 @@ namespace ServicesLayer.Tests
                     + $"\nNome: {vm.Nome}"
                     + $"\nCpf: {vm.Cpf}"
                     + $"\nEmail: {vm.Email}"
-                    + $"\nRotaId: {vm.RotaId}"
-                    + $"\nRota: {vm.Rota.RotaId}-{vm.Rota.Letra}/{vm.Rota.Numero}"
+                    //+ $"\nRotaId: {vm.RotaId}"
+                    //+ $"\nRota: {vm.Rota.RotaId}-{vm.Rota.Letra}/{vm.Rota.Numero}"
                     );
             }
         }
@@ -62,7 +61,7 @@ namespace ServicesLayer.Tests
         public void ShouldReturnVendedoraModelMatchingId()
         {
             VendedoraModel vendedoraModel = null;
-            int idToGet = 10;
+            int idToGet = 5;
             try
             {
                 vendedoraModel = _vendedoraServices.GetById(idToGet);
@@ -86,8 +85,8 @@ namespace ServicesLayer.Tests
         [Fact]
         public void ShouldReturnSuccessForAdd()
         {
-            
-            
+
+
             VendedoraModel vm = new VendedoraModel()
             {
                 Nome = "11 UnitTest With Adress Complete",
@@ -97,6 +96,9 @@ namespace ServicesLayer.Tests
                 UfRgId = 1,
                 DataNascimento = new DateTime(1952, 09, 15),
                 Email = "unit11@teste.com",
+                NomePai = "",
+                NomeMae = "11 Mae UnitTest",
+                NomeConjuge = "",
                 Logradouro = "QSC 3, Bloco B",
                 Numero = "SN",
                 Complemento = "Apto. 102",
@@ -143,7 +145,7 @@ namespace ServicesLayer.Tests
         {
             VendedoraModel vm = new VendedoraModel()
             {
-                VendedoraId = 10,
+                VendedoraId = 5,
                 Nome = "UnitTest With With Address Updatated",
                 Cpf = "32165498725",
                 Rg = "65498752",
@@ -151,6 +153,9 @@ namespace ServicesLayer.Tests
                 UfRgId = 1,
                 DataNascimento = new DateTime(1952, 09, 15),
                 Email = "unit10@teste.com",
+                NomePai = "",
+                NomeMae = "11 Mae Unit Test",
+                NomeConjuge = "",
                 Logradouro = "QSC 3 Bloco B",
                 Numero = "SN",
                 Complemento = "Apto 102",
@@ -159,7 +164,7 @@ namespace ServicesLayer.Tests
                 EstadoId = 27,
                 CidadeId = 1,
                 BairroId = 1,
-                RotaId = 7
+                RotaId = 3
             };
 
             bool operationSucceeded = false;
@@ -194,7 +199,7 @@ namespace ServicesLayer.Tests
         [Fact]
         public void ShouldReturnSuccessForDelete()
         {
-            VendedoraModel vm = new VendedoraModel() { VendedoraId = 11 };
+            VendedoraModel vm = new VendedoraModel() { VendedoraId = 5 };
 
             bool operationSucceeded = false;
             string dataAccessStatusJSonStr = string.Empty;

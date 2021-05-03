@@ -16,21 +16,20 @@ namespace DomainLayer.Models.Vendedora
         [Key]
         public int TelefoneId { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O número do telfone de ser informado")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O número do telfone deve ser informado")]
         [StringLength(11)]
         [Index("UK_TelVend", IsUnique = true)]
-        [RegularExpression(@"[0-9]", ErrorMessage = "Utilize somente números")]
+        [RegularExpression(@"\d{11}", ErrorMessage = "Utilize somente números")]
         public string Numero { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Informe o Tipo de Telefone. É obrigatório.")]
         public int TipoTelefoneId { get; set; }
         public virtual TipoTelefoneModel TipoTelefone { get; set; }
 
         [Required]
+        [CascadeDelete]
         public int VendedoraId { get; set; }
 
-        [Required]
-        [CascadeDelete]
         public virtual VendedoraModel Vendedora { get; set; }
 
     }

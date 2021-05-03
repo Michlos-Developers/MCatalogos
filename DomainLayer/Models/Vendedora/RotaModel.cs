@@ -19,9 +19,7 @@ namespace DomainLayer.Models.Vendedora
         public string Letra { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Número da Rota deve ser informado")]
-        [StringLength(2, ErrorMessage = "Utilize números de 0 a 99, apenas")]
-        [MaxLength(2, ErrorMessage = "Utilize apenas de 0 a 99. Não pode 3 dígitos.")]
-        [RegularExpression(@"[0-9]{2}", ErrorMessage = "Utilize somente números")]
-        public string Numero { get; set; }
+        //[RegularExpression(@"\d{2}", ErrorMessage = "Utilize somente números. Dois caracteres.")]
+        public int Numero { get; set; }
     }
 }

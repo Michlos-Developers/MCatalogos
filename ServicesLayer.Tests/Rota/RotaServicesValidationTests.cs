@@ -40,7 +40,7 @@ namespace ServicesLayer.Tests
         public void ShouldThrowExceptionIfAnyDataAnnotationCheckFails()
         {
             _rotaServicesFixture.RotaModel.Letra = "9";//SOMENTE LETRAS
-            _rotaServicesFixture.RotaModel.Numero = "A";//SOMENTE NÚMEROS
+            //_rotaServicesFixture.RotaModel.Numero = 123;//MAIS QUE DOIS NÚMEROS
 
             CallExecptionValidateDataAnnotation();
         }
@@ -66,9 +66,9 @@ namespace ServicesLayer.Tests
         }
         private void SetValidSampleValues()
         {
-            _rotaServicesFixture.RotaModel.RotaId = 1;
+            _rotaServicesFixture.RotaModel.RotaId = 2;
             _rotaServicesFixture.RotaModel.Letra = "A";
-            _rotaServicesFixture.RotaModel.Numero = "01";
+            _rotaServicesFixture.RotaModel.Numero = 2;
         }
 
         private void CallExecptionValidateDataAnnotation()

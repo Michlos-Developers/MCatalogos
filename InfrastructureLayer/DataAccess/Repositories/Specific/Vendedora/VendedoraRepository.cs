@@ -8,7 +8,7 @@ using ServiceLayer.Services.VendedoraServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SQLite;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Reflection;
 
@@ -43,17 +43,17 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             List<VendedoraModel> vendedoraModelsList = new List<VendedoraModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
-            using (SQLiteConnection sQLiteConnection = new SQLiteConnection(_connectionString))
+            using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     string sql = "SELECT * FROM Vendedoras ";
 
-                    sQLiteConnection.Open();
+                    SqlConnection.Open();
 
-                    using (SQLiteCommand cmd = new SQLiteCommand(sql, sQLiteConnection))
+                    using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
                     {
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -75,8 +75,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.Cep = reader["Cep"].ToString();
                                 vendedoraModel.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
                                 vendedoraModel.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
-                                vendedoraModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
-                                vendedoraModel.Rota = new RotaModel { RotaId = Int32.Parse(reader["RotaId"].ToString()) };
+                                //vendedoraModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
+                                //vendedoraModel.Rota = new RotaModel { RotaId = Int32.Parse(reader["RotaId"].ToString()) };
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
@@ -84,14 +84,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModelsList.Add(vendedoraModel);
                             }
                         }
-                        sQLiteConnection.Close();
+                        SqlConnection.Close();
                     }
 
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to get Vendedora Model list from database", helpLink:e.HelpLink, 
+                                   customMessage: "Unable to get Vendedora Model list from database", helpLink: e.HelpLink,
                                    errorCode: e.ErrorCode, stackTrace: e.StackTrace);
 
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
@@ -108,19 +108,19 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                          " Numero, Complemento, Cep, UfRgId, RotaId, EstadoCivilId, EstadoId, CidadeId, BairroId " +
                          " FROM Vendedoras " +
                          " WHERE VendedoraId = @VendedoraId";
-            using (SQLiteConnection sQLiteConnection = new SQLiteConnection(_connectionString))
+            using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
             {
                 try
                 {
-                    sQLiteConnection.Open();
+                    SqlConnection.Open();
 
-                    using (SQLiteCommand cmd = new SQLiteCommand(sql, sQLiteConnection))
+                    using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
                     {
                         cmd.CommandText = sql;
                         cmd.Prepare();
-                        cmd.Parameters.Add(new SQLiteParameter("@VendedoraId", vendedoraId));
+                        cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
 
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             MatchingRecordFound = reader.HasRows;
                             while (reader.Read())
@@ -130,7 +130,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.Cpf = reader["Cpf"].ToString();
                                 vendedoraModel.Rg = reader["Rg"].ToString();
                                 vendedoraModel.RgEmissor = reader["RgEmissor"].ToString();
-                                vendedoraModel.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString()) ;
+                                vendedoraModel.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
                                 vendedoraModel.Email = reader["Email"].ToString();
                                 vendedoraModel.NomePai = reader["NomePai"].ToString();
                                 vendedoraModel.NomeMae = reader["NomeMae"].ToString();
@@ -149,10 +149,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                             }
                         }
-                        sQLiteConnection.Close();
+                        SqlConnection.Close();
                     }
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
 
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
@@ -160,7 +160,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
 
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                    
+
                 }
 
                 if (!MatchingRecordFound)
@@ -171,7 +171,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         helpLink: "", errorCode: 0, stackTrace: "");
 
                     throw new DataAccessException(dataAccessStatus);
-                   
+
                 }
                 return vendedoraModel;
             }
@@ -179,13 +179,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         public void Add(IVendedoraModel vendedoraModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            using (SQLiteConnection sQLiteConnection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
-                    sQLiteConnection.Open();
+                    connection.Open();
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                                    customMessage: "Unable to add VendedoraModel. Could not open a database connection", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
@@ -194,17 +194,17 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
 
-                string SqlText =
+                string sql =
                     "INSERT INTO Vendedoras (Nome, Cpf, Rg, RgEmissor, DataNascimento, Email, NomePai, NomeMae, NomeConjuge, Logradouro, Numero, Complemento, " +
                     "Cep, UfRgId, EstadoCivilId, EstadoId, CidadeId, BairroId ) " +
                     "VALUES (@Nome, @Cpf, @Rg, @RgEmissor, @DataNascimento, @Email, @NomePai, @NomeMae, @NomeConjuge, @Logradouro, @Numero, @Complemento, " +
                     "@Cep, @UfRgId, @EstadoCivilId, @EstadoId, @CidadeId, @BairroId) ";
 
-                using (SQLiteCommand cmd = new SQLiteCommand(sQLiteConnection))
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
                     try
                     {
-                        RecordExistsCheck(cmd, vendedoraModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.Add);
+                        RecordExistsCheck(vendedoraModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.Add);
                     }
                     catch (DataAccessException ex)
                     {
@@ -214,7 +214,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         throw ex;
                     }
 
-                    cmd.CommandText = SqlText;
+                    //cmd.CommandText = SqlText;
 
                     cmd.Prepare();
                     cmd.Parameters.AddWithValue("@Nome", vendedoraModel.Nome);
@@ -237,13 +237,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
                     //cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId); //deve ser incluído somente depois de cadastrado a vanededora.
 
-                   
+
 
                     try
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (SQLiteException e)
+                    catch (SqlException e)
                     {
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                                    customMessage: "Unable to Add VendedoraModel", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
@@ -254,7 +254,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     try //Confirm the Vendedora Model was added to the database
                     {
-                        RecordExistsCheck(cmd, vendedoraModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.ConfirmAdd);
+                        RecordExistsCheck(vendedoraModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.ConfirmAdd);
                     }
                     catch (DataAccessException ex)
                     {
@@ -266,7 +266,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                         throw ex;
                     }
-                    sQLiteConnection.Close();
+                    connection.Close();
                 }
             }
         }
@@ -274,23 +274,23 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         {
             int result = -1;
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            using (SQLiteConnection sQLiteConnection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
-                    sQLiteConnection.Open();
+                    connection.Open();
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to update Vendedora Model. Could not open a database connection", helpLink: e.HelpLink, 
+                                   customMessage: "Unable to update Vendedora Model. Could not open a database connection", helpLink: e.HelpLink,
                                    errorCode: e.ErrorCode, stackTrace: e.StackTrace);
 
 
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
 
-                string updateSql =
+                string sql =
                     "UPDATE Vendedoras " +
                     "SET Nome = @Nome, Cpf = @Cpf, Rg = @Rg, RgEmissor = @RgEmissor, DataNascimento = @DataNascimento, " +
                     " Email = @Email, NomePai = @NomePai, NomeMae = @NomeMae, NomeConjuge = @NomeConjuge, Logradouro = @Logradouro, " +
@@ -298,11 +298,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId, RotaId = @RotaId " +
                     " WHERE VendedoraId = @VendedoraId";
 
-                using (SQLiteCommand cmd = new SQLiteCommand(sQLiteConnection))
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
                     try
                     {
-                        RecordExistsCheck(cmd, vendedoraModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Update);
+                        RecordExistsCheck(vendedoraModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Update);
                     }
                     catch (DataAccessException ex)
                     {
@@ -312,7 +312,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         throw ex;
                     }
 
-                    cmd.CommandText = updateSql;
+                    //cmd.CommandText = updateSql;
 
                     cmd.Prepare();
 
@@ -335,12 +335,12 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@EstadoId", vendedoraModel.EstadoId);
                     cmd.Parameters.AddWithValue("@CidadeId", vendedoraModel.CidadeId);
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
-                    cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId); 
+                    cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId);
                     try
                     {
                         result = cmd.ExecuteNonQuery();
                     }
-                    catch (SQLiteException e)
+                    catch (SqlException e)
                     {
 
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
@@ -351,33 +351,33 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     }
 
                 }
-                sQLiteConnection.Close();
+                connection.Close();
             }
         }
         public void Delete(IVendedoraModel vendedoraModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            using (SQLiteConnection sQLiteConnection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
-                    sQLiteConnection.Open();
+                    connection.Open();
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage:e.Message,
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                                     customMessage: "Unable to Delete VendedoraModel. Could not open a database connection", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
 
 
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
 
-                string sqlDeleteText = "DELETE FROM Vendedoras WHERE VendedoraId = @VendedoraId";
-                using (SQLiteCommand cmd = new SQLiteCommand(sQLiteConnection))
+                string sql = "DELETE FROM Vendedoras WHERE VendedoraId = @VendedoraId";
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
                     try
                     {
-                        RecordExistsCheck(cmd, vendedoraModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Delete);
+                        RecordExistsCheck(vendedoraModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Delete);
                     }
                     catch (DataAccessException ex)
                     {
@@ -387,7 +387,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         throw ex;
                     }
 
-                    cmd.CommandText = sqlDeleteText;
+                    //cmd.CommandText = sqlDeleteText;
 
                     cmd.Prepare();
                     cmd.Parameters.AddWithValue("@VendedoraId", vendedoraModel.VendedoraId);
@@ -396,7 +396,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (SQLiteException e)
+                    catch (SqlException e)
                     {
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                                     customMessage: "Erro", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
@@ -406,7 +406,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     try //Confirm the Vendedora Model was deleted from the database
                     {
-                        RecordExistsCheck(cmd, vendedoraModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.ConfirmDelete);
+                        RecordExistsCheck(vendedoraModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.ConfirmDelete);
                     }
                     catch (DataAccessException ex)
                     {
@@ -419,56 +419,79 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                         throw ex;
                     }
-                    sQLiteConnection.Close();
+                    connection.Close();
                 }
             }
         }
-        private bool RecordExistsCheck(SQLiteCommand cmd, IVendedoraModel vendedoraModel, TypeOfExistenceCheck typeOfExistenceCheck, 
+        private bool RecordExistsCheck(IVendedoraModel vendedoraModel, TypeOfExistenceCheck typeOfExistenceCheck,
             RequestType requestType)
         {
             Int32 countOfRecsFound = 0;
             bool RecordExistsCheckPassed = true;
 
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-
-            cmd.Prepare();
-
-            if ((requestType == RequestType.Add) || (requestType == RequestType.ConfirmAdd))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                cmd.CommandText = "Select count(*) from Vendedoras where Cpf=@Cpf";
-                cmd.Parameters.AddWithValue("@Cpf", vendedoraModel.Cpf);
+                try
+                {
+                    connection.Open();
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                       customMessage: "Unable to test exist register. Colud not open the database connection", helpLink: e.HelpLink,
+                       errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
 
-            }
-            else if (requestType == RequestType.Update || (requestType == RequestType.ConfirmDelete) || (requestType == RequestType.Delete))
-            {
-                cmd.CommandText = "Select count(*) from Vendedoras where VendedoraId = @VendedoraId";
-                cmd.Parameters.AddWithValue("@VendedoraId", vendedoraModel.VendedoraId);
-            }
+                string sql = "";
 
-            try
-            {
-                countOfRecsFound = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-            catch (SQLiteException e)
-            {
-                string msg = e.Message;
-                throw;
-            }
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
 
-            if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesNotExistInDB) && (countOfRecsFound > 0))
-            {
-                dataAccessStatus.Status = "Error";
-                RecordExistsCheckPassed = false;
 
-                throw new DataAccessException(dataAccessStatus);
+
+                    cmd.Prepare();
+
+                    if ((requestType == RequestType.Add) || (requestType == RequestType.ConfirmAdd))
+                    {
+                        cmd.CommandText = "Select count(*) from Vendedoras where Cpf=@Cpf";
+                        cmd.Parameters.AddWithValue("@Cpf", vendedoraModel.Cpf);
+
+                    }
+                    else if (requestType == RequestType.Update || (requestType == RequestType.ConfirmDelete) || (requestType == RequestType.Delete))
+                    {
+                        cmd.CommandText = "Select count(*) from Vendedoras where VendedoraId = @VendedoraId";
+                        cmd.Parameters.AddWithValue("@VendedoraId", vendedoraModel.VendedoraId);
+                    }
+
+                    try
+                    {
+                        countOfRecsFound = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                    }
+                    catch (SqlException e)
+                    {
+                        string msg = e.Message;
+                        throw;
+                    }
+
+                    if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesNotExistInDB) && (countOfRecsFound > 0))
+                    {
+                        dataAccessStatus.Status = "Error";
+                        RecordExistsCheckPassed = false;
+
+                        throw new DataAccessException(dataAccessStatus);
+                    }
+                    else if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesExistInDB) && (countOfRecsFound == 0))
+                    {
+                        dataAccessStatus.Status = "Error";
+                        RecordExistsCheckPassed = false;
+                        throw new DataAccessException(dataAccessStatus);
+                    }
+                }
+                connection.Close();
+                return RecordExistsCheckPassed;
             }
-            else if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesExistInDB) && (countOfRecsFound == 0))
-            {
-                dataAccessStatus.Status = "Error";
-                RecordExistsCheckPassed = false;
-                throw new DataAccessException(dataAccessStatus);
-            }
-            return RecordExistsCheckPassed;
         }
     }
 }

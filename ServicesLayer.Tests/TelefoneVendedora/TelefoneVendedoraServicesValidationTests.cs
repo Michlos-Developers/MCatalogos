@@ -108,13 +108,13 @@ namespace ServicesLayer.Tests
         private void SetValidSampleValues()
         {
             _telVendSerivcesFixture.TelefoneVendedoraModel.TelefoneId = 1;
-            _telVendSerivcesFixture.TelefoneVendedoraModel.Numero = "61999943234";
+            _telVendSerivcesFixture.TelefoneVendedoraModel.Numero = "61965432157";
             _telVendSerivcesFixture.TelefoneVendedoraModel.TipoTelefoneId = 5;
             _telVendSerivcesFixture.TelefoneVendedoraModel.TipoTelefone = new TipoTelefoneModel 
             { TipoId = int.Parse(_telVendSerivcesFixture.TelefoneVendedoraModel.TipoTelefoneId.ToString()) };
             _telVendSerivcesFixture.TelefoneVendedoraModel.VendedoraId = 1;
-            _telVendSerivcesFixture.TelefoneVendedoraModel.Vendedora = new VendedoraModel 
-            { VendedoraId = int.Parse(_telVendSerivcesFixture.TelefoneVendedoraModel.VendedoraId.ToString()) };
+            //_telVendSerivcesFixture.TelefoneVendedoraModel.Vendedora = new VendedoraModel 
+            //{ VendedoraId = int.Parse(_telVendSerivcesFixture.TelefoneVendedoraModel.VendedoraId.ToString()) };
         }
     }
 }

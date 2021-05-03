@@ -8,6 +8,8 @@ using ServiceLayer.Services.RotaServices;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
@@ -49,15 +51,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             List<RotaModel> rotaModelsList = new List<RotaModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     string sql = "SELECT * FROM Rotas";
                     connection.Open();
-                    using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
+                    using (SqlCommand cmd = new SqlCommand(sql, connection))
                     {
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -65,7 +67,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                                 rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
                                 rotaModel.Letra = reader["Letra"].ToString();
-                                rotaModel.Numero = reader["Numero"].ToString();
+                                rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
 
                                 rotaModelsList.Add(rotaModel);
                             }
@@ -73,7 +75,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         connection.Close();
                     }
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                         customMessage: "Unable to get Rota Model List from Database", helpLink: e.HelpLink, errorCode: e.ErrorCode,
@@ -93,18 +95,18 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                          " FROM Rotas " +
                          " WHERE RotaId = @RotaId";
 
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
-                    using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
+                    using (SqlCommand cmd = new SqlCommand(sql, connection))
                     {
                         cmd.CommandText = sql;
                         cmd.Prepare();
-                        cmd.Parameters.Add(new SQLiteParameter("RotaId", rotaId));
+                        cmd.Parameters.Add(new SqlParameter("RotaId", rotaId));
 
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             MatchingRecordFound = reader.HasRows;
 
@@ -112,13 +114,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                             {
                                 rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
                                 rotaModel.Letra = reader["Letra"].ToString();
-                                rotaModel.Numero = reader["Numero"].ToString();
+                                rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
                             }
                         }
                         connection.Close();
                     }
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                         customMessage: "Unable to get Rota Model from DataBase", helpLink: e.HelpLink, errorCode: e.ErrorCode,
@@ -139,13 +141,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         public void Add(IRotaModel rotaModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                         customMessage: "Unable to Add RotaModel. Could not open a database connection", helpLink: e.HelpLink,
@@ -158,11 +160,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     " INSERT INTO Rotas (Letra, Numero) " +
                     " VALUES (@Letra, @Numero)";
 
-                using (SQLiteCommand cmd = new SQLiteCommand(connection))
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
                     try
                     {
-                        RecordExistsCheck(cmd, rotaModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.Add);
+                        RecordExistsCheck(rotaModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.Add);
                     }
                     catch (DataAccessException e)
                     {
@@ -170,9 +172,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         throw e;
                     }
 
-                    cmd.CommandText = sql;
+                    //SqlParameter.Prepare(SqlCommand cmd);
 
                     cmd.Prepare();
+
 
                     cmd.Parameters.AddWithValue("@Letra", rotaModel.Letra);
                     cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
@@ -181,7 +184,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (SQLiteException e)
+                    catch (SqlException e)
                     {
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                             customMessage: "Unable to Execute Add RotaModel", helpLink: e.HelpLink, errorCode: e.ErrorCode,
@@ -192,7 +195,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     try //Confirm the RotaModel was added to the database
                     {
-                        RecordExistsCheck(cmd, rotaModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.ConfirmAdd);
+                        RecordExistsCheck(rotaModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.ConfirmAdd);
                     }
                     catch (DataAccessException e)
                     {
@@ -211,13 +214,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         {
             int result = -1;
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                         customMessage: "Unsble to update RotaModel. Colud not open the database connection", helpLink: e.HelpLink,
@@ -227,22 +230,23 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                 string sql = "UPDATE Rotas SET Letra = @Letra, Numero = @Numero WHERE RotaId = @RotaId";
 
-                using (SQLiteCommand cmd = new SQLiteCommand(connection))
+
+                try
                 {
-                    try
-                    {
-                        RecordExistsCheck(cmd, rotaModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Update);
-                    }
-                    catch (DataAccessException e)
-                    {
-                        e.DataAccessStatusInfo.CustomMessage = "Rota Model could not be updated becouse it is not in the database.";
-                        e.DataAccessStatusInfo.ExceptionMessage = e.Message;
-                        e.DataAccessStatusInfo.StackTrace = e.StackTrace;
+                    RecordExistsCheck(rotaModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Update);
+                }
+                catch (DataAccessException e)
+                {
+                    e.DataAccessStatusInfo.CustomMessage = "Rota Model could not be updated becouse it is not in the database.";
+                    e.DataAccessStatusInfo.ExceptionMessage = e.Message;
+                    e.DataAccessStatusInfo.StackTrace = e.StackTrace;
 
-                        throw e;
-                    }
+                    throw e;
+                }
 
-                    cmd.CommandText = sql;
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
+                    //cmd.CommandText = sql;
 
                     cmd.Prepare();
 
@@ -254,7 +258,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     {
                         result = cmd.ExecuteNonQuery();
                     }
-                    catch (SQLiteException e)
+                    catch (SqlException e)
                     {
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                             customMessage: "Unable to Execute Update RotaModel", helpLink: e.HelpLink, errorCode: e.ErrorCode,
@@ -269,13 +273,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         public void Delete(IRotaModel rotaModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
                 }
-                catch (SQLiteException e)
+                catch (SqlException e)
                 {
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                         customMessage: "Unable to Delete RotaModel. Coold not open the DataBase Connection", helpLink: e.HelpLink,
@@ -284,11 +288,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
 
                 string sql = "DELETE FROM Rotas WHERE RotaId = @RotaId";
-                using (SQLiteCommand cmd = new SQLiteCommand(connection))
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
                     try
                     {
-                        RecordExistsCheck(cmd, rotaModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Delete);
+                        RecordExistsCheck(rotaModel, TypeOfExistenceCheck.DoesExistInDB, RequestType.Delete);
                     }
                     catch (DataAccessException e)
                     {
@@ -298,7 +302,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         throw e;
                     }
 
-                    cmd.CommandText = sql;
+                    //cmd.CommandText = sql;
 
                     cmd.Prepare();
                     cmd.Parameters.AddWithValue("@RotaId", rotaModel.RotaId);
@@ -307,7 +311,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (SQLiteException e)
+                    catch (SqlException e)
                     {
                         dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
                                     customMessage: "Uneble to Execute Delete", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
@@ -316,7 +320,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     try
                     {
-                        RecordExistsCheck(cmd, rotaModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.ConfirmDelete);
+                        RecordExistsCheck(rotaModel, TypeOfExistenceCheck.DoesNotExistInDB, RequestType.ConfirmDelete);
                     }
                     catch (DataAccessException e)
                     {
@@ -331,51 +335,79 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
-        private bool RecordExistsCheck(SQLiteCommand cmd, IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck,
+        private bool RecordExistsCheck(IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck,
             RequestType requestType)
         {
             Int32 countOfRecsFound = 0;
-            bool RecordExistsCheckPassed = true;
 
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            DataAccessStatus dataAccess = new DataAccessStatus();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
 
-            cmd.Prepare();
+                try
+                {
+                    connection.Open();
+                }
+                catch (SqlException e)
+                {
+                    dataAccess.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                       customMessage: "Unable to test exist register. Colud not open the database connection", helpLink: e.HelpLink,
+                       errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccess);
+                }
 
-            if ((requestType == RequestType.Add) || (requestType == RequestType.ConfirmAdd))
-            {
-                cmd.CommandText = "SELECT COUNT(*) FROM Rotas WHERE Numero=@Numero AND Letra = @Letra";
-                cmd.Parameters.AddWithValue("@Letra", rotaModel.Letra);
-                cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
-            }
-            else if ((requestType == RequestType.Update) || (requestType == RequestType.ConfirmDelete) || (requestType == RequestType.Delete))
-            {
-                cmd.CommandText = "SELECT COUNT(*) FROM Rotas WHERE RotaId = @RotaId";
-                cmd.Parameters.AddWithValue("@RotaId", rotaModel.RotaId);
-            }
+                string sql = "";
 
-            try
-            {
-                countOfRecsFound = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-            catch (SQLiteException e)
-            {
-                string msg = e.Message;
-                throw;
-            }
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
+                    bool RecordExistsCheckPassed = true;
 
-            if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesNotExistInDB) && (countOfRecsFound > 0))
-            {
-                dataAccessStatus.Status = "Error";
-                RecordExistsCheckPassed = false;
-                throw new DataAccessException(dataAccessStatus);
-            }
-            else if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesExistInDB) && (countOfRecsFound == 0))
-            {
-                dataAccessStatus.Status = "Error";
-                RecordExistsCheckPassed = false;
-                throw new DataAccessException(dataAccessStatus);
-            }
-            return RecordExistsCheckPassed;
+                    DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+                    cmd.Prepare();
+
+                    if ((requestType == RequestType.Add) || (requestType == RequestType.ConfirmAdd))
+                    {
+                        cmd.CommandText = "SELECT COUNT(*) FROM Rotas WHERE Numero=@Numero AND Letra = @Letra";
+                        cmd.Parameters.AddWithValue("@Letra", rotaModel.Letra);
+                        cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
+                    }
+                    else if ((requestType == RequestType.Update) || (requestType == RequestType.ConfirmDelete) || (requestType == RequestType.Delete))
+                    {
+                        cmd.CommandText = "SELECT COUNT(*) FROM Rotas WHERE RotaId = @RotaId";
+                        cmd.Parameters.AddWithValue("@RotaId", rotaModel.RotaId);
+                    }
+
+                    try
+                    {
+                        countOfRecsFound = int.Parse(cmd.ExecuteScalar().ToString());
+                    }
+                    catch (SqlException e)
+                    {
+                        string msg = e.Message;
+                        throw;
+                    }
+
+                    if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesNotExistInDB) && (countOfRecsFound > 0))
+                    {
+                        dataAccessStatus.Status = "Error";
+                        RecordExistsCheckPassed = false;
+                        throw new DataAccessException(dataAccessStatus);
+                    }
+                    else if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesExistInDB) && (countOfRecsFound == 0))
+                    {
+                        dataAccessStatus.Status = "Error";
+                        RecordExistsCheckPassed = false;
+                        throw new DataAccessException(dataAccessStatus);
+                    }
+                    connection.Close();
+                    return RecordExistsCheckPassed;
+                }
         }
+
+
+
+
     }
+}
 }

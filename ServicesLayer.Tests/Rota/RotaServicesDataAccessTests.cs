@@ -29,8 +29,7 @@ namespace ServicesLayer.Tests
 
         public RotaServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = "Data Source=" +
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\MCatalogo\MCatalogo.sqlite;Verson= 3";
+            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
             _rotaServices = new RotaServices(new RotaRepository(_connectionString), new ModelDataAnnotationCheck());
 
@@ -84,7 +83,7 @@ namespace ServicesLayer.Tests
             RotaModel rm = new RotaModel()
             {
                 Letra = "D",
-                Numero = "01"
+                Numero = 1
             };
 
             bool operationSucceeded = false;
@@ -121,7 +120,7 @@ namespace ServicesLayer.Tests
             {
                 RotaId = 1,
                 Letra = "A",
-                Numero = "10"
+                Numero = 2
             };
 
             bool operationSucceeded = false;
@@ -154,7 +153,7 @@ namespace ServicesLayer.Tests
         [Fact]
         public void ShouldReturnSuccessForDelete()
         {
-            RotaModel rm = new RotaModel { RotaId = 8 };
+            RotaModel rm = new RotaModel { RotaId = 2 };
 
             bool operationSucceeded = false;
             string dataAccessStatusJsonStr = string.Empty;

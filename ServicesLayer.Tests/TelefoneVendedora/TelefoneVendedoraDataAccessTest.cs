@@ -34,8 +34,7 @@ namespace ServicesLayer.Tests.TelefoneVendedora
 
         public TelefoneVendedoraDataAccessTest(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = "Data Source=" +
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\MCatalogo\MCatalogo.sqlite;Verson= 3";
+            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
             _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
 
@@ -88,7 +87,7 @@ namespace ServicesLayer.Tests.TelefoneVendedora
         [Fact]
         public void ReturnByVendedoraId()
         {
-            int vendedoraIdToGet = 3;
+            int vendedoraIdToGet = 4;
             try
             {
                 List<TelefoneVendedoraModel> telefoneModelList = (List<TelefoneVendedoraModel>)_telefoneVendedoraServices.GetByVendedoraId(vendedoraIdToGet);
@@ -163,7 +162,7 @@ namespace ServicesLayer.Tests.TelefoneVendedora
         {
             TelefoneVendedoraModel tvm = new TelefoneVendedoraModel()
             {
-                TelefoneId = 4,
+                TelefoneId = 2,
                 Numero = "6155534441",
                 TipoTelefoneId = 1,
                 VendedoraId = 3
@@ -200,7 +199,7 @@ namespace ServicesLayer.Tests.TelefoneVendedora
         [Fact]
         public void SuccessForDelete()
         {
-            TelefoneVendedoraModel tvm = new TelefoneVendedoraModel { TelefoneId = 4 };
+            TelefoneVendedoraModel tvm = new TelefoneVendedoraModel { TelefoneId = 2 };
 
             bool operationSucceeded = false;
             string dataAccessStatusJsonStr = string.Empty;

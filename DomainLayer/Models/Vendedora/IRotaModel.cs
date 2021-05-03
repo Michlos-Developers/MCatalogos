@@ -3,7 +3,7 @@
     public interface IRotaModel
     {
         string Letra { get; set; }
-        string Numero { get; set; }
+        int Numero { get; set; }
         int RotaId { get; set; }
     }
 }
