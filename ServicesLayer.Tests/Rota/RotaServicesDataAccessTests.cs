@@ -34,56 +34,15 @@ namespace ServicesLayer.Tests
             _rotaServices = new RotaServices(new RotaRepository(_connectionString), new ModelDataAnnotationCheck());
 
         }
-
+        
         [Fact]
-        public void SoludReturnListOfRotas()
-        {
-            List<RotaModel> rotaModelList = (List<RotaModel>)_rotaServices.GetAll();
-
-            Assert.NotEmpty(rotaModelList);
-            foreach (RotaModel rm in rotaModelList)
-            {
-                _testOutputHelper.WriteLine($""
-                    + $"\nRotaId: {rm.RotaId}"
-                    + $"\nLetra: {rm.Letra}"
-                    + $"\nNumero: {rm.Numero}"
-                    );
-            }
-        }
-
-        [Fact]
-        public void ShouldReturnRotaById()
-        {
-            RotaModel rotaModel = null;
-            int idToGet = 1;
-            try
-            {
-                rotaModel = _rotaServices.GetById(idToGet);
-            }
-            catch (DataAccessException e)
-            {
-
-                _testOutputHelper.WriteLine(e.DataAccessStatusInfo.getFormattedValues());
-            }
-
-            Assert.True(rotaModel != null);
-            Assert.True(idToGet == rotaModel.RotaId);
-
-            if (rotaModel != null)
-            {
-                string rotaModelJsonStr = JsonConvert.SerializeObject(rotaModel);
-                string formattedJsonStr = JToken.Parse(rotaModelJsonStr).ToString();
-                _testOutputHelper.WriteLine(formattedJsonStr);
-            }
-        }
-
-        [Fact]
-        public void ShouldREturnSuccessForAdd()
+        public void ShouldReturnSuccessForAdd()
         {
             RotaModel rm = new RotaModel()
             {
-                Letra = "D",
-                Numero = 1
+                Numero = 1,
+                RotaLetraId = 1,
+                VendedoraId = 1
             };
 
             bool operationSucceeded = false;
@@ -114,13 +73,31 @@ namespace ServicesLayer.Tests
         }
 
         [Fact]
-        public void ShouldREturnSuccessForUpdate()
+        public void SoludReturnListOfRotas()
+        {
+            List<RotaModel> rotaModelList = (List<RotaModel>)_rotaServices.GetAll();
+
+            Assert.NotEmpty(rotaModelList);
+            foreach (RotaModel rm in rotaModelList)
+            {
+                _testOutputHelper.WriteLine(
+                    $"\nRotaId: {rm.RotaId}" +
+                    $"\nNumero: {rm.Numero}" +
+                    $"\nVendedoraId: {rm.VendedoraId}" +
+                    $"\nRotaLetraId: {rm.RotaLetraId}"
+                    );
+            }
+        }
+
+        [Fact]
+        public void ReturnSuccessForUpdate()
         {
             RotaModel rm = new RotaModel()
             {
-                RotaId = 1,
-                Letra = "A",
-                Numero = 2
+                RotaId = 4,
+                RotaLetraId = 1,
+                Numero = 2,
+                VendedoraId = 1
             };
 
             bool operationSucceeded = false;
@@ -153,7 +130,7 @@ namespace ServicesLayer.Tests
         [Fact]
         public void ShouldReturnSuccessForDelete()
         {
-            RotaModel rm = new RotaModel { RotaId = 2 };
+            RotaModel rm = new RotaModel { RotaId = 4 };
 
             bool operationSucceeded = false;
             string dataAccessStatusJsonStr = string.Empty;
@@ -181,5 +158,80 @@ namespace ServicesLayer.Tests
                 _testOutputHelper.WriteLine(formattedJsonStr);
             }
         }
+
+        [Fact]
+        public void ReturnRotasByLetraId()
+        {
+            int idLetraToGet = 1;
+            List<RotaModel> rotaModelList = (List<RotaModel>)_rotaServices.GetAllByLetraId(idLetraToGet);
+            
+            Assert.NotEmpty(rotaModelList);
+            foreach (RotaModel rm in rotaModelList)
+            {
+                _testOutputHelper.WriteLine(
+                    $"\nRotaId: {rm.RotaId}" +
+                    $"\nNumero: {rm.Numero}" +
+                    $"\nLetraId: {rm.RotaLetraId}" +
+                    $"\nVendedoraId: {rm.VendedoraId}");
+
+            }
+        }
+
+        [Fact]
+        public void ReturnRotaById()
+        {
+            RotaModel rotaModel = null;
+            int idToGet = 5;
+            try
+            {
+                rotaModel = _rotaServices.GetById(idToGet);
+            }
+            catch (DataAccessException e)
+            {
+
+                _testOutputHelper.WriteLine(e.DataAccessStatusInfo.getFormattedValues());
+            }
+
+            Assert.True(rotaModel != null);
+            Assert.True(idToGet == rotaModel.RotaId);
+
+            if (rotaModel != null)
+            {
+                string rotaModelJsonStr = JsonConvert.SerializeObject(rotaModel);
+                string formattedJsonStr = JToken.Parse(rotaModelJsonStr).ToString();
+                _testOutputHelper.WriteLine(formattedJsonStr);
+            }
+        }
+
+        [Fact]
+        public void ReturnByNumeroAndLetraId()
+        {
+            RotaModel model = null;
+            int numeroToGet = 1;
+            int letraIdToGet = 1;
+            try
+            {
+                model = _rotaServices.GetByNumeroAndLetraId(numeroToGet, letraIdToGet);
+            }
+            catch (DataAccessException e)
+            {
+                _testOutputHelper.WriteLine(e.DataAccessStatusInfo.getFormattedValues());
+            }
+
+            Assert.True(model != null);
+            Assert.True(numeroToGet == model.Numero);
+            Assert.True(letraIdToGet == model.RotaLetraId);
+
+            if (model!=null)
+            {
+                string modelJasonStr = JsonConvert.SerializeObject(model);
+                string formattedJsonStr = JToken.Parse(modelJasonStr).ToString();
+                _testOutputHelper.WriteLine(formattedJsonStr);
+            }
+        }
+
+
+
+        
     }
 }

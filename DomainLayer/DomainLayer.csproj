@@ -65,9 +65,11 @@
     <Compile Include="Models\CommonModels\Enums\ITipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
     <Compile Include="Models\Vendedora\IEstadoCivilModel.cs" />
+    <Compile Include="Models\Vendedora\IRotaLetraModel.cs" />
     <Compile Include="Models\Vendedora\IRotaModel.cs" />
     <Compile Include="Models\Vendedora\ITelefoneVendedoraModel.cs" />
     <Compile Include="Models\Vendedora\IVendedoraModel.cs" />
+    <Compile Include="Models\Vendedora\RotaLetraModel.cs" />
     <Compile Include="Models\Vendedora\TelefoneVendedoraModel.cs" />
     <Compile Include="Models\Vendedora\EstadoCivilModel.cs" />
     <Compile Include="Models\Vendedora\RotaModel.cs" />
@@ -75,6 +77,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

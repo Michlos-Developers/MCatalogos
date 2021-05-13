@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E3B38CCA-7B9A-41F8-914C-5A7124D36D75}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MCatalogos</RootNamespace>
+    <AssemblyName>MCatalogos</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commons\ButtonHelper.cs" />
+    <Compile Include="Commons\TextBoxHelper.cs" />
+    <Compile Include="MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenters\UserControls\IVendedoraListPresenter.cs" />
+    <Compile Include="Presenters\UserControls\VendedoraListPresenter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\FormViews\Vendedoras\RotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Vendedoras\RotaForm.Designer.cs">
+      <DependentUpon>RotaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormViews\Vendedoras\VendedoraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Vendedoras\VendedoraForm.Designer.cs">
+      <DependentUpon>VendedoraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\BaseUserControlUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\HomeUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\HomeUC.Designer.cs">
+      <DependentUpon>HomeUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\IVendedoraListViewUC.cs" />
+    <Compile Include="Views\UserControls\VendedorasListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\VendedorasListUC.Designer.cs">
+      <DependentUpon>VendedorasListUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormViews\Vendedoras\VendedorasListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Vendedoras\VendedorasListForm.Designer.cs">
+      <DependentUpon>VendedorasListForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Views\FormViews\Vendedoras\RotaForm.resx">
+      <DependentUpon>RotaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Vendedoras\VendedoraForm.resx">
+      <DependentUpon>VendedoraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\HomeUC.resx">
+      <DependentUpon>HomeUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\VendedorasListUC.resx">
+      <DependentUpon>VendedorasListUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Vendedoras\VendedorasListForm.resx">
+      <DependentUpon>VendedorasListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconVendedora35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconPedido35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconFornecedor35X35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconCatalogo35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconFinanceiro35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconConfig35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconEstoque35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconRotas35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\catlog.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LogoMCatalogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconMenuMobile35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconReport35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconAddVendedora20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LOGOPNG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonComponents\CommonComponents.csproj">
+      <Project>{533A3DC1-7E95-4CED-8CDE-118A1369EB01}</Project>
+      <Name>CommonComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
+      <Project>{0624DB89-C93D-4D63-BB82-66A80D7BA182}</Project>
+      <Name>DomainLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InfrastructureLayer\InfrastructureLayer.csproj">
+      <Project>{BF2D907C-0BA0-478D-AE7B-4930EC5E0DD4}</Project>
+      <Name>InfrastructureLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
+      <Project>{6225ABFE-9E55-4B43-AE65-B3856A5846D7}</Project>
+      <Name>ServiceLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconEditVendedora20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconDelete20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconPesquisa35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconSave20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconAdd10x10.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

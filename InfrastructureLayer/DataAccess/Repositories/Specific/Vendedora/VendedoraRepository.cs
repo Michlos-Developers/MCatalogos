@@ -104,8 +104,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             VendedoraModel vendedoraModel = new VendedoraModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             bool MatchingRecordFound = false;
-            string sql = "SELECT VendedoraId, Nome, Cpf, Rg, RgEmissor, DataNascimento, Email, NomePai, NomeMae, NomeConjuge, Logradouro, " +
-                         " Numero, Complemento, Cep, UfRgId, RotaId, EstadoCivilId, EstadoId, CidadeId, BairroId " +
+            string sql = " SELECT * " +
                          " FROM Vendedoras " +
                          " WHERE VendedoraId = @VendedoraId";
             using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
@@ -144,7 +143,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                vendedoraModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
+                                //vendedoraModel.RotaId = ((reader["RotaId"])) == null ? -1 : int.Parse(reader["RotaId"].ToString()) ;
 
 
                             }
@@ -295,7 +294,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     "SET Nome = @Nome, Cpf = @Cpf, Rg = @Rg, RgEmissor = @RgEmissor, DataNascimento = @DataNascimento, " +
                     " Email = @Email, NomePai = @NomePai, NomeMae = @NomeMae, NomeConjuge = @NomeConjuge, Logradouro = @Logradouro, " +
                     " Numero = @Numero, Complemento = @Complemento, Cep = @Cep, UfRgId = @UfRgId, EstadoCivilId = @EstadoCivilId, " +
-                    " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId, RotaId = @RotaId " +
+                    " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId " +
                     " WHERE VendedoraId = @VendedoraId";
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
@@ -335,7 +334,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@EstadoId", vendedoraModel.EstadoId);
                     cmd.Parameters.AddWithValue("@CidadeId", vendedoraModel.CidadeId);
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
-                    cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId);
+                    //cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId);
                     try
                     {
                         result = cmd.ExecuteNonQuery();

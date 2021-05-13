@@ -21,14 +21,10 @@ namespace ServiceLayer.Services.RotaServices
             _modelDataAnnotationCheck = modelDataAnnotationCheck;
 
         }
+
         public void Add(IRotaModel rotaModel)
         {
             _rotaRepository.Add(rotaModel);
-        }
-
-        public void Update(IRotaModel rotaModel)
-        {
-            _rotaRepository.Update(rotaModel);
         }
 
         public void Delete(IRotaModel rotaModel)
@@ -41,19 +37,32 @@ namespace ServiceLayer.Services.RotaServices
             return _rotaRepository.GetAll();
         }
 
+        public IEnumerable<IRotaModel> GetAllByLetraId(int letraId)
+        {
+            return _rotaRepository.GetAllByLetraId(letraId);
+        }
+
         public RotaModel GetById(int id)
         {
             return _rotaRepository.GetById(id);
         }
 
+        public RotaModel GetByNumeroAndLetraId(int numero, int letraId)
+        {
+            return _rotaRepository.GetByNumeroAndLetraId(numero, letraId);
+        }
 
+        public void Update(IRotaModel rotaModel)
+        {
+            _rotaRepository.Update(rotaModel);
+        }
 
-        public void ValidateModelDataAnnotations(IRotaModel rotaModel)
+        public void ValidateModel(IRotaModel rotaModel)
         {
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(rotaModel);
         }
 
-        public void ValidateModel(IRotaModel rotaModel)
+        public void ValidateModelDataAnno9tations(IRotaModel rotaModel)
         {
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(rotaModel);
         }

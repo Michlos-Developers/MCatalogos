@@ -54,6 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Repositories\Commons\BairroRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Commons\CidadeRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Commons\EstadoRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Vendedora\EstadoCivilRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaLetraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\TelefoneVendedoraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\VendedoraRepository.cs" />
@@ -77,6 +82,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

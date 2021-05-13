@@ -16,6 +16,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using DomainLayer.Models.CommonModels.Address;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 {
@@ -66,7 +67,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 RotaModel rotaModel = new RotaModel();
 
                                 rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
-                                rotaModel.Letra = reader["Letra"].ToString();
+                                rotaModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                rotaModel.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                
                                 rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
 
                                 rotaModelsList.Add(rotaModel);
@@ -86,58 +89,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
             }
         }
-        public RotaModel GetById(int rotaId)
-        {
-            RotaModel rotaModel = new RotaModel();
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            bool MatchingRecordFound = false;
-            string sql = "SELECT RotaId, Letra, Numero " +
-                         " FROM Rotas " +
-                         " WHERE RotaId = @RotaId";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(sql, connection))
-                    {
-                        cmd.CommandText = sql;
-                        cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("RotaId", rotaId));
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            MatchingRecordFound = reader.HasRows;
-
-                            while (reader.Read())
-                            {
-                                rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
-                                rotaModel.Letra = reader["Letra"].ToString();
-                                rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
-                            }
-                        }
-                        connection.Close();
-                    }
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                        customMessage: "Unable to get Rota Model from DataBase", helpLink: e.HelpLink, errorCode: e.ErrorCode,
-                        stackTrace: e.StackTrace);
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-
-                if (!MatchingRecordFound)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: "",
-                        customMessage: $"Record not found. Unable to get Rota Model for RotaId {rotaId}. Id {rotaId} does not existe in database.",
-                        helpLink: "", errorCode: 0, stackTrace: "");
-                    throw new DataAccessException(dataAccessStatus);
-                }
-                return rotaModel;
-            }
-        }
         public void Add(IRotaModel rotaModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
@@ -157,8 +109,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
 
                 string sql =
-                    " INSERT INTO Rotas (Letra, Numero) " +
-                    " VALUES (@Letra, @Numero)";
+                    " INSERT INTO Rotas (Numero, VendedoraId, RotaLetraId) " +
+                    " VALUES (@Numero, @VendedoraId, @RotaLetraId)";
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
@@ -177,7 +129,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Prepare();
 
 
-                    cmd.Parameters.AddWithValue("@Letra", rotaModel.Letra);
+                    cmd.Parameters.AddWithValue("@VendedoraId", rotaModel.VendedoraId);
+                    cmd.Parameters.AddWithValue("@RotaLetraId", rotaModel.RotaLetraId);
+                    
                     cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
 
                     try
@@ -228,7 +182,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
 
-                string sql = "UPDATE Rotas SET Letra = @Letra, Numero = @Numero WHERE RotaId = @RotaId";
+                string sql = "UPDATE Rotas SET Numero = @Numero, VendedoraId = @VendedoraId, RotaLetraId = @RotaLetraId WHERE RotaId = @RotaId";
 
 
                 try
@@ -251,8 +205,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Prepare();
 
                     cmd.Parameters.AddWithValue("@RotaId", rotaModel.RotaId);
-                    cmd.Parameters.AddWithValue("@Letra", rotaModel.Letra);
+                    cmd.Parameters.AddWithValue("@RotaLetraId", rotaModel.RotaLetraId);
+                    cmd.Parameters.AddWithValue("@VendedoraId", rotaModel.VendedoraId);
+                    
                     cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
+
 
                     try
                     {
@@ -335,6 +292,159 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
+        public RotaModel GetById(int rotaId)
+        {
+            RotaModel rotaModel = new RotaModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            bool MatchingRecordFound = false;
+            string sql = "SELECT RotaId, Numero, VendedoraId, RotaLetraId " +
+                         " FROM Rotas " +
+                         " WHERE RotaId = @RotaId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, connection))
+                    {
+                        cmd.CommandText = sql;
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@RotaId", rotaId));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            MatchingRecordFound = reader.HasRows;
+
+                            while (reader.Read())
+                            {
+                                rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
+                                rotaModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                rotaModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
+                                
+                                rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                        customMessage: "Unable to get Rota Model from DataBase", helpLink: e.HelpLink, errorCode: e.ErrorCode,
+                        stackTrace: e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+
+                if (!MatchingRecordFound)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: "",
+                        customMessage: $"Record not found. Unable to get Rota Model for RotaId {rotaId}. Id {rotaId} does not existe in database.",
+                        helpLink: "", errorCode: 0, stackTrace: "");
+                    throw new DataAccessException(dataAccessStatus);
+                }
+                return rotaModel;
+            }
+        }
+        public RotaModel GetByNumeroAndLetraId(int numero, int letraId)
+        {
+            RotaModel model = new RotaModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            bool recordFound = false;
+
+            string query = "SELECT RotaId, Numero, VendedoraId, RotaLetraId " +
+                           " FROM Rotas " +
+                           " WHERE Numero = @Numero AND RotaLetraId = @RotaLetraId ";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@Numero", numero));
+                        cmd.Parameters.Add(new SqlParameter("@RotaLetraId", letraId));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            recordFound = reader.HasRows;
+
+                            while (reader.Read())
+                            {
+                                model.RotaId = int.Parse(reader["RotaId"].ToString());
+                                model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                
+                                model.Numero = int.Parse(reader["Numero"].ToString());
+                            }
+                        }
+
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message,
+                        "Não foi possível buscar a Rota do DataBase. GetByNumeroAndLetraId",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return model;
+        }
+        public IEnumerable<IRotaModel> GetAllByLetraId(int letraId)
+        {
+            List<RotaModel> modelList = new List<RotaModel>();
+
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            string query = "SELECT * FROM Rotas WHERE RotaLetraId = @RotaLetraId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("RotaLetraId", letraId));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                RotaModel model = new RotaModel();
+                                model.RotaId = int.Parse(reader["RotaId"].ToString());
+                                model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                
+                                model.Numero = int.Parse(reader["Numero"].ToString());
+
+                                modelList.Add(model);
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message,
+                        "Não foi possível a busca pelas Rotas. GetAllByLetraId", e.HelpLink,
+                        e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return modelList;
+            }
+        }
         private bool RecordExistsCheck(IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck,
             RequestType requestType)
         {
@@ -368,8 +478,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     if ((requestType == RequestType.Add) || (requestType == RequestType.ConfirmAdd))
                     {
-                        cmd.CommandText = "SELECT COUNT(*) FROM Rotas WHERE Numero=@Numero AND Letra = @Letra";
-                        cmd.Parameters.AddWithValue("@Letra", rotaModel.Letra);
+                        cmd.CommandText = "SELECT COUNT(*) FROM Rotas WHERE Numero=@Numero AND RotaLetraId = @RotaLetraId";
+                        cmd.Parameters.AddWithValue("@RotaLetraId", rotaModel.RotaLetraId);
                         cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
                     }
                     else if ((requestType == RequestType.Update) || (requestType == RequestType.ConfirmDelete) || (requestType == RequestType.Delete))
@@ -409,5 +519,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
 
     }
-}
+
+
+    }
 }

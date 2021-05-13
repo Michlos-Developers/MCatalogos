@@ -11,6 +11,7 @@ namespace DomainLayer.Models.CommonModels.Address
         public int CidadeId { get; set; }
         public string Nome { get; set; }
         public string CodIbge { get; set; }
+        public string Uf { get; set; }
         public int EstadoId { get; set; }
         public EstadoModel Estado { get; set; }
     }

@@ -61,7 +61,7 @@ namespace ServicesLayer.Tests
         public void ShouldReturnVendedoraModelMatchingId()
         {
             VendedoraModel vendedoraModel = null;
-            int idToGet = 5;
+            int idToGet = 1;
             try
             {
                 vendedoraModel = _vendedoraServices.GetById(idToGet);
@@ -89,15 +89,15 @@ namespace ServicesLayer.Tests
 
             VendedoraModel vm = new VendedoraModel()
             {
-                Nome = "11 UnitTest With Adress Complete",
-                Cpf = "12345678922",
-                Rg = "12345655",
+                Nome = "02 UnitTest With Adress Complete",
+                Cpf = "12345678923",
+                Rg = "12345644",
                 RgEmissor = "SSP",
                 UfRgId = 1,
                 DataNascimento = new DateTime(1952, 09, 15),
                 Email = "unit11@teste.com",
                 NomePai = "",
-                NomeMae = "11 Mae UnitTest",
+                NomeMae = "02 Mae UnitTest",
                 NomeConjuge = "",
                 Logradouro = "QSC 3, Bloco B",
                 Numero = "SN",
@@ -145,7 +145,7 @@ namespace ServicesLayer.Tests
         {
             VendedoraModel vm = new VendedoraModel()
             {
-                VendedoraId = 5,
+                VendedoraId = 1,
                 Nome = "UnitTest With With Address Updatated",
                 Cpf = "32165498725",
                 Rg = "65498752",
@@ -162,9 +162,9 @@ namespace ServicesLayer.Tests
                 Cep = "71805703",
                 EstadoCivilId = 1,
                 EstadoId = 27,
-                CidadeId = 1,
+                CidadeId = 5570,
                 BairroId = 1,
-                RotaId = 3
+                //RotaId = 3
             };
 
             bool operationSucceeded = false;
@@ -199,7 +199,7 @@ namespace ServicesLayer.Tests
         [Fact]
         public void ShouldReturnSuccessForDelete()
         {
-            VendedoraModel vm = new VendedoraModel() { VendedoraId = 5 };
+            VendedoraModel vm = new VendedoraModel() { VendedoraId = 2 };
 
             bool operationSucceeded = false;
             string dataAccessStatusJSonStr = string.Empty;

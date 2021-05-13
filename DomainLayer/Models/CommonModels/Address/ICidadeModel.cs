@@ -7,5 +7,6 @@
         EstadoModel Estado { get; set; }
         int EstadoId { get; set; }
         string Nome { get; set; }
+        string Uf { get; set; }
     }
 }

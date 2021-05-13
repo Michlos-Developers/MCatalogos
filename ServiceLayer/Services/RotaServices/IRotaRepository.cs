@@ -10,7 +10,12 @@ namespace ServiceLayer.Services.RotaServices
         void Update(IRotaModel rotaModel);
         void Delete(IRotaModel rotaModel);
         IEnumerable<IRotaModel> GetAll();
+        IEnumerable<IRotaModel> GetAllByLetraId(int letraId);
         RotaModel GetById(int id);
+        RotaModel GetByNumeroAndLetraId(int numero, int letraId);
         
+
+
+
     }
 }

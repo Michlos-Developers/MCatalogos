@@ -13,7 +13,7 @@ namespace DomainLayer.Models.Vendedora
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Nome é campo obrigatório")]
         [StringLength(300, MinimumLength = 10, ErrorMessage = "Nome deve ter mais de 10 caracteres")]
         public string Nome { get; set; }
-        
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "O CPF é campo obrigatório")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "O CPF deve ter 11 caracteres")]
         [MaxLength(11, ErrorMessage = "O CPF deve ter 11 caracteres")]
@@ -78,11 +78,6 @@ namespace DomainLayer.Models.Vendedora
         public int EstadoCivilId { get; set; }
         public EstadoCivilModel EstadoCivil { get; set; }
 
-        [Required(AllowEmptyStrings = true, ErrorMessage = "Indique a roda para a Vendedora.")]
-        public int RotaId { get; set; }
-        public RotaModel Rota { get; set; }
-
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Selecione um Bairro")]
         public int BairroId { get; set; }
         public BairroModel Bairro { get; set; }
@@ -95,6 +90,7 @@ namespace DomainLayer.Models.Vendedora
         [Required(AllowEmptyStrings = false, ErrorMessage = "Informe o Estado")]
         public int EstadoId { get; set; }
         public EstadoModel Estado { get; set; }
+        
         #endregion
 
 
