@@ -108,7 +108,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     comboBoxUfEndereco.Text = (em = _estadoServices.GetById(vm.EstadoId)).Uf;
                     comboBoxCidade.Text = (cm = _cidadeServices.GetById(vm.CidadeId)).Nome;
                     comboBoxBairro.Text = (bm = _bairroServices.GetById(vm.BairroId)).Nome;
-                    comboBoxRotaLetra.Text = (rlm = _rotaLetraServices.GetById(vm.RotaLetraId)).RotaLetra.ToLower();
+                    comboBoxRotaLetra.Text = (rlm = _rotaLetraServices.GetById(vm.RotaLetraId)).RotaLetra.ToString();
                     comboBoxRotaNumero.Text = (rm = _rotaServices.GetByVendedoraId(vm.VendedoraId)).Numero.ToString();
                 }
 
@@ -149,7 +149,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 UfRgId = GetEstadoId(comboBoxUfRg.Text),
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
-                BairroId = bairroId
+                BairroId = bairroId,
+                RotaLetraId = GetRotaLetraId(comboBoxRotaLetra.Text)
 
             };
 
@@ -252,6 +253,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
         }
 
+
+
         private int GetBairroId(string nomeBairro, int cidadeId)
         {
             BairroModel bairroModel = null;
@@ -340,6 +343,21 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             nextLetra = alfabeto[pos].ToString();
             return nextLetra;
         }
+        private int GetRotaLastNumero(int rotaLetraId)
+        {
+            RotaModel model = null;
+            try
+            {
+                model = _rotaServices.GetLastNumero(rotaLetraId);
+            }
+            catch (DataAccessException e)
+            {
+                MessageBox.Show("Erro ao buscar a última rota no banco de dados", e.Message);
+            }
+            return model.Numero;
+        }
+        
+        
         private void AddRotaLetra(string nextLetra)
         {
             RotaLetraModel model = new RotaLetraModel();
@@ -352,6 +370,48 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             {
                 MessageBox.Show("Falha ao tentar adicionar uma nova letra na rota", e.Message);
             }
+        }
+        private void AddNumeroRota(int rotaLetraId, string vendedoraIdStr)
+        {
+            int vendedoraId = int.Parse(vendedoraIdStr);
+            int lastNumero = GetRotaLastNumero(rotaLetraId);
+            int nextNumero = lastNumero + 1;
+
+            if (ChecaRotaVendedora(vendedoraId))
+            {
+                var result = MessageBox.Show("Essa já vendedora já possui uma rota cadastrada.\nCaso continue as rotas serão reindexadas.\nDeseja continuar?",
+                    "Reindexação de Rotas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    RotaModel model = new RotaModel()
+                    {
+                        RotaLetraId = rotaLetraId,
+                        VendedoraId = vendedoraId,
+                        Numero = nextNumero
+                    };
+
+                    try
+                    {
+                        _rotaServices.Add(model);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Falha ao adicionar novo número de Rota para a Vendedora.", e.Message);
+                        throw e;
+                    }
+                    MessageBox.Show($"Rota adicionada com sucesso: \nNúmero:{nextNumero}");
+                    
+                    //TODO: REINDEXAR ROTAS
+                }
+            }
+
+
+
+
+
+
+
+
         }
 
 
@@ -441,7 +501,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private void comboBoxRotaLetra_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxRotaLetra.SelectedIndex > 0)
+            if (comboBoxRotaLetra.SelectedIndex > -1)
             {
                 LoadRotaNumeroToComboBox(GetRotaLetraId(comboBoxRotaLetra.Text));
             }
@@ -464,8 +524,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             int cidadeId = GetCidadeId(cidade, estadoId);
             LoadBairrosToComboBox(cidadeId);
         }
-        
-        
+        private void comboBoxRotaNumero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
         private void btnAddRotaLetra_Click(object sender, EventArgs e)
         {
             string lastLetra = GetRotaLastLetra();
@@ -513,5 +577,28 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
 
         }
+        private void btnAddNumeroRota_Click(object sender, EventArgs e)
+        {
+            int rotaLetraId = GetRotaLetraId(comboBoxRotaLetra.Text);
+            AddNumeroRota(rotaLetraId, textVendedoraId.Text);
+            VendedoraUpdate();
+            VendedoraForm_Load(sender, e);
+        }
+
+        private bool ChecaRotaVendedora(int vendedoraId)
+        {
+            bool result = false;
+            RotaModel model = _rotaServices.GetByVendedoraId(vendedoraId);
+            if (model != null)
+            {
+                result = true;
+            }
+            return result;
+
+        }
+
+
+
+
     }
 }

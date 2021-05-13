@@ -57,6 +57,11 @@ namespace ServiceLayer.Services.RotaServices
             return _rotaRepository.GetByVendedoraId(vendedoraId);
         }
 
+        public RotaModel GetLastNumero(int letraId)
+        {
+            return _rotaRepository.GetLastNumero(letraId);
+        }
+
         public void Update(IRotaModel rotaModel)
         {
             _rotaRepository.Update(rotaModel);

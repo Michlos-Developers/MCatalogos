@@ -14,6 +14,7 @@ namespace ServiceLayer.Services.RotaServices
         RotaModel GetById(int id);
         RotaModel GetByNumeroAndLetraId(int numero, int letraId);
         RotaModel GetByVendedoraId(int vendedoraId);
+        RotaModel GetLastNumero(int letraId);
 
         
 

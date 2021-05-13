@@ -33,7 +33,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedoraForm));
             this.panelContent = new System.Windows.Forms.Panel();
             this.comboBoxRotaNumero = new System.Windows.Forms.ComboBox();
-            this.btnAddNumero = new System.Windows.Forms.Button();
+            this.btnAddNumeroRota = new System.Windows.Forms.Button();
             this.comboBoxRotaLetra = new System.Windows.Forms.ComboBox();
             this.btnAddRotaLetra = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -105,7 +105,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
             this.panelContent.Controls.Add(this.comboBoxRotaNumero);
-            this.panelContent.Controls.Add(this.btnAddNumero);
+            this.panelContent.Controls.Add(this.btnAddNumeroRota);
             this.panelContent.Controls.Add(this.comboBoxRotaLetra);
             this.panelContent.Controls.Add(this.btnAddRotaLetra);
             this.panelContent.Controls.Add(this.groupBox2);
@@ -153,24 +153,26 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaNumero.Name = "comboBoxRotaNumero";
             this.comboBoxRotaNumero.Size = new System.Drawing.Size(40, 22);
             this.comboBoxRotaNumero.TabIndex = 37;
+            this.comboBoxRotaNumero.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaNumero_SelectedIndexChanged);
             // 
-            // btnAddNumero
+            // btnAddNumeroRota
             // 
-            this.btnAddNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNumero.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnAddNumero.FlatAppearance.BorderSize = 0;
-            this.btnAddNumero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNumero.ForeColor = System.Drawing.Color.White;
-            this.btnAddNumero.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
-            this.btnAddNumero.Location = new System.Drawing.Point(745, 13);
-            this.btnAddNumero.Name = "btnAddNumero";
-            this.btnAddNumero.Size = new System.Drawing.Size(20, 20);
-            this.btnAddNumero.TabIndex = 36;
-            this.btnAddNumero.TabStop = false;
-            this.btnAddNumero.Tag = "";
-            this.btnAddNumero.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTipVendedoraForm.SetToolTip(this.btnAddNumero, "Adicionar Número de Rota");
-            this.btnAddNumero.UseVisualStyleBackColor = false;
+            this.btnAddNumeroRota.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNumeroRota.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnAddNumeroRota.FlatAppearance.BorderSize = 0;
+            this.btnAddNumeroRota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNumeroRota.ForeColor = System.Drawing.Color.White;
+            this.btnAddNumeroRota.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
+            this.btnAddNumeroRota.Location = new System.Drawing.Point(745, 13);
+            this.btnAddNumeroRota.Name = "btnAddNumeroRota";
+            this.btnAddNumeroRota.Size = new System.Drawing.Size(20, 20);
+            this.btnAddNumeroRota.TabIndex = 36;
+            this.btnAddNumeroRota.TabStop = false;
+            this.btnAddNumeroRota.Tag = "";
+            this.btnAddNumeroRota.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTipVendedoraForm.SetToolTip(this.btnAddNumeroRota, "Adicionar Número de Rota");
+            this.btnAddNumeroRota.UseVisualStyleBackColor = false;
+            this.btnAddNumeroRota.Click += new System.EventHandler(this.btnAddNumeroRota_Click);
             // 
             // comboBoxRotaLetra
             // 
@@ -842,6 +844,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.ToolTip toolTipVendedoraForm;
         private System.Windows.Forms.ComboBox comboBoxRotaLetra;
         private System.Windows.Forms.ComboBox comboBoxRotaNumero;
-        private System.Windows.Forms.Button btnAddNumero;
+        private System.Windows.Forms.Button btnAddNumeroRota;
     }
 }

@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models.CommonModels.Address;
+using System.Data.Entity.SqlServer;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 {
@@ -69,7 +70,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
                                 rotaModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
                                 rotaModel.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
-                                
+
                                 rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
 
                                 rotaModelsList.Add(rotaModel);
@@ -131,7 +132,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     cmd.Parameters.AddWithValue("@VendedoraId", rotaModel.VendedoraId);
                     cmd.Parameters.AddWithValue("@RotaLetraId", rotaModel.RotaLetraId);
-                    
+
                     cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
 
                     try
@@ -207,7 +208,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@RotaId", rotaModel.RotaId);
                     cmd.Parameters.AddWithValue("@RotaLetraId", rotaModel.RotaLetraId);
                     cmd.Parameters.AddWithValue("@VendedoraId", rotaModel.VendedoraId);
-                    
+
                     cmd.Parameters.AddWithValue("@Numero", rotaModel.Numero);
 
 
@@ -321,7 +322,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 rotaModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
                                 rotaModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
                                 rotaModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
-                                
+
                                 rotaModel.Numero = Int32.Parse(reader["Numero"].ToString());
                             }
                         }
@@ -376,7 +377,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 model.RotaId = int.Parse(reader["RotaId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
-                                
+
                                 model.Numero = int.Parse(reader["Numero"].ToString());
                             }
                         }
@@ -423,7 +424,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 model.RotaId = int.Parse(reader["RotaId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
-                                
+
                                 model.Numero = int.Parse(reader["Numero"].ToString());
 
                                 modelList.Add(model);
@@ -474,6 +475,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 model.RotaId = int.Parse(reader["RotaId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                model.Numero = int.Parse(reader["Numero"].ToString());
                             }
                         }
                     }
@@ -492,6 +494,58 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 return model;
             }
         }
+        public RotaModel GetLastNumero(int rotaLetraId)
+        {
+            RotaModel model = new RotaModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+
+            string query = "SELECT TOP 1 * FROM Rotas WHERE RotaLetraId = @RotaLetraId ORDER BY Numero DESC";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@RotaLetraId", rotaLetraId));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    model.RotaId = int.Parse(reader["RotaId"].ToString());
+                                    model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                    model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+
+                                    model.Numero = int.Parse(reader["Numero"].ToString());
+                                }
+
+                            }
+                            
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, $"Falha ao buscar o último número da RotaLetra {rotaLetraId}",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return model;
+
+            }
+        }
+
+
         private bool RecordExistsCheck(IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck,
             RequestType requestType)
         {
@@ -560,13 +614,12 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     connection.Close();
                     return RecordExistsCheckPassed;
                 }
+            }
+
+
+
+
         }
 
-
-
-
-    }
-
-        
     }
 }
