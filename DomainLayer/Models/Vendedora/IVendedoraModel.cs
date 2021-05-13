@@ -31,6 +31,8 @@ namespace DomainLayer.Models.Vendedora
         ObservableCollection<TelefoneVendedoraModel> Telefones { get; set; }
         EstadoModel UfRg { get; set; }
         int UfRgId { get; set; }
+        int RotaLetraId { get; set; }
+        RotaLetraModel RotaLetra { get; set; }
         int VendedoraId { get; set; }
     }
 }

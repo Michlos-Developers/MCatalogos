@@ -32,7 +32,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedoraForm));
             this.panelContent = new System.Windows.Forms.Panel();
-            this.btnAddRota = new System.Windows.Forms.Button();
+            this.comboBoxRotaNumero = new System.Windows.Forms.ComboBox();
+            this.btnAddNumero = new System.Windows.Forms.Button();
+            this.comboBoxRotaLetra = new System.Windows.Forms.ComboBox();
+            this.btnAddRotaLetra = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvTelefones = new System.Windows.Forms.DataGridView();
             this.groupBoxTelones = new System.Windows.Forms.GroupBox();
@@ -82,7 +85,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblEstadoCivil = new System.Windows.Forms.Label();
             this.LblNome = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textRota = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textVendedoraId = new System.Windows.Forms.TextBox();
             this.LblCodigo = new System.Windows.Forms.Label();
@@ -102,7 +104,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
-            this.panelContent.Controls.Add(this.btnAddRota);
+            this.panelContent.Controls.Add(this.comboBoxRotaNumero);
+            this.panelContent.Controls.Add(this.btnAddNumero);
+            this.panelContent.Controls.Add(this.comboBoxRotaLetra);
+            this.panelContent.Controls.Add(this.btnAddRotaLetra);
             this.panelContent.Controls.Add(this.groupBox2);
             this.panelContent.Controls.Add(this.groupBoxTelones);
             this.panelContent.Controls.Add(this.groupBoxEndereco);
@@ -131,7 +136,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Controls.Add(this.LblEstadoCivil);
             this.panelContent.Controls.Add(this.LblNome);
             this.panelContent.Controls.Add(this.label9);
-            this.panelContent.Controls.Add(this.textRota);
             this.panelContent.Controls.Add(this.label1);
             this.panelContent.Controls.Add(this.textVendedoraId);
             this.panelContent.Controls.Add(this.LblCodigo);
@@ -142,24 +146,59 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Size = new System.Drawing.Size(800, 440);
             this.panelContent.TabIndex = 6;
             // 
-            // btnAddRota
+            // comboBoxRotaNumero
             // 
-            this.btnAddRota.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRota.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnAddRota.FlatAppearance.BorderSize = 0;
-            this.btnAddRota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddRota.ForeColor = System.Drawing.Color.White;
-            this.btnAddRota.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
-            this.btnAddRota.Location = new System.Drawing.Point(740, 13);
-            this.btnAddRota.Name = "btnAddRota";
-            this.btnAddRota.Size = new System.Drawing.Size(20, 20);
-            this.btnAddRota.TabIndex = 36;
-            this.btnAddRota.TabStop = false;
-            this.btnAddRota.Tag = "";
-            this.btnAddRota.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTipVendedoraForm.SetToolTip(this.btnAddRota, "Adicionar Rota");
-            this.btnAddRota.UseVisualStyleBackColor = false;
-            this.btnAddRota.Click += new System.EventHandler(this.btnAddRota_Click);
+            this.comboBoxRotaNumero.FormattingEnabled = true;
+            this.comboBoxRotaNumero.Location = new System.Drawing.Point(704, 12);
+            this.comboBoxRotaNumero.Name = "comboBoxRotaNumero";
+            this.comboBoxRotaNumero.Size = new System.Drawing.Size(40, 22);
+            this.comboBoxRotaNumero.TabIndex = 37;
+            // 
+            // btnAddNumero
+            // 
+            this.btnAddNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNumero.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnAddNumero.FlatAppearance.BorderSize = 0;
+            this.btnAddNumero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNumero.ForeColor = System.Drawing.Color.White;
+            this.btnAddNumero.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
+            this.btnAddNumero.Location = new System.Drawing.Point(745, 13);
+            this.btnAddNumero.Name = "btnAddNumero";
+            this.btnAddNumero.Size = new System.Drawing.Size(20, 20);
+            this.btnAddNumero.TabIndex = 36;
+            this.btnAddNumero.TabStop = false;
+            this.btnAddNumero.Tag = "";
+            this.btnAddNumero.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTipVendedoraForm.SetToolTip(this.btnAddNumero, "Adicionar Número de Rota");
+            this.btnAddNumero.UseVisualStyleBackColor = false;
+            // 
+            // comboBoxRotaLetra
+            // 
+            this.comboBoxRotaLetra.FormattingEnabled = true;
+            this.comboBoxRotaLetra.Location = new System.Drawing.Point(641, 12);
+            this.comboBoxRotaLetra.Name = "comboBoxRotaLetra";
+            this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
+            this.comboBoxRotaLetra.TabIndex = 37;
+            this.comboBoxRotaLetra.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaLetra_SelectedIndexChanged);
+            // 
+            // btnAddRotaLetra
+            // 
+            this.btnAddRotaLetra.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRotaLetra.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnAddRotaLetra.FlatAppearance.BorderSize = 0;
+            this.btnAddRotaLetra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddRotaLetra.ForeColor = System.Drawing.Color.White;
+            this.btnAddRotaLetra.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
+            this.btnAddRotaLetra.Location = new System.Drawing.Point(682, 13);
+            this.btnAddRotaLetra.Name = "btnAddRotaLetra";
+            this.btnAddRotaLetra.Size = new System.Drawing.Size(20, 20);
+            this.btnAddRotaLetra.TabIndex = 36;
+            this.btnAddRotaLetra.TabStop = false;
+            this.btnAddRotaLetra.Tag = "";
+            this.btnAddRotaLetra.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTipVendedoraForm.SetToolTip(this.btnAddRotaLetra, "Adicionar Letra de Rota");
+            this.btnAddRotaLetra.UseVisualStyleBackColor = false;
+            this.btnAddRotaLetra.Click += new System.EventHandler(this.btnAddRotaLetra_Click);
             // 
             // groupBox2
             // 
@@ -426,7 +465,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // maskedTextCpf
             // 
             this.maskedTextCpf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextCpf.Location = new System.Drawing.Point(507, 12);
+            this.maskedTextCpf.Location = new System.Drawing.Point(481, 12);
             this.maskedTextCpf.Mask = "000,000,000-99";
             this.maskedTextCpf.Name = "maskedTextCpf";
             this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
@@ -469,7 +508,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(473, 16);
+            this.label12.Location = new System.Drawing.Point(447, 16);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(28, 14);
             this.label12.TabIndex = 16;
@@ -491,7 +530,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblCpf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblCpf.AutoSize = true;
-            this.LblCpf.Location = new System.Drawing.Point(473, 16);
+            this.LblCpf.Location = new System.Drawing.Point(447, 16);
             this.LblCpf.Name = "LblCpf";
             this.LblCpf.Size = new System.Drawing.Size(28, 14);
             this.LblCpf.TabIndex = 16;
@@ -629,28 +668,18 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(627, 15);
+            this.label9.Location = new System.Drawing.Point(601, 15);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 14);
             this.label9.TabIndex = 10;
             this.label9.Text = "Rota:";
-            // 
-            // textRota
-            // 
-            this.textRota.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textRota.Enabled = false;
-            this.textRota.Location = new System.Drawing.Point(667, 12);
-            this.textRota.Name = "textRota";
-            this.textRota.Size = new System.Drawing.Size(72, 22);
-            this.textRota.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(627, 15);
+            this.label1.Location = new System.Drawing.Point(601, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 14);
             this.label1.TabIndex = 10;
@@ -779,7 +808,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label lblConjunge;
         private System.Windows.Forms.Label LblEstadoCivil;
         private System.Windows.Forms.Label LblNome;
-        public System.Windows.Forms.TextBox textRota;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textVendedoraId;
         private System.Windows.Forms.Label LblCodigo;
@@ -810,7 +838,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnAddRota;
+        private System.Windows.Forms.Button btnAddRotaLetra;
         private System.Windows.Forms.ToolTip toolTipVendedoraForm;
+        private System.Windows.Forms.ComboBox comboBoxRotaLetra;
+        private System.Windows.Forms.ComboBox comboBoxRotaNumero;
+        private System.Windows.Forms.Button btnAddNumero;
     }
 }

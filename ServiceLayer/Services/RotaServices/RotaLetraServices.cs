@@ -46,6 +46,11 @@ namespace ServiceLayer.Services.RotaServices
             return _rotaLetraRepository.GetByLetra(letra);
         }
 
+        public RotaLetraModel GetLastLetra()
+        {
+            return _rotaLetraRepository.GetLastLetra();
+        }
+
         public void Update(IRotaLetraModel rotaLetraModel)
         {
             _rotaLetraRepository.Update(rotaLetraModel);

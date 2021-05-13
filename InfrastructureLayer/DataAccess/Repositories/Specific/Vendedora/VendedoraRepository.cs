@@ -80,6 +80,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
+                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
 
                                 vendedoraModelsList.Add(vendedoraModel);
                             }
@@ -143,12 +144,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                //vendedoraModel.RotaId = ((reader["RotaId"])) == null ? -1 : int.Parse(reader["RotaId"].ToString()) ;
-
-
+                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                    
                             }
+                            SqlConnection.Close();
                         }
-                        SqlConnection.Close();
                     }
                 }
                 catch (SqlException e)
@@ -195,9 +195,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                 string sql =
                     "INSERT INTO Vendedoras (Nome, Cpf, Rg, RgEmissor, DataNascimento, Email, NomePai, NomeMae, NomeConjuge, Logradouro, Numero, Complemento, " +
-                    "Cep, UfRgId, EstadoCivilId, EstadoId, CidadeId, BairroId ) " +
+                    "Cep, UfRgId, EstadoCivilId, EstadoId, CidadeId, BairroId, RotaLetraId ) " +
                     "VALUES (@Nome, @Cpf, @Rg, @RgEmissor, @DataNascimento, @Email, @NomePai, @NomeMae, @NomeConjuge, @Logradouro, @Numero, @Complemento, " +
-                    "@Cep, @UfRgId, @EstadoCivilId, @EstadoId, @CidadeId, @BairroId) ";
+                    "@Cep, @UfRgId, @EstadoCivilId, @EstadoId, @CidadeId, @BairroId, @RotaLetraId) ";
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
@@ -234,7 +234,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@EstadoId", vendedoraModel.EstadoId);
                     cmd.Parameters.AddWithValue("@CidadeId", vendedoraModel.CidadeId);
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
-                    //cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId); //deve ser incluído somente depois de cadastrado a vanededora.
+                    cmd.Parameters.AddWithValue("@RotaLetraId", vendedoraModel.RotaLetraId);
 
 
 
@@ -294,7 +294,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     "SET Nome = @Nome, Cpf = @Cpf, Rg = @Rg, RgEmissor = @RgEmissor, DataNascimento = @DataNascimento, " +
                     " Email = @Email, NomePai = @NomePai, NomeMae = @NomeMae, NomeConjuge = @NomeConjuge, Logradouro = @Logradouro, " +
                     " Numero = @Numero, Complemento = @Complemento, Cep = @Cep, UfRgId = @UfRgId, EstadoCivilId = @EstadoCivilId, " +
-                    " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId " +
+                    " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId, RotaLetraId = @RotaLetraId" +
                     " WHERE VendedoraId = @VendedoraId";
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
@@ -334,7 +334,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@EstadoId", vendedoraModel.EstadoId);
                     cmd.Parameters.AddWithValue("@CidadeId", vendedoraModel.CidadeId);
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
-                    //cmd.Parameters.AddWithValue("@RotaId", vendedoraModel.RotaId);
+                    cmd.Parameters.AddWithValue("@RotaLetraId", vendedoraModel.RotaLetraId);
                     try
                     {
                         result = cmd.ExecuteNonQuery();

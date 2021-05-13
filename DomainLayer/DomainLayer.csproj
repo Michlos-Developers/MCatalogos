@@ -62,6 +62,7 @@
     <Compile Include="Models\CommonModels\Address\IBairroModel.cs" />
     <Compile Include="Models\CommonModels\Address\ICidadeModel.cs" />
     <Compile Include="Models\CommonModels\Address\IEstadoModel.cs" />
+    <Compile Include="Models\CommonModels\Enums\AlfabetoRotas.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
     <Compile Include="Models\Vendedora\IEstadoCivilModel.cs" />

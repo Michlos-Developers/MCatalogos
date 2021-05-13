@@ -319,6 +319,44 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
         }
 
+        public RotaLetraModel GetLastLetra()
+        {
+            RotaLetraModel model = new RotaLetraModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "SELECT TOP 1 * FROM RotasLetras ORDER BY RotaLetra DESC";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                model.RotaLetra = reader["RotaLetra"].ToString();
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Falha ao buscar registro no banco de dados. GetLastLetra",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                    
+                }
+                return model;
+            }
+        }
+
         public void Update(IRotaLetraModel rotaLetraModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();

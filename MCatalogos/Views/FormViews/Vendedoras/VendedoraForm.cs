@@ -1,6 +1,7 @@
 ﻿using CommonComponents;
 
 using DomainLayer.Models.CommonModels.Address;
+using DomainLayer.Models.CommonModels.Enums;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer.DataAccess.Repositories.Commons;
@@ -26,32 +27,26 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedoraForm : Form
     {
+        VendedorasListForm VendedorasListForm;
+
         private VendedoraServices _vendedoraServices;
         private EstadoCivilServices _estadoCivilServices;
         private BairroServices _bairroServices;
         private CidadeServices _cidadeServices;
         private EstadoServices _estadoServices;
+        private RotaLetraServices _rotaLetraServices;
         private RotaServices _rotaServices;
-        VendedorasListForm VendedorasListForm;
-        //private ConnectionStringServices _connectionStringServices;
-        //private static string _connectionString;
-
-
-
 
         private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
-        //private string _connectionString = _connectionStringServices.GetConnection();
-        private SqlConnection connection = new SqlConnection(_connectionString);
-
-
         public VendedoraForm(VendedorasListForm vendedorasListForm)
         {
+            _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _rotaServices = new RotaServices(new RotaRepository(_connectionString), new ModelDataAnnotationCheck());
             _estadoServices = new EstadoServices(new EstadoRepository(_connectionString), new ModelDataAnnotationCheck());
             _cidadeServices = new CidadeServices(new CidadeRepository(_connectionString), new ModelDataAnnotationCheck());
             _bairroServices = new BairroServices(new BairroRepository(_connectionString), new ModelDataAnnotationCheck());
             _estadoCivilServices = new EstadoCivilServices(new EstadoCivilRepository(_connectionString), new ModelDataAnnotationCheck());
-            _rotaServices = new RotaServices(new RotaRepository(_connectionString), new ModelDataAnnotationCheck());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
 
             InitializeComponent();
@@ -62,6 +57,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void VendedoraForm_Load(object sender, EventArgs e)
         {
 
+            LoadRotasLetrasToComboBox();
             LoadEstadosToComboBox();
             LoadUfRgToComboBox();
             LoadEstadoCivilToComboBox();
@@ -72,7 +68,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private void PreencheCampos()
         {
-            if(textVendedoraId.Text != string.Empty)
+            if (textVendedoraId.Text != string.Empty)
             {
                 VendedoraModel vm = null;
                 try
@@ -81,9 +77,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 }
                 catch (DataAccessException e)
                 {
-                    MessageBox.Show($"Falha ao tentar recuperar dados da vendedora\n ErrorMessage: {e.DataAccessStatusInfo.getFormattedValues()}", "Error" );
+                    MessageBox.Show($"Falha ao tentar recuperar dados da vendedora\n ErrorMessage: {e.DataAccessStatusInfo.getFormattedValues()}", "Error");
                 }
-                
+
                 if (vm != null)
                 {
 
@@ -91,6 +87,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     EstadoCivilModel ecm = null;
                     CidadeModel cm = null;
                     BairroModel bm = null;
+                    RotaLetraModel rlm = null;
+                    RotaModel rm = null;
 
                     textNome.Text = vm.Nome.ToString();
                     maskedTextCpf.Text = vm.Cpf;
@@ -110,113 +108,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     comboBoxUfEndereco.Text = (em = _estadoServices.GetById(vm.EstadoId)).Uf;
                     comboBoxCidade.Text = (cm = _cidadeServices.GetById(vm.CidadeId)).Nome;
                     comboBoxBairro.Text = (bm = _bairroServices.GetById(vm.BairroId)).Nome;
+                    comboBoxRotaLetra.Text = (rlm = _rotaLetraServices.GetById(vm.RotaLetraId)).RotaLetra.ToLower();
+                    comboBoxRotaNumero.Text = (rm = _rotaServices.GetByVendedoraId(vm.VendedoraId)).Numero.ToString();
                 }
 
             }
-
-        }
-
-        private void LoadEstadosToComboBox()
-        {
-            List<EstadoModel> estadoModelList = (List<EstadoModel>)_estadoServices.GetAll();
-
-            comboBoxUfEndereco.DisplayMember = "Uf";
-            comboBoxUfEndereco.SelectedIndex = 0;
-            comboBoxUfEndereco.Items.Clear();
-            foreach (EstadoModel em in estadoModelList)
-            {
-                comboBoxUfEndereco.Items.Add(em);
-            }
-
-        }
-
-        private void LoadBairrosToComboBox(int cidade)
-        {
-
-            List<BairroModel> bairroModelList = (List<BairroModel>)_bairroServices.GetByCidadeId(cidade);
-
-            comboBoxBairro.DisplayMember = "Nome";
-            comboBoxBairro.Items.Clear();
-            foreach (BairroModel bm in bairroModelList)
-            {
-                comboBoxBairro.Items.Add(bm);
-            }
-
-
-        }
-        
-        private void LoadCidadeToComboBox(string uf)
-        {
-            List<CidadeModel> cidadeModelList = (List<CidadeModel>)_cidadeServices.GetAllByUf(uf);
-
-            comboBoxCidade.DisplayMember = "Nome";
-            comboBoxCidade.Items.Clear();
-            foreach (var item in cidadeModelList)
-            {
-                comboBoxCidade.Items.Add(item);
-            }
-
-
-        }
-
-        private void LoadUfRgToComboBox()
-        {
-            List<EstadoModel> estadoModelList = (List<EstadoModel>)_estadoServices.GetAll();
-
-            comboBoxUfRg.DisplayMember = "Uf";
-            comboBoxUfRg.DataSource = estadoModelList;
-            comboBoxUfRg.SelectedIndex = -1;
-
-        }
-
-        private void LoadEstadoCivilToComboBox()
-        {
-            List<EstadoCivilModel> estadoCivilModelList = (List<EstadoCivilModel>)_estadoCivilServices.GetAll();
-
-            comboBoxEstadoCivil.DisplayMember = "EstadoCivil";
-            comboBoxEstadoCivil.DataSource = estadoCivilModelList;
-            comboBoxEstadoCivil.SelectedIndex = -1;
-
-
-        }
-
-        private void comboBoxUfEndereco_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxUfEndereco.SelectedIndex > 0)
-            {
-
-                string uf = comboBoxUfEndereco.Text;
-                LoadCidadeToComboBox(uf);
-            }
-
-        }
-
-        private void comboBoxCidade_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            string cidade = comboBoxCidade.Text;
-            int estadoId = GetEstadoId(comboBoxUfEndereco.Text);
-            int cidadeId = GetCidadeId(cidade, estadoId);
-            LoadBairrosToComboBox(cidadeId);
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (textVendedoraId.Text == string.Empty)
-            {
-                VendedoraAdd();
-            }
-            else
-            {
-                VendedoraUpdate();
-            }
-            VendedorasListForm.VendedorasListForm_Load(sender, e);
-
 
         }
 
@@ -288,7 +184,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 //TODO: LER DADOS DA VENDEDORA
             }
         }
-
         public void VendedoraAdd()
         {
             var cpf = maskedTextCpf.Text;
@@ -370,7 +265,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
             return bairroModel.BairroId;
         }
-
         private int GetCidadeId(string nomeCidade, int estadoId)
         {
             CidadeModel cidadeModel = null;
@@ -384,7 +278,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
             return cidadeModel.CidadeId;
         }
-
         private int GetEstadoId(string uf)
         {
             EstadoModel estadoModel = null;
@@ -398,7 +291,32 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
             return estadoModel.EstadoId;
         }
-
+        private int GetRotaLetraId(string rotaLetra)
+        {
+            RotaLetraModel model = null;
+            try
+            {
+                model = _rotaLetraServices.GetByLetra(rotaLetra);
+            }
+            catch (DataAccessException e)
+            {
+                MessageBox.Show("Erro ao tentar checar LetraId", e.Message);
+            }
+            return model.RotaLetraId;
+        }
+        private string GetRotaLastLetra()
+        {
+            RotaLetraModel model = null;
+            try
+            {
+                model = _rotaLetraServices.GetLastLetra();
+            }
+            catch (DataAccessException e)
+            {
+                MessageBox.Show("Erro ao tetar buscar a última letra do banco de dados", e.Message);
+            }
+            return model.RotaLetra;
+        }
         public int GetEstadoCivilId(string estadoCivil)
         {
             EstadoCivilModel estadoCivilModel = null;
@@ -413,10 +331,187 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             return estadoCivilModel.EstadoCivilId;
 
         }
-
-        private void btnAddRota_Click(object sender, EventArgs e)
+        private string GetNextLetra(string lastLetra)
         {
-            RotaForm rotaForm = new RotaForm(this);
+            string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            int pos = alfabeto.IndexOf(lastLetra);
+            string nextLetra = string.Empty;
+            pos++;
+            nextLetra = alfabeto[pos].ToString();
+            return nextLetra;
+        }
+        private void AddRotaLetra(string nextLetra)
+        {
+            RotaLetraModel model = new RotaLetraModel();
+            try
+            {
+                model.RotaLetra = nextLetra;
+                _rotaLetraServices.Add(model);
+            }
+            catch (DataAccessException e)
+            {
+                MessageBox.Show("Falha ao tentar adicionar uma nova letra na rota", e.Message);
+            }
+        }
+
+
+        private void LoadRotasLetrasToComboBox()
+        {
+            List<RotaLetraModel> rotaLetraModelList = (List<RotaLetraModel>)_rotaLetraServices.GetAll();
+
+            comboBoxRotaLetra.DisplayMember = "RotaLetra";
+            comboBoxRotaLetra.SelectedIndex = -1;
+            comboBoxRotaLetra.Items.Clear();
+            foreach (RotaLetraModel model in rotaLetraModelList)
+            {
+                comboBoxRotaLetra.Items.Add(model);
+            }
+        }
+        private void LoadRotaNumeroToComboBox(int id)
+        {
+            List<RotaModel> modelList = (List<RotaModel>)_rotaServices.GetAllByLetraId(id);
+
+            comboBoxRotaNumero.DisplayMember = "Numero";
+            comboBoxRotaNumero.Items.Clear();
+            foreach (RotaModel model in modelList)
+            {
+                comboBoxRotaNumero.Items.Add(model);
+            }
+        }
+        private void LoadEstadosToComboBox()
+        {
+            List<EstadoModel> estadoModelList = (List<EstadoModel>)_estadoServices.GetAll();
+
+            comboBoxUfEndereco.DisplayMember = "Uf";
+            comboBoxUfEndereco.SelectedIndex = 0;
+            comboBoxUfEndereco.Items.Clear();
+            foreach (EstadoModel em in estadoModelList)
+            {
+                comboBoxUfEndereco.Items.Add(em);
+            }
+
+        }
+        private void LoadBairrosToComboBox(int cidade)
+        {
+
+            List<BairroModel> bairroModelList = (List<BairroModel>)_bairroServices.GetByCidadeId(cidade);
+
+            comboBoxBairro.DisplayMember = "Nome";
+            comboBoxBairro.Items.Clear();
+            foreach (BairroModel bm in bairroModelList)
+            {
+                comboBoxBairro.Items.Add(bm);
+            }
+
+
+        }
+        private void LoadCidadeToComboBox(string uf)
+        {
+            List<CidadeModel> cidadeModelList = (List<CidadeModel>)_cidadeServices.GetAllByUf(uf);
+
+            comboBoxCidade.DisplayMember = "Nome";
+            comboBoxCidade.Items.Clear();
+            foreach (var item in cidadeModelList)
+            {
+                comboBoxCidade.Items.Add(item);
+            }
+
+
+        }
+        private void LoadUfRgToComboBox()
+        {
+            List<EstadoModel> estadoModelList = (List<EstadoModel>)_estadoServices.GetAll();
+
+            comboBoxUfRg.DisplayMember = "Uf";
+            comboBoxUfRg.DataSource = estadoModelList;
+            comboBoxUfRg.SelectedIndex = -1;
+
+        }
+        private void LoadEstadoCivilToComboBox()
+        {
+            List<EstadoCivilModel> estadoCivilModelList = (List<EstadoCivilModel>)_estadoCivilServices.GetAll();
+
+            comboBoxEstadoCivil.DisplayMember = "EstadoCivil";
+            comboBoxEstadoCivil.DataSource = estadoCivilModelList;
+            comboBoxEstadoCivil.SelectedIndex = -1;
+
+
+        }
+
+
+        private void comboBoxRotaLetra_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxRotaLetra.SelectedIndex > 0)
+            {
+                LoadRotaNumeroToComboBox(GetRotaLetraId(comboBoxRotaLetra.Text));
+            }
+        }
+        private void comboBoxUfEndereco_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxUfEndereco.SelectedIndex > 0)
+            {
+
+                string uf = comboBoxUfEndereco.Text;
+                LoadCidadeToComboBox(uf);
+            }
+
+        }
+        private void comboBoxCidade_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string cidade = comboBoxCidade.Text;
+            int estadoId = GetEstadoId(comboBoxUfEndereco.Text);
+            int cidadeId = GetCidadeId(cidade, estadoId);
+            LoadBairrosToComboBox(cidadeId);
+        }
+        
+        
+        private void btnAddRotaLetra_Click(object sender, EventArgs e)
+        {
+            string lastLetra = GetRotaLastLetra();
+            string nextLetra = string.Empty;
+            if (lastLetra == "Z")
+            {
+                MessageBox.Show("Já foram adicionadas todas as letras para Rota.\nEntre em contato com o Administrador.");
+            }
+            else
+            {
+                try
+                {
+
+                    GetNextLetra(lastLetra);
+                    AddRotaLetra(nextLetra);
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Erro ao tentar adicionar uma nova letra à lista de Rotas", ex.Message);
+                }
+                MessageBox.Show($"Letra {nextLetra} adicionada com suceddo.", "Adicionado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadRotasLetrasToComboBox();
+            }
+
+
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (textVendedoraId.Text == string.Empty)
+            {
+                VendedoraAdd();
+            }
+            else
+            {
+                VendedoraUpdate();
+            }
+            VendedorasListForm.VendedorasListForm_Load(sender, e);
+
+
         }
     }
 }

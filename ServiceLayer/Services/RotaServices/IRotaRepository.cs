@@ -13,6 +13,8 @@ namespace ServiceLayer.Services.RotaServices
         IEnumerable<IRotaModel> GetAllByLetraId(int letraId);
         RotaModel GetById(int id);
         RotaModel GetByNumeroAndLetraId(int numero, int letraId);
+        RotaModel GetByVendedoraId(int vendedoraId);
+
         
 
 

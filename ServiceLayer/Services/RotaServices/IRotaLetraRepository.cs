@@ -12,6 +12,6 @@ namespace ServiceLayer.Services.RotaServices
         IEnumerable<IRotaLetraModel> GetAll();
         RotaLetraModel GetById(int id);
         RotaLetraModel GetByLetra(string letra);
-
+        RotaLetraModel GetLastLetra();
     }
 }
