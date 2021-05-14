@@ -63,7 +63,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             LoadUfRgToComboBox();
             LoadEstadoCivilToComboBox();
             PreencheCampos();
-            
+
             TelefonesVendedoraListUC telefones = new TelefonesVendedoraListUC(this);
             panelTelefonesList.Controls.Add(telefones);
             telefones.Dock = DockStyle.Fill;
@@ -131,9 +131,14 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             var cep = maskedTextCep.Text;
             cep = cep.Replace("-", "");
-            int estadoId = GetEstadoId(comboBoxUfEndereco.Text);
-            int cidadeId = GetCidadeId(comboBoxCidade.Text, estadoId);
-            int bairroId = GetBairroId(comboBoxBairro.Text, cidadeId);
+            int estadoId = _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId;
+
+            int cidadeId = _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
+                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId;
+
+            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxCidade.Text,
+                           _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
+                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId).BairroId;
 
             VendedoraModel vendedoraModel = new VendedoraModel()
             {
@@ -151,12 +156,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 Numero = textNumero.Text,
                 Complemento = textComplemento.Text,
                 Cep = cep,
-                EstadoCivilId = GetEstadoCivilId(comboBoxEstadoCivil.Text),
-                UfRgId = GetEstadoId(comboBoxUfRg.Text),
+                EstadoCivilId = _estadoCivilServices.GetByEstadoCivil(comboBoxEstadoCivil.Text).EstadoCivilId,
+                UfRgId = _estadoServices.GetByUf(comboBoxUfRg.Text).EstadoId,
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
                 BairroId = bairroId,
-                RotaLetraId = GetRotaLetraId(comboBoxRotaLetra.Text)
+                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId
 
             };
 
@@ -200,9 +205,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             var cep = maskedTextCep.Text;
             cep = cep.Replace("-", "");
-            int estadoId = GetEstadoId(comboBoxUfEndereco.Text);
-            int cidadeId = GetCidadeId(comboBoxCidade.Text, estadoId);
-            int bairroId = GetBairroId(comboBoxBairro.Text, cidadeId);
+
+            int estadoId = _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId;
+
+            int cidadeId = _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
+                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId;
+
+            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxCidade.Text,
+                           _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
+                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId).BairroId;
 
             VendedoraModel vendedoraModel = new VendedoraModel()
             {
@@ -219,8 +230,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 Numero = textNumero.Text,
                 Complemento = textComplemento.Text,
                 Cep = cep,
-                EstadoCivilId = GetEstadoCivilId(comboBoxEstadoCivil.Text),
-                UfRgId = GetEstadoId(comboBoxUfRg.Text),
+                EstadoCivilId = _estadoCivilServices.GetByEstadoCivil(comboBoxEstadoCivil.Text).EstadoCivilId,
+                UfRgId = _estadoServices.GetByUf(comboBoxUfRg.Text).EstadoId,
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
                 BairroId = bairroId
@@ -259,87 +270,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
         }
 
-
-
-        private int GetBairroId(string nomeBairro, int cidadeId)
-        {
-            BairroModel bairroModel = null;
-            try
-            {
-                bairroModel = _bairroServices.GetByNomeAndCidadeId(nomeBairro, cidadeId);
-            }
-            catch (DataAccessException e)
-            {
-                MessageBox.Show(e.Message, "Erro ao checar BairroId");
-            }
-            return bairroModel.BairroId;
-        }
-        private int GetCidadeId(string nomeCidade, int estadoId)
-        {
-            CidadeModel cidadeModel = null;
-            try
-            {
-                cidadeModel = _cidadeServices.GetByNomeAndEstadoId(nomeCidade, estadoId);
-            }
-            catch (DataAccessException e)
-            {
-                MessageBox.Show("Erro ao tentar chegar CidadeId", e.Message);
-            }
-            return cidadeModel.CidadeId;
-        }
-        private int GetEstadoId(string uf)
-        {
-            EstadoModel estadoModel = null;
-            try
-            {
-                estadoModel = _estadoServices.GetByUf(uf);
-            }
-            catch (DataAccessException e)
-            {
-                MessageBox.Show("Erro ao tentar checar a UFRG", e.Message);
-            }
-            return estadoModel.EstadoId;
-        }
-        private int GetRotaLetraId(string rotaLetra)
-        {
-            RotaLetraModel model = null;
-            try
-            {
-                model = _rotaLetraServices.GetByLetra(rotaLetra);
-            }
-            catch (DataAccessException e)
-            {
-                MessageBox.Show("Erro ao tentar checar LetraId", e.Message);
-            }
-            return model.RotaLetraId;
-        }
-        private string GetRotaLastLetra()
-        {
-            RotaLetraModel model = null;
-            try
-            {
-                model = _rotaLetraServices.GetLastLetra();
-            }
-            catch (DataAccessException e)
-            {
-                MessageBox.Show("Erro ao tetar buscar a última letra do banco de dados", e.Message);
-            }
-            return model.RotaLetra;
-        }
-        public int GetEstadoCivilId(string estadoCivil)
-        {
-            EstadoCivilModel estadoCivilModel = null;
-            try
-            {
-                estadoCivilModel = _estadoCivilServices.GetByEstadoCivil(estadoCivil);
-            }
-            catch (DataAccessException dae)
-            {
-                MessageBox.Show("Erro ao tentar acessar o banco de dados ESTADOCIVIL", dae.Message);
-            }
-            return estadoCivilModel.EstadoCivilId;
-
-        }
         private string GetNextLetra(string lastLetra)
         {
             string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -349,21 +279,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             nextLetra = alfabeto[pos].ToString();
             return nextLetra;
         }
-        private int GetRotaLastNumero(int rotaLetraId)
-        {
-            RotaModel model = null;
-            try
-            {
-                model = _rotaServices.GetLastNumero(rotaLetraId);
-            }
-            catch (DataAccessException e)
-            {
-                MessageBox.Show("Erro ao buscar a última rota no banco de dados", e.Message);
-            }
-            return model.Numero;
-        }
-        
-        
+
         private void AddRotaLetra(string nextLetra)
         {
             RotaLetraModel model = new RotaLetraModel();
@@ -380,7 +296,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void AddNumeroRota(int rotaLetraId, string vendedoraIdStr)
         {
             int vendedoraId = int.Parse(vendedoraIdStr);
-            int lastNumero = GetRotaLastNumero(rotaLetraId);
+            int lastNumero = _rotaServices.GetLastNumero(rotaLetraId).Numero;
             int nextNumero = lastNumero + 1;
 
             if (ChecaRotaVendedora(vendedoraId))
@@ -406,7 +322,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                         throw e;
                     }
                     MessageBox.Show($"Rota adicionada com sucesso: \nNúmero:{nextNumero}");
-                    
+
                     //TODO: REINDEXAR ROTAS
                 }
             }
@@ -509,7 +425,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             if (comboBoxRotaLetra.SelectedIndex > -1)
             {
-                LoadRotaNumeroToComboBox(GetRotaLetraId(comboBoxRotaLetra.Text));
+
+                LoadRotaNumeroToComboBox(_rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId);
             }
         }
         private void comboBoxUfEndereco_SelectedIndexChanged(object sender, EventArgs e)
@@ -526,20 +443,20 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
 
             string cidade = comboBoxCidade.Text;
-            int estadoId = GetEstadoId(comboBoxUfEndereco.Text);
-            int cidadeId = GetCidadeId(cidade, estadoId);
+            int estadoId = _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId;
+            int cidadeId = _cidadeServices.GetByNomeAndEstadoId(cidade, estadoId).CidadeId;
             LoadBairrosToComboBox(cidadeId);
         }
         private void comboBoxRotaNumero_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //TODO: Fazer a reindexação das rotas
         }
 
 
         private void btnAddRotaLetra_Click(object sender, EventArgs e)
         {
-            string lastLetra = GetRotaLastLetra();
-            string nextLetra = string.Empty;
+            string lastLetra = _rotaLetraServices.GetLastLetra().RotaLetra;
+            string nextLetra = GetNextLetra(lastLetra);
             if (lastLetra == "Z")
             {
                 MessageBox.Show("Já foram adicionadas todas as letras para Rota.\nEntre em contato com o Administrador.");
@@ -548,8 +465,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             {
                 try
                 {
-
-                    GetNextLetra(lastLetra);
                     AddRotaLetra(nextLetra);
 
                 }
@@ -585,7 +500,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void btnAddNumeroRota_Click(object sender, EventArgs e)
         {
-            int rotaLetraId = GetRotaLetraId(comboBoxRotaLetra.Text);
+            int rotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId;
             AddNumeroRota(rotaLetraId, textVendedoraId.Text);
             VendedoraUpdate();
             VendedoraForm_Load(sender, e);
