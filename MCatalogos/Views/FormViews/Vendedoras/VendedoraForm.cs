@@ -7,6 +7,8 @@ using DomainLayer.Models.Vendedora;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
+using MCatalogos.Views.UserControls;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -56,12 +58,16 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private void VendedoraForm_Load(object sender, EventArgs e)
         {
-
             LoadRotasLetrasToComboBox();
             LoadEstadosToComboBox();
             LoadUfRgToComboBox();
             LoadEstadoCivilToComboBox();
             PreencheCampos();
+            
+            TelefonesVendedoraListUC telefones = new TelefonesVendedoraListUC(this);
+            panelTelefonesList.Controls.Add(telefones);
+            telefones.Dock = DockStyle.Fill;
+
             maskedTextCpf.Focus();
 
         }

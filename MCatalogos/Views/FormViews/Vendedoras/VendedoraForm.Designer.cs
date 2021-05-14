@@ -37,7 +37,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaLetra = new System.Windows.Forms.ComboBox();
             this.btnAddRotaLetra = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dgvTelefones = new System.Windows.Forms.DataGridView();
+            this.panelTelefonesList = new System.Windows.Forms.Panel();
             this.groupBoxTelones = new System.Windows.Forms.GroupBox();
             this.groupBoxEndereco = new System.Windows.Forms.GroupBox();
             this.maskedTextCep = new System.Windows.Forms.MaskedTextBox();
@@ -94,7 +94,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.panelContent.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTelefones)).BeginInit();
             this.groupBoxEndereco.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grouBoxFiliacao.SuspendLayout();
@@ -205,7 +204,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.dgvTelefones);
+            this.groupBox2.Controls.Add(this.panelTelefonesList);
             this.groupBox2.Location = new System.Drawing.Point(460, 212);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(313, 213);
@@ -213,14 +212,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Telefones";
             // 
-            // dgvTelefones
+            // panelTelefonesList
             // 
-            this.dgvTelefones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTelefones.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTelefones.Location = new System.Drawing.Point(3, 18);
-            this.dgvTelefones.Name = "dgvTelefones";
-            this.dgvTelefones.Size = new System.Drawing.Size(307, 192);
-            this.dgvTelefones.TabIndex = 0;
+            this.panelTelefonesList.Location = new System.Drawing.Point(6, 21);
+            this.panelTelefonesList.Name = "panelTelefonesList";
+            this.panelTelefonesList.Size = new System.Drawing.Size(299, 186);
+            this.panelTelefonesList.TabIndex = 0;
             // 
             // groupBoxTelones
             // 
@@ -770,7 +767,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTelefones)).EndInit();
             this.groupBoxEndereco.ResumeLayout(false);
             this.groupBoxEndereco.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -828,7 +824,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dgvTelefones;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.TextBox textNomeMae;
         private System.Windows.Forms.Label label14;
@@ -845,5 +840,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.ComboBox comboBoxRotaLetra;
         private System.Windows.Forms.ComboBox comboBoxRotaNumero;
         private System.Windows.Forms.Button btnAddNumeroRota;
+        private System.Windows.Forms.Panel panelTelefonesList;
     }
 }

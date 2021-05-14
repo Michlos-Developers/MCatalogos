@@ -57,6 +57,7 @@
     <Compile Include="DataAccess\Repositories\Commons\BairroRepository.cs" />
     <Compile Include="DataAccess\Repositories\Commons\CidadeRepository.cs" />
     <Compile Include="DataAccess\Repositories\Commons\EstadoRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Commons\TipoTelefoneRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\EstadoCivilRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaLetraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaRepository.cs" />

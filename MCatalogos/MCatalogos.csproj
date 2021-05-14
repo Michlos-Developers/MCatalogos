@@ -83,6 +83,12 @@
       <DependentUpon>HomeUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\IVendedoraListViewUC.cs" />
+    <Compile Include="Views\UserControls\TelefonesVendedoraListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\TelefonesVendedoraListUC.Designer.cs">
+      <DependentUpon>TelefonesVendedoraListUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\VendedorasListUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\HomeUC.resx">
       <DependentUpon>HomeUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\TelefonesVendedoraListUC.resx">
+      <DependentUpon>TelefonesVendedoraListUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\VendedorasListUC.resx">
       <DependentUpon>VendedorasListUC.cs</DependentUpon>
