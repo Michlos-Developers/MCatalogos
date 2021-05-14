@@ -52,37 +52,59 @@ namespace MCatalogos.Views.UserControls
             VendedoraModel vm = new VendedoraModel();
             //var vendModel;
             int vendedoraId = int.Parse(this.VendedoraForm.textVendedoraId.Text);
-            try
+
+            string query = "SELECT TiposTelefones.TipoTelefone, TelefonesVendedoras.Numero " +
+                " FROM(TelefonesVendedoras INNER JOIN TiposTelefones ON TiposTelefones.TipoId = TelefonesVendedoras.TipoTelefoneId) " +
+                " WHERE TelefonesVendedoras.VendedoraId = @VendedoraId ";
+
+            vm = _vendedoraServices.GetById(vendedoraId);
+            if (CheckTelefonesExistVendedora(vm.VendedoraId))
             {
-                vm = _vendedoraServices.GetById(vendedoraId);
-            }
-            finally
-            {
-                
-                if (vm != null)
+                MessageBox.Show("Vendedora tem telfone");
+                //List<TelefoneVendedoraModel> modelList = (List<TelefoneVendedoraModel>)_telefoneServices.GetByVendedoraId(vendedoraId);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    
-                    if (CheckTelefonesExistVendedora(vm.VendedoraId))
+                    try
                     {
-                        MessageBox.Show("Vendedora tem telfone");
+
+                        connection.Open();
+                        using (SqlCommand cmd = new SqlCommand(query, connection))
+                        {
+                            cmd.Prepare();
+                            cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
+
+                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                            {
+                                DataTable dt = new DataTable();
+
+                                da.Fill(dt);
+                                dgvTelefonesVendedora.DataSource = dt;
+                                ConfiguraDGV();
+                            }
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Vendedora não tem telefone");
+                        MessageBox.Show($"Falha ao tentar buscar telefones da vendedora.\n{ex.Message}", "Error");
+                    }
+                    finally
+                    {
+                        connection.Close();
                     }
                 }
 
+
             }
-
-
-
-
-
+            else
+            {
+                MessageBox.Show("Vendedora não tem telefone");
+            }
 
         }
 
         private void ConfiguraDGV()
         {
+            dgvTelefonesVendedora.ForeColor = Color.Black;
             dgvTelefonesVendedora.Columns[0].HeaderText = "Operadora";
             dgvTelefonesVendedora.Columns[0].Width = 100;
             dgvTelefonesVendedora.Columns[1].HeaderText = "Número";
