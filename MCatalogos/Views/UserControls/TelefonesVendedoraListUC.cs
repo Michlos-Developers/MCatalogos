@@ -3,6 +3,7 @@
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
+using MCatalogos.Views.FormViews.Telefones;
 using MCatalogos.Views.FormViews.Vendedoras;
 
 using ServiceLayer.CommonServices;
@@ -12,13 +13,9 @@ using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.UserControls
@@ -46,69 +43,83 @@ namespace MCatalogos.Views.UserControls
             this.VendedoraForm = vendedoraForm;
         }
 
-        private void TelefonesVendedoraListUC_Load(object sender, EventArgs e)
+        public void TelefonesVendedoraListUC_Load(object sender, EventArgs e)
         {
             //ConfiguraDGV();
             VendedoraModel vm = new VendedoraModel();
+            int vendedoraId = 0;
             //var vendModel;
-            int vendedoraId = int.Parse(this.VendedoraForm.textVendedoraId.Text);
-
-            string query = "SELECT TiposTelefones.TipoTelefone, TelefonesVendedoras.Numero " +
-                " FROM(TelefonesVendedoras INNER JOIN TiposTelefones ON TiposTelefones.TipoId = TelefonesVendedoras.TipoTelefoneId) " +
-                " WHERE TelefonesVendedoras.VendedoraId = @VendedoraId ";
-
-            vm = _vendedoraServices.GetById(vendedoraId);
-            if (CheckTelefonesExistVendedora(vm.VendedoraId))
+            if (this.VendedoraForm.textVendedoraId.Text != "")
             {
-                MessageBox.Show("Vendedora tem telfone");
-                //List<TelefoneVendedoraModel> modelList = (List<TelefoneVendedoraModel>)_telefoneServices.GetByVendedoraId(vendedoraId);
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                vendedoraId = int.Parse(this.VendedoraForm.textVendedoraId.Text);
+                btnAdd.Enabled = true;
+                btnDelete.Enabled = true;
+
+
+
+                string query = "SELECT TelefonesVendedoras.TelefoneId, TiposTelefones.TipoTelefone, TelefonesVendedoras.Numero  " +
+                    " FROM(TelefonesVendedoras INNER JOIN TiposTelefones ON TiposTelefones.TipoId = TelefonesVendedoras.TipoTelefoneId) " +
+                    " WHERE TelefonesVendedoras.VendedoraId = @VendedoraId " +
+                    " ORDER BY TipoTelefoneId";
+
+                vm = _vendedoraServices.GetById(vendedoraId);
+                if (CheckTelefonesExistVendedora(vm.VendedoraId))
                 {
-                    try
+
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
                     {
-
-                        connection.Open();
-                        using (SqlCommand cmd = new SqlCommand(query, connection))
+                        try
                         {
-                            cmd.Prepare();
-                            cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
 
-                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                            connection.Open();
+                            using (SqlCommand cmd = new SqlCommand(query, connection))
                             {
-                                DataTable dt = new DataTable();
+                                cmd.Prepare();
+                                cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
 
-                                da.Fill(dt);
-                                dgvTelefonesVendedora.DataSource = dt;
-                                ConfiguraDGV();
+                                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                                {
+                                    DataTable dt = new DataTable();
+
+                                    da.Fill(dt);
+                                    dgvTelefonesVendedora.DataSource = dt;
+                                    ConfiguraDGV();
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Falha ao tentar buscar telefones da vendedora.\n{ex.Message}", "Error");
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Falha ao tentar buscar telefones da vendedora.\n{ex.Message}", "Error");
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-                }
 
+
+                }
 
             }
             else
             {
-                MessageBox.Show("Vendedora não tem telefone");
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
             }
+
 
         }
 
         private void ConfiguraDGV()
         {
             dgvTelefonesVendedora.ForeColor = Color.Black;
-            dgvTelefonesVendedora.Columns[0].HeaderText = "Operadora";
-            dgvTelefonesVendedora.Columns[0].Width = 100;
-            dgvTelefonesVendedora.Columns[1].HeaderText = "Número";
+
+            dgvTelefonesVendedora.Columns[0].Visible = false;
+            dgvTelefonesVendedora.Columns[1].HeaderText = "Operadora";
             dgvTelefonesVendedora.Columns[1].Width = 100;
+            dgvTelefonesVendedora.Columns[2].HeaderText = "Número";
+            dgvTelefonesVendedora.Columns[2].Width = 195;
+
         }
 
         private bool CheckTelefonesExistVendedora(int vendedoraId)
@@ -129,6 +140,65 @@ namespace MCatalogos.Views.UserControls
             }
             return result;
 
+        }
+
+        private void dgvTelefonesVendedora_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && e.RowIndex != dgvTelefonesVendedora.NewRowIndex)
+            {
+                if (dgvTelefonesVendedora.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString() == "Fixo")
+                {
+                    e.Value = string.Format("{0:(##) ####-####}", long.Parse(e.Value.ToString()));
+                }
+                else
+                {
+                    e.Value = string.Format("{0:(##) # ####-####}", long.Parse(e.Value.ToString()));
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            TelefoneVendedoraModel model = _telefoneServices.GetById(
+                int.Parse(
+                    dgvTelefonesVendedora.CurrentRow.Cells[0].Value.ToString()
+                    )
+                );
+            var result = MessageBox.Show("Vocês está prestes a apagar o número de telefone selecionado. Tem certeza disso?",
+                "Exclusão de Telefone", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    _telefoneServices.Delete(model);
+                    MessageBox.Show("Telefone excluído com sucesso");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Falha ao tentar apagar o número de telefone {model.Numero}\nMessage: {ex.Message}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+
+                    TelefonesVendedoraListUC_Load(sender, e);
+                }
+
+            }
+
+
+
+        }
+
+        private void dgvTelefonesVendedora_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idTelefone = e.RowIndex;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            TelefoneVendedoraAddForm telefoneVendedoraAddForm = new TelefoneVendedoraAddForm(this.VendedoraForm, this);
+            telefoneVendedoraAddForm.ShowDialog();
         }
     }
 }

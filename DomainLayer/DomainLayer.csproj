@@ -65,6 +65,8 @@
     <Compile Include="Models\CommonModels\Enums\AlfabetoRotas.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
+    <Compile Include="Models\Validations\CpfModel.cs" />
+    <Compile Include="Models\Validations\ICpfModel.cs" />
     <Compile Include="Models\Vendedora\IEstadoCivilModel.cs" />
     <Compile Include="Models\Vendedora\IRotaLetraModel.cs" />
     <Compile Include="Models\Vendedora\IRotaModel.cs" />

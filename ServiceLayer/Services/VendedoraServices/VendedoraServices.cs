@@ -22,9 +22,9 @@ namespace ServiceLayer.Services.VendedoraServices
             _modelDataAnnotationCheck = modelDataAnnotationCheck;
         }
 
-        public void Add(IVendedoraModel vendedoraModel)
+        public VendedoraModel Add(IVendedoraModel vendedoraModel)
         {
-            _vendedoraRepository.Add(vendedoraModel);
+            return _vendedoraRepository.Add(vendedoraModel);
         }
         public void Update(IVendedoraModel vendedoraModel)
         {

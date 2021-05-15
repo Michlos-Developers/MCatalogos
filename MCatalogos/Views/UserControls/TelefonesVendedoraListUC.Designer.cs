@@ -30,8 +30,8 @@ namespace MCatalogos.Views.UserControls
         private void InitializeComponent()
         {
             this.panelCmdTelefones = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.panelDgvTelefones = new System.Windows.Forms.Panel();
             this.dgvTelefonesVendedora = new System.Windows.Forms.DataGridView();
             this.panelCmdTelefones.SuspendLayout();
@@ -41,51 +41,54 @@ namespace MCatalogos.Views.UserControls
             // 
             // panelCmdTelefones
             // 
-            this.panelCmdTelefones.Controls.Add(this.button1);
-            this.panelCmdTelefones.Controls.Add(this.btnSalvar);
+            this.panelCmdTelefones.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelCmdTelefones.Controls.Add(this.btnDelete);
+            this.panelCmdTelefones.Controls.Add(this.btnAdd);
             this.panelCmdTelefones.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCmdTelefones.Location = new System.Drawing.Point(0, 152);
+            this.panelCmdTelefones.Location = new System.Drawing.Point(0, 163);
             this.panelCmdTelefones.Name = "panelCmdTelefones";
-            this.panelCmdTelefones.Size = new System.Drawing.Size(299, 34);
+            this.panelCmdTelefones.Size = new System.Drawing.Size(299, 37);
             this.panelCmdTelefones.TabIndex = 0;
             // 
-            // btnSalvar
+            // btnDelete
             // 
-            this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalvar.ForeColor = System.Drawing.Color.White;
-            this.btnSalvar.Image = global::MCatalogos.Properties.Resources.iconSave20x20;
-            this.btnSalvar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalvar.Location = new System.Drawing.Point(141, 4);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(70, 27);
-            this.btnSalvar.TabIndex = 1;
-            this.btnSalvar.TabStop = false;
-            this.btnSalvar.Tag = "";
-            this.btnSalvar.Text = "Salvar";
-            this.btnSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.Image = global::MCatalogos.Properties.Resources.IconDelete20x20;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.Location = new System.Drawing.Point(219, 6);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(73, 26);
+            this.btnDelete.TabIndex = 1;
+            this.btnDelete.TabStop = false;
+            this.btnDelete.Tag = "";
+            this.btnDelete.Text = "Apagar";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // button1
+            // btnAdd
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::MCatalogos.Properties.Resources.iconSave20x20;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(221, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(70, 27);
-            this.button1.TabIndex = 1;
-            this.button1.TabStop = false;
-            this.button1.Tag = "";
-            this.button1.Text = "Apagar";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnAdd.FlatAppearance.BorderSize = 0;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.ForeColor = System.Drawing.Color.White;
+            this.btnAdd.Image = global::MCatalogos.Properties.Resources.IconAddTelefone20x20;
+            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdd.Location = new System.Drawing.Point(129, 6);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(73, 26);
+            this.btnAdd.TabIndex = 1;
+            this.btnAdd.TabStop = false;
+            this.btnAdd.Tag = "";
+            this.btnAdd.Text = "Novo";
+            this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panelDgvTelefones
             // 
@@ -93,26 +96,44 @@ namespace MCatalogos.Views.UserControls
             this.panelDgvTelefones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDgvTelefones.Location = new System.Drawing.Point(0, 0);
             this.panelDgvTelefones.Name = "panelDgvTelefones";
-            this.panelDgvTelefones.Size = new System.Drawing.Size(299, 152);
+            this.panelDgvTelefones.Size = new System.Drawing.Size(299, 163);
             this.panelDgvTelefones.TabIndex = 1;
             // 
             // dgvTelefonesVendedora
             // 
+            this.dgvTelefonesVendedora.AllowUserToAddRows = false;
+            this.dgvTelefonesVendedora.AllowUserToDeleteRows = false;
+            this.dgvTelefonesVendedora.AllowUserToResizeColumns = false;
+            this.dgvTelefonesVendedora.AllowUserToResizeRows = false;
+            this.dgvTelefonesVendedora.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTelefonesVendedora.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvTelefonesVendedora.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvTelefonesVendedora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTelefonesVendedora.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTelefonesVendedora.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvTelefonesVendedora.Location = new System.Drawing.Point(0, 0);
             this.dgvTelefonesVendedora.Name = "dgvTelefonesVendedora";
-            this.dgvTelefonesVendedora.Size = new System.Drawing.Size(299, 152);
+            this.dgvTelefonesVendedora.ReadOnly = true;
+            this.dgvTelefonesVendedora.RowHeadersVisible = false;
+            this.dgvTelefonesVendedora.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvTelefonesVendedora.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTelefonesVendedora.ShowCellErrors = false;
+            this.dgvTelefonesVendedora.ShowEditingIcon = false;
+            this.dgvTelefonesVendedora.ShowRowErrors = false;
+            this.dgvTelefonesVendedora.Size = new System.Drawing.Size(299, 163);
             this.dgvTelefonesVendedora.TabIndex = 0;
+            this.dgvTelefonesVendedora.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTelefonesVendedora_CellClick);
+            this.dgvTelefonesVendedora.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTelefonesVendedora_CellFormatting);
             // 
             // TelefonesVendedoraListUC
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelDgvTelefones);
             this.Controls.Add(this.panelCmdTelefones);
+            this.Font = new System.Drawing.Font("Calibri", 9F);
             this.Name = "TelefonesVendedoraListUC";
-            this.Size = new System.Drawing.Size(299, 186);
+            this.Size = new System.Drawing.Size(299, 200);
             this.Load += new System.EventHandler(this.TelefonesVendedoraListUC_Load);
             this.panelCmdTelefones.ResumeLayout(false);
             this.panelDgvTelefones.ResumeLayout(false);
@@ -124,9 +145,9 @@ namespace MCatalogos.Views.UserControls
         #endregion
 
         private System.Windows.Forms.Panel panelCmdTelefones;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnSalvar;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panelDgvTelefones;
-        private System.Windows.Forms.DataGridView dgvTelefonesVendedora;
+        public System.Windows.Forms.DataGridView dgvTelefonesVendedora;
     }
 }

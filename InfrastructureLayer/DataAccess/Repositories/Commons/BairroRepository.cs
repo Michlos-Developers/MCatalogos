@@ -298,7 +298,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
 
         public IEnumerable<IBairroModel> GetByCidadeId(int cidadeId)
         {
-            string query = "SELECT * FROM Bairros WHERE CidadeId = @CidadeId";
+            string query = "SELECT * FROM Bairros WHERE CidadeId = @CidadeId ORDER BY Nome";
             
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             

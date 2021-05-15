@@ -145,11 +145,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
                                 vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
-                                    
+
                             }
-                            SqlConnection.Close();
                         }
                     }
+                    SqlConnection.Close();
                 }
                 catch (SqlException e)
                 {
@@ -175,8 +175,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 return vendedoraModel;
             }
         }
-        public void Add(IVendedoraModel vendedoraModel)
+        public VendedoraModel Add(IVendedoraModel vendedoraModel)
         {
+            int idReturned = 0;
+            VendedoraModel vendedoraReturn = new VendedoraModel();
+
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -196,6 +199,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 string sql =
                     "INSERT INTO Vendedoras (Nome, Cpf, Rg, RgEmissor, DataNascimento, Email, NomePai, NomeMae, NomeConjuge, Logradouro, Numero, Complemento, " +
                     "Cep, UfRgId, EstadoCivilId, EstadoId, CidadeId, BairroId, RotaLetraId ) " +
+                    " output INSERTED.VendedoraId " +
                     "VALUES (@Nome, @Cpf, @Rg, @RgEmissor, @DataNascimento, @Email, @NomePai, @NomeMae, @NomeConjuge, @Logradouro, @Numero, @Complemento, " +
                     "@Cep, @UfRgId, @EstadoCivilId, @EstadoId, @CidadeId, @BairroId, @RotaLetraId) ";
 
@@ -213,7 +217,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                         throw ex;
                     }
 
-                    //cmd.CommandText = SqlText;
 
                     cmd.Prepare();
                     cmd.Parameters.AddWithValue("@Nome", vendedoraModel.Nome);
@@ -240,7 +243,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     try
                     {
-                        cmd.ExecuteNonQuery();
+                        idReturned = (int)cmd.ExecuteScalar();
                     }
                     catch (SqlException e)
                     {
@@ -268,6 +271,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     connection.Close();
                 }
             }
+
+            vendedoraReturn = GetById(idReturned);
+
+            return vendedoraReturn;
         }
         public void Update(IVendedoraModel vendedoraModel)
         {

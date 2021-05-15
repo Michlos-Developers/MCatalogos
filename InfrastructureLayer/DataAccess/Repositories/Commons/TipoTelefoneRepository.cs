@@ -134,7 +134,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                             while (reader.Read())
                             {
                                 model.TipoId = int.Parse(reader["TipoId"].ToString());
-                                model.TipoTelefone = reader["TipoTeleofne"].ToString();
+                                model.TipoTelefone = reader["TipoTelefone"].ToString();
                             }
                         }
                     }

@@ -5,6 +5,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 using MCatalogos.Commons;
 
 using ServiceLayer.CommonServices;
+using ServiceLayer.Services.TelefoneVendedoraServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
@@ -23,12 +24,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
     public partial class VendedorasListForm : Form
     {
         private VendedoraServices _vendedoraServices;
+        private TelefoneVendedoraServices _telefoneVendedoraServices;
         private string _connectionString;
         private int? id = null;
         public VendedorasListForm()
         {
             _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
+            
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
+
+
             InitializeComponent();
         }
 
@@ -139,10 +145,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             //VendedoraModel vm = dgvVendedoras.Columns["VendedoraId"].Selected();
         }
 
-        private void Update(int vendedoraId)
-        {
-
-        }
 
         private void dgvVendedoras_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -150,6 +152,38 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             vf.textVendedoraId.Text = this.dgvVendedoras.CurrentRow.Cells[0].Value.ToString();
             vf.ShowDialog();
 
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apagar a vendedora " +
+                $"\n{dgvVendedoras.CurrentRow.Cells[1].Value.ToString()}.\nTem certeza disso?", 
+                "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); ;
+            if (result == DialogResult.Yes)
+            {
+                VendedoraModel model = new VendedoraModel();
+                model = _vendedoraServices.GetById(int.Parse(dgvVendedoras.CurrentRow.Cells[0].Value.ToString()));
+                
+                List<TelefoneVendedoraModel> telefonesList = (List<TelefoneVendedoraModel>)_telefoneVendedoraServices.GetByVendedoraId(model.VendedoraId);
+                try
+                {
+                    if (telefonesList.Count > 0)
+                    {
+                        foreach (TelefoneVendedoraModel telModel  in telefonesList)
+                        {
+                            _telefoneVendedoraServices.Delete(telModel);
+                        }
+                    }
+                    _vendedoraServices.Delete(model);
+                    MessageBox.Show($"Vendedora {model.Nome} apagada com sucesso.");
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Falha ao tentar apagar a vendedora\nErrorMessage: \n{ex.Message}", "Error");
+                }
+                this.VendedorasListForm_Load(sender, e);
+            }
         }
     }
 }

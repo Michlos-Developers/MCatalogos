@@ -143,7 +143,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Location = new System.Drawing.Point(0, 0);
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(800, 440);
-            this.panelContent.TabIndex = 6;
+            this.panelContent.TabIndex = 0;
             // 
             // comboBoxRotaNumero
             // 
@@ -179,7 +179,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaLetra.Location = new System.Drawing.Point(641, 12);
             this.comboBoxRotaLetra.Name = "comboBoxRotaLetra";
             this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
-            this.comboBoxRotaLetra.TabIndex = 37;
+            this.comboBoxRotaLetra.TabIndex = 2;
             this.comboBoxRotaLetra.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaLetra_SelectedIndexChanged);
             // 
             // btnAddRotaLetra
@@ -208,7 +208,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBox2.Location = new System.Drawing.Point(460, 212);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(313, 213);
-            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Telefones";
             // 
@@ -259,7 +259,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCep.Mask = "00000-999";
             this.maskedTextCep.Name = "maskedTextCep";
             this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
-            this.maskedTextCep.TabIndex = 14;
+            this.maskedTextCep.TabIndex = 2;
             // 
             // label4
             // 
@@ -275,7 +275,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNumero.Location = new System.Drawing.Point(86, 63);
             this.textNumero.Name = "textNumero";
             this.textNumero.Size = new System.Drawing.Size(77, 22);
-            this.textNumero.TabIndex = 13;
+            this.textNumero.TabIndex = 1;
             // 
             // label3
             // 
@@ -292,7 +292,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxBairro.Location = new System.Drawing.Point(86, 165);
             this.comboBoxBairro.Name = "comboBoxBairro";
             this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
-            this.comboBoxBairro.TabIndex = 18;
+            this.comboBoxBairro.TabIndex = 6;
             // 
             // comboBoxCidade
             // 
@@ -300,7 +300,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
             this.comboBoxCidade.Name = "comboBoxCidade";
             this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
-            this.comboBoxCidade.TabIndex = 17;
+            this.comboBoxCidade.TabIndex = 5;
             this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
             // 
             // comboBoxUfEndereco
@@ -311,7 +311,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfEndereco.Location = new System.Drawing.Point(86, 131);
             this.comboBoxUfEndereco.Name = "comboBoxUfEndereco";
             this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
-            this.comboBoxUfEndereco.TabIndex = 16;
+            this.comboBoxUfEndereco.TabIndex = 4;
             this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
             // 
             // textComplemento
@@ -319,7 +319,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textComplemento.Location = new System.Drawing.Point(101, 97);
             this.textComplemento.Name = "textComplemento";
             this.textComplemento.Size = new System.Drawing.Size(292, 22);
-            this.textComplemento.TabIndex = 15;
+            this.textComplemento.TabIndex = 3;
             // 
             // label5
             // 
@@ -335,7 +335,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textLogradouro.Location = new System.Drawing.Point(86, 29);
             this.textLogradouro.Name = "textLogradouro";
             this.textLogradouro.Size = new System.Drawing.Size(307, 22);
-            this.textLogradouro.TabIndex = 12;
+            this.textLogradouro.TabIndex = 0;
             // 
             // label2
             // 
@@ -384,7 +384,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBox1.Location = new System.Drawing.Point(31, 107);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(736, 58);
-            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filiação";
             // 
@@ -394,7 +394,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomeMae.Location = new System.Drawing.Point(423, 20);
             this.textNomeMae.Name = "textNomeMae";
             this.textNomeMae.Size = new System.Drawing.Size(307, 22);
-            this.textNomeMae.TabIndex = 9;
+            this.textNomeMae.TabIndex = 1;
             // 
             // label14
             // 
@@ -411,7 +411,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomePai.Location = new System.Drawing.Point(42, 20);
             this.textNomePai.Name = "textNomePai";
             this.textNomePai.Size = new System.Drawing.Size(307, 22);
-            this.textNomePai.TabIndex = 8;
+            this.textNomePai.TabIndex = 0;
             // 
             // label15
             // 
@@ -431,7 +431,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.grouBoxFiliacao.Location = new System.Drawing.Point(31, 107);
             this.grouBoxFiliacao.Name = "grouBoxFiliacao";
             this.grouBoxFiliacao.Size = new System.Drawing.Size(736, 58);
-            this.grouBoxFiliacao.TabIndex = 33;
+            this.grouBoxFiliacao.TabIndex = 9;
             this.grouBoxFiliacao.TabStop = false;
             this.grouBoxFiliacao.Text = "Filiação";
             // 
@@ -459,7 +459,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfRg.Location = new System.Drawing.Point(363, 75);
             this.comboBoxUfRg.Name = "comboBoxUfRg";
             this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
-            this.comboBoxUfRg.TabIndex = 6;
+            this.comboBoxUfRg.TabIndex = 7;
             // 
             // maskedTextCpf
             // 
@@ -500,7 +500,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.datePickerNascimento.Location = new System.Drawing.Point(667, 44);
             this.datePickerNascimento.Name = "datePickerNascimento";
             this.datePickerNascimento.Size = new System.Drawing.Size(100, 22);
-            this.datePickerNascimento.TabIndex = 3;
+            this.datePickerNascimento.TabIndex = 4;
             this.datePickerNascimento.Value = new System.DateTime(2021, 3, 30, 16, 13, 7, 0);
             // 
             // label12
@@ -537,10 +537,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // textEmissorRg
             // 
+            this.textEmissorRg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textEmissorRg.Location = new System.Drawing.Point(283, 75);
             this.textEmissorRg.Name = "textEmissorRg";
             this.textEmissorRg.Size = new System.Drawing.Size(52, 22);
-            this.textEmissorRg.TabIndex = 5;
+            this.textEmissorRg.TabIndex = 6;
             // 
             // LblUf
             // 
@@ -565,7 +566,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textRg.Location = new System.Drawing.Point(67, 75);
             this.textRg.Name = "textRg";
             this.textRg.Size = new System.Drawing.Size(121, 22);
-            this.textRg.TabIndex = 4;
+            this.textRg.TabIndex = 5;
             // 
             // lblRg
             // 
@@ -592,10 +593,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.textEmail.Location = new System.Drawing.Point(471, 75);
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(296, 22);
-            this.textEmail.TabIndex = 7;
+            this.textEmail.TabIndex = 8;
             // 
             // lblEmail
             // 
@@ -632,7 +634,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNome.Location = new System.Drawing.Point(67, 43);
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(404, 22);
-            this.textNome.TabIndex = 2;
+            this.textNome.TabIndex = 3;
             // 
             // lblConjunge
             // 
@@ -709,7 +711,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelCommands.Location = new System.Drawing.Point(0, 440);
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(800, 45);
-            this.panelCommands.TabIndex = 5;
+            this.panelCommands.TabIndex = 1;
             // 
             // btnSalvar
             // 
@@ -742,7 +744,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel.Location = new System.Drawing.Point(698, 9);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
-            this.btnCancel.TabIndex = 0;
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.TabStop = false;
             this.btnCancel.Tag = "Pedidos";
             this.btnCancel.Text = "Cancelar";
@@ -757,7 +759,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VendedoraForm";
             this.ShowIcon = false;

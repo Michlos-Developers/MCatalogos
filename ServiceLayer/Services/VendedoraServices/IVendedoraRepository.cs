@@ -10,7 +10,7 @@ namespace ServiceLayer.Services.VendedoraServices
 {
     public interface IVendedoraRepository
     {
-        void Add(IVendedoraModel vendedoraModel);
+        VendedoraModel Add(IVendedoraModel vendedoraModel);
         void Update(IVendedoraModel vendedoraModel);
         void Delete(IVendedoraModel vendedoraModel);
         IEnumerable<IVendedoraModel> GetAll();

@@ -18,6 +18,7 @@ using ServiceLayer.Services.CidadeServices;
 using ServiceLayer.Services.EstadoCivilServices;
 using ServiceLayer.Services.EstadosServices;
 using ServiceLayer.Services.RotaServices;
+using ServiceLayer.Services.TelefoneVendedoraServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
@@ -65,16 +66,27 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             PreencheCampos();
 
             TelefonesVendedoraListUC telefones = new TelefonesVendedoraListUC(this);
+            panelTelefonesList.Controls.Clear();
             panelTelefonesList.Controls.Add(telefones);
             telefones.Dock = DockStyle.Fill;
 
             maskedTextCpf.Focus();
+            if (textVendedoraId.Text == "")
+            {
+                btnAddNumeroRota.Enabled = false;
+                comboBoxRotaNumero.Enabled = false;
+            }
+            else
+            {
+                btnAddNumeroRota.Enabled = true;
+                comboBoxRotaNumero.Enabled = true;
+            }
 
         }
 
         private void PreencheCampos()
         {
-            if (textVendedoraId.Text != string.Empty)
+            if (textVendedoraId.Text != "")
             {
                 VendedoraModel vm = null;
                 try
@@ -136,7 +148,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             int cidadeId = _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
                            _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId;
 
-            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxCidade.Text,
+            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxBairro.Text,
                            _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
                            _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId).BairroId;
 
@@ -196,8 +208,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 //TODO: LER DADOS DA VENDEDORA
             }
         }
-        public void VendedoraAdd()
+        public VendedoraModel VendedoraAdd()
         {
+
+            VendedoraModel returnModel = new VendedoraModel();
             var cpf = maskedTextCpf.Text;
             cpf = cpf.Replace(".", "");
             cpf = cpf.Replace(".", "");
@@ -211,7 +225,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             int cidadeId = _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
                            _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId;
 
-            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxCidade.Text,
+            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxBairro.Text,
                            _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
                            _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId).BairroId;
 
@@ -234,7 +248,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 UfRgId = _estadoServices.GetByUf(comboBoxUfRg.Text).EstadoId,
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
-                BairroId = bairroId
+                BairroId = bairroId,
+                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId
 
             };
 
@@ -244,7 +259,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             try
             {
-                _vendedoraServices.Add(vendedoraModel);
+                returnModel = _vendedoraServices.Add(vendedoraModel);
                 operationSucceeded = true;
 
             }
@@ -256,18 +271,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 MessageBox.Show(formattedJsonStr, "Erro ao tentar adicionar a vendedora", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            try
+            if (operationSucceeded)
             {
-                if (operationSucceeded)
-                {
-                    MessageBox.Show("Registro adicionado com sucesso", "Adicionar Vendedora", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show("Registro adicionado com sucesso", "Adicionar Vendedora", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
-            }
-            finally
-            {
-                //TODO: LER DADOS DA VENDEDORA
-            }
+            return returnModel;
+
         }
 
         private string GetNextLetra(string lastLetra)
@@ -298,42 +308,35 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             int vendedoraId = int.Parse(vendedoraIdStr);
             int lastNumero = _rotaServices.GetLastNumero(rotaLetraId).Numero;
             int nextNumero = lastNumero + 1;
+            DialogResult result = DialogResult.Yes;
 
             if (ChecaRotaVendedora(vendedoraId))
             {
-                var result = MessageBox.Show("Essa já vendedora já possui uma rota cadastrada.\nCaso continue as rotas serão reindexadas.\nDeseja continuar?",
+                result = MessageBox.Show("Essa já vendedora já possui uma rota cadastrada.\nCaso continue as rotas serão reindexadas.\nDeseja continuar?",
                     "Reindexação de Rotas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    RotaModel model = new RotaModel()
-                    {
-                        RotaLetraId = rotaLetraId,
-                        VendedoraId = vendedoraId,
-                        Numero = nextNumero
-                    };
 
-                    try
-                    {
-                        _rotaServices.Add(model);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Falha ao adicionar novo número de Rota para a Vendedora.", e.Message);
-                        throw e;
-                    }
-                    MessageBox.Show($"Rota adicionada com sucesso: \nNúmero:{nextNumero}");
-
-                    //TODO: REINDEXAR ROTAS
-                }
             }
+            if (result == DialogResult.Yes)
+            {
+                RotaModel model = new RotaModel()
+                {
+                    RotaLetraId = rotaLetraId,
+                    VendedoraId = vendedoraId,
+                    Numero = nextNumero
+                };
 
-
-
-
-
-
-
-
+                try
+                {
+                    _rotaServices.Add(model);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Falha ao adicionar novo número de Rota para a Vendedora.", e.Message);
+                    throw e;
+                }
+                MessageBox.Show($"Rota adicionada com sucesso: \nNúmero:{nextNumero}");
+                //TODO: REINDEXAR ROTAS
+            }
         }
 
 
@@ -486,15 +489,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (textVendedoraId.Text == string.Empty)
+            VendedoraModel model = new VendedoraModel();
+            if (textVendedoraId.Text == "")
             {
-                VendedoraAdd();
+
+                model = VendedoraAdd();
+                this.textVendedoraId.Text = model.VendedoraId.ToString();
+
+
             }
             else
             {
                 VendedoraUpdate();
             }
             VendedorasListForm.VendedorasListForm_Load(sender, e);
+            this.VendedoraForm_Load(sender, e);
+
 
 
         }
@@ -502,6 +512,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             int rotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId;
             AddNumeroRota(rotaLetraId, textVendedoraId.Text);
+            comboBoxRotaNumero.Text = _rotaServices.GetByVendedoraId(int.Parse(textVendedoraId.Text)).Numero.ToString();
             VendedoraUpdate();
             VendedoraForm_Load(sender, e);
         }
@@ -509,8 +520,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private bool ChecaRotaVendedora(int vendedoraId)
         {
             bool result = false;
-            RotaModel model = _rotaServices.GetByVendedoraId(vendedoraId);
-            if (model != null)
+            int rotaId = 0;
+            rotaId = _rotaServices.GetByVendedoraId(vendedoraId).RotaLetraId;
+            if (rotaId != 0)
             {
                 result = true;
             }
