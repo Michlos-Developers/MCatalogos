@@ -1,6 +1,7 @@
 ﻿using MCatalogos.Commons;
 using MCatalogos.UserControls;
 using MCatalogos.Views.FormViews;
+using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.FormViews.Vendedoras;
 
 using System;
@@ -93,7 +94,7 @@ namespace MCatalogos
         {
             if (panelMenu.Width == 48)
             {
-                panelMenu.Width = 174;
+                panelMenu.Width = 168;
             }
             else
             {
@@ -150,7 +151,7 @@ namespace MCatalogos
             SetUnselectedButtons();
             SetSelectedButton(btnVendedoras);
 
-            VendedorasListForm formVendedorasList = new VendedorasListForm();
+            VendedorasListForm formVendedorasList = VendedorasListForm.Instance(this);
             formVendedorasList.Text = "Cadastro de Vendedoras";
             formVendedorasList.WindowState = FormWindowState.Normal;
             formVendedorasList.MdiParent = this;
@@ -161,6 +162,10 @@ namespace MCatalogos
         {
             SetUnselectedButtons();
             SetSelectedButton(btnFornecedores);
+            FornecedoresListForm formFornecedoresList = FornecedoresListForm.Instance(this);
+            formFornecedoresList.WindowState = FormWindowState.Normal;
+            formFornecedoresList.MdiParent = this;
+            formFornecedoresList.Show();
 
         }
 

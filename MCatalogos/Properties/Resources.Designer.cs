@@ -83,6 +83,16 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconAddFornecedor20x20 {
+            get {
+                object obj = ResourceManager.GetObject("IconAddFornecedor20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconAddTelefone20x20 {
             get {
                 object obj = ResourceManager.GetObject("IconAddTelefone20x20", resourceCulture);
@@ -113,6 +123,16 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconClose20x20 {
+            get {
+                object obj = ResourceManager.GetObject("IconClose20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconConfig35x35 {
             get {
                 object obj = ResourceManager.GetObject("IconConfig35x35", resourceCulture);
@@ -126,6 +146,16 @@ namespace MCatalogos.Properties {
         internal static System.Drawing.Bitmap IconDelete20x20 {
             get {
                 object obj = ResourceManager.GetObject("IconDelete20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconEditFornecedor20x20 {
+            get {
+                object obj = ResourceManager.GetObject("iconEditFornecedor20x20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

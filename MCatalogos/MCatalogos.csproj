@@ -61,6 +61,12 @@
     <Compile Include="Presenters\UserControls\VendedoraListPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.Designer.cs">
+      <DependentUpon>FornecedoresListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Telefones\TelefoneVendedoraAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
+      <DependentUpon>FornecedoresListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Telefones\TelefoneVendedoraAddForm.resx">
       <DependentUpon>TelefoneVendedoraAddForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -225,7 +234,13 @@
     <None Include="Resources\IconAddTelefone20x20.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\FormViews\Fornecedores\" />
+    <None Include="Resources\IconClose20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconEditFornecedor20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconAddFornecedor20x20.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

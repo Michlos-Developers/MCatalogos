@@ -124,6 +124,9 @@
   <data name="IconAdd10x10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAdd10x10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconAddFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconAddTelefone20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAddTelefone20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,11 +136,17 @@
   <data name="IconCatalogo35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconCatalogo35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconClose20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconClose20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconConfig35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconConfig35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconDelete20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconDelete20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconEditFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconEditFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconEditVendedora20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconEditVendedora20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

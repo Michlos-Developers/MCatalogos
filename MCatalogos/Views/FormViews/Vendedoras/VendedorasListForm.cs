@@ -9,6 +9,7 @@ using ServiceLayer.Services.TelefoneVendedoraServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,11 +24,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedorasListForm : Form
     {
+        MainView MainView;
+        
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
         private string _connectionString;
         private int? id = null;
-        public VendedorasListForm()
+        private static VendedorasListForm aForm = null;
+        public static VendedorasListForm Instance(MainView mainView)
+        {
+            if (aForm== null)
+            {
+                aForm = new VendedorasListForm(mainView);
+            }
+            return aForm;
+        }
+        public VendedorasListForm(MainView mainView)
         {
             _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
             
@@ -36,6 +48,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
 
             InitializeComponent();
+            this.MainView = mainView;
         }
 
         
@@ -89,24 +102,25 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             
             dgvVendedoras.Columns[2].HeaderText = "CPF";
             dgvVendedoras.Columns[2].Width = 108;
+            //dgvVendedoras.Columns[2].
 
         }
 
 
         #region BARRA DE BUSCA
-        private void SetMaskTextBox()
-        {
-            TextBoxHelper tbh = new TextBoxHelper();
-            if (radioButtonCpf.Checked)
-                tbh.SetMaskedTextBox(textSearch);
-            else
-                tbh.SetUnmaskedTextBox(textSearch);
-        }
-        private void radioButtonCpf_CheckedChanged(object sender, EventArgs e)
-        {
-            SetMaskTextBox();
-            textSearch.Focus();
-        }
+        //private void SetMaskTextBox()
+        //{
+        //    TextBoxHelper tbh = new TextBoxHelper();
+        //    if (radioButtonCpf.Checked)
+        //        tbh.SetMaskedTextBox(textSearch);
+        //    else
+        //        tbh.SetUnmaskedTextBox(textSearch);
+        //}
+        //private void radioButtonCpf_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    SetMaskTextBox();
+        //    textSearch.Focus();
+        //}
         private void pictureSearch_Click(object sender, EventArgs e)
         {
 
@@ -158,7 +172,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apagar a vendedora " +
                 $"\n{dgvVendedoras.CurrentRow.Cells[1].Value.ToString()}.\nTem certeza disso?", 
-                "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); ;
+                "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); 
             if (result == DialogResult.Yes)
             {
                 VendedoraModel model = new VendedoraModel();
@@ -185,5 +199,28 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 this.VendedorasListForm_Load(sender, e);
             }
         }
+
+        private void VendedorasListForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            this.MainView.SetUnselectedButtons();
+            base.Dispose(Disposing);
+            aForm = null;
+        }
+
+        private void dgvVendedoras_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if ((e.ColumnIndex == 2) && (e.RowIndex != dgvVendedoras.NewRowIndex))
+            {
+                e.Value = string.Format(@"{0:###\.###\.###\-##}", Int64.Parse(e.Value.ToString()));
+            }
+        }
     }
+    
 }

@@ -93,6 +93,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureClose = new System.Windows.Forms.PictureBox();
+            this.title = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.panelContent.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxEndereco.SuspendLayout();
@@ -100,11 +106,14 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.grouBoxFiliacao.SuspendLayout();
             this.panelCommands.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.SuspendLayout();
             // 
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContent.Controls.Add(this.panel1);
             this.panelContent.Controls.Add(this.comboBoxRotaNumero);
             this.panelContent.Controls.Add(this.btnAddNumeroRota);
             this.panelContent.Controls.Add(this.comboBoxRotaLetra);
@@ -144,13 +153,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.ForeColor = System.Drawing.Color.White;
             this.panelContent.Location = new System.Drawing.Point(0, 0);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(800, 440);
+            this.panelContent.Size = new System.Drawing.Size(800, 470);
             this.panelContent.TabIndex = 0;
             // 
             // comboBoxRotaNumero
             // 
             this.comboBoxRotaNumero.FormattingEnabled = true;
-            this.comboBoxRotaNumero.Location = new System.Drawing.Point(704, 12);
+            this.comboBoxRotaNumero.Location = new System.Drawing.Point(704, 45);
             this.comboBoxRotaNumero.Name = "comboBoxRotaNumero";
             this.comboBoxRotaNumero.Size = new System.Drawing.Size(40, 22);
             this.comboBoxRotaNumero.TabIndex = 37;
@@ -164,7 +173,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnAddNumeroRota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNumeroRota.ForeColor = System.Drawing.Color.White;
             this.btnAddNumeroRota.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
-            this.btnAddNumeroRota.Location = new System.Drawing.Point(745, 13);
+            this.btnAddNumeroRota.Location = new System.Drawing.Point(745, 46);
             this.btnAddNumeroRota.Name = "btnAddNumeroRota";
             this.btnAddNumeroRota.Size = new System.Drawing.Size(20, 20);
             this.btnAddNumeroRota.TabIndex = 36;
@@ -178,7 +187,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // comboBoxRotaLetra
             // 
             this.comboBoxRotaLetra.FormattingEnabled = true;
-            this.comboBoxRotaLetra.Location = new System.Drawing.Point(641, 12);
+            this.comboBoxRotaLetra.Location = new System.Drawing.Point(641, 45);
             this.comboBoxRotaLetra.Name = "comboBoxRotaLetra";
             this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
             this.comboBoxRotaLetra.TabIndex = 2;
@@ -193,7 +202,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnAddRotaLetra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddRotaLetra.ForeColor = System.Drawing.Color.White;
             this.btnAddRotaLetra.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
-            this.btnAddRotaLetra.Location = new System.Drawing.Point(682, 13);
+            this.btnAddRotaLetra.Location = new System.Drawing.Point(682, 46);
             this.btnAddRotaLetra.Name = "btnAddRotaLetra";
             this.btnAddRotaLetra.Size = new System.Drawing.Size(20, 20);
             this.btnAddRotaLetra.TabIndex = 36;
@@ -206,14 +215,16 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.panelTelefonesList);
-            this.groupBox2.Location = new System.Drawing.Point(460, 212);
+            this.groupBox2.Location = new System.Drawing.Point(460, 245);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(313, 213);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Telefones";
             // 
             // panelTelefonesList
             // 
@@ -226,7 +237,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.groupBoxTelones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxTelones.Location = new System.Drawing.Point(460, 212);
+            this.groupBoxTelones.Location = new System.Drawing.Point(460, 245);
             this.groupBoxTelones.Name = "groupBoxTelones";
             this.groupBoxTelones.Size = new System.Drawing.Size(313, 213);
             this.groupBoxTelones.TabIndex = 35;
@@ -235,6 +246,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // groupBoxEndereco
             // 
+            this.groupBoxEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxEndereco.Controls.Add(this.label16);
             this.groupBoxEndereco.Controls.Add(this.maskedTextCep);
             this.groupBoxEndereco.Controls.Add(this.label4);
             this.groupBoxEndereco.Controls.Add(this.textNumero);
@@ -249,12 +264,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBoxEndereco.Controls.Add(this.label8);
             this.groupBoxEndereco.Controls.Add(this.label6);
             this.groupBoxEndereco.Controls.Add(this.label7);
-            this.groupBoxEndereco.Location = new System.Drawing.Point(23, 212);
+            this.groupBoxEndereco.Location = new System.Drawing.Point(23, 245);
             this.groupBoxEndereco.Name = "groupBoxEndereco";
             this.groupBoxEndereco.Size = new System.Drawing.Size(415, 213);
             this.groupBoxEndereco.TabIndex = 12;
             this.groupBoxEndereco.TabStop = false;
-            this.groupBoxEndereco.Text = "Endereço:";
             // 
             // maskedTextCep
             // 
@@ -385,16 +399,16 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.textNomeMae);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.textNomePai);
             this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Location = new System.Drawing.Point(31, 107);
+            this.groupBox1.Location = new System.Drawing.Point(31, 140);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(736, 58);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filiação";
             // 
             // textNomeMae
             // 
@@ -436,7 +450,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grouBoxFiliacao.Controls.Add(this.lblNomeMae);
             this.grouBoxFiliacao.Controls.Add(this.LblNomePai);
-            this.grouBoxFiliacao.Location = new System.Drawing.Point(31, 107);
+            this.grouBoxFiliacao.Location = new System.Drawing.Point(31, 140);
             this.grouBoxFiliacao.Name = "grouBoxFiliacao";
             this.grouBoxFiliacao.Size = new System.Drawing.Size(736, 58);
             this.grouBoxFiliacao.TabIndex = 9;
@@ -464,7 +478,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // comboBoxUfRg
             // 
             this.comboBoxUfRg.FormattingEnabled = true;
-            this.comboBoxUfRg.Location = new System.Drawing.Point(363, 75);
+            this.comboBoxUfRg.Location = new System.Drawing.Point(363, 108);
             this.comboBoxUfRg.Name = "comboBoxUfRg";
             this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
             this.comboBoxUfRg.TabIndex = 7;
@@ -473,7 +487,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // maskedTextCpf
             // 
             this.maskedTextCpf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextCpf.Location = new System.Drawing.Point(481, 12);
+            this.maskedTextCpf.Location = new System.Drawing.Point(481, 45);
             this.maskedTextCpf.Mask = "000,000,000-99";
             this.maskedTextCpf.Name = "maskedTextCpf";
             this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
@@ -485,7 +499,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxEstadoCivil.FormattingEnabled = true;
             this.comboBoxEstadoCivil.Items.AddRange(new object[] {
             "-"});
-            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(217, 178);
+            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(217, 211);
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 22);
             this.comboBoxEstadoCivil.TabIndex = 10;
@@ -495,7 +509,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(586, 47);
+            this.label13.Location = new System.Drawing.Point(586, 80);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(75, 14);
             this.label13.TabIndex = 15;
@@ -507,7 +521,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             | System.Windows.Forms.AnchorStyles.Right)));
             this.datePickerNascimento.CustomFormat = "dd/MM/yyyy";
             this.datePickerNascimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerNascimento.Location = new System.Drawing.Point(667, 44);
+            this.datePickerNascimento.Location = new System.Drawing.Point(667, 77);
             this.datePickerNascimento.Name = "datePickerNascimento";
             this.datePickerNascimento.Size = new System.Drawing.Size(100, 22);
             this.datePickerNascimento.TabIndex = 4;
@@ -517,7 +531,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(447, 16);
+            this.label12.Location = new System.Drawing.Point(447, 49);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(28, 14);
             this.label12.TabIndex = 16;
@@ -528,7 +542,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblNascimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblNascimento.AutoSize = true;
-            this.LblNascimento.Location = new System.Drawing.Point(586, 47);
+            this.LblNascimento.Location = new System.Drawing.Point(586, 80);
             this.LblNascimento.Name = "LblNascimento";
             this.LblNascimento.Size = new System.Drawing.Size(75, 14);
             this.LblNascimento.TabIndex = 15;
@@ -539,7 +553,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblCpf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblCpf.AutoSize = true;
-            this.LblCpf.Location = new System.Drawing.Point(447, 16);
+            this.LblCpf.Location = new System.Drawing.Point(447, 49);
             this.LblCpf.Name = "LblCpf";
             this.LblCpf.Size = new System.Drawing.Size(28, 14);
             this.LblCpf.TabIndex = 16;
@@ -548,7 +562,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // textEmissorRg
             // 
             this.textEmissorRg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textEmissorRg.Location = new System.Drawing.Point(283, 75);
+            this.textEmissorRg.Location = new System.Drawing.Point(283, 108);
             this.textEmissorRg.Name = "textEmissorRg";
             this.textEmissorRg.Size = new System.Drawing.Size(52, 22);
             this.textEmissorRg.TabIndex = 6;
@@ -557,7 +571,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // LblUf
             // 
             this.LblUf.AutoSize = true;
-            this.LblUf.Location = new System.Drawing.Point(337, 78);
+            this.LblUf.Location = new System.Drawing.Point(337, 111);
             this.LblUf.Name = "LblUf";
             this.LblUf.Size = new System.Drawing.Size(24, 14);
             this.LblUf.TabIndex = 17;
@@ -566,7 +580,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // lblEmissor
             // 
             this.lblEmissor.AutoSize = true;
-            this.lblEmissor.Location = new System.Drawing.Point(194, 78);
+            this.lblEmissor.Location = new System.Drawing.Point(194, 111);
             this.lblEmissor.Name = "lblEmissor";
             this.lblEmissor.Size = new System.Drawing.Size(88, 14);
             this.lblEmissor.TabIndex = 18;
@@ -574,7 +588,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // textRg
             // 
-            this.textRg.Location = new System.Drawing.Point(67, 75);
+            this.textRg.Location = new System.Drawing.Point(67, 108);
             this.textRg.Name = "textRg";
             this.textRg.Size = new System.Drawing.Size(121, 22);
             this.textRg.TabIndex = 5;
@@ -585,7 +599,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblRg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRg.AutoSize = true;
-            this.lblRg.Location = new System.Drawing.Point(36, 78);
+            this.lblRg.Location = new System.Drawing.Point(36, 111);
             this.lblRg.Name = "lblRg";
             this.lblRg.Size = new System.Drawing.Size(25, 14);
             this.lblRg.TabIndex = 20;
@@ -595,7 +609,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(420, 79);
+            this.label11.Location = new System.Drawing.Point(420, 112);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(45, 14);
             this.label11.TabIndex = 19;
@@ -606,7 +620,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.textEmail.Location = new System.Drawing.Point(471, 75);
+            this.textEmail.Location = new System.Drawing.Point(471, 108);
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(296, 22);
             this.textEmail.TabIndex = 8;
@@ -616,7 +630,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(420, 79);
+            this.lblEmail.Location = new System.Drawing.Point(420, 112);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(45, 14);
             this.lblEmail.TabIndex = 19;
@@ -626,7 +640,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textConjuge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textConjuge.Location = new System.Drawing.Point(430, 178);
+            this.textConjuge.Location = new System.Drawing.Point(430, 211);
             this.textConjuge.Name = "textConjuge";
             this.textConjuge.Size = new System.Drawing.Size(241, 22);
             this.textConjuge.TabIndex = 11;
@@ -636,7 +650,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(364, 181);
+            this.label10.Location = new System.Drawing.Point(364, 214);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(60, 14);
             this.label10.TabIndex = 14;
@@ -644,7 +658,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // textNome
             // 
-            this.textNome.Location = new System.Drawing.Point(67, 43);
+            this.textNome.Location = new System.Drawing.Point(67, 76);
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(404, 22);
             this.textNome.TabIndex = 3;
@@ -655,7 +669,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblConjunge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblConjunge.AutoSize = true;
-            this.lblConjunge.Location = new System.Drawing.Point(364, 181);
+            this.lblConjunge.Location = new System.Drawing.Point(364, 214);
             this.lblConjunge.Name = "lblConjunge";
             this.lblConjunge.Size = new System.Drawing.Size(60, 14);
             this.lblConjunge.TabIndex = 14;
@@ -664,7 +678,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // LblEstadoCivil
             // 
             this.LblEstadoCivil.AutoSize = true;
-            this.LblEstadoCivil.Location = new System.Drawing.Point(138, 181);
+            this.LblEstadoCivil.Location = new System.Drawing.Point(138, 214);
             this.LblEstadoCivil.Name = "LblEstadoCivil";
             this.LblEstadoCivil.Size = new System.Drawing.Size(73, 14);
             this.LblEstadoCivil.TabIndex = 13;
@@ -673,7 +687,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // LblNome
             // 
             this.LblNome.AutoSize = true;
-            this.LblNome.Location = new System.Drawing.Point(20, 47);
+            this.LblNome.Location = new System.Drawing.Point(20, 80);
             this.LblNome.Name = "LblNome";
             this.LblNome.Size = new System.Drawing.Size(42, 14);
             this.LblNome.TabIndex = 12;
@@ -683,7 +697,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(601, 15);
+            this.label9.Location = new System.Drawing.Point(601, 48);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 14);
             this.label9.TabIndex = 10;
@@ -694,7 +708,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(601, 15);
+            this.label1.Location = new System.Drawing.Point(601, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 14);
             this.label1.TabIndex = 10;
@@ -703,7 +717,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // textVendedoraId
             // 
             this.textVendedoraId.Enabled = false;
-            this.textVendedoraId.Location = new System.Drawing.Point(67, 12);
+            this.textVendedoraId.Location = new System.Drawing.Point(67, 45);
             this.textVendedoraId.Name = "textVendedoraId";
             this.textVendedoraId.Size = new System.Drawing.Size(100, 22);
             this.textVendedoraId.TabIndex = 0;
@@ -711,7 +725,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // LblCodigo
             // 
             this.LblCodigo.AutoSize = true;
-            this.LblCodigo.Location = new System.Drawing.Point(20, 15);
+            this.LblCodigo.Location = new System.Drawing.Point(20, 48);
             this.LblCodigo.Name = "LblCodigo";
             this.LblCodigo.Size = new System.Drawing.Size(47, 14);
             this.LblCodigo.TabIndex = 9;
@@ -722,7 +736,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelCommands.Controls.Add(this.btnSalvar);
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 440);
+            this.panelCommands.Location = new System.Drawing.Point(0, 470);
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(800, 45);
             this.panelCommands.TabIndex = 1;
@@ -769,23 +783,88 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.pictureClose);
+            this.panel1.Controls.Add(this.title);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 30);
+            this.panel1.TabIndex = 38;
+            // 
+            // pictureClose
+            // 
+            this.pictureClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureClose.Image = global::MCatalogos.Properties.Resources.IconClose20x20;
+            this.pictureClose.Location = new System.Drawing.Point(777, 6);
+            this.pictureClose.Name = "pictureClose";
+            this.pictureClose.Size = new System.Drawing.Size(15, 15);
+            this.pictureClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureClose.TabIndex = 1;
+            this.pictureClose.TabStop = false;
+            this.pictureClose.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // title
+            // 
+            this.title.AutoSize = true;
+            this.title.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.title.Location = new System.Drawing.Point(10, 8);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(121, 14);
+            this.title.TabIndex = 0;
+            this.title.Text = "Ficha da Vendedoras";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 14);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Endereço:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, -1);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(54, 14);
+            this.label17.TabIndex = 2;
+            this.label17.Text = "Filiação:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(64, 14);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Telefones:";
+            // 
             // VendedoraForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(800, 515);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "VendedoraForm";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ficha de Cadastro de Vendedora";
             this.Load += new System.EventHandler(this.VendedoraForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBoxEndereco.ResumeLayout(false);
             this.groupBoxEndereco.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -794,6 +873,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.grouBoxFiliacao.PerformLayout();
             this.panelCommands.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -862,5 +944,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Button btnAddNumeroRota;
         private System.Windows.Forms.Panel panelTelefonesList;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureClose;
+        private System.Windows.Forms.Label title;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }
