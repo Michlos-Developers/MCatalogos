@@ -224,5 +224,8 @@
   <ItemGroup>
     <None Include="Resources\IconAddTelefone20x20.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\FormViews\Fornecedores\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,7 +16,8 @@ namespace InfrastructureLayer.Validations
             //exemplo de long do cpf (99999999999)
 
 
-            CpfModel model = new CpfModel();
+            CpfModel model = new CpfModel() { Cpf = cpfModel.Cpf };
+
             //multiplicadores dos 9 primeiros dídigos.
             int[] multiplicadorPrimeiroDigito = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicadorSegundoDigito = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -26,12 +27,15 @@ namespace InfrastructureLayer.Validations
 
             //substitui caracteres especiais do cpf se tiver
             cpf = cpf.Replace(".", "");
-            cpf = cpf.Replace(".", "");
+            //cpf = cpf.Replace(".", "");
             cpf = cpf.Replace("-", "");
-            
-            
-            
-            
+
+            if (cpf.Length<11)
+            {
+                return false;
+            }
+
+         
             //reservando o dígito verificador para cálculo final
             int digitoVerificador = int.Parse(cpf.Substring(9, 2));
 

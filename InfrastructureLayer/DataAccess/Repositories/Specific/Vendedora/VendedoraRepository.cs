@@ -116,7 +116,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
                     using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
                     {
-                        cmd.CommandText = sql;
+                        //cmd.CommandText = sql;
                         cmd.Prepare();
                         cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
 
@@ -155,7 +155,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 {
 
                     dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to get Department Model list from database", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+                                   customMessage: "Unable to get Vendedora Model list from database", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
 
 
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);

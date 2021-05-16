@@ -92,12 +92,14 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelContent.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxEndereco.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grouBoxFiliacao.SuspendLayout();
             this.panelCommands.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panelContent
@@ -181,6 +183,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
             this.comboBoxRotaLetra.TabIndex = 2;
             this.comboBoxRotaLetra.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaLetra_SelectedIndexChanged);
+            this.comboBoxRotaLetra.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxRotaLetra_Validating);
             // 
             // btnAddRotaLetra
             // 
@@ -276,6 +279,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNumero.Name = "textNumero";
             this.textNumero.Size = new System.Drawing.Size(77, 22);
             this.textNumero.TabIndex = 1;
+            this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
             // 
             // label3
             // 
@@ -293,6 +297,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxBairro.Name = "comboBoxBairro";
             this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
             this.comboBoxBairro.TabIndex = 6;
+            this.comboBoxBairro.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxBairro_Validating);
             // 
             // comboBoxCidade
             // 
@@ -302,6 +307,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
             this.comboBoxCidade.TabIndex = 5;
             this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
+            this.comboBoxCidade.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxCidade_Validating);
             // 
             // comboBoxUfEndereco
             // 
@@ -313,6 +319,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
             this.comboBoxUfEndereco.TabIndex = 4;
             this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
+            this.comboBoxUfEndereco.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfEndereco_Validating);
             // 
             // textComplemento
             // 
@@ -336,6 +343,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textLogradouro.Name = "textLogradouro";
             this.textLogradouro.Size = new System.Drawing.Size(307, 22);
             this.textLogradouro.TabIndex = 0;
+            this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
             // 
             // label2
             // 
@@ -460,6 +468,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfRg.Name = "comboBoxUfRg";
             this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
             this.comboBoxUfRg.TabIndex = 7;
+            this.comboBoxUfRg.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfRg_Validating);
             // 
             // maskedTextCpf
             // 
@@ -469,6 +478,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCpf.Name = "maskedTextCpf";
             this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
             this.maskedTextCpf.TabIndex = 1;
+            this.maskedTextCpf.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextCpf_Validating);
             // 
             // comboBoxEstadoCivil
             // 
@@ -479,7 +489,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 22);
             this.comboBoxEstadoCivil.TabIndex = 10;
-            this.comboBoxEstadoCivil.Text = " - ";
+            this.comboBoxEstadoCivil.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxEstadoCivil_Validating);
             // 
             // label13
             // 
@@ -542,6 +552,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmissorRg.Name = "textEmissorRg";
             this.textEmissorRg.Size = new System.Drawing.Size(52, 22);
             this.textEmissorRg.TabIndex = 6;
+            this.textEmissorRg.Validating += new System.ComponentModel.CancelEventHandler(this.textEmissorRg_Validating);
             // 
             // LblUf
             // 
@@ -567,6 +578,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textRg.Name = "textRg";
             this.textRg.Size = new System.Drawing.Size(121, 22);
             this.textRg.TabIndex = 5;
+            this.textRg.Validating += new System.ComponentModel.CancelEventHandler(this.textRg_Validating);
             // 
             // lblRg
             // 
@@ -618,6 +630,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textConjuge.Name = "textConjuge";
             this.textConjuge.Size = new System.Drawing.Size(241, 22);
             this.textConjuge.TabIndex = 11;
+            this.textConjuge.Validating += new System.ComponentModel.CancelEventHandler(this.textConjuge_Validating);
             // 
             // label10
             // 
@@ -635,6 +648,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(404, 22);
             this.textNome.TabIndex = 3;
+            this.textNome.Validating += new System.ComponentModel.CancelEventHandler(this.textNome_Validating);
             // 
             // lblConjunge
             // 
@@ -751,6 +765,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // VendedoraForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -775,6 +793,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.grouBoxFiliacao.ResumeLayout(false);
             this.grouBoxFiliacao.PerformLayout();
             this.panelCommands.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -842,5 +861,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.ComboBox comboBoxRotaNumero;
         private System.Windows.Forms.Button btnAddNumeroRota;
         private System.Windows.Forms.Panel panelTelefonesList;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

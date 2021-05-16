@@ -1,11 +1,12 @@
 ﻿using CommonComponents;
 
 using DomainLayer.Models.CommonModels.Address;
-using DomainLayer.Models.CommonModels.Enums;
+using DomainLayer.Models.Validations;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
+using InfrastructureLayer.Validations;
 
 using MCatalogos.Views.UserControls;
 
@@ -18,12 +19,12 @@ using ServiceLayer.Services.CidadeServices;
 using ServiceLayer.Services.EstadoCivilServices;
 using ServiceLayer.Services.EstadosServices;
 using ServiceLayer.Services.RotaServices;
-using ServiceLayer.Services.TelefoneVendedoraServices;
+using ServiceLayer.Services.ValidationServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Vendedoras
@@ -39,6 +40,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private EstadoServices _estadoServices;
         private RotaLetraServices _rotaLetraServices;
         private RotaServices _rotaServices;
+        private ValidationCpfServices _validationCpfServices;
 
         private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
@@ -51,7 +53,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             _bairroServices = new BairroServices(new BairroRepository(_connectionString), new ModelDataAnnotationCheck());
             _estadoCivilServices = new EstadoCivilServices(new EstadoCivilRepository(_connectionString), new ModelDataAnnotationCheck());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
-
+            _validationCpfServices = new ValidationCpfServices(new CpfRepository());
             InitializeComponent();
             this.VendedorasListForm = vendedorasListForm;
 
@@ -208,17 +210,29 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 //TODO: LER DADOS DA VENDEDORA
             }
         }
+
+        private string ReplaceCpf(string cpf)
+        {
+            
+            cpf = cpf.Replace(".", "");
+            cpf = cpf.Replace("-", "");
+            cpf = cpf.Replace(" ", "");
+
+            return cpf;
+        }
+
+        private string ReplaceCep(string cep)
+        {
+            cep = cep.Replace("-", "");
+            return cep;
+        }
         public VendedoraModel VendedoraAdd()
         {
 
             VendedoraModel returnModel = new VendedoraModel();
-            var cpf = maskedTextCpf.Text;
-            cpf = cpf.Replace(".", "");
-            cpf = cpf.Replace(".", "");
-            cpf = cpf.Replace("-", "");
-
-            var cep = maskedTextCep.Text;
-            cep = cep.Replace("-", "");
+            var cpf = ReplaceCpf(maskedTextCpf.Text);
+            var cep = ReplaceCep(maskedTextCep.Text);
+            
 
             int estadoId = _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId;
 
@@ -489,6 +503,23 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            if (ValidateChildren(ValidationConstraints.Enabled))
+            {
+                MessageBox.Show(maskedTextCpf.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(comboBoxRotaLetra.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(textNome.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(textRg.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(textEmissorRg.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(comboBoxUfRg.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(comboBoxEstadoCivil.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(textConjuge.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(textLogradouro.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(textNumero.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(comboBoxUfEndereco.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(comboBoxCidade.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(comboBoxBairro.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
             VendedoraModel model = new VendedoraModel();
             if (textVendedoraId.Text == "")
             {
@@ -530,8 +561,111 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         }
 
+        private void maskedTextCpf_Validating(object sender, CancelEventArgs e)
+        {
+            CpfModel model = new CpfModel() { Cpf = maskedTextCpf.Text };
+            string cpfReplaced = ReplaceCpf(maskedTextCpf.Text);
+            //cpfReplaced = cpfReplaced.Replace(" ", "");
+            if (string.IsNullOrEmpty(cpfReplaced))
+            {
+                e.Cancel = true;
+                maskedTextCpf.Focus();
+                errorProvider.SetError(maskedTextCpf, "Campo obrigatório!");
+            }
+            else if (!_validationCpfServices.ValidaCpf(model))
+            {
+                e.Cancel = true;
+                maskedTextCpf.Focus();
+                errorProvider.SetError(maskedTextCpf, "CPF Inválido!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(maskedTextCpf, null);
+            }
+        }
 
+        private void comboBoxRotaLetra_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(comboBoxRotaLetra);
+        }
 
+        private void textNome_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textNome);
+        }
 
+        private void textRg_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textRg);
+        }
+
+        private void textEmissorRg_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textEmissorRg);
+        }
+
+        private void comboBoxUfRg_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(comboBoxUfRg);
+        }
+
+        private bool ValidaCampo(Control control)
+        {
+            bool eventArgs = false;
+            if (string.IsNullOrEmpty(control.Text))
+            {
+
+                eventArgs = true;
+                control.Focus();
+                errorProvider.SetError(control, "Campo Obrigatório!");
+
+            }
+            else
+            {
+                eventArgs = false;
+                errorProvider.SetError(control, null);
+            }
+
+            return eventArgs;
+        }
+
+        private void comboBoxEstadoCivil_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(comboBoxEstadoCivil);
+        }
+
+        private void textConjuge_Validating(object sender, CancelEventArgs e)
+        {
+            if (comboBoxEstadoCivil.Text == "Casado")
+            {
+                e.Cancel = ValidaCampo(textConjuge);
+            }
+        }
+
+        private void textLogradouro_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textLogradouro);
+        }
+
+        private void textNumero_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textNumero);
+        }
+
+        private void comboBoxUfEndereco_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(comboBoxUfEndereco);
+        }
+
+        private void comboBoxCidade_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(comboBoxCidade);
+        }
+
+        private void comboBoxBairro_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(comboBoxBairro);
+        }
     }
 }
