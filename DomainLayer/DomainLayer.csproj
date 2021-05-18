@@ -69,7 +69,9 @@
     <Compile Include="Models\Fornecedores\IFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\ITelefoneFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\TelefoneFornecedorModel.cs" />
+    <Compile Include="Models\Validations\CnpjModel.cs" />
     <Compile Include="Models\Validations\CpfModel.cs" />
+    <Compile Include="Models\Validations\ICnpjModel.cs" />
     <Compile Include="Models\Validations\ICpfModel.cs" />
     <Compile Include="Models\Vendedora\IEstadoCivilModel.cs" />
     <Compile Include="Models\Vendedora\IRotaLetraModel.cs" />

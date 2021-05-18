@@ -8,13 +8,8 @@ using ServiceLayer.Services.TelefoneFornecedorServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Fornecedores
@@ -112,7 +107,9 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         private void dgvFornecedores_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            FornecedorForm fornecedorForm = new FornecedorForm(this);
+            fornecedorForm.textFornecedorId.Text = this.dgvFornecedores.CurrentRow.Cells[0].Value.ToString();
+            fornecedorForm.ShowDialog();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -122,12 +119,15 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            FornecedorForm fornecedorForm = new FornecedorForm(this);
+            fornecedorForm.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            FornecedorForm fornecedorForm = new FornecedorForm(this);
+            fornecedorForm.textFornecedorId.Text = this.dgvFornecedores.CurrentRow.Cells[0].Value.ToString();
+            fornecedorForm.ShowDialog();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

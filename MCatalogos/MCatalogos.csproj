@@ -67,6 +67,12 @@
     <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.Designer.cs">
       <DependentUpon>FornecedoresListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Fornecedores\FornecedorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Fornecedores\FornecedorForm.Designer.cs">
+      <DependentUpon>FornecedorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Telefones\TelefoneVendedoraAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </Compile>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
       <DependentUpon>FornecedoresListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedorForm.resx">
+      <DependentUpon>FornecedorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Telefones\TelefoneVendedoraAddForm.resx">
       <DependentUpon>TelefoneVendedoraAddForm.cs</DependentUpon>

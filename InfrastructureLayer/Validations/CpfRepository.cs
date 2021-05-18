@@ -9,74 +9,71 @@ namespace InfrastructureLayer.Validations
 {
     public class CpfRepository : IValidationCpfRespository
     {
-
+        string cpfStr = string.Empty;
+        long cpfLong = 0;
+        int[] multiplicadorPrimeiroDigito = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] multiplicadorSegundoDigito = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        bool resultValida = false;
         public bool ValidaCpf(ICpfModel cpfModel)
         {
-            //exemplo de string do cpf (999.999.999-99)
-            //exemplo de long do cpf (99999999999)
+            cpfStr = cpfModel.Cpf;
+            cpfLong = ReplaceCpfToLong(cpfStr);
 
+            int primeiroDigito = int.Parse(cpfLong.ToString().Substring(9, 1));
+            int segundoDigito = int.Parse(cpfLong.ToString().Substring(10, 1));
 
-            CpfModel model = new CpfModel() { Cpf = cpfModel.Cpf };
+            int primeiroDigitoResult = 0;
+            int segundoDigitoResult = 0;
 
-            //multiplicadores dos 9 primeiros dídigos.
-            int[] multiplicadorPrimeiroDigito = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicadorSegundoDigito = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            
-            //capta o cpf para uma string local
-            string cpf = model.Cpf;
-
-            //substitui caracteres especiais do cpf se tiver
-            cpf = cpf.Replace(".", "");
-            //cpf = cpf.Replace(".", "");
-            cpf = cpf.Replace("-", "");
-
-            if (cpf.Length<11)
+            if ((primeiroDigitoResult = CalculaPrimeiroDigito(cpfLong)) != primeiroDigito
+                || (segundoDigitoResult = CalculaSegundoDigito(cpfLong)) != segundoDigito)
             {
                 return false;
             }
-
-         
-            //reservando o dígito verificador para cálculo final
-            int digitoVerificador = int.Parse(cpf.Substring(9, 2));
-
-            //cria o array que vai receber todos os 11 dígitos do cpf.
-            int[] cpfArray = new int[11];
-            for (int i = 0; i < 10; i++)
+            else
             {
-                cpfArray[i] = int.Parse(cpf.Substring(i, 1));
+                resultValida = true;
             }
+            return resultValida;
+        }
 
-            //verificação dos 9 dígitos
 
-            //variável de resultado da multiplicação
-            int resultMultPrimeiroDigito = 0;
-            for (int i = 0; i < multiplicadorPrimeiroDigito.Count(); i++)
-            {
-                resultMultPrimeiroDigito += multiplicadorPrimeiroDigito[i] * cpfArray[i];
-            }
+        private int CalculaSegundoDigito(long cpf)
+        {
+            int segundoDigitoCalculado = 0;
+            int resultMultiplicador = 0;
 
-            int valorPrimeiroDigito = (resultMultPrimeiroDigito * 10) % 11;
-
-            if (valorPrimeiroDigito != int.Parse(cpf.Substring(9,1)))
-            {
-                return false;
-            }
-
-            //validação do segundo dígito
-            int resultMultSegundoDigito = 0;
             for (int i = 0; i < multiplicadorSegundoDigito.Count(); i++)
             {
-                resultMultSegundoDigito += multiplicadorSegundoDigito[i] * cpfArray[i];
+                resultMultiplicador = (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorSegundoDigito[i];
             }
+            segundoDigitoCalculado = ((resultMultiplicador * 10) % 11);
 
-            //recebe o mode do calculo
-            int valorSegundoDigito = (resultMultSegundoDigito * 10) % 11;
-            if (valorSegundoDigito != int.Parse(cpf.Substring(10,1)))
+            return segundoDigitoCalculado;
+
+        }
+
+        private int CalculaPrimeiroDigito(long cpf)
+        {
+            int primeiroDigitoCalculado = 0;
+            int resultMultiplicador = 0;
+
+            for (int i = 0; i < multiplicadorPrimeiroDigito.Count(); i++)
             {
-                return false;
+                resultMultiplicador = (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorPrimeiroDigito[i];
             }
-            return true;
+            primeiroDigitoCalculado = ((resultMultiplicador*10) % 11);
 
+            return primeiroDigitoCalculado;
+        }
+
+        private long ReplaceCpfToLong(string cpfStr)
+        {
+            cpfStr = cpfStr.Replace(".", "");
+            cpfStr = cpfStr.Replace("-", "");
+            cpfStr = cpfStr.Replace(" ", "");
+
+            return long.Parse(cpfStr);
         }
     }
 }

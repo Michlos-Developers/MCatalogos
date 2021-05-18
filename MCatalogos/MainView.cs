@@ -169,15 +169,15 @@ namespace MCatalogos
 
         }
 
-        private void SetUnselectedButtonOfMdiForm()
-        {
-            foreach (Button btn  in Controls)
-            {
-                if (btn is MdiClient)
-                {
-                    btn.BackColor = Color.FromArgb(0, 120, 215);
-                }
-            }
-        }
+        //private void SetUnselectedButtonOfMdiForm()
+        //{
+        //    foreach (Button btn  in Controls)
+        //    {
+        //        if (btn is MdiClient)
+        //        {
+        //            btn.BackColor = Color.FromArgb(0, 120, 215);
+        //        }
+        //    }
+        //}
     }
 }

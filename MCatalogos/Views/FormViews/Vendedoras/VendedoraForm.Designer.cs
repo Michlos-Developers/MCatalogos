@@ -32,29 +32,19 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedoraForm));
             this.panelContent = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureClose = new System.Windows.Forms.PictureBox();
+            this.title = new System.Windows.Forms.Label();
             this.comboBoxRotaNumero = new System.Windows.Forms.ComboBox();
             this.btnAddNumeroRota = new System.Windows.Forms.Button();
             this.comboBoxRotaLetra = new System.Windows.Forms.ComboBox();
             this.btnAddRotaLetra = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.panelTelefonesList = new System.Windows.Forms.Panel();
             this.groupBoxTelones = new System.Windows.Forms.GroupBox();
-            this.groupBoxEndereco = new System.Windows.Forms.GroupBox();
-            this.maskedTextCep = new System.Windows.Forms.MaskedTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textNumero = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxBairro = new System.Windows.Forms.ComboBox();
-            this.comboBoxCidade = new System.Windows.Forms.ComboBox();
-            this.comboBoxUfEndereco = new System.Windows.Forms.ComboBox();
-            this.textComplemento = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textLogradouro = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.textNomeMae = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textNomePai = new System.Windows.Forms.TextBox();
@@ -93,21 +83,31 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureClose = new System.Windows.Forms.PictureBox();
-            this.title = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textLogradouro = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textComplemento = new System.Windows.Forms.TextBox();
+            this.comboBoxUfEndereco = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textNumero = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.maskedTextCep = new System.Windows.Forms.MaskedTextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
+            this.groupBoxEndereco = new System.Windows.Forms.GroupBox();
+            this.comboBoxBairro = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxCidade = new System.Windows.Forms.ComboBox();
             this.panelContent.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.groupBoxEndereco.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grouBoxFiliacao.SuspendLayout();
             this.panelCommands.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
+            this.groupBoxEndereco.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelContent
@@ -155,6 +155,39 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(800, 470);
             this.panelContent.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.pictureClose);
+            this.panel1.Controls.Add(this.title);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 30);
+            this.panel1.TabIndex = 38;
+            // 
+            // pictureClose
+            // 
+            this.pictureClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureClose.Image = global::MCatalogos.Properties.Resources.IconClose20x20;
+            this.pictureClose.Location = new System.Drawing.Point(777, 6);
+            this.pictureClose.Name = "pictureClose";
+            this.pictureClose.Size = new System.Drawing.Size(15, 15);
+            this.pictureClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureClose.TabIndex = 1;
+            this.pictureClose.TabStop = false;
+            this.pictureClose.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // title
+            // 
+            this.title.AutoSize = true;
+            this.title.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.title.Location = new System.Drawing.Point(10, 8);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(121, 14);
+            this.title.TabIndex = 0;
+            this.title.Text = "Ficha da Vendedoras";
             // 
             // comboBoxRotaNumero
             // 
@@ -226,6 +259,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(64, 14);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Telefones:";
+            // 
             // panelTelefonesList
             // 
             this.panelTelefonesList.Location = new System.Drawing.Point(6, 21);
@@ -244,157 +286,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBoxTelones.TabStop = false;
             this.groupBoxTelones.Text = "Telefones";
             // 
-            // groupBoxEndereco
-            // 
-            this.groupBoxEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxEndereco.Controls.Add(this.label16);
-            this.groupBoxEndereco.Controls.Add(this.maskedTextCep);
-            this.groupBoxEndereco.Controls.Add(this.label4);
-            this.groupBoxEndereco.Controls.Add(this.textNumero);
-            this.groupBoxEndereco.Controls.Add(this.label3);
-            this.groupBoxEndereco.Controls.Add(this.comboBoxBairro);
-            this.groupBoxEndereco.Controls.Add(this.comboBoxCidade);
-            this.groupBoxEndereco.Controls.Add(this.comboBoxUfEndereco);
-            this.groupBoxEndereco.Controls.Add(this.textComplemento);
-            this.groupBoxEndereco.Controls.Add(this.label5);
-            this.groupBoxEndereco.Controls.Add(this.textLogradouro);
-            this.groupBoxEndereco.Controls.Add(this.label2);
-            this.groupBoxEndereco.Controls.Add(this.label8);
-            this.groupBoxEndereco.Controls.Add(this.label6);
-            this.groupBoxEndereco.Controls.Add(this.label7);
-            this.groupBoxEndereco.Location = new System.Drawing.Point(23, 245);
-            this.groupBoxEndereco.Name = "groupBoxEndereco";
-            this.groupBoxEndereco.Size = new System.Drawing.Size(415, 213);
-            this.groupBoxEndereco.TabIndex = 12;
-            this.groupBoxEndereco.TabStop = false;
-            // 
-            // maskedTextCep
-            // 
-            this.maskedTextCep.Location = new System.Drawing.Point(208, 63);
-            this.maskedTextCep.Mask = "00000-999";
-            this.maskedTextCep.Name = "maskedTextCep";
-            this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
-            this.maskedTextCep.TabIndex = 2;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(172, 66);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 14);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "CEP:";
-            // 
-            // textNumero
-            // 
-            this.textNumero.Location = new System.Drawing.Point(86, 63);
-            this.textNumero.Name = "textNumero";
-            this.textNumero.Size = new System.Drawing.Size(77, 22);
-            this.textNumero.TabIndex = 1;
-            this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 66);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 14);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Número:";
-            // 
-            // comboBoxBairro
-            // 
-            this.comboBoxBairro.FormattingEnabled = true;
-            this.comboBoxBairro.Location = new System.Drawing.Point(86, 165);
-            this.comboBoxBairro.Name = "comboBoxBairro";
-            this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
-            this.comboBoxBairro.TabIndex = 6;
-            this.comboBoxBairro.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxBairro_Validating);
-            // 
-            // comboBoxCidade
-            // 
-            this.comboBoxCidade.FormattingEnabled = true;
-            this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
-            this.comboBoxCidade.Name = "comboBoxCidade";
-            this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
-            this.comboBoxCidade.TabIndex = 5;
-            this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
-            this.comboBoxCidade.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxCidade_Validating);
-            // 
-            // comboBoxUfEndereco
-            // 
-            this.comboBoxUfEndereco.FormattingEnabled = true;
-            this.comboBoxUfEndereco.Items.AddRange(new object[] {
-            "-"});
-            this.comboBoxUfEndereco.Location = new System.Drawing.Point(86, 131);
-            this.comboBoxUfEndereco.Name = "comboBoxUfEndereco";
-            this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
-            this.comboBoxUfEndereco.TabIndex = 4;
-            this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
-            this.comboBoxUfEndereco.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfEndereco_Validating);
-            // 
-            // textComplemento
-            // 
-            this.textComplemento.Location = new System.Drawing.Point(101, 97);
-            this.textComplemento.Name = "textComplemento";
-            this.textComplemento.Size = new System.Drawing.Size(292, 22);
-            this.textComplemento.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 100);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 14);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Complemento:";
-            // 
-            // textLogradouro
-            // 
-            this.textLogradouro.Location = new System.Drawing.Point(86, 29);
-            this.textLogradouro.Name = "textLogradouro";
-            this.textLogradouro.Size = new System.Drawing.Size(307, 22);
-            this.textLogradouro.TabIndex = 0;
-            this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 14);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Logradouro:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(37, 168);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 14);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Bairro:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(53, 134);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(24, 14);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "UF:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(152, 134);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 14);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Cidade:";
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -409,6 +300,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBox1.Size = new System.Drawing.Size(736, 58);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, -1);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(54, 14);
+            this.label17.TabIndex = 2;
+            this.label17.Text = "Filiação:";
             // 
             // textNomeMae
             // 
@@ -783,38 +683,102 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // panel1
+            // label6
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.pictureClose);
-            this.panel1.Controls.Add(this.title);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 30);
-            this.panel1.TabIndex = 38;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(53, 134);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(24, 14);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "UF:";
             // 
-            // pictureClose
+            // label8
             // 
-            this.pictureClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureClose.Image = global::MCatalogos.Properties.Resources.IconClose20x20;
-            this.pictureClose.Location = new System.Drawing.Point(777, 6);
-            this.pictureClose.Name = "pictureClose";
-            this.pictureClose.Size = new System.Drawing.Size(15, 15);
-            this.pictureClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureClose.TabIndex = 1;
-            this.pictureClose.TabStop = false;
-            this.pictureClose.Click += new System.EventHandler(this.btnCancel_Click);
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(37, 168);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 14);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Bairro:";
             // 
-            // title
+            // label2
             // 
-            this.title.AutoSize = true;
-            this.title.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.title.Location = new System.Drawing.Point(10, 8);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(121, 14);
-            this.title.TabIndex = 0;
-            this.title.Text = "Ficha da Vendedoras";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 14);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Logradouro:";
+            // 
+            // textLogradouro
+            // 
+            this.textLogradouro.Location = new System.Drawing.Point(86, 29);
+            this.textLogradouro.Name = "textLogradouro";
+            this.textLogradouro.Size = new System.Drawing.Size(307, 22);
+            this.textLogradouro.TabIndex = 0;
+            this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 14);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Complemento:";
+            // 
+            // textComplemento
+            // 
+            this.textComplemento.Location = new System.Drawing.Point(101, 97);
+            this.textComplemento.Name = "textComplemento";
+            this.textComplemento.Size = new System.Drawing.Size(292, 22);
+            this.textComplemento.TabIndex = 3;
+            // 
+            // comboBoxUfEndereco
+            // 
+            this.comboBoxUfEndereco.FormattingEnabled = true;
+            this.comboBoxUfEndereco.Items.AddRange(new object[] {
+            "-"});
+            this.comboBoxUfEndereco.Location = new System.Drawing.Point(86, 131);
+            this.comboBoxUfEndereco.Name = "comboBoxUfEndereco";
+            this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
+            this.comboBoxUfEndereco.TabIndex = 4;
+            this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
+            this.comboBoxUfEndereco.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfEndereco_Validating);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(27, 66);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 14);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Número:";
+            // 
+            // textNumero
+            // 
+            this.textNumero.Location = new System.Drawing.Point(86, 63);
+            this.textNumero.Name = "textNumero";
+            this.textNumero.Size = new System.Drawing.Size(77, 22);
+            this.textNumero.TabIndex = 1;
+            this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(172, 66);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 14);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "CEP:";
+            // 
+            // maskedTextCep
+            // 
+            this.maskedTextCep.Location = new System.Drawing.Point(208, 63);
+            this.maskedTextCep.Mask = "00000-999";
+            this.maskedTextCep.Name = "maskedTextCep";
+            this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
+            this.maskedTextCep.TabIndex = 2;
             // 
             // label16
             // 
@@ -825,23 +789,59 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label16.TabIndex = 2;
             this.label16.Text = "Endereço:";
             // 
-            // label17
+            // groupBoxEndereco
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, -1);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(54, 14);
-            this.label17.TabIndex = 2;
-            this.label17.Text = "Filiação:";
+            this.groupBoxEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxEndereco.Controls.Add(this.label16);
+            this.groupBoxEndereco.Controls.Add(this.maskedTextCep);
+            this.groupBoxEndereco.Controls.Add(this.label4);
+            this.groupBoxEndereco.Controls.Add(this.textNumero);
+            this.groupBoxEndereco.Controls.Add(this.label3);
+            this.groupBoxEndereco.Controls.Add(this.comboBoxBairro);
+            this.groupBoxEndereco.Controls.Add(this.comboBoxCidade);
+            this.groupBoxEndereco.Controls.Add(this.comboBoxUfEndereco);
+            this.groupBoxEndereco.Controls.Add(this.textComplemento);
+            this.groupBoxEndereco.Controls.Add(this.label5);
+            this.groupBoxEndereco.Controls.Add(this.textLogradouro);
+            this.groupBoxEndereco.Controls.Add(this.label2);
+            this.groupBoxEndereco.Controls.Add(this.label8);
+            this.groupBoxEndereco.Controls.Add(this.label6);
+            this.groupBoxEndereco.Controls.Add(this.label7);
+            this.groupBoxEndereco.Location = new System.Drawing.Point(23, 245);
+            this.groupBoxEndereco.Name = "groupBoxEndereco";
+            this.groupBoxEndereco.Size = new System.Drawing.Size(415, 213);
+            this.groupBoxEndereco.TabIndex = 12;
+            this.groupBoxEndereco.TabStop = false;
             // 
-            // label18
+            // comboBoxBairro
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(64, 14);
-            this.label18.TabIndex = 3;
-            this.label18.Text = "Telefones:";
+            this.comboBoxBairro.FormattingEnabled = true;
+            this.comboBoxBairro.Location = new System.Drawing.Point(86, 165);
+            this.comboBoxBairro.Name = "comboBoxBairro";
+            this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
+            this.comboBoxBairro.TabIndex = 6;
+            this.comboBoxBairro.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxBairro_Validating);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(152, 134);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 14);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Cidade:";
+            // 
+            // comboBoxCidade
+            // 
+            this.comboBoxCidade.FormattingEnabled = true;
+            this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
+            this.comboBoxCidade.Name = "comboBoxCidade";
+            this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
+            this.comboBoxCidade.TabIndex = 5;
+            this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
+            this.comboBoxCidade.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxCidade_Validating);
             // 
             // VendedoraForm
             // 
@@ -863,19 +863,19 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.Load += new System.EventHandler(this.VendedoraForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBoxEndereco.ResumeLayout(false);
-            this.groupBoxEndereco.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grouBoxFiliacao.ResumeLayout(false);
             this.grouBoxFiliacao.PerformLayout();
             this.panelCommands.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
+            this.groupBoxEndereco.ResumeLayout(false);
+            this.groupBoxEndereco.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -887,7 +887,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox groupBoxTelones;
-        private System.Windows.Forms.GroupBox groupBoxEndereco;
         private System.Windows.Forms.GroupBox grouBoxFiliacao;
         private System.Windows.Forms.Label lblNomeMae;
         private System.Windows.Forms.Label LblNomePai;
@@ -911,20 +910,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textVendedoraId;
         private System.Windows.Forms.Label LblCodigo;
-        private System.Windows.Forms.MaskedTextBox maskedTextCep;
-        private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TextBox textNumero;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox comboBoxBairro;
-        public System.Windows.Forms.ComboBox comboBoxCidade;
-        public System.Windows.Forms.ComboBox comboBoxUfEndereco;
-        public System.Windows.Forms.TextBox textComplemento;
-        private System.Windows.Forms.Label label5;
-        public System.Windows.Forms.TextBox textLogradouro;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.TextBox textNomeMae;
@@ -948,7 +933,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.PictureBox pictureClose;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.GroupBox groupBoxEndereco;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.MaskedTextBox maskedTextCep;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox textNumero;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.ComboBox comboBoxBairro;
+        public System.Windows.Forms.ComboBox comboBoxCidade;
+        public System.Windows.Forms.ComboBox comboBoxUfEndereco;
+        public System.Windows.Forms.TextBox textComplemento;
+        private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.TextBox textLogradouro;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -2,8 +2,8 @@
 
 namespace ServiceLayer.Services.ValidationServices
 {
-    public interface IValidationCpfRespository
+    public interface IValidationCnpjRepository
     {
-        bool ValidaCpf(ICpfModel cpfModel);
+        bool ValidaCnpj(ICnpjModel cnpjModel);
     }
 }

@@ -102,7 +102,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             
             dgvVendedoras.Columns[2].HeaderText = "CPF";
             dgvVendedoras.Columns[2].Width = 108;
-            //dgvVendedoras.Columns[2].
 
         }
 

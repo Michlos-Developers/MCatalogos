@@ -75,7 +75,9 @@
     <Compile Include="Services\TipoTelefoneServices\ITipoTelefoneRepository.cs" />
     <Compile Include="Services\TipoTelefoneServices\ITipoTelefoneServices.cs" />
     <Compile Include="Services\TipoTelefoneServices\TipoTelefoneServices.cs" />
+    <Compile Include="Services\ValidationServices\IValidationCnpjRepository.cs" />
     <Compile Include="Services\ValidationServices\IValidationCpfRespository.cs" />
+    <Compile Include="Services\ValidationServices\ValidationCnpjServices.cs" />
     <Compile Include="Services\ValidationServices\ValidationCpfServices.cs" />
     <Compile Include="Services\VendedoraServices\IVendedoraRepository.cs" />
     <Compile Include="Services\VendedoraServices\IVendedoraService.cs" />
