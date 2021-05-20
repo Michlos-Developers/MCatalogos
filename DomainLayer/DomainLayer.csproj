@@ -56,6 +56,10 @@
   <ItemGroup>
     <Compile Include="DataAttribute\CascadeDeleteAttribute.cs" />
     <Compile Include="DataAttribute\CascadeDeleteAttributeConvention.cs" />
+    <Compile Include="Models\Catalogos\CampanhaModel.cs" />
+    <Compile Include="Models\Catalogos\CatalogoModel.cs" />
+    <Compile Include="Models\Catalogos\ICampanhaModel.cs" />
+    <Compile Include="Models\Catalogos\ICatalogoModel.cs" />
     <Compile Include="Models\CommonModels\Address\BairroModel.cs" />
     <Compile Include="Models\CommonModels\Address\CidadeModel.cs" />
     <Compile Include="Models\CommonModels\Address\EstadoModel.cs" />

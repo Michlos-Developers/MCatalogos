@@ -45,7 +45,7 @@ namespace InfrastructureLayer.Validations
 
             for (int i = 0; i < multiplicadorSegundoDigito.Count(); i++)
             {
-                resultMultiplicador = (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorSegundoDigito[i];
+                resultMultiplicador += (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorSegundoDigito[i];
             }
             segundoDigitoCalculado = ((resultMultiplicador * 10) % 11);
 
@@ -60,7 +60,7 @@ namespace InfrastructureLayer.Validations
 
             for (int i = 0; i < multiplicadorPrimeiroDigito.Count(); i++)
             {
-                resultMultiplicador = (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorPrimeiroDigito[i];
+                resultMultiplicador += (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorPrimeiroDigito[i];
             }
             primeiroDigitoCalculado = ((resultMultiplicador*10) % 11);
 

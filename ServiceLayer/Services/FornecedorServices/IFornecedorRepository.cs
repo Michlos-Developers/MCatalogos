@@ -11,5 +11,6 @@ namespace ServiceLayer.Services.FornecedorServices
         void Delete(IFornecedorModel fornecedorModel);
         IEnumerable<IFornecedorModel> GetAll();
         FornecedorModel GetById(int fornecedorId);
+        FornecedorModel GetByNomeFantasia(string nomeFantasia);
     }
 }

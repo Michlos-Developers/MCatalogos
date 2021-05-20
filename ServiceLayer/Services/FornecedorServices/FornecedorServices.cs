@@ -37,6 +37,11 @@ namespace ServiceLayer.Services.FornecedorServices
             return _fornecedorRepository.GetById(fornecedorId);
         }
 
+        public FornecedorModel GetByNomeFantasia(string nomeFantasia)
+        {
+            return _fornecedorRepository.GetByNomeFantasia(nomeFantasia);
+        }
+
         public void Update(IFornecedorModel fornecedorModel)
         {
             _fornecedorRepository.Update(fornecedorModel);

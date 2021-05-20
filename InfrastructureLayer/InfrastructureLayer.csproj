@@ -58,6 +58,8 @@
     <Compile Include="DataAccess\Repositories\Commons\CidadeRepository.cs" />
     <Compile Include="DataAccess\Repositories\Commons\EstadoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Commons\TipoTelefoneRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Catalogo\CampanhaRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Catalogo\CatalogoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\FornecedorRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\TelefoneFornecedorRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\EstadoCivilRepository.cs" />

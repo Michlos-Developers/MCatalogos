@@ -43,6 +43,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label18 = new System.Windows.Forms.Label();
             this.panelTelefonesList = new System.Windows.Forms.Panel();
             this.groupBoxTelones = new System.Windows.Forms.GroupBox();
+            this.groupBoxEndereco = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.maskedTextCep = new System.Windows.Forms.MaskedTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textNumero = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxBairro = new System.Windows.Forms.ComboBox();
+            this.comboBoxCidade = new System.Windows.Forms.ComboBox();
+            this.comboBoxUfEndereco = new System.Windows.Forms.ComboBox();
+            this.textComplemento = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textLogradouro = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textNomeMae = new System.Windows.Forms.TextBox();
@@ -83,31 +99,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textLogradouro = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textComplemento = new System.Windows.Forms.TextBox();
-            this.comboBoxUfEndereco = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textNumero = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.maskedTextCep = new System.Windows.Forms.MaskedTextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.groupBoxEndereco = new System.Windows.Forms.GroupBox();
-            this.comboBoxBairro = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBoxCidade = new System.Windows.Forms.ComboBox();
             this.panelContent.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBoxEndereco.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grouBoxFiliacao.SuspendLayout();
             this.panelCommands.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            this.groupBoxEndereco.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelContent
@@ -197,6 +197,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaNumero.Size = new System.Drawing.Size(40, 22);
             this.comboBoxRotaNumero.TabIndex = 37;
             this.comboBoxRotaNumero.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaNumero_SelectedIndexChanged);
+            this.comboBoxRotaNumero.Enter += new System.EventHandler(this.comboBoxRotaNumero_Enter);
+            this.comboBoxRotaNumero.Leave += new System.EventHandler(this.comboBoxRotaNumero_Leave);
             // 
             // btnAddNumeroRota
             // 
@@ -225,6 +227,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
             this.comboBoxRotaLetra.TabIndex = 2;
             this.comboBoxRotaLetra.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaLetra_SelectedIndexChanged);
+            this.comboBoxRotaLetra.Enter += new System.EventHandler(this.comboBoxRotaLetra_Enter);
+            this.comboBoxRotaLetra.Leave += new System.EventHandler(this.comboBoxRotaLetra_Leave);
             this.comboBoxRotaLetra.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxRotaLetra_Validating);
             // 
             // btnAddRotaLetra
@@ -286,6 +290,180 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBoxTelones.TabStop = false;
             this.groupBoxTelones.Text = "Telefones";
             // 
+            // groupBoxEndereco
+            // 
+            this.groupBoxEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxEndereco.Controls.Add(this.label16);
+            this.groupBoxEndereco.Controls.Add(this.maskedTextCep);
+            this.groupBoxEndereco.Controls.Add(this.label4);
+            this.groupBoxEndereco.Controls.Add(this.textNumero);
+            this.groupBoxEndereco.Controls.Add(this.label3);
+            this.groupBoxEndereco.Controls.Add(this.comboBoxBairro);
+            this.groupBoxEndereco.Controls.Add(this.comboBoxCidade);
+            this.groupBoxEndereco.Controls.Add(this.comboBoxUfEndereco);
+            this.groupBoxEndereco.Controls.Add(this.textComplemento);
+            this.groupBoxEndereco.Controls.Add(this.label5);
+            this.groupBoxEndereco.Controls.Add(this.textLogradouro);
+            this.groupBoxEndereco.Controls.Add(this.label2);
+            this.groupBoxEndereco.Controls.Add(this.label8);
+            this.groupBoxEndereco.Controls.Add(this.label6);
+            this.groupBoxEndereco.Controls.Add(this.label7);
+            this.groupBoxEndereco.Location = new System.Drawing.Point(23, 245);
+            this.groupBoxEndereco.Name = "groupBoxEndereco";
+            this.groupBoxEndereco.Size = new System.Drawing.Size(415, 213);
+            this.groupBoxEndereco.TabIndex = 12;
+            this.groupBoxEndereco.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 14);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Endereço:";
+            // 
+            // maskedTextCep
+            // 
+            this.maskedTextCep.Location = new System.Drawing.Point(208, 63);
+            this.maskedTextCep.Mask = "00000-999";
+            this.maskedTextCep.Name = "maskedTextCep";
+            this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
+            this.maskedTextCep.TabIndex = 2;
+            this.maskedTextCep.Enter += new System.EventHandler(this.maskedTextCep_Enter);
+            this.maskedTextCep.Leave += new System.EventHandler(this.maskedTextCep_Leave);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(172, 66);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 14);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "CEP:";
+            // 
+            // textNumero
+            // 
+            this.textNumero.Location = new System.Drawing.Point(86, 63);
+            this.textNumero.Name = "textNumero";
+            this.textNumero.Size = new System.Drawing.Size(77, 22);
+            this.textNumero.TabIndex = 1;
+            this.textNumero.Enter += new System.EventHandler(this.textNumero_Enter);
+            this.textNumero.Leave += new System.EventHandler(this.textNumero_Leave);
+            this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(27, 66);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 14);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Número:";
+            // 
+            // comboBoxBairro
+            // 
+            this.comboBoxBairro.FormattingEnabled = true;
+            this.comboBoxBairro.Location = new System.Drawing.Point(86, 165);
+            this.comboBoxBairro.Name = "comboBoxBairro";
+            this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
+            this.comboBoxBairro.TabIndex = 6;
+            this.comboBoxBairro.Enter += new System.EventHandler(this.comboBoxBairro_Enter);
+            this.comboBoxBairro.Leave += new System.EventHandler(this.comboBoxBairro_Leave);
+            this.comboBoxBairro.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxBairro_Validating);
+            // 
+            // comboBoxCidade
+            // 
+            this.comboBoxCidade.FormattingEnabled = true;
+            this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
+            this.comboBoxCidade.Name = "comboBoxCidade";
+            this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
+            this.comboBoxCidade.TabIndex = 5;
+            this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
+            this.comboBoxCidade.Enter += new System.EventHandler(this.comboBoxCidade_Enter);
+            this.comboBoxCidade.Leave += new System.EventHandler(this.comboBoxCidade_Leave);
+            this.comboBoxCidade.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxCidade_Validating);
+            // 
+            // comboBoxUfEndereco
+            // 
+            this.comboBoxUfEndereco.FormattingEnabled = true;
+            this.comboBoxUfEndereco.Items.AddRange(new object[] {
+            "-"});
+            this.comboBoxUfEndereco.Location = new System.Drawing.Point(86, 131);
+            this.comboBoxUfEndereco.Name = "comboBoxUfEndereco";
+            this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
+            this.comboBoxUfEndereco.TabIndex = 4;
+            this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
+            this.comboBoxUfEndereco.Enter += new System.EventHandler(this.comboBoxUfEndereco_Enter);
+            this.comboBoxUfEndereco.Leave += new System.EventHandler(this.comboBoxUfEndereco_Leave);
+            this.comboBoxUfEndereco.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfEndereco_Validating);
+            // 
+            // textComplemento
+            // 
+            this.textComplemento.Location = new System.Drawing.Point(101, 97);
+            this.textComplemento.Name = "textComplemento";
+            this.textComplemento.Size = new System.Drawing.Size(292, 22);
+            this.textComplemento.TabIndex = 3;
+            this.textComplemento.Enter += new System.EventHandler(this.textComplemento_Enter);
+            this.textComplemento.Leave += new System.EventHandler(this.textComplemento_Leave);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 14);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Complemento:";
+            // 
+            // textLogradouro
+            // 
+            this.textLogradouro.Location = new System.Drawing.Point(86, 29);
+            this.textLogradouro.Name = "textLogradouro";
+            this.textLogradouro.Size = new System.Drawing.Size(307, 22);
+            this.textLogradouro.TabIndex = 0;
+            this.textLogradouro.Enter += new System.EventHandler(this.textLogradouro_Enter);
+            this.textLogradouro.Leave += new System.EventHandler(this.textLogradouro_Leave);
+            this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 14);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Logradouro:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(37, 168);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 14);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Bairro:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(53, 134);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(24, 14);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "UF:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(152, 134);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 14);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Cidade:";
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -317,6 +495,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomeMae.Name = "textNomeMae";
             this.textNomeMae.Size = new System.Drawing.Size(307, 22);
             this.textNomeMae.TabIndex = 1;
+            this.textNomeMae.Enter += new System.EventHandler(this.textNomeMae_Enter);
+            this.textNomeMae.Leave += new System.EventHandler(this.textNomeMae_Leave);
             // 
             // label14
             // 
@@ -334,6 +514,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomePai.Name = "textNomePai";
             this.textNomePai.Size = new System.Drawing.Size(307, 22);
             this.textNomePai.TabIndex = 0;
+            this.textNomePai.Enter += new System.EventHandler(this.textNomePai_Enter);
+            this.textNomePai.Leave += new System.EventHandler(this.textNomePai_Leave);
             // 
             // label15
             // 
@@ -382,6 +564,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfRg.Name = "comboBoxUfRg";
             this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
             this.comboBoxUfRg.TabIndex = 7;
+            this.comboBoxUfRg.Enter += new System.EventHandler(this.comboBoxUfRg_Enter);
+            this.comboBoxUfRg.Leave += new System.EventHandler(this.comboBoxUfRg_Leave);
             this.comboBoxUfRg.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfRg_Validating);
             // 
             // maskedTextCpf
@@ -392,6 +576,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCpf.Name = "maskedTextCpf";
             this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
             this.maskedTextCpf.TabIndex = 1;
+            this.maskedTextCpf.Enter += new System.EventHandler(this.maskedTextCpf_Enter);
+            this.maskedTextCpf.Leave += new System.EventHandler(this.maskedTextCpf_Leave);
             this.maskedTextCpf.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextCpf_Validating);
             // 
             // comboBoxEstadoCivil
@@ -403,6 +589,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 22);
             this.comboBoxEstadoCivil.TabIndex = 10;
+            this.comboBoxEstadoCivil.Enter += new System.EventHandler(this.comboBoxEstadoCivil_Enter);
+            this.comboBoxEstadoCivil.Leave += new System.EventHandler(this.comboBoxEstadoCivil_Leave);
             this.comboBoxEstadoCivil.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxEstadoCivil_Validating);
             // 
             // label13
@@ -466,6 +654,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmissorRg.Name = "textEmissorRg";
             this.textEmissorRg.Size = new System.Drawing.Size(52, 22);
             this.textEmissorRg.TabIndex = 6;
+            this.textEmissorRg.Enter += new System.EventHandler(this.textEmissorRg_Enter);
+            this.textEmissorRg.Leave += new System.EventHandler(this.textEmissorRg_Leave);
             this.textEmissorRg.Validating += new System.ComponentModel.CancelEventHandler(this.textEmissorRg_Validating);
             // 
             // LblUf
@@ -492,6 +682,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textRg.Name = "textRg";
             this.textRg.Size = new System.Drawing.Size(121, 22);
             this.textRg.TabIndex = 5;
+            this.textRg.Enter += new System.EventHandler(this.textRg_Enter);
+            this.textRg.Leave += new System.EventHandler(this.textRg_Leave);
             this.textRg.Validating += new System.ComponentModel.CancelEventHandler(this.textRg_Validating);
             // 
             // lblRg
@@ -524,6 +716,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(296, 22);
             this.textEmail.TabIndex = 8;
+            this.textEmail.Enter += new System.EventHandler(this.textEmail_Enter);
+            this.textEmail.Leave += new System.EventHandler(this.textEmail_Leave);
             // 
             // lblEmail
             // 
@@ -544,6 +738,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textConjuge.Name = "textConjuge";
             this.textConjuge.Size = new System.Drawing.Size(241, 22);
             this.textConjuge.TabIndex = 11;
+            this.textConjuge.Enter += new System.EventHandler(this.textConjuge_Enter);
+            this.textConjuge.Leave += new System.EventHandler(this.textConjuge_Leave);
             this.textConjuge.Validating += new System.ComponentModel.CancelEventHandler(this.textConjuge_Validating);
             // 
             // label10
@@ -562,6 +758,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(404, 22);
             this.textNome.TabIndex = 3;
+            this.textNome.Enter += new System.EventHandler(this.textNome_Enter);
+            this.textNome.Leave += new System.EventHandler(this.textNome_Leave);
             this.textNome.Validating += new System.ComponentModel.CancelEventHandler(this.textNome_Validating);
             // 
             // lblConjunge
@@ -683,166 +881,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(53, 134);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(24, 14);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "UF:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(37, 168);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 14);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Bairro:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 14);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Logradouro:";
-            // 
-            // textLogradouro
-            // 
-            this.textLogradouro.Location = new System.Drawing.Point(86, 29);
-            this.textLogradouro.Name = "textLogradouro";
-            this.textLogradouro.Size = new System.Drawing.Size(307, 22);
-            this.textLogradouro.TabIndex = 0;
-            this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 100);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 14);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Complemento:";
-            // 
-            // textComplemento
-            // 
-            this.textComplemento.Location = new System.Drawing.Point(101, 97);
-            this.textComplemento.Name = "textComplemento";
-            this.textComplemento.Size = new System.Drawing.Size(292, 22);
-            this.textComplemento.TabIndex = 3;
-            // 
-            // comboBoxUfEndereco
-            // 
-            this.comboBoxUfEndereco.FormattingEnabled = true;
-            this.comboBoxUfEndereco.Items.AddRange(new object[] {
-            "-"});
-            this.comboBoxUfEndereco.Location = new System.Drawing.Point(86, 131);
-            this.comboBoxUfEndereco.Name = "comboBoxUfEndereco";
-            this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
-            this.comboBoxUfEndereco.TabIndex = 4;
-            this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
-            this.comboBoxUfEndereco.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfEndereco_Validating);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 66);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 14);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Número:";
-            // 
-            // textNumero
-            // 
-            this.textNumero.Location = new System.Drawing.Point(86, 63);
-            this.textNumero.Name = "textNumero";
-            this.textNumero.Size = new System.Drawing.Size(77, 22);
-            this.textNumero.TabIndex = 1;
-            this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(172, 66);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 14);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "CEP:";
-            // 
-            // maskedTextCep
-            // 
-            this.maskedTextCep.Location = new System.Drawing.Point(208, 63);
-            this.maskedTextCep.Mask = "00000-999";
-            this.maskedTextCep.Name = "maskedTextCep";
-            this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
-            this.maskedTextCep.TabIndex = 2;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(9, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 14);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Endereço:";
-            // 
-            // groupBoxEndereco
-            // 
-            this.groupBoxEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxEndereco.Controls.Add(this.label16);
-            this.groupBoxEndereco.Controls.Add(this.maskedTextCep);
-            this.groupBoxEndereco.Controls.Add(this.label4);
-            this.groupBoxEndereco.Controls.Add(this.textNumero);
-            this.groupBoxEndereco.Controls.Add(this.label3);
-            this.groupBoxEndereco.Controls.Add(this.comboBoxBairro);
-            this.groupBoxEndereco.Controls.Add(this.comboBoxCidade);
-            this.groupBoxEndereco.Controls.Add(this.comboBoxUfEndereco);
-            this.groupBoxEndereco.Controls.Add(this.textComplemento);
-            this.groupBoxEndereco.Controls.Add(this.label5);
-            this.groupBoxEndereco.Controls.Add(this.textLogradouro);
-            this.groupBoxEndereco.Controls.Add(this.label2);
-            this.groupBoxEndereco.Controls.Add(this.label8);
-            this.groupBoxEndereco.Controls.Add(this.label6);
-            this.groupBoxEndereco.Controls.Add(this.label7);
-            this.groupBoxEndereco.Location = new System.Drawing.Point(23, 245);
-            this.groupBoxEndereco.Name = "groupBoxEndereco";
-            this.groupBoxEndereco.Size = new System.Drawing.Size(415, 213);
-            this.groupBoxEndereco.TabIndex = 12;
-            this.groupBoxEndereco.TabStop = false;
-            // 
-            // comboBoxBairro
-            // 
-            this.comboBoxBairro.FormattingEnabled = true;
-            this.comboBoxBairro.Location = new System.Drawing.Point(86, 165);
-            this.comboBoxBairro.Name = "comboBoxBairro";
-            this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
-            this.comboBoxBairro.TabIndex = 6;
-            this.comboBoxBairro.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxBairro_Validating);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(152, 134);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 14);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Cidade:";
-            // 
-            // comboBoxCidade
-            // 
-            this.comboBoxCidade.FormattingEnabled = true;
-            this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
-            this.comboBoxCidade.Name = "comboBoxCidade";
-            this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
-            this.comboBoxCidade.TabIndex = 5;
-            this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
-            this.comboBoxCidade.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxCidade_Validating);
-            // 
             // VendedoraForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -868,14 +906,14 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBoxEndereco.ResumeLayout(false);
+            this.groupBoxEndereco.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grouBoxFiliacao.ResumeLayout(false);
             this.grouBoxFiliacao.PerformLayout();
             this.panelCommands.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            this.groupBoxEndereco.ResumeLayout(false);
-            this.groupBoxEndereco.PerformLayout();
             this.ResumeLayout(false);
 
         }

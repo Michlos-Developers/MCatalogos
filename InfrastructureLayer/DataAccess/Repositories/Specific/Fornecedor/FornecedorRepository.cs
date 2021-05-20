@@ -5,7 +5,9 @@ using DomainLayer.Models.Fornecedores;
 using ServiceLayer.Services.FornecedorServices;
 
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
 {
@@ -266,7 +268,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
 
             bool recordFound = false;
 
-            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Cep, UfId, CidadeId, BairroId " +
+            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Complemento, Numero, Cep, UfId, CidadeId, BairroId " +
                            "FROM  Fornecedores WHERE FornecedorId = @FornecedorId ";
 
 
@@ -295,7 +297,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                                 model.ContatoPrincipal = reader["ContatoPrincipal"].ToString();
                                 model.Logradouro = reader["Logradouro"].ToString();
                                 model.Numero = reader["Numero"].ToString();
-                                model.Complemento = reader["Complemento"].ToString();
+                                model.Complemento = reader["Complemento"] != null ? reader["Complemento"].ToString() : "";
                                 model.Cep = reader["Cep"].ToString();
                                 model.UfId = int.Parse(reader["UfId"].ToString());
                                 model.CidadeId = int.Parse(reader["CidadeId"].ToString());
@@ -329,6 +331,72 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
 
                 return model;
             }
+        }
+
+        public FornecedorModel GetByNomeFantasia(string nomeFantasia)
+        {
+            FornecedorModel model = new FornecedorModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            bool recordFound = false;
+            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Cep, UfId, CidadeId, BairroId " +
+                           "FROM  Fornecedores WHERE NomeFantasia = @NomeFantasia ";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@NomeFantasia", nomeFantasia));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            recordFound = reader.HasRows;
+                            while (reader.Read())
+                            {
+                                model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
+                                model.NomeFantasia = reader["NomeFantasia"].ToString();
+                                model.RazaoSocial = reader["RazaoSocial"].ToString();
+                                model.Cnpj = reader["Cnpj"].ToString();
+                                model.InscricaoEstadual = reader["InscricaoEstadual"].ToString();
+                                model.Email = reader["Email"].ToString();
+                                model.WebSite = reader["WebSite"].ToString();
+                                model.ContatoPrincipal = reader["ContatoPrincipal"].ToString();
+                                model.Logradouro = reader["Logradouro"].ToString();
+                                model.Numero = reader["Numero"].ToString();
+                                model.Complemento = reader["Complemento"].ToString();
+                                model.Cep = reader["Cep"].ToString();
+                                model.UfId = int.Parse(reader["UfId"].ToString());
+                                model.CidadeId = int.Parse(reader["CidadeId"].ToString());
+                                model.BairroId = int.Parse(reader["BairroId"].ToString());
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível buscar o Fornecedor pelo Nome", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                if (!recordFound)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: "",
+                          customMessage: $"Registro não encontrado., Não foi possível encontrar Fornecedor {nomeFantasia}. Id {nomeFantasia} " +
+                          $"não existe no DataBase",
+                          helpLink: "", errorCode: 0, stackTrace: "");
+
+                    throw new DataAccessException(dataAccessStatus);
+                }
+                return model;
+            }
+
         }
 
         public void Update(IFornecedorModel fornecedorModel)

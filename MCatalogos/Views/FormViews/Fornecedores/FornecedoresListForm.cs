@@ -74,7 +74,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             aForm = null;
         }
 
-        private void FornecedoresListForm_Load(object sender, EventArgs e)
+        public void FornecedoresListForm_Load(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             string query = "SELECT FornecedorId, RazaoSocial, NomeFantasia, Cnpj FROM Fornecedores";
@@ -165,7 +165,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         {
             if ((e.ColumnIndex == 3) && (e.RowIndex != dgvFornecedores.NewRowIndex))
             {
-                e.Value = string.Format(@"{0:##\.###\.###\/####\-##", Int64.Parse(e.Value.ToString()));
+                e.Value = string.Format(@"{0:##\.###\.###\/####\-##}", Int64.Parse(e.Value.ToString()));
             }
         }
     }

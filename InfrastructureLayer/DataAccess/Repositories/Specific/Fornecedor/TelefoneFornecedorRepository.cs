@@ -244,7 +244,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
             List<TelefoneFornecedorModel> modelList = new List<TelefoneFornecedorModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
-            string query = "SELECT * FROM TelefonesForencedores WHERE FornecedorId = @FornecedorId";
+            string query = "SELECT * FROM TelefonesFornecedores WHERE FornecedorId = @FornecedorId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

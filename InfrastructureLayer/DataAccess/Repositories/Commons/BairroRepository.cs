@@ -120,6 +120,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
         {
             int countOfRecsFound = 0;
             DataAccessStatus dataAccess = new DataAccessStatus();
+            bool RecordExistsCheckPassed = true;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -128,7 +129,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     connection.Open();
                     using (SqlCommand cmd = new SqlCommand("", connection))
                     {
-                        bool RecordExistsCheckPassed = true;
+                        
 
                         DataAccessStatus dataAccessStatus = new DataAccessStatus();
                         cmd.Prepare();

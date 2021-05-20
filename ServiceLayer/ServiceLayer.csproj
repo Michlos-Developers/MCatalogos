@@ -48,6 +48,12 @@
     <Compile Include="Services\BairroServices\BairroServices.cs" />
     <Compile Include="Services\BairroServices\IBairroRepository.cs" />
     <Compile Include="Services\BairroServices\IBairroServices.cs" />
+    <Compile Include="Services\CatalogoServices\CampanhaServices.cs" />
+    <Compile Include="Services\CatalogoServices\CatalogoServices.cs" />
+    <Compile Include="Services\CatalogoServices\ICampanhaRepository.cs" />
+    <Compile Include="Services\CatalogoServices\ICampanhaServices.cs" />
+    <Compile Include="Services\CatalogoServices\ICatalogoRepository.cs" />
+    <Compile Include="Services\CatalogoServices\ICatalogoServices.cs" />
     <Compile Include="Services\CidadeServices\CidadeServices.cs" />
     <Compile Include="Services\CidadeServices\ICidadeRepository.cs" />
     <Compile Include="Services\CidadeServices\ICidadeServices.cs" />

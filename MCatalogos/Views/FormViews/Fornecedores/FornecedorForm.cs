@@ -1,13 +1,24 @@
-﻿using DomainLayer.Models.CommonModels.Address;
+﻿using CommonComponents;
+
+using DomainLayer.Models.CommonModels.Address;
+using DomainLayer.Models.Fornecedores;
+using DomainLayer.Models.Validations;
 
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
+using InfrastructureLayer.Validations;
+
+using MCatalogos.Views.UserControls.Fornecedores;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.BairroServices;
 using ServiceLayer.Services.CidadeServices;
 using ServiceLayer.Services.EstadosServices;
 using ServiceLayer.Services.FornecedorServices;
+using ServiceLayer.Services.ValidationServices;
 
 using System;
 using System.Collections.Generic;
@@ -15,6 +26,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Configuration;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +43,9 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private EstadoServices _estadoServices;
         private CidadeServices _cidadeServices;
         private BairroServices _bairroServices;
+        private ValidationCnpjServices _validationCnpjServices;
+
+        bool permiteAddOrUpdate = false;
 
         private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
@@ -39,21 +56,132 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             _estadoServices = new EstadoServices(new EstadoRepository(_connectionString), new ModelDataAnnotationCheck());
             _cidadeServices = new CidadeServices(new CidadeRepository(_connectionString), new ModelDataAnnotationCheck());
             _bairroServices = new BairroServices(new BairroRepository(_connectionString), new ModelDataAnnotationCheck());
+            _validationCnpjServices = new ValidationCnpjServices(new CnpjRepository());
 
             InitializeComponent();
             this.FornecedoresListForm = fornecedoresListForm;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+
+        //REPOSITORY COMMANDS
+        private FornecedorModel FornecedorAdd()
         {
-            this.Close();
+            FornecedorModel returnModel = new FornecedorModel();
+            string cnpj = ReplaceCnpj(mTextCnpj.Text);
+            string cep = ReplaceCep(mTextCep.Text);
+            string ie = ReplaceIe(mTextInscricaoEstadual.Text);
+
+            FornecedorModel model = new FornecedorModel()
+            {
+                BairroId = _bairroServices.GetByNomeAndCidadeId(cbBairro.Text,
+                           _cidadeServices.GetByNomeAndEstadoId(cbCidade.Text,
+                           _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId).BairroId,
+                Cep = cep,
+                CidadeId = _cidadeServices.GetByNomeAndEstadoId(cbCidade.Text,
+                           _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId,
+                Cnpj = cnpj,
+                Complemento = textComplemento.Text,
+                Email = textEmail.Text,
+                InscricaoEstadual = ie,
+                Logradouro = textLogradouro.Text,
+                NomeFantasia = textNomeFantasia.Text,
+                Numero = textNumero.Text,
+                RazaoSocial = textRazaoSocial.Text,
+                UfId = _estadoServices.GetByUf(cbUf.Text).EstadoId,
+                WebSite = textSite.Text,
+                ContatoPrincipal = ""
+
+            };
+
+            bool operationSucceeded = false;
+            string dataAccessStatusJsonStr = string.Empty;
+            string formattedJsonStr = string.Empty;
+
+            try
+            {
+                returnModel = _fornecedorServices.Add(model);
+                operationSucceeded = true;
+            }
+            catch (DataAccessException e)
+            {
+                operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
+                dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
+                formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
+                MessageBox.Show(formattedJsonStr, "Erro ao tentar adicionar Fornecedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (operationSucceeded)
+            {
+                MessageBox.Show("Registro adicionar dom suceddo!", "Adicionar Fornecedor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            return returnModel;
+        }
+        private void FornecedorUpdate()
+        {
+            FornecedorModel model = new FornecedorModel()
+            {
+                FornecedorId = int.Parse(textFornecedorId.Text),
+                Cnpj = ReplaceCnpj(mTextCnpj.Text),
+                InscricaoEstadual = ReplaceIe(mTextInscricaoEstadual.Text),
+                RazaoSocial = textRazaoSocial.Text,
+                NomeFantasia = textNomeFantasia.Text,
+                Logradouro = textLogradouro.Text,
+                Numero = textNumero.Text,
+                Cep = ReplaceCep(mTextCep.Text),
+                UfId = _estadoServices.GetByUf(cbUf.Text).EstadoId,
+                Complemento = textComplemento.Text,
+                CidadeId = _cidadeServices.GetByNomeAndEstadoId(cbCidade.Text,
+                           _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId,
+                BairroId = _bairroServices.GetByNomeAndCidadeId(cbBairro.Text,
+                           _cidadeServices.GetByNomeAndEstadoId(cbCidade.Text,
+                           _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId).BairroId,
+                Email = textEmail.Text,
+                WebSite = textSite.Text
+            };
+
+            bool operationSucceeded = false;
+            string dataAccessStatusJsonStr = string.Empty;
+            string formattedJsonStr = string.Empty;
+
+            try
+            {
+                _fornecedorServices.Update(model);
+                operationSucceeded = true;
+            }
+            catch (DataAccessException e)
+            {
+                operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
+                dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
+                formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
+                MessageBox.Show(formattedJsonStr, "Erro ao tentar atualizar os dados do Forencedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (operationSucceeded)
+            {
+                MessageBox.Show("Registro atualizado com sucesso!", "Alterar dados de Fornecedor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void FornecedorForm_Load(object sender, EventArgs e)
+
+        //LOAD USER CONTROLS
+        private void LoadUserControlCatalogos()
         {
-            LoadEstadosToComboBox();
+            CatalogosFornecedorListUc catalogos = new CatalogosFornecedorListUc(this);
+            panelCatalogosList.Controls.Clear();
+            panelCatalogosList.Controls.Add(catalogos);
+            catalogos.Dock = DockStyle.Fill;
+        }
+        private void LoadUserControlTelefones()
+        {
+            TelefonesFornecedorListUC telefone = new TelefonesFornecedorListUC(this);
+            panelContatosList.Controls.Clear();
+            panelContatosList.Controls.Add(telefone);
+            telefone.Dock = DockStyle.Fill;
         }
 
+
+        //LOAD COMBOBOXES
         private void LoadEstadosToComboBox()
         {
             List<EstadoModel> modelList = (List<EstadoModel>)_estadoServices.GetAll();
@@ -66,10 +194,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 cbUf.Items.Add(model);
             }
         }
-
-
-
-
         private void LoadCidadesToComboBox(string uf)
         {
             List<CidadeModel> modelList = (List<CidadeModel>)_cidadeServices.GetAllByUf(uf);
@@ -81,7 +205,67 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 cbCidade.Items.Add(model);
             }
         }
+        private void LoadBAirrosToComboBox(string text)
+        {
+            List<BairroModel> modelList = (List<BairroModel>)_bairroServices.GetByCidadeId(
+                    _cidadeServices.GetByNomeAndEstadoId(
+                    cbCidade.Text,
+                    _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId);
 
+            if (modelList != null)
+            {
+                cbBairro.DisplayMember = "Nome";
+                cbBairro.Items.Clear();
+                foreach (BairroModel model in modelList)
+                {
+                    cbBairro.Items.Add(model);
+                }
+            }
+        }
+
+
+        //SETTING AND GETTING VALUES
+        public void PreencheCampos()
+        {
+            if (textFornecedorId.Text != "")
+            {
+                FornecedorModel model = null;
+                try
+                {
+                    model = _fornecedorServices.GetById(int.Parse(textFornecedorId.Text));
+                }
+                catch (DataAccessException e)
+                {
+                    MessageBox.Show($"Falha ao tentar recuparar dados do Fornecedor.\nErrorMessage: {e.DataAccessStatusInfo.getFormattedValues()}", "Error");
+                }
+
+                if (model != null)
+                {
+
+                    textFornecedorId.Text = model.FornecedorId.ToString();
+                    textNomeFantasia.Text = model.NomeFantasia.ToString();
+                    textRazaoSocial.Text = model.RazaoSocial.ToString();
+                    mTextCnpj.Text = model.Cnpj.ToString();
+                    mTextInscricaoEstadual.Text = model.InscricaoEstadual.ToString();
+                    textLogradouro.Text = model.Logradouro.ToString();
+                    textNumero.Text = model.Numero.ToString();
+
+                    cbUf.Text = _estadoServices.GetById(int.Parse(model.UfId.ToString())).Uf;
+                    cbCidade.Text = _cidadeServices.GetById(int.Parse(model.CidadeId.ToString())).Nome;
+                    cbBairro.Text = _bairroServices.GetById(int.Parse(model.BairroId.ToString())).Nome;
+
+                    if (!(string.IsNullOrEmpty(model.Complemento.ToString())))
+                        textComplemento.Text = model.Complemento.ToString();
+                    if (!(string.IsNullOrEmpty(model.Email.ToString())))
+                        textEmail.Text = model.Email.ToString();
+                    if (!(string.IsNullOrEmpty(model.WebSite.ToString())))
+                        textSite.Text = model.WebSite.ToString();
+                    if (!(string.IsNullOrEmpty(model.Cep.ToString())))
+                        mTextCep.Text = model.Cep.ToString();
+
+                }
+            }
+        }
         private void SetMaskInscricaoEstadual(string uf)
         {
             switch (uf)
@@ -173,12 +357,79 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                     break;
             }
         }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private string ReplaceCnpj(string cnpj)
         {
+            cnpj = cnpj.Replace(".", "");
+            cnpj = cnpj.Replace("-", "");
+            cnpj = cnpj.Replace("/", "");
+            cnpj = cnpj.Replace(" ", "");
 
+            return cnpj;
+        }
+        private string ReplaceIe(string ie)
+        {
+            ie = ie.Replace(".", "");
+            ie = ie.Replace("-", "");
+            ie = ie.Replace("/", "");
+            ie = ie.Replace(" ", "");
+
+            return ie;
+        }
+        private string ReplaceCep(string cep)
+        {
+            cep = cep.Replace(".", "");
+            cep = cep.Replace("-", "");
+            cep = cep.Replace(" ", "");
+
+            return cep;
         }
 
+
+        //EVENTS FORM
+        private void FornecedorForm_Load(object sender, EventArgs e)
+        {
+            LoadEstadosToComboBox();
+            PreencheCampos();
+            LoadUserControlTelefones();
+            LoadUserControlCatalogos();
+        }
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (ValidateChildren(ValidationConstraints.Enabled))
+            {
+                //MessageBox.Show(mTextCnpj.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(textRazaoSocial.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(textNomeFantasia.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(textLogradouro.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(textNumero.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(cbUf.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(cbCidade.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(cbBairro.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (permiteAddOrUpdate)
+                {
+
+                    FornecedorModel model = new FornecedorModel();
+                    if (textFornecedorId.Text == "")
+                    {
+                        model = FornecedorAdd();
+                        this.textFornecedorId.Text = model.FornecedorId.ToString();
+                    }
+                    else
+                    {
+                        FornecedorUpdate();
+                    }
+                    FornecedoresListForm.FornecedoresListForm_Load(sender, e);
+                    this.FornecedorForm_Load(sender, e);
+                }
+            }
+
+
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         private void cbUf_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbUf.SelectedIndex > 0)
@@ -187,28 +438,88 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 SetMaskInscricaoEstadual(cbUf.Text);
             }
         }
-
         private void cbCidade_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadBAirrosToComboBox(cbCidade.Text);
         }
 
-        private void LoadBAirrosToComboBox(string text)
-        {
-            List<BairroModel> modelList = (List<BairroModel>)_bairroServices.GetByCidadeId(
-                    _cidadeServices.GetByNomeAndEstadoId(
-                    cbCidade.Text, 
-                    _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId);
 
-            if (modelList != null)
+        //VALIDATIONS
+        private bool ValidaCampos(Control control)
+        {
+            bool eventArgs = false;
+            if (string.IsNullOrEmpty(control.Text))
             {
-                cbBairro.DisplayMember = "Nome";
-                cbBairro.Items.Clear();
-                foreach (BairroModel model in modelList)
-                {
-                    cbBairro.Items.Add(model);
-                }
+                eventArgs = true;
+                control.Focus();
+                errorProvider.SetError(control, "Campo Obrigatório!");
+                permiteAddOrUpdate = false;
+
             }
+            else
+            {
+                eventArgs = false;
+                errorProvider.SetError(control, null);
+                permiteAddOrUpdate = true;
+            }
+            return eventArgs;
+        }
+        private void mTextCnpj_Validating(object sender, CancelEventArgs e)
+        {
+            CnpjModel model = new CnpjModel() { Cnpj = mTextCnpj.Text };
+            string cnpjReplaced = ReplaceCnpj(mTextCnpj.Text);
+            if (string.IsNullOrEmpty(cnpjReplaced))
+            {
+                e.Cancel = true;
+                mTextCnpj.Focus();
+                errorProvider.SetError(mTextCnpj, "Campo Obrigatório");
+                permiteAddOrUpdate = false;
+
+            }
+            else if (!_validationCnpjServices.ValidaCnpj(model))
+            {
+                e.Cancel = true;
+                mTextCnpj.Focus();
+                errorProvider.SetError(mTextCnpj, "CNPJ Inválido");
+                permiteAddOrUpdate = false;
+
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(mTextCnpj, null);
+                permiteAddOrUpdate = true;
+            }
+
+        }
+        private void textRazaoSocial_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(textRazaoSocial);
+        }
+        private void textNomeFantasia_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(textNomeFantasia);
+        }
+        private void textLogradouro_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(textLogradouro);
+        }
+        private void textNumero_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(textNumero);
+        }
+        private void cbUf_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(cbUf);
+        }
+        private void cbCidade_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(cbCidade);
+
+        }
+        private void cbBairro_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampos(cbBairro);
         }
     }
 }

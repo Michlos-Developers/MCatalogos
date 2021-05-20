@@ -75,6 +75,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.LblCnpj = new System.Windows.Forms.Label();
             this.textFornecedorId = new System.Windows.Forms.TextBox();
             this.LblCodigo = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelCommands.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -82,6 +83,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.groupBoxContatos.SuspendLayout();
             this.groupBoxEndereco.SuspendLayout();
             this.groupBoxCatalogos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -145,6 +147,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // pictureClose
             // 
+            this.pictureClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureClose.Image = global::MCatalogos.Properties.Resources.IconClose20x20;
             this.pictureClose.Location = new System.Drawing.Point(777, 6);
@@ -191,7 +195,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.panelContent.Location = new System.Drawing.Point(0, 30);
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(800, 440);
-            this.panelContent.TabIndex = 40;
+            this.panelContent.TabIndex = 0;
             // 
             // groupBoxContatos
             // 
@@ -240,7 +244,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.groupBoxEndereco.Location = new System.Drawing.Point(18, 99);
             this.groupBoxEndereco.Name = "groupBoxEndereco";
             this.groupBoxEndereco.Size = new System.Drawing.Size(486, 142);
-            this.groupBoxEndereco.TabIndex = 25;
+            this.groupBoxEndereco.TabIndex = 4;
             this.groupBoxEndereco.TabStop = false;
             // 
             // label3
@@ -257,7 +261,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textNumero.Location = new System.Drawing.Point(82, 49);
             this.textNumero.Name = "textNumero";
             this.textNumero.Size = new System.Drawing.Size(62, 22);
-            this.textNumero.TabIndex = 22;
+            this.textNumero.TabIndex = 1;
+            this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
             // 
             // label5
             // 
@@ -273,7 +278,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textComplemento.Location = new System.Drawing.Point(96, 77);
             this.textComplemento.Name = "textComplemento";
             this.textComplemento.Size = new System.Drawing.Size(369, 22);
-            this.textComplemento.TabIndex = 22;
+            this.textComplemento.TabIndex = 4;
             // 
             // label8
             // 
@@ -291,6 +296,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.cbBairro.Name = "cbBairro";
             this.cbBairro.Size = new System.Drawing.Size(156, 22);
             this.cbBairro.TabIndex = 6;
+            this.cbBairro.Validating += new System.ComponentModel.CancelEventHandler(this.cbBairro_Validating);
             // 
             // textLogradouro
             // 
@@ -298,7 +304,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textLogradouro.MaxLength = 300;
             this.textLogradouro.Name = "textLogradouro";
             this.textLogradouro.Size = new System.Drawing.Size(383, 22);
-            this.textLogradouro.TabIndex = 22;
+            this.textLogradouro.TabIndex = 0;
+            this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
             // 
             // cbCidade
             // 
@@ -308,6 +315,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.cbCidade.Size = new System.Drawing.Size(172, 22);
             this.cbCidade.TabIndex = 5;
             this.cbCidade.SelectedIndexChanged += new System.EventHandler(this.cbCidade_SelectedIndexChanged);
+            this.cbCidade.Validating += new System.ComponentModel.CancelEventHandler(this.cbCidade_Validating);
             // 
             // label4
             // 
@@ -325,7 +333,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextCep.Mask = "00000-000";
             this.mTextCep.Name = "mTextCep";
             this.mTextCep.Size = new System.Drawing.Size(80, 22);
-            this.mTextCep.TabIndex = 18;
+            this.mTextCep.TabIndex = 2;
             // 
             // label6
             // 
@@ -345,8 +353,9 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.cbUf.Location = new System.Drawing.Point(418, 49);
             this.cbUf.Name = "cbUf";
             this.cbUf.Size = new System.Drawing.Size(47, 22);
-            this.cbUf.TabIndex = 4;
+            this.cbUf.TabIndex = 3;
             this.cbUf.SelectedIndexChanged += new System.EventHandler(this.cbUf_SelectedIndexChanged);
+            this.cbUf.Validating += new System.ComponentModel.CancelEventHandler(this.cbUf_Validating);
             // 
             // label11
             // 
@@ -407,7 +416,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textSite.Location = new System.Drawing.Point(304, 253);
             this.textSite.Name = "textSite";
             this.textSite.Size = new System.Drawing.Size(200, 22);
-            this.textSite.TabIndex = 22;
+            this.textSite.TabIndex = 6;
             // 
             // label14
             // 
@@ -423,7 +432,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textEmail.Location = new System.Drawing.Point(62, 253);
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(200, 22);
-            this.textEmail.TabIndex = 22;
+            this.textEmail.TabIndex = 5;
             // 
             // label13
             // 
@@ -440,7 +449,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textNomeFantasia.MaxLength = 300;
             this.textNomeFantasia.Name = "textNomeFantasia";
             this.textNomeFantasia.Size = new System.Drawing.Size(396, 22);
-            this.textNomeFantasia.TabIndex = 22;
+            this.textNomeFantasia.TabIndex = 3;
+            this.textNomeFantasia.Validating += new System.ComponentModel.CancelEventHandler(this.textNomeFantasia_Validating);
             // 
             // label1
             // 
@@ -457,7 +467,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textRazaoSocial.MaxLength = 300;
             this.textRazaoSocial.Name = "textRazaoSocial";
             this.textRazaoSocial.Size = new System.Drawing.Size(396, 22);
-            this.textRazaoSocial.TabIndex = 22;
+            this.textRazaoSocial.TabIndex = 2;
+            this.textRazaoSocial.Validating += new System.ComponentModel.CancelEventHandler(this.textRazaoSocial_Validating);
             // 
             // LblRazaoSocial
             // 
@@ -474,7 +485,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextInscricaoEstadual.Location = new System.Drawing.Point(662, 37);
             this.mTextInscricaoEstadual.Name = "mTextInscricaoEstadual";
             this.mTextInscricaoEstadual.Size = new System.Drawing.Size(118, 22);
-            this.mTextInscricaoEstadual.TabIndex = 18;
+            this.mTextInscricaoEstadual.TabIndex = 1;
             // 
             // label9
             // 
@@ -493,7 +504,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextCnpj.Mask = "00,000,000/0000-99";
             this.mTextCnpj.Name = "mTextCnpj";
             this.mTextCnpj.Size = new System.Drawing.Size(118, 22);
-            this.mTextCnpj.TabIndex = 18;
+            this.mTextCnpj.TabIndex = 0;
+            this.mTextCnpj.Validating += new System.ComponentModel.CancelEventHandler(this.mTextCnpj_Validating);
             // 
             // label12
             // 
@@ -533,6 +545,10 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.LblCodigo.TabIndex = 19;
             this.LblCodigo.Text = "Codigo:";
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // FornecedorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -563,6 +579,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.groupBoxEndereco.PerformLayout();
             this.groupBoxCatalogos.ResumeLayout(false);
             this.groupBoxCatalogos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -614,5 +631,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private System.Windows.Forms.GroupBox groupBoxContatos;
         private System.Windows.Forms.Panel panelContatosList;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

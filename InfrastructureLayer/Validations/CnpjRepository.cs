@@ -46,7 +46,7 @@ namespace InfrastructureLayer.Validations
 
             for (int i = 0; i < multiplicadorPrimeiro.Count() ; i++)
             {
-                resultMultimplicador = (int.Parse(cnpj.ToString().Substring(i, 1))) * multiplicadorPrimeiro[i];
+                resultMultimplicador += (int.Parse(cnpj.ToString().Substring(i, 1))) * multiplicadorPrimeiro[i];
             }
 
             if (resultMultimplicador % 11 < 2)
@@ -55,7 +55,7 @@ namespace InfrastructureLayer.Validations
             }
             else
             {
-                primeiroDigito = resultMultimplicador % 11;
+                primeiroDigito = 11 - (resultMultimplicador % 11);
             }
 
             return primeiroDigito;
@@ -67,7 +67,7 @@ namespace InfrastructureLayer.Validations
             int resultMultiplicador = 0;
             for (int i = 0; i < multiplicadorSegundo.Count(); i++)
             {
-                resultMultiplicador = (int.Parse(cnpj.ToString().Substring(i, 1))) * multiplicadorSegundo[i];
+                resultMultiplicador += (int.Parse(cnpj.ToString().Substring(i, 1))) * multiplicadorSegundo[i];
             }
 
             if (resultMultiplicador % 11 < 2)
@@ -76,7 +76,7 @@ namespace InfrastructureLayer.Validations
             }
             else
             {
-                segundoDigito = resultMultiplicador % 2;
+                segundoDigito = 11 - (resultMultiplicador % 11);
             }
 
             return segundoDigito;

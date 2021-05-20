@@ -124,6 +124,12 @@
   <data name="IconAdd10x10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAdd10x10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconAdd20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAdd20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAddCatalogo20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddCatalogo20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconAddFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAddFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,6 +150,12 @@
   </data>
   <data name="IconDelete20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconDelete20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconEdit20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconEdit20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconEditCatalogo20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditCatalogo20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iconEditFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconEditFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
