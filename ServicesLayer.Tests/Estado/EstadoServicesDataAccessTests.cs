@@ -3,6 +3,7 @@
 using DomainLayer.Models.CommonModels.Address;
 using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 
 using Newtonsoft.Json;
@@ -26,15 +27,14 @@ namespace ServicesLayer.Tests.Estado
     [Trait("Caregory: Data Access Validations", "Estado")]
     public class EstadoServicesDataAccessTests
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private EstadoServices _estadoServices;
-        private string _connectionString;
 
         public EstadoServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
-            _estadoServices = new EstadoServices(new EstadoRepository(_connectionString), new ModelDataAnnotationCheck());
+            _estadoServices = new EstadoServices(new EstadoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
         }
 
         [Fact]

@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using MCatalogos.Commons;
@@ -24,11 +25,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedorasListForm : Form
     {
+        QueryString _queryString;
         MainView MainView;
         
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
-        private string _connectionString;
         private int? id = null;
         private static VendedorasListForm aForm = null;
         public static VendedorasListForm Instance(MainView mainView)
@@ -41,10 +42,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         public VendedorasListForm(MainView mainView)
         {
-            _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
             
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
-            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
 
             InitializeComponent();
@@ -57,7 +57,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             
             //STRING DE CONEXÃO COM O BANCO DE DADOS
-            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlConnection connection = new SqlConnection(_queryString.GetQuery());
 
             //STRING DE INSTRUÇÃO DE QUERY
             string sql = "SELECT VendedoraId, Nome, Cpf FROM Vendedoras";

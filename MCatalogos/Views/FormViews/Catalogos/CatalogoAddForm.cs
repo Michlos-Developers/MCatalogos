@@ -2,6 +2,7 @@
 
 using DomainLayer.Models.Catalogos;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
@@ -16,14 +17,8 @@ using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.FornecedorServices;
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Catalogos
@@ -32,19 +27,18 @@ namespace MCatalogos.Views.FormViews.Catalogos
     {
         FornecedorForm FornecedorForm;
         CatalogosFornecedorListUc CatalogosFornecedorListUc;
-
+        
+        private QueryString _queryString;
         private CatalogoServices _catalogoServices;
-        //TODO: CampanhaServices _campanhaServices;
         private FornecedorServices _fornecedorServices;
 
         public int catalogoId = 0;
         public int fornecedorId = 0;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
         public CatalogoAddForm(FornecedorForm fornecedorForm, CatalogosFornecedorListUc catalogosFornecedorListUc)
         {
-            _catalogoServices = new CatalogoServices(new CatalogoRepository(_connectionString), new ModelDataAnnotationCheck());
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
@@ -167,7 +161,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             }
 
         }
-
         private void VerificaAtivo(CatalogoModel model)
         {
             if (model.Ativo)
@@ -189,7 +182,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
             }
         }
-
         private bool GetStatus(string status)
         {
             if (status == "Ativo")
@@ -230,7 +222,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         {
             this.Close();
         }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             CatalogoModel model = new CatalogoModel();
@@ -251,7 +242,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             PreencheCamposForUpdate();
             this.Close();
         }
-
         private void CatalogoAddForm_Load(object sender, EventArgs e)
         {
             this.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);

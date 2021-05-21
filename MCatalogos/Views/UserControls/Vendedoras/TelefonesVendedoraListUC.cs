@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
@@ -22,6 +23,7 @@ namespace MCatalogos.Views.UserControls
 {
     public partial class TelefonesVendedoraListUC : UserControl
     {
+        QueryString _queryString;
         VendedoraForm VendedoraForm;
 
 
@@ -31,13 +33,12 @@ namespace MCatalogos.Views.UserControls
 
         private int? idTelefone = null;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
         public TelefonesVendedoraListUC(VendedoraForm vendedoraForm)
         {
-            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_connectionString), new ModelDataAnnotationCheck());
-            _telefoneServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _telefoneServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.VendedoraForm = vendedoraForm;
@@ -66,7 +67,7 @@ namespace MCatalogos.Views.UserControls
                 if (CheckTelefonesExistVendedora(vm.VendedoraId))
                 {
 
-                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    using (SqlConnection connection = new SqlConnection(_queryString.GetQuery()))
                     {
                         try
                         {

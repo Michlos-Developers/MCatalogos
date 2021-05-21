@@ -226,6 +226,7 @@ namespace MCatalogos
             this.btnPedidos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTipMain.SetToolTip(this.btnPedidos, "Pedidos");
             this.btnPedidos.UseVisualStyleBackColor = false;
+            this.btnPedidos.Click += new System.EventHandler(this.btnPedidos_Click);
             // 
             // pictureLogo
             // 

@@ -68,6 +68,7 @@
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\TelefoneVendedoraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\VendedoraRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryString.cs" />
     <Compile Include="Validations\CnpjRepository.cs" />
     <Compile Include="Validations\CpfRepository.cs" />
   </ItemGroup>

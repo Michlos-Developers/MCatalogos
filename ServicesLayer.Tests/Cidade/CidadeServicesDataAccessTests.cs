@@ -2,6 +2,7 @@
 
 using DomainLayer.Models.CommonModels.Address;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 
 using Newtonsoft.Json;
@@ -26,15 +27,14 @@ namespace ServicesLayer.Tests.Cidade
 
     public class CidadeServicesDataAccessTests
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private CidadeServices _cidadeServices;
-        private string _connectionString;
 
         public CidadeServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
-            _cidadeServices = new CidadeServices(new CidadeRepository(_connectionString), new ModelDataAnnotationCheck());
+            _cidadeServices = new CidadeServices(new CidadeRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
         }
 
         [Fact]

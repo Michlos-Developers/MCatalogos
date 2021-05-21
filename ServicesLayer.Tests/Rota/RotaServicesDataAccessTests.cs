@@ -17,21 +17,21 @@ using Xunit;
 using Xunit.Abstractions;
 using CommonComponents;
 using System.Runtime.CompilerServices;
+using InfrastructureLayer;
 
 namespace ServicesLayer.Tests
 {
     [Trait("Category: Data Access Validations", "Rota")]
     public class RotaServicesDataAccessTests
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private RotaServices _rotaServices;
-        private string _connectionString;
 
         public RotaServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
-            _rotaServices = new RotaServices(new RotaRepository(_connectionString), new ModelDataAnnotationCheck());
+            _rotaServices = new RotaServices(new RotaRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
         }
         

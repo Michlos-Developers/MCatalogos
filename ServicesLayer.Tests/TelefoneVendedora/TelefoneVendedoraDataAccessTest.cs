@@ -3,6 +3,7 @@
 using DomainLayer.Models.CommonModels.Enums;
 using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using Newtonsoft.Json;
@@ -28,15 +29,14 @@ namespace ServicesLayer.Tests.TelefoneVendedora
     [Trait("Category: Data Access Validations", "Telefone Vendedora")]
     public class TelefoneVendedoraDataAccessTest
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
-        private string _connectionString;
 
         public TelefoneVendedoraDataAccessTest(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
-            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
         }
 

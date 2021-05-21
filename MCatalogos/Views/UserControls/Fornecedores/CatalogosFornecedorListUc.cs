@@ -1,6 +1,7 @@
 ﻿using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.Fornecedores;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
@@ -26,6 +27,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 {
     public partial class CatalogosFornecedorListUc : UserControl
     {
+        QueryString _queryString;
         FornecedorForm FornecedorForm;
         private CatalogoServices _catalogoServices;
         private FornecedorServices _fornecedorServices;
@@ -33,12 +35,11 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         private int? idCatalogo = null;
         private int fornecedorId = 0;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
         public CatalogosFornecedorListUc(FornecedorForm fornecedorForm)
         {
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
-            _catalogoServices = new CatalogoServices(new CatalogoRepository(_connectionString), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
@@ -95,42 +96,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
             dgvCatalogos.DataSource = tableCatalogos;
             ConfiguraDGV();
-            //int fornecedorId = 0;
-            //if (this.FornecedorForm.textFornecedorId.Text != "")
-            //{
-            //    fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
-            //}
-            //string query = "SELECT CatalogoId, Nome, Ativo " +
-            //               "FROM Catalogos " +
-            //               "WHERE FornecedorId = @FornecedorId";
-
-            //using (SqlConnection connection = new SqlConnection(_connectionString))
-            //{
-            //    try
-            //    {
-            //        connection.Open();
-            //        using (SqlCommand cmd = new SqlCommand(query, connection))
-            //        {
-            //            cmd.Prepare();
-            //            cmd.Parameters.Add(new SqlParameter("@FornecedorId", fornecedorId));
-            //            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //            DataTable catalogos = new DataTable();
-            //            da.Fill(catalogos);
-            //            dgvCatalogos.DataSource = catalogos;
-
-
-            //            ConfiguraDGV();
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        MessageBox.Show($"Não foi possível trazer a lista de Catálogos do Fornecedor\nMessage: {e.Message}", "Alerta");
-            //    }
-            //    finally
-            //    {
-            //        connection.Close();
-            //    }
-            //}
+            
 
         }
         private bool CheckCatalogosExistInForneceddor(int fornecedorId)

@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models.Fornecedores;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
 using ServiceLayer.CommonServices;
@@ -17,6 +18,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
     public partial class FornecedoresListForm : Form
     {
         MainView MainView;
+        QueryString _queryString;
         private static FornecedoresListForm aForm = null;
         public static FornecedoresListForm Instance(MainView mainView)
         {
@@ -29,15 +31,12 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         private FornecedorServices _fornecedorServices;
         private TelefoneFornecedorServices _telefoneFornecedorServices;
-        private string _connectionString;
         private int? id = null;
 
         public FornecedoresListForm(MainView mainView)
         {
-            _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
-
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
-            _telefoneFornecedorServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _telefoneFornecedorServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.MainView = mainView;
@@ -76,7 +75,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         public void FornecedoresListForm_Load(object sender, EventArgs e)
         {
-            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlConnection connection = new SqlConnection(_queryString.GetQuery());
             string query = "SELECT FornecedorId, RazaoSocial, NomeFantasia, Cnpj FROM Fornecedores";
             SqlCommand cmd = new SqlCommand(query, connection);
             try

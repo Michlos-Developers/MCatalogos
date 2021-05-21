@@ -17,7 +17,6 @@ namespace MCatalogos
     {
         private MainView _obj;
 
-        //private MdiClient mdi;
 
         public MainView Instance
         {
@@ -118,8 +117,7 @@ namespace MCatalogos
         {
             SetUnselectedButtons();
             _obj = this;
-            //HomeUC uc = new HomeUC();
-            //uc.Dock = DockStyle.Fill;
+           
         }
 
         public void SetUnselectedButtons()
@@ -169,15 +167,10 @@ namespace MCatalogos
 
         }
 
-        //private void SetUnselectedButtonOfMdiForm()
-        //{
-        //    foreach (Button btn  in Controls)
-        //    {
-        //        if (btn is MdiClient)
-        //        {
-        //            btn.BackColor = Color.FromArgb(0, 120, 215);
-        //        }
-        //    }
-        //}
+        private void btnPedidos_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

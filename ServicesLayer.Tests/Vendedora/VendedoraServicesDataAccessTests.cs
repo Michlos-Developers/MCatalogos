@@ -2,6 +2,7 @@
 
 using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using Newtonsoft.Json;
@@ -26,15 +27,14 @@ namespace ServicesLayer.Tests
     [Trait("Category: Data Access Validations", "Vendedora")]
     public class VendedoraServicesDataAccessTests
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private VendedoraServices _vendedoraServices;
-        private string _connectionString;
 
         public VendedoraServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
         }
 
         [Fact]

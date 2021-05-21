@@ -2,6 +2,7 @@
 
 using DomainLayer.Models.CommonModels.Address;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 
 using Newtonsoft.Json;
@@ -26,15 +27,14 @@ namespace ServicesLayer.Tests.Bairro
     [Trait("Category: Data Access Validations", "Bairro")]
     public class BairroServicesDataAcessTests
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private BairroServices _bairroServices;
-        private string _connectionString;
 
         public BairroServicesDataAcessTests(ITestOutputHelper testOutputHelper)
         {
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
             _testOutputHelper = testOutputHelper;
-            _bairroServices = new BairroServices(new BairroRepository(_connectionString), new ModelDataAnnotationCheck());
+            _bairroServices = new BairroServices(new BairroRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
         }
 
         [Fact]

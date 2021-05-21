@@ -4,6 +4,7 @@ using DomainLayer.Models.CommonModels.Address;
 using DomainLayer.Models.Fornecedores;
 using DomainLayer.Models.Validations;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 using InfrastructureLayer.Validations;
@@ -37,6 +38,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 {
     public partial class FornecedorForm : Form
     {
+        QueryString _queryString;
         FornecedoresListForm FornecedoresListForm;
 
         private FornecedorServices _fornecedorServices;
@@ -47,15 +49,14 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         bool permiteAddOrUpdate = false;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
 
         public FornecedorForm(FornecedoresListForm fornecedoresListForm)
         {
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
-            _estadoServices = new EstadoServices(new EstadoRepository(_connectionString), new ModelDataAnnotationCheck());
-            _cidadeServices = new CidadeServices(new CidadeRepository(_connectionString), new ModelDataAnnotationCheck());
-            _bairroServices = new BairroServices(new BairroRepository(_connectionString), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _estadoServices = new EstadoServices(new EstadoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _cidadeServices = new CidadeServices(new CidadeRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _bairroServices = new BairroServices(new BairroRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
             _validationCnpjServices = new ValidationCnpjServices(new CnpjRepository());
 
             InitializeComponent();

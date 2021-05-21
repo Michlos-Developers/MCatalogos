@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models.Fornecedores;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
@@ -27,6 +28,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 {
     public partial class TelefonesFornecedorListUC : UserControl
     {
+        QueryString _queryString;
         FornecedorForm FornecedorForm;
 
         private TelefoneFornecedorServices _telefoneServices;
@@ -35,13 +37,12 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
         private int? idTelefone = null;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
         public TelefonesFornecedorListUC(FornecedorForm fornecedorForm)
         {
-            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_connectionString), new ModelDataAnnotationCheck());
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
-            _telefoneServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
+            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _telefoneServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
@@ -62,7 +63,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                                "WHERE Tel.FornecedorId = @FornecedorId " +
                                "ORDER BY Tipo.TipoTelefone";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_queryString.GetQuery()))
             {
                 try
                 {

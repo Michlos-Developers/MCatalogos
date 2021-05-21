@@ -3,6 +3,7 @@
 using DomainLayer.Models.CommonModels.Enums;
 using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
@@ -32,6 +33,7 @@ namespace MCatalogos.Views.FormViews.Telefones
 {
     public partial class TelefoneVendedoraAddForm : Form
     {
+        QueryString _queryString;
         VendedoraForm VendedoraForm;
         TelefonesVendedoraListUC TelefonesVendedoraUc;
 
@@ -39,13 +41,11 @@ namespace MCatalogos.Views.FormViews.Telefones
         private TelefoneVendedoraServices _telefoneVendedoraServices;
         private TipoTelefoneServices _tipoTelefoneServices;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
-
         public TelefoneVendedoraAddForm(VendedoraForm vendedoraForm, TelefonesVendedoraListUC telefonesVendedoraListUC)
         {
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
-            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_connectionString), new ModelDataAnnotationCheck());
-            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_connectionString), new ModelDataAnnotationCheck());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.VendedoraForm = vendedoraForm;

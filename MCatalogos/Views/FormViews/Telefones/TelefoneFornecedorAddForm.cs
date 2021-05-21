@@ -3,6 +3,7 @@
 using DomainLayer.Models.CommonModels.Enums;
 using DomainLayer.Models.Fornecedores;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
@@ -31,6 +32,7 @@ namespace MCatalogos.Views.FormViews.Telefones
 {
     public partial class TelefoneFornecedorAddForm : Form
     {
+        QueryString _queryString;
         FornecedorForm FornecedorForm;
         TelefonesFornecedorListUC TelefonesFornecedorListUC;
 
@@ -40,11 +42,10 @@ namespace MCatalogos.Views.FormViews.Telefones
         public int telefoneId = 0;
         public int fornecedorId = 0;
 
-        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
         public TelefoneFornecedorAddForm(FornecedorForm fornecedorForm, TelefonesFornecedorListUC telefonesFornecedorListUC)
         {
-            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_connectionString), new ModelDataAnnotationCheck());
-            _telefoneService = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
+            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _telefoneService = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
 
             InitializeComponent();

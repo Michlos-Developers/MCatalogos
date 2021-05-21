@@ -2,6 +2,7 @@
 
 using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using Newtonsoft.Json;
@@ -27,15 +28,14 @@ namespace ServicesLayer.Tests.Rota
     [Trait("Category: Data Access", "RotaLetra")]
     public class RotaLetraServicesDataAccessTests
     {
+        QueryString _queryString;
         private readonly ITestOutputHelper _testOutputHelper;
         private RotaLetraServices _rotaLetraServices;
-        private string _connectionString;
 
         public RotaLetraServicesDataAccessTests(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
-            _connectionString = @"Server=.\SQLEXPRESS;database=MCatalogoDB;integrated security=SSPI;";
-            _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_connectionString), new ModelDataAnnotationCheck());
+            _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
         }
 
