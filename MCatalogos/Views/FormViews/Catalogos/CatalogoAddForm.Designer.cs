@@ -34,8 +34,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.cbFornecedor = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
@@ -52,7 +50,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.LblCodigo = new System.Windows.Forms.Label();
             this.panelCommands.SuspendLayout();
             this.panelContent.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -62,7 +59,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelCommands.Location = new System.Drawing.Point(0, 216);
             this.panelCommands.Name = "panelCommands";
-            this.panelCommands.Size = new System.Drawing.Size(753, 45);
+            this.panelCommands.Size = new System.Drawing.Size(310, 45);
             this.panelCommands.TabIndex = 3;
             // 
             // btnSalvar
@@ -74,7 +71,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnSalvar.ForeColor = System.Drawing.Color.White;
             this.btnSalvar.Image = global::MCatalogos.Properties.Resources.iconSave20x20;
             this.btnSalvar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalvar.Location = new System.Drawing.Point(533, 9);
+            this.btnSalvar.Location = new System.Drawing.Point(94, 9);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(91, 27);
             this.btnSalvar.TabIndex = 0;
@@ -93,7 +90,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(651, 9);
+            this.btnCancel.Location = new System.Drawing.Point(212, 9);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 1;
@@ -106,7 +103,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
-            this.panelContent.Controls.Add(this.groupBox1);
             this.panelContent.Controls.Add(this.cbFornecedor);
             this.panelContent.Controls.Add(this.label5);
             this.panelContent.Controls.Add(this.cbStatus);
@@ -124,26 +120,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.Location = new System.Drawing.Point(0, 0);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(753, 216);
+            this.panelContent.Size = new System.Drawing.Size(310, 216);
             this.panelContent.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(320, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(421, 191);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 14);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "Campanhas:";
             // 
             // cbFornecedor
             // 
@@ -273,7 +251,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 261);
+            this.ClientSize = new System.Drawing.Size(310, 261);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F);
@@ -290,8 +268,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.ResumeLayout(false);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -314,8 +290,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.TextBox textNome;
         public System.Windows.Forms.TextBox textCatalogoId;
         private System.Windows.Forms.Label LblCodigo;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
     }

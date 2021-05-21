@@ -232,7 +232,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             CatalogoAddForm catalogoForm = new CatalogoAddForm(this.FornecedorForm, this);
             catalogoForm.Text = "Adicionar Catálogo";
             catalogoForm.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
-            catalogoForm.Show();
+            catalogoForm.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

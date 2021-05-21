@@ -196,6 +196,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(800, 440);
             this.panelContent.TabIndex = 0;
+            this.panelContent.Visible = false;
             // 
             // groupBoxContatos
             // 

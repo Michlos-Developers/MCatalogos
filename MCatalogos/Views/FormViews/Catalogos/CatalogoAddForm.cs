@@ -249,6 +249,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             FornecedorForm.PreencheCampos();
             this.CatalogosFornecedorListUc.LoadCatalogos();
             PreencheCamposForUpdate();
+            this.Close();
         }
 
         private void CatalogoAddForm_Load(object sender, EventArgs e)
