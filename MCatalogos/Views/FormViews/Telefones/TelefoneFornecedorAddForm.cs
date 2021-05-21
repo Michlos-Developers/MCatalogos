@@ -34,27 +34,34 @@ namespace MCatalogos.Views.FormViews.Telefones
         FornecedorForm FornecedorForm;
         TelefonesFornecedorListUC TelefonesFornecedorListUC;
 
-        private FornecedorServices _fornecedorServices;
         private TelefoneFornecedorServices _telefoneService;
         private TipoTelefoneServices _tipoTelefoneServices;
+
+        public int telefoneId = 0;
+        public int fornecedorId = 0;
 
         private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
         public TelefoneFornecedorAddForm(FornecedorForm fornecedorForm, TelefonesFornecedorListUC telefonesFornecedorListUC)
         {
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
             _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_connectionString), new ModelDataAnnotationCheck());
             _telefoneService = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
+
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
             this.TelefonesFornecedorListUC = telefonesFornecedorListUC;
+            this.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
         }
 
+
+        //REPOSITORIES CALLERS
         private bool TelefoneAdd()
         {
             bool operationSucceeded = false;
             string dataAccessStatusJsonStr = string.Empty;
             string formattedJsonStr = string.Empty;
+
+
 
             var numeroTelefone = ReplaceNumeroTelefone(mTextNumero.Text);
 
@@ -65,7 +72,7 @@ namespace MCatalogos.Views.FormViews.Telefones
                 Contato = textContato.Text,
                 Departamento = textDepartamento.Text,
                 TipoTelefoneId = _tipoTelefoneServices.GetByTipo(cbTipoTelefone.Text.ToString()).TipoId,
-                FornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text)
+                FornecedorId = fornecedorId
             };
 
             try
@@ -89,7 +96,72 @@ namespace MCatalogos.Views.FormViews.Telefones
             return operationSucceeded;
 
         }
+        private void TelefoneUpdate()
+        {
+            bool operationSucceeded = false;
+            string dataAccessStatusJsonStr = string.Empty;
+            string formattedJsonStr = string.Empty;
 
+            var numeroTelefone = ReplaceNumeroTelefone(mTextNumero.Text);
+
+            TelefoneFornecedorModel model = new TelefoneFornecedorModel()
+            {
+                TelefoneId = this.telefoneId,
+                Numero = numeroTelefone,
+                Ramal = textRamal.Text,
+                Contato = textContato.Text,
+                Departamento = textDepartamento.Text,
+                TipoTelefoneId = _tipoTelefoneServices.GetByTipo(cbTipoTelefone.Text.ToString()).TipoId,
+                FornecedorId = this.fornecedorId
+            };
+
+            try
+            {
+                _telefoneService.Update(model);
+                operationSucceeded = true;
+            }
+            catch (DataAccessException e)
+            {
+                operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
+                dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
+                formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
+                MessageBox.Show(formattedJsonStr, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            if (operationSucceeded)
+            {
+                MessageBox.Show("Telefone atualizado com sucesso", "Atualizar Telefone", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+
+        //SETTING AND GETTINS
+        private void PreencheCamposForUpdate()
+        {
+            if (telefoneId != 0)
+            {
+                TelefoneFornecedorModel model = null;
+                try
+                {
+                    model = _telefoneService.GetById(telefoneId);
+                }
+                catch (DataAccessException e)
+                {
+                    MessageBox.Show($"Não foi possível recuperar o telefone para edição.\nMessage: {e.DataAccessStatusInfo.getFormattedValues()}", "Error");
+                }
+
+                if (model != null)
+                {
+                    mTextNumero.Text = model.Numero;
+                    textRamal.Text = model.Ramal != null || model.Ramal != "" ? model.Ramal : "";
+                    textContato.Text = model.Contato != null || model.Contato != "" ? model.Contato : "";
+                    textDepartamento.Text = model.Departamento;
+                    cbTipoTelefone.Text = _tipoTelefoneServices.GetById(model.TipoTelefoneId).TipoTelefone;
+
+                }
+            }
+        }
         private void LoadTiposTelefonesToComboBox()
         {
             List<TipoTelefoneModel> modelList = (List<TipoTelefoneModel>)_tipoTelefoneServices.GetAll();
@@ -102,7 +174,6 @@ namespace MCatalogos.Views.FormViews.Telefones
                 cbTipoTelefone.Items.Add(model);
             }
         }
-
         private void SEtMaskTelefoneNumero(string tipo)
         {
             if (tipo == "Fixo")
@@ -113,11 +184,10 @@ namespace MCatalogos.Views.FormViews.Telefones
             else
             {
                 mTextNumero.Mask = "(99) 9 9999-9999";
-                textRamal.Enabled = false;  
+                textRamal.Enabled = false;
 
             }
         }
-
         private string ReplaceNumeroTelefone(string numero)
         {
             numero = numero.Replace("(", "");
@@ -127,44 +197,113 @@ namespace MCatalogos.Views.FormViews.Telefones
 
             return numero;
         }
+        private void ClearControls()
+        {
+            cbTipoTelefone.Text = "-";
+            mTextNumero.Text = string.Empty;
+            textContato.Text = string.Empty;
+            textDepartamento.Text = string.Empty;
+            textRamal.Text = string.Empty;
+            textRamal.Enabled = false;
+        }
 
+
+        //EVENTS FORM
         private void TelefoneFornecedorAddForm_Load(object sender, EventArgs e)
         {
+            PreencheCamposForUpdate();
             LoadTiposTelefonesToComboBox();
             cbTipoTelefone.Focus();
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var addResult = TelefoneAdd();
-            if (addResult == true)
+            if (telefoneId == 0)
             {
-                var result = MessageBox.Show("DEseja adicionar outro telefone?", "Continuar?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                var addResult = TelefoneAdd();
+                if (addResult == true)
                 {
-                    cbTipoTelefone.Text = "-";
-                    mTextNumero.Text = string.Empty;
-                    textContato.Text = string.Empty;
-                    textDepartamento.Text = string.Empty;
-                    textRamal.Text = string.Empty;
-                    textRamal.Enabled = false;
+                    var result = MessageBox.Show("Deseja adicionar outro telefone?", "Continuar?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        ClearControls();
+                    }
+
+                    this.TelefonesFornecedorListUC.LoadTelefones();
+                    this.Close();
+
                 }
-                else
+            }
+            else
+            {
+                try
+                {
+                    TelefoneUpdate();
+                }
+                catch (DataAccessException ex)
+                {
+                    MessageBox.Show($"Não foi possível atualizar os dados de contato.\nMessageError: {ex.Message}", "Error");
+                }
+                finally
                 {
                     this.TelefonesFornecedorListUC.LoadTelefones();
                     this.Close();
                 }
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void cbTipoTelefone_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEtMaskTelefoneNumero(cbTipoTelefone.Text);
+        }
+
+
+
+        //FOCUSED ENTER
+        private void cbTipoTelefone_Enter(object sender, EventArgs e)
+        {
+            cbTipoTelefone.BackColor = SystemColors.ActiveCaption;
+        }
+        private void textContato_Enter(object sender, EventArgs e)
+        {
+            textContato.BackColor = SystemColors.ActiveCaption;
+        }
+        private void textDepartamento_Enter(object sender, EventArgs e)
+        {
+            textDepartamento.BackColor = SystemColors.ActiveCaption;
+        }
+        private void mTextNumero_Enter(object sender, EventArgs e)
+        {
+            mTextNumero.BackColor = SystemColors.ActiveCaption;
+        }
+        private void textRamal_Enter(object sender, EventArgs e)
+        {
+            textRamal.BackColor = SystemColors.ActiveCaption;
+        }
+        
+        
+        //FOCUSED LEAVE
+        private void cbTipoTelefone_Leave(object sender, EventArgs e)
+        {
+            cbTipoTelefone.BackColor = SystemColors.Window;
+        }
+        private void textContato_Leave(object sender, EventArgs e)
+        {
+            textContato.BackColor = SystemColors.Window;
+        }
+        private void textDepartamento_Leave(object sender, EventArgs e)
+        {
+            textDepartamento.BackColor = SystemColors.Window;
+        }
+        private void mTextNumero_Leave(object sender, EventArgs e)
+        {
+            mTextNumero.BackColor = SystemColors.Window;
+        }
+        private void textRamal_Leave(object sender, EventArgs e)
+        {
+            textRamal.BackColor = SystemColors.Window;
         }
     }
 }

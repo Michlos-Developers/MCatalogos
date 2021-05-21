@@ -88,7 +88,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                     connection.Close();
                 }
             }
-           
+
         }
 
         private void ConfiguraDGV()
@@ -100,12 +100,12 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             dgvTeleForn.Columns[1].HeaderText = "Departamento";
             dgvTeleForn.Columns[1].Width = 200;
             dgvTeleForn.Columns[2].HeaderText = "Contato";
-            dgvTeleForn.Columns[2].Width= 300;
+            dgvTeleForn.Columns[2].Width = 300;
             dgvTeleForn.Columns[3].HeaderText = "Tipo";
-            dgvTeleForn.Columns[3].Width= 50;
+            dgvTeleForn.Columns[3].Width = 50;
             dgvTeleForn.Columns[4].HeaderText = "Número";
             dgvTeleForn.Columns[5].HeaderText = "Ramal";
-            dgvTeleForn.Columns[5].Width= 73;
+            dgvTeleForn.Columns[5].Width = 73;
 
         }
 
@@ -118,13 +118,13 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             {
                 modelList = (List<TelefoneFornecedorModel>)_telefoneServices.GetByFornecedorId(fornecedorId);
             }
-            finally 
+            finally
             {
-                if (modelList.Count!=0)
+                if (modelList.Count != 0)
                 {
                     result = true;
                 }
-                
+
             }
             return result;
         }
@@ -138,7 +138,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         {
             if (e.ColumnIndex == 4 && e.RowIndex != dgvTeleForn.NewRowIndex)
             {
-                if (dgvTeleForn.Rows[e.RowIndex].Cells[e.ColumnIndex -1].Value.ToString() == "Fixo")
+                if (dgvTeleForn.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString() == "Fixo")
                 {
                     e.Value = string.Format("{0:(##) ####-####}", long.Parse(e.Value.ToString()));
                 }
@@ -181,7 +181,21 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         private void btnAdd_Click(object sender, EventArgs e)
         {
             TelefoneFornecedorAddForm telefoneFornecedorAddForm = new TelefoneFornecedorAddForm(this.FornecedorForm, this);
+            telefoneFornecedorAddForm.Text = "Adicionar Contato";
             telefoneFornecedorAddForm.ShowDialog();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            TelefoneFornecedorAddForm telefoneFornecedorAddForm = new TelefoneFornecedorAddForm(this.FornecedorForm, this);
+            telefoneFornecedorAddForm.telefoneId = int.Parse(dgvTeleForn.CurrentRow.Cells[0].Value.ToString());
+            telefoneFornecedorAddForm.Text = "Editar Contato";
+            telefoneFornecedorAddForm.ShowDialog();
+        }
+
+        private void dgvTeleForn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEdit_Click(sender, e);
         }
     }
 }

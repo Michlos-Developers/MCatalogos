@@ -29,12 +29,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CatalogoAddForm));
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.panelTitle = new System.Windows.Forms.Panel();
-            this.pictureClose = new System.Windows.Forms.PictureBox();
-            this.title = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,8 +51,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.textCatalogoId = new System.Windows.Forms.TextBox();
             this.LblCodigo = new System.Windows.Forms.Label();
             this.panelCommands.SuspendLayout();
-            this.panelTitle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelContent.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +60,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Controls.Add(this.btnSalvar);
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 236);
+            this.panelCommands.Location = new System.Drawing.Point(0, 216);
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(753, 45);
             this.panelCommands.TabIndex = 3;
@@ -107,41 +103,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // panelTitle
-            // 
-            this.panelTitle.BackColor = System.Drawing.Color.White;
-            this.panelTitle.Controls.Add(this.pictureClose);
-            this.panelTitle.Controls.Add(this.title);
-            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(753, 30);
-            this.panelTitle.TabIndex = 40;
-            // 
-            // pictureClose
-            // 
-            this.pictureClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureClose.Image = global::MCatalogos.Properties.Resources.IconClose20x20;
-            this.pictureClose.Location = new System.Drawing.Point(731, 7);
-            this.pictureClose.Name = "pictureClose";
-            this.pictureClose.Size = new System.Drawing.Size(15, 15);
-            this.pictureClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureClose.TabIndex = 1;
-            this.pictureClose.TabStop = false;
-            this.pictureClose.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // title
-            // 
-            this.title.AutoSize = true;
-            this.title.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.title.Location = new System.Drawing.Point(10, 8);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(123, 14);
-            this.title.TabIndex = 0;
-            this.title.Text = "Cadastro do Catálogo";
-            // 
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
@@ -161,10 +122,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContent.Controls.Add(this.textCatalogoId);
             this.panelContent.Controls.Add(this.LblCodigo);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContent.Location = new System.Drawing.Point(0, 30);
+            this.panelContent.Location = new System.Drawing.Point(0, 0);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(753, 206);
-            this.panelContent.TabIndex = 41;
+            this.panelContent.Size = new System.Drawing.Size(753, 216);
+            this.panelContent.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -172,7 +133,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBox1.Location = new System.Drawing.Point(320, 9);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(421, 191);
-            this.groupBox1.TabIndex = 28;
+            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
             // label6
@@ -186,11 +147,12 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             // cbFornecedor
             // 
+            this.cbFornecedor.Enabled = false;
             this.cbFornecedor.FormattingEnabled = true;
             this.cbFornecedor.Location = new System.Drawing.Point(12, 160);
             this.cbFornecedor.Name = "cbFornecedor";
             this.cbFornecedor.Size = new System.Drawing.Size(282, 22);
-            this.cbFornecedor.TabIndex = 27;
+            this.cbFornecedor.TabIndex = 4;
             // 
             // label5
             // 
@@ -212,7 +174,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.cbStatus.Location = new System.Drawing.Point(232, 17);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(62, 22);
-            this.cbStatus.TabIndex = 25;
+            this.cbStatus.TabIndex = 0;
             this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
             // 
             // label8
@@ -274,21 +236,21 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.textMargemDistribuidor.Location = new System.Drawing.Point(238, 112);
             this.textMargemDistribuidor.Name = "textMargemDistribuidor";
             this.textMargemDistribuidor.Size = new System.Drawing.Size(46, 22);
-            this.textMargemDistribuidor.TabIndex = 22;
+            this.textMargemDistribuidor.TabIndex = 3;
             // 
             // textMargemVendedora
             // 
             this.textMargemVendedora.Location = new System.Drawing.Point(238, 84);
             this.textMargemVendedora.Name = "textMargemVendedora";
             this.textMargemVendedora.Size = new System.Drawing.Size(46, 22);
-            this.textMargemVendedora.TabIndex = 22;
+            this.textMargemVendedora.TabIndex = 2;
             // 
             // textNome
             // 
             this.textNome.Location = new System.Drawing.Point(63, 56);
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(231, 22);
-            this.textNome.TabIndex = 22;
+            this.textNome.TabIndex = 1;
             // 
             // textCatalogoId
             // 
@@ -296,7 +258,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.textCatalogoId.Location = new System.Drawing.Point(63, 17);
             this.textCatalogoId.Name = "textCatalogoId";
             this.textCatalogoId.Size = new System.Drawing.Size(100, 22);
-            this.textCatalogoId.TabIndex = 20;
+            this.textCatalogoId.TabIndex = 0;
             // 
             // LblCodigo
             // 
@@ -311,24 +273,21 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 281);
+            this.ClientSize = new System.Drawing.Size(753, 261);
             this.Controls.Add(this.panelContent);
-            this.Controls.Add(this.panelTitle);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CatalogoAddForm";
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "CatalogoForm";
+            this.Text = "Adicionar Catálogo";
+            this.Load += new System.EventHandler(this.CatalogoAddForm_Load);
             this.panelCommands.ResumeLayout(false);
-            this.panelTitle.ResumeLayout(false);
-            this.panelTitle.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -342,9 +301,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.Panel panelCommands;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Panel panelTitle;
-        private System.Windows.Forms.PictureBox pictureClose;
-        private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.ComboBox cbFornecedor;
         private System.Windows.Forms.Label label5;

@@ -31,11 +31,11 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         {
             this.components = new System.ComponentModel.Container();
             this.panelCommands = new System.Windows.Forms.Panel();
-            this.dgvCatalogos = new System.Windows.Forms.DataGridView();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.dgvCatalogos = new System.Windows.Forms.DataGridView();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelCommands.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogos)).BeginInit();
             this.SuspendLayout();
@@ -51,31 +51,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(30, 190);
             this.panelCommands.TabIndex = 1;
-            // 
-            // dgvCatalogos
-            // 
-            this.dgvCatalogos.AllowUserToAddRows = false;
-            this.dgvCatalogos.AllowUserToDeleteRows = false;
-            this.dgvCatalogos.AllowUserToResizeColumns = false;
-            this.dgvCatalogos.AllowUserToResizeRows = false;
-            this.dgvCatalogos.BackgroundColor = System.Drawing.Color.White;
-            this.dgvCatalogos.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvCatalogos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dgvCatalogos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCatalogos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCatalogos.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dgvCatalogos.Location = new System.Drawing.Point(0, 0);
-            this.dgvCatalogos.Name = "dgvCatalogos";
-            this.dgvCatalogos.ReadOnly = true;
-            this.dgvCatalogos.RowHeadersVisible = false;
-            this.dgvCatalogos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvCatalogos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCatalogos.ShowCellErrors = false;
-            this.dgvCatalogos.ShowEditingIcon = false;
-            this.dgvCatalogos.ShowRowErrors = false;
-            this.dgvCatalogos.Size = new System.Drawing.Size(220, 190);
-            this.dgvCatalogos.TabIndex = 2;
-            this.dgvCatalogos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellClick);
             // 
             // btnDelete
             // 
@@ -136,6 +111,31 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             this.toolTip.SetToolTip(this.btnAdd, "Adicionar Catálogo");
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // dgvCatalogos
+            // 
+            this.dgvCatalogos.AllowUserToAddRows = false;
+            this.dgvCatalogos.AllowUserToDeleteRows = false;
+            this.dgvCatalogos.AllowUserToResizeColumns = false;
+            this.dgvCatalogos.AllowUserToResizeRows = false;
+            this.dgvCatalogos.BackgroundColor = System.Drawing.Color.White;
+            this.dgvCatalogos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvCatalogos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvCatalogos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCatalogos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCatalogos.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvCatalogos.Location = new System.Drawing.Point(0, 0);
+            this.dgvCatalogos.Name = "dgvCatalogos";
+            this.dgvCatalogos.ReadOnly = true;
+            this.dgvCatalogos.RowHeadersVisible = false;
+            this.dgvCatalogos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvCatalogos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCatalogos.ShowCellErrors = false;
+            this.dgvCatalogos.ShowEditingIcon = false;
+            this.dgvCatalogos.ShowRowErrors = false;
+            this.dgvCatalogos.Size = new System.Drawing.Size(220, 190);
+            this.dgvCatalogos.TabIndex = 2;
+            this.dgvCatalogos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellClick);
             // 
             // CatalogosFornecedorListUc
             // 

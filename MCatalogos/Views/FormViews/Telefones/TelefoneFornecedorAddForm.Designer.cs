@@ -48,6 +48,7 @@ namespace MCatalogos.Views.FormViews.Telefones
             // 
             // panelCommands
             // 
+            this.panelCommands.BackColor = System.Drawing.SystemColors.Control;
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Controls.Add(this.btnSave);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -102,6 +103,8 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.cbTipoTelefone.Size = new System.Drawing.Size(89, 22);
             this.cbTipoTelefone.TabIndex = 2;
             this.cbTipoTelefone.SelectedIndexChanged += new System.EventHandler(this.cbTipoTelefone_SelectedIndexChanged);
+            this.cbTipoTelefone.Enter += new System.EventHandler(this.cbTipoTelefone_Enter);
+            this.cbTipoTelefone.Leave += new System.EventHandler(this.cbTipoTelefone_Leave);
             // 
             // label1
             // 
@@ -154,6 +157,8 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.textContato.Name = "textContato";
             this.textContato.Size = new System.Drawing.Size(229, 22);
             this.textContato.TabIndex = 8;
+            this.textContato.Enter += new System.EventHandler(this.textContato_Enter);
+            this.textContato.Leave += new System.EventHandler(this.textContato_Leave);
             // 
             // textDepartamento
             // 
@@ -161,6 +166,8 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.textDepartamento.Name = "textDepartamento";
             this.textDepartamento.Size = new System.Drawing.Size(229, 22);
             this.textDepartamento.TabIndex = 9;
+            this.textDepartamento.Enter += new System.EventHandler(this.textDepartamento_Enter);
+            this.textDepartamento.Leave += new System.EventHandler(this.textDepartamento_Leave);
             // 
             // mTextNumero
             // 
@@ -168,6 +175,8 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.mTextNumero.Name = "mTextNumero";
             this.mTextNumero.Size = new System.Drawing.Size(100, 22);
             this.mTextNumero.TabIndex = 10;
+            this.mTextNumero.Enter += new System.EventHandler(this.mTextNumero_Enter);
+            this.mTextNumero.Leave += new System.EventHandler(this.mTextNumero_Leave);
             // 
             // textRamal
             // 
@@ -175,11 +184,14 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.textRamal.Name = "textRamal";
             this.textRamal.Size = new System.Drawing.Size(57, 22);
             this.textRamal.TabIndex = 11;
+            this.textRamal.Enter += new System.EventHandler(this.textRamal_Enter);
+            this.textRamal.Leave += new System.EventHandler(this.textRamal_Leave);
             // 
             // TelefoneFornecedorAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
             this.ClientSize = new System.Drawing.Size(379, 211);
             this.Controls.Add(this.textRamal);
             this.Controls.Add(this.mTextNumero);
@@ -193,6 +205,7 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.Controls.Add(this.cbTipoTelefone);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F);
+            this.ForeColor = System.Drawing.SystemColors.Window;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

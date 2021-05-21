@@ -2,12 +2,16 @@
 
 using DomainLayer.Models.Catalogos;
 
+using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
+
 using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.UserControls.Fornecedores;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.FornecedorServices;
 
@@ -15,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,11 +30,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
 {
     public partial class CatalogoAddForm : Form
     {
-        enum StringAtivo
-        {
-            Ativo,
-            Inativo
-        }
         FornecedorForm FornecedorForm;
         CatalogosFornecedorListUc CatalogosFornecedorListUc;
 
@@ -37,80 +37,40 @@ namespace MCatalogos.Views.FormViews.Catalogos
         //TODO: CampanhaServices _campanhaServices;
         private FornecedorServices _fornecedorServices;
 
+        public int catalogoId = 0;
+        public int fornecedorId = 0;
+
+        private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
         public CatalogoAddForm(FornecedorForm fornecedorForm, CatalogosFornecedorListUc catalogosFornecedorListUc)
         {
-
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_connectionString), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_connectionString), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
             this.CatalogosFornecedorListUc = catalogosFornecedorListUc;
+            
         }
 
-        public void PreencheCampos()
-        {
 
-            if (textCatalogoId.Text != "")
-            {
-                CatalogoModel model = null;
-                try
-                {
-                    model = _catalogoServices.GetById(int.Parse(textCatalogoId.Text));
-                }
-                catch (DataAccessException e)
-                {
-                    MessageBox.Show($"Não foi possível recuperar dados do Catálogo solicitado.\nMessage: " +
-                        $"{e.DataAccessStatusInfo.getFormattedValues()}", "Error");
 
-                }
-
-                if (model != null)
-                {
-                    textCatalogoId.Text = model.CatalogoId.ToString();
-                    textNome.Text = model.Nome.ToLower();
-                    textMargemVendedora.Text = model.MargemPadraoVendedora.ToString();
-                    textMargemDistribuidor.Text = model.MargemPadraoDistribuidor.ToString();
-                    cbFornecedor.Text = _fornecedorServices.GetById(model.FornecedorId).NomeFantasia;
-                    
-                    if (model.Ativo)
-                    {
-                        cbStatus.Text = "Ativo";
-                        cbStatus.BackColor = Color.LimeGreen;
-                        cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
-                    }
-                    else if (!model.Ativo)
-                    {
-                        cbStatus.Text = "Inativo";
-                        cbStatus.BackColor = Color.Red;
-                        cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
-                    }
-                    else
-                    {
-                        cbStatus.Text = "";
-                        cbStatus.BackColor = Color.White;
-                        cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
-                    }
-                }
-
-            }
-
-        }
-
+        //REPOSITORIES CALLERS
         private CatalogoModel CatalogoAdd()
         {
             bool operationSucceeded = false;
             string dataAccessStatusJsonStr = string.Empty;
             string formattedJsonStr = string.Empty;
             bool status = GetStatus(cbStatus.Text);
-            
+
             CatalogoModel returnedModel = new CatalogoModel();
-            
+
             CatalogoModel model = new CatalogoModel()
             {
                 Ativo = status,
                 Nome = textNome.Text,
                 MargemPadraoVendedora = float.Parse(textMargemVendedora.Text),
                 MargemPadraoDistribuidor = float.Parse(textMargemDistribuidor.Text),
-                FornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text)
+                FornecedorId = fornecedorId
 
             };
 
@@ -125,7 +85,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
                 formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
                 MessageBox.Show(formattedJsonStr, "Não foi possível adicionar Catálogo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
             }
             if (operationSucceeded)
             {
@@ -134,9 +94,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
             return returnedModel;
 
-            
-        }
 
+        }
         private void CatalogoUpdate()
         {
             bool operationSucceeded = false;
@@ -150,7 +109,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 Nome = textNome.Text,
                 MargemPadraoVendedora = float.Parse(textMargemVendedora.Text),
                 MargemPadraoDistribuidor = float.Parse(textMargemDistribuidor.Text),
-                FornecedorId = _fornecedorServices.GetByNomeFantasia(cbFornecedor.Text).FornecedorId
+                FornecedorId = _fornecedorServices.GetById(fornecedorId).FornecedorId
             };
             try
             {
@@ -170,6 +129,67 @@ namespace MCatalogos.Views.FormViews.Catalogos
             }
         }
 
+
+        //SETTINGS AND GETTINGS
+        public void PreencheCamposForUpdate()
+        {
+            CatalogoModel model = null;
+            if (catalogoId != 0)
+            {
+                
+                try
+                {
+                    model = _catalogoServices.GetById(catalogoId);
+                }
+                catch (DataAccessException e)
+                {
+                    MessageBox.Show($"Não foi possível recuperar dados do Catálogo solicitado.\nMessage: " +
+                        $"{e.DataAccessStatusInfo.getFormattedValues()}", "Error");
+
+                }
+
+                if (model != null)
+                {
+                    textCatalogoId.Text = model.CatalogoId.ToString();
+                    textNome.Text = model.Nome.ToString();
+                    textMargemVendedora.Text = model.MargemPadraoVendedora.ToString();
+                    textMargemDistribuidor.Text = model.MargemPadraoDistribuidor.ToString();
+                    cbFornecedor.Text = _fornecedorServices.GetById(fornecedorId).NomeFantasia;
+
+                    VerificaAtivo(model);
+                }
+
+            }
+            else
+            {
+                cbFornecedor.Text = _fornecedorServices.GetById(fornecedorId).NomeFantasia;
+                
+            }
+
+        }
+
+        private void VerificaAtivo(CatalogoModel model)
+        {
+            if (model.Ativo)
+            {
+                cbStatus.Text = "Ativo";
+                cbStatus.BackColor = Color.LimeGreen;
+                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+            }
+            else if (!model.Ativo)
+            {
+                cbStatus.Text = "Inativo";
+                cbStatus.BackColor = Color.Red;
+                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+            }
+            else
+            {
+                cbStatus.Text = "";
+                cbStatus.BackColor = Color.White;
+                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+            }
+        }
+
         private bool GetStatus(string status)
         {
             if (status == "Ativo")
@@ -182,11 +202,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
+
+        //EVENTS FORM
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbStatus.SelectedIndex == 1)
@@ -208,21 +226,34 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
             }
         }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             CatalogoModel model = new CatalogoModel();
-            if (textCatalogoId.Text == "")
+            if (catalogoId == 0)
             {
                 model = CatalogoAdd();
-                this.textCatalogoId.Text = model.CatalogoId.ToString();
+                catalogoId = int.Parse(model.CatalogoId.ToString());
             }
-            else
+            else 
             {
-                CatalogoUpdate();
+                {
+                    CatalogoUpdate();
+                }
+                FornecedorForm.PreencheCampos();
+                PreencheCamposForUpdate();
             }
-            FornecedorForm.PreencheCampos();
-            this.PreencheCampos();
+
+        }
+
+        private void CatalogoAddForm_Load(object sender, EventArgs e)
+        {
+            this.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
+            PreencheCamposForUpdate();
         }
     }
 }

@@ -254,14 +254,11 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                     cbCidade.Text = _cidadeServices.GetById(int.Parse(model.CidadeId.ToString())).Nome;
                     cbBairro.Text = _bairroServices.GetById(int.Parse(model.BairroId.ToString())).Nome;
 
-                    if (!(string.IsNullOrEmpty(model.Complemento.ToString())))
-                        textComplemento.Text = model.Complemento.ToString();
-                    if (!(string.IsNullOrEmpty(model.Email.ToString())))
-                        textEmail.Text = model.Email.ToString();
-                    if (!(string.IsNullOrEmpty(model.WebSite.ToString())))
-                        textSite.Text = model.WebSite.ToString();
-                    if (!(string.IsNullOrEmpty(model.Cep.ToString())))
-                        mTextCep.Text = model.Cep.ToString();
+                    textComplemento.Text = model.Complemento.ToString() != null || model.Complemento.ToString() != "" ? model.Complemento.ToString() : "";
+                    textEmail.Text = model.Email.ToString() != null || model.Email.ToString() != "" ? model.Email.ToString() : "";
+                    textSite.Text = model.WebSite.ToString() != null || model.WebSite.ToString() != "" ? model.WebSite.ToString() : "";
+                    mTextCep.Text = model.Cep.ToString() != null || model.Cep.ToString() != "" ? model.Cep.ToString() : "";
+
 
                 }
             }
@@ -397,15 +394,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         {
             if (ValidateChildren(ValidationConstraints.Enabled))
             {
-                //MessageBox.Show(mTextCnpj.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(textRazaoSocial.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(textNomeFantasia.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(textLogradouro.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(textNumero.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(cbUf.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(cbCidade.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show(cbBairro.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 if (permiteAddOrUpdate)
                 {
 

@@ -50,7 +50,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             int idReturned = 0;
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "INSERTO INTO Catalogos " +
+            string query = "INSERT INTO Catalogos " +
                            "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, FornecedorId) " +
                            "output INSERTED.CatalogoId " +
                            "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @FornecedorId) ";

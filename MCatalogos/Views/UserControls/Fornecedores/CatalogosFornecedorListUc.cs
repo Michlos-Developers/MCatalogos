@@ -67,9 +67,9 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                         cmd.Parameters.Add(new SqlParameter("@FornecedorId", fornecedorId));
                         SqlDataAdapter da = new SqlDataAdapter(cmd);
                         DataTable catalogos = new DataTable();
-
                         da.Fill(catalogos);
                         dgvCatalogos.DataSource = catalogos;
+
                         ConfiguraDGV();
                     }
                 }
@@ -112,8 +112,10 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
             dgvCatalogos.Columns[1].HeaderText = "Nome";
             dgvCatalogos.Columns[1].Width = 165;
-            dgvCatalogos.Columns[2].HeaderText = "Status";
+            dgvCatalogos.Columns[2].HeaderText = "Ativo";
             dgvCatalogos.Columns[2].Width = 50;
+            //dgvCatalogos.Columns[2].CellTemplate = new DataGridViewTextBoxCell();
+
         }
         private void SetEnableButtons()
         {
@@ -176,14 +178,17 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         private void btnAdd_Click(object sender, EventArgs e)
         {
             CatalogoAddForm catalogoForm = new CatalogoAddForm(this.FornecedorForm, this);
+            catalogoForm.Text = "Adicionar Catálogo";
+            catalogoForm.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             catalogoForm.Show();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             CatalogoAddForm catalogoForm = new CatalogoAddForm(this.FornecedorForm, this);
-            catalogoForm.textCatalogoId.Text = this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString();
-            catalogoForm.Show();
+            catalogoForm.Text = "Editar Catálogo";
+            catalogoForm.catalogoId = int.Parse(this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
+            catalogoForm.ShowDialog();
         }
     }
 }
