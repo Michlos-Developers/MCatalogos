@@ -109,7 +109,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 Nome = textNome.Text,
                 MargemPadraoVendedora = float.Parse(textMargemVendedora.Text),
                 MargemPadraoDistribuidor = float.Parse(textMargemDistribuidor.Text),
-                FornecedorId = _fornecedorServices.GetById(fornecedorId).FornecedorId
+                FornecedorId = fornecedorId
             };
             try
             {
@@ -244,10 +244,11 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 {
                     CatalogoUpdate();
                 }
-                FornecedorForm.PreencheCampos();
-                PreencheCamposForUpdate();
+                
             }
-
+            FornecedorForm.PreencheCampos();
+            this.CatalogosFornecedorListUc.LoadCatalogos();
+            PreencheCamposForUpdate();
         }
 
         private void CatalogoAddForm_Load(object sender, EventArgs e)

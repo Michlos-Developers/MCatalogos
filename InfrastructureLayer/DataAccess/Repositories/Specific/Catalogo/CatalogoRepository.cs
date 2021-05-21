@@ -6,8 +6,10 @@ using DomainLayer.Models.Fornecedores;
 using ServiceLayer.Services.CatalogoServices;
 
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -290,8 +292,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Catalogos " +
-                           "SET Nome = @Nome, MargemPadraoVendedora = @MargemPadraoVendedora, MargemPadraoDistribuidor = @MargemPadraoDistribuidor " +
-                           "Ativo = @Ativo, FornecedorId = FornecedorId " +
+                           "SET Nome = @Nome, MargemPadraoVendedora = @MargemPadraoVendedora, MargemPadraoDistribuidor = @MargemPadraoDistribuidor, " +
+                           "Ativo = @Ativo, FornecedorId = @FornecedorId " +
                            "WHERE CatalogoId = @CatalogoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -306,7 +308,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@Nome", catalogoModel.Nome);
                         cmd.Parameters.AddWithValue("@MargemPadraoVendedora", catalogoModel.MargemPadraoVendedora);
                         cmd.Parameters.AddWithValue("@MargemPadraoDistribuidor", catalogoModel.MargemPadraoDistribuidor);
-                        cmd.Parameters.AddWithValue("@Ativo", catalogoModel.Ativo);
+                        cmd.Parameters.Add("@Ativo", SqlDbType.Bit).Value = catalogoModel.Ativo;
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
 
                         cmd.ExecuteNonQuery();

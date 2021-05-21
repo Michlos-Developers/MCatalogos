@@ -31,6 +31,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         private FornecedorServices _fornecedorServices;
 
         private int? idCatalogo = null;
+        private int fornecedorId = 0;
 
         private static string _connectionString = @"SERVER=.\SQLEXPRESS;DATABASE=MCatalogoDB;INTEGRATED SECURITY=SSPI";
 
@@ -41,47 +42,95 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
+            //this.fornecedorId = int.Parse(fornecedorForm.textFornecedorId.Text);
         }
 
 
         //SETTING AND GETTINGS
         public void LoadCatalogos()
         {
-            int fornecedorId = 0;
-            if (this.FornecedorForm.textFornecedorId.Text != "")
+            List<CatalogoModel> modelList = new List<CatalogoModel>();
+            //CatalogoModel model = null;
+            try
             {
-                fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
-            }
-            string query = "SELECT CatalogoId, Nome, Ativo " +
-                           "FROM Catalogos " +
-                           "WHERE FornecedorId = @FornecedorId";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
+                if (fornecedorId != 0)
                 {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("@FornecedorId", fornecedorId));
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        DataTable catalogos = new DataTable();
-                        da.Fill(catalogos);
-                        dgvCatalogos.DataSource = catalogos;
-
-                        ConfiguraDGV();
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show($"Não foi possível trazer a lista de Catálogos do Fornecedor\nMessage: {e.Message}", "Alerta");
-                }
-                finally
-                {
-                    connection.Close();
+                    modelList = (List<CatalogoModel>)_catalogoServices.GetByFornecedorId(fornecedorId);
                 }
             }
+            catch(Exception e)
+            {
+                MessageBox.Show("Não foi possível trazer a lista de Catálogos do fornecedor!", "Error");
+            }
+
+            DataTable tableCatalogos = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "CatalogoId";
+            tableCatalogos.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Nome";
+            column.Caption = "Catálogo";
+            tableCatalogos.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Status";
+            tableCatalogos.Columns.Add(column);
+
+            foreach (CatalogoModel model in modelList)
+            {
+                row = tableCatalogos.NewRow();
+                row["CatalogoId"] = int.Parse(model.CatalogoId.ToString());
+                row["Nome"] = model.Nome.ToString();
+                row["Status"] = model.Ativo ? "Ativo" : "Inativo";
+                tableCatalogos.Rows.Add(row);
+
+            }
+
+            dgvCatalogos.DataSource = tableCatalogos;
+            ConfiguraDGV();
+            //int fornecedorId = 0;
+            //if (this.FornecedorForm.textFornecedorId.Text != "")
+            //{
+            //    fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
+            //}
+            //string query = "SELECT CatalogoId, Nome, Ativo " +
+            //               "FROM Catalogos " +
+            //               "WHERE FornecedorId = @FornecedorId";
+
+            //using (SqlConnection connection = new SqlConnection(_connectionString))
+            //{
+            //    try
+            //    {
+            //        connection.Open();
+            //        using (SqlCommand cmd = new SqlCommand(query, connection))
+            //        {
+            //            cmd.Prepare();
+            //            cmd.Parameters.Add(new SqlParameter("@FornecedorId", fornecedorId));
+            //            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //            DataTable catalogos = new DataTable();
+            //            da.Fill(catalogos);
+            //            dgvCatalogos.DataSource = catalogos;
+
+
+            //            ConfiguraDGV();
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        MessageBox.Show($"Não foi possível trazer a lista de Catálogos do Fornecedor\nMessage: {e.Message}", "Alerta");
+            //    }
+            //    finally
+            //    {
+            //        connection.Close();
+            //    }
+            //}
 
         }
         private bool CheckCatalogosExistInForneceddor(int fornecedorId)
@@ -110,10 +159,12 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             dgvCatalogos.Columns[0].Visible = false;
             dgvCatalogos.Columns[0].HeaderText = "CatalogoId";
 
-            dgvCatalogos.Columns[1].HeaderText = "Nome";
+            dgvCatalogos.Columns[1].HeaderText = "Catálogo";
             dgvCatalogos.Columns[1].Width = 165;
-            dgvCatalogos.Columns[2].HeaderText = "Ativo";
+            dgvCatalogos.Columns[2].HeaderText = "Status";
             dgvCatalogos.Columns[2].Width = 50;
+
+            //dgvCatalogos.Columns[2].Width = 50
             //dgvCatalogos.Columns[2].CellTemplate = new DataGridViewTextBoxCell();
 
         }
@@ -143,6 +194,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         //EVENTS FORM
         private void CatalogosFornecedorListUc_Load(object sender, EventArgs e)
         {
+            fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             LoadCatalogos();
             SetEnableButtons();
         }
@@ -189,6 +241,22 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             catalogoForm.Text = "Editar Catálogo";
             catalogoForm.catalogoId = int.Parse(this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
             catalogoForm.ShowDialog();
+        }
+
+        private void dgvCatalogos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && e.RowIndex != dgvCatalogos.NewRowIndex)
+            {
+                if (dgvCatalogos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Ativo")
+                {
+                    dgvCatalogos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    dgvCatalogos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Red;
+
+                }
+            }
         }
     }
 }

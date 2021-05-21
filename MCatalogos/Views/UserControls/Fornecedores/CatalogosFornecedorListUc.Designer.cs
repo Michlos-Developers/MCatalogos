@@ -136,6 +136,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             this.dgvCatalogos.Size = new System.Drawing.Size(220, 190);
             this.dgvCatalogos.TabIndex = 2;
             this.dgvCatalogos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellClick);
+            this.dgvCatalogos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCatalogos_CellFormatting);
             // 
             // CatalogosFornecedorListUc
             // 
