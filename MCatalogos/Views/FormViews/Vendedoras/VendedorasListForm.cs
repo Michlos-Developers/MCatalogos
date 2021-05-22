@@ -25,7 +25,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedorasListForm : Form
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         MainView MainView;
         
         private VendedoraServices _vendedoraServices;
@@ -42,9 +42,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         public VendedorasListForm(MainView mainView)
         {
-            
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
 
             InitializeComponent();

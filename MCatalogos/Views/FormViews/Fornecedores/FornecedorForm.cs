@@ -38,7 +38,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 {
     public partial class FornecedorForm : Form
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         FornecedoresListForm FornecedoresListForm;
 
         private FornecedorServices _fornecedorServices;
@@ -53,10 +53,11 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         public FornecedorForm(FornecedoresListForm fornecedoresListForm)
         {
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _estadoServices = new EstadoServices(new EstadoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _cidadeServices = new CidadeServices(new CidadeRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _bairroServices = new BairroServices(new BairroRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _estadoServices = new EstadoServices(new EstadoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _cidadeServices = new CidadeServices(new CidadeRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _bairroServices = new BairroServices(new BairroRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _validationCnpjServices = new ValidationCnpjServices(new CnpjRepository());
 
             InitializeComponent();

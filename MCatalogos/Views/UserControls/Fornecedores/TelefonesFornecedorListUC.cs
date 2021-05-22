@@ -28,7 +28,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 {
     public partial class TelefonesFornecedorListUC : UserControl
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         FornecedorForm FornecedorForm;
 
         private TelefoneFornecedorServices _telefoneServices;
@@ -40,9 +40,10 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
         public TelefonesFornecedorListUC(FornecedorForm fornecedorForm)
         {
-            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _telefoneServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _telefoneServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;

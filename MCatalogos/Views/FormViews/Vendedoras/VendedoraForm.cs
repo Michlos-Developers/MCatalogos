@@ -34,7 +34,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedoraForm : Form
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         VendedorasListForm VendedorasListForm;
 
         private VendedoraServices _vendedoraServices;
@@ -49,13 +49,14 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         public VendedoraForm(VendedorasListForm vendedorasListForm)
         {
-            _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _rotaServices = new RotaServices(new RotaRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _estadoServices = new EstadoServices(new EstadoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _cidadeServices = new CidadeServices(new CidadeRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _bairroServices = new BairroServices(new BairroRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _estadoCivilServices = new EstadoCivilServices(new EstadoCivilRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _rotaServices = new RotaServices(new RotaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _estadoServices = new EstadoServices(new EstadoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _cidadeServices = new CidadeServices(new CidadeRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _bairroServices = new BairroServices(new BairroRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _estadoCivilServices = new EstadoCivilServices(new EstadoCivilRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _validationCpfServices = new ValidationCpfServices(new CpfRepository());
             InitializeComponent();
             this.VendedorasListForm = vendedorasListForm;

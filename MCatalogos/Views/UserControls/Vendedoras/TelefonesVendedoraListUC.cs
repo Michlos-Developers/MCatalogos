@@ -23,7 +23,7 @@ namespace MCatalogos.Views.UserControls
 {
     public partial class TelefonesVendedoraListUC : UserControl
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         VendedoraForm VendedoraForm;
 
 
@@ -36,9 +36,10 @@ namespace MCatalogos.Views.UserControls
 
         public TelefonesVendedoraListUC(VendedoraForm vendedoraForm)
         {
-            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _telefoneServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _telefoneServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.VendedoraForm = vendedoraForm;

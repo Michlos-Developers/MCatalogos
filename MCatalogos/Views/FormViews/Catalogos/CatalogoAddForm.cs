@@ -28,7 +28,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
         FornecedorForm FornecedorForm;
         CatalogosFornecedorListUc CatalogosFornecedorListUc;
         
-        private QueryString _queryString;
+        private QueryStringServices _queryString;
         private CatalogoServices _catalogoServices;
         private FornecedorServices _fornecedorServices;
 
@@ -37,8 +37,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         public CatalogoAddForm(FornecedorForm fornecedorForm, CatalogosFornecedorListUc catalogosFornecedorListUc)
         {
-            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;

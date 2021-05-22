@@ -17,8 +17,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 {
     public partial class FornecedoresListForm : Form
     {
+        QueryStringServices _queryString;
         MainView MainView;
-        QueryString _queryString;
         private static FornecedoresListForm aForm = null;
         public static FornecedoresListForm Instance(MainView mainView)
         {
@@ -35,8 +35,9 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         public FornecedoresListForm(MainView mainView)
         {
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _telefoneFornecedorServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _telefoneFornecedorServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.MainView = mainView;
@@ -75,6 +76,21 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         public void FornecedoresListForm_Load(object sender, EventArgs e)
         {
+            List<FornecedorModel> modelList = null;
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Não foi possível trazer a lista de fornecedores.\nMessage: {ex.Message}", "Error Acess List");
+            }
+            foreach (FornecedorModel model in modelList)
+            {
+
+            }
+            /*
             SqlConnection connection = new SqlConnection(_queryString.GetQuery());
             string query = "SELECT FornecedorId, RazaoSocial, NomeFantasia, Cnpj FROM Fornecedores";
             SqlCommand cmd = new SqlCommand(query, connection);
@@ -96,6 +112,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             {
                 connection.Close();
             }
+            */
 
         }
 

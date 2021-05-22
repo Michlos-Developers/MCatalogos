@@ -33,7 +33,7 @@ namespace MCatalogos.Views.FormViews.Telefones
 {
     public partial class TelefoneVendedoraAddForm : Form
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         VendedoraForm VendedoraForm;
         TelefonesVendedoraListUC TelefonesVendedoraUc;
 
@@ -43,9 +43,10 @@ namespace MCatalogos.Views.FormViews.Telefones
 
         public TelefoneVendedoraAddForm(VendedoraForm vendedoraForm, TelefonesVendedoraListUC telefonesVendedoraListUC)
         {
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.VendedoraForm = vendedoraForm;

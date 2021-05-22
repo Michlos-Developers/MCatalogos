@@ -27,7 +27,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 {
     public partial class CatalogosFornecedorListUc : UserControl
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         FornecedorForm FornecedorForm;
         private CatalogoServices _catalogoServices;
         private FornecedorServices _fornecedorServices;
@@ -38,8 +38,9 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
         public CatalogosFornecedorListUc(FornecedorForm fornecedorForm)
         {
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
-            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
+            _queryString = new QueryStringServices(new QueryString());
+            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
@@ -61,7 +62,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             }
             catch(Exception e)
             {
-                MessageBox.Show("Não foi possível trazer a lista de Catálogos do fornecedor!", "Error");
+                MessageBox.Show($"Não foi possível trazer a lista de Catálogos do fornecedor!\nMessage: {e.Message}", "Error");
             }
 
             DataTable tableCatalogos = new DataTable();

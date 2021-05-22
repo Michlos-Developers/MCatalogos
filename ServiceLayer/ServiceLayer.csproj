@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonServices\IModelDataAnnotationCheck.cs" />
+    <Compile Include="CommonServices\IQueryStringRepository.cs" />
     <Compile Include="CommonServices\ModelDataAnnotationCheck.cs" />
+    <Compile Include="CommonServices\QueryStringServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BairroServices\BairroServices.cs" />
     <Compile Include="Services\BairroServices\IBairroRepository.cs" />

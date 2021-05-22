@@ -32,7 +32,7 @@ namespace MCatalogos.Views.FormViews.Telefones
 {
     public partial class TelefoneFornecedorAddForm : Form
     {
-        QueryString _queryString;
+        QueryStringServices _queryString;
         FornecedorForm FornecedorForm;
         TelefonesFornecedorListUC TelefonesFornecedorListUC;
 
@@ -44,6 +44,7 @@ namespace MCatalogos.Views.FormViews.Telefones
 
         public TelefoneFornecedorAddForm(FornecedorForm fornecedorForm, TelefonesFornecedorListUC telefonesFornecedorListUC)
         {
+            _queryString = new QueryStringServices(new QueryString());
             _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
             _telefoneService = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQuery()), new ModelDataAnnotationCheck());
 
