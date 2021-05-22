@@ -1,5 +1,4 @@
 ﻿using DomainLayer.Models.Catalogos;
-using DomainLayer.Models.Fornecedores;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
@@ -14,13 +13,8 @@ using ServiceLayer.Services.FornecedorServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.UserControls.Fornecedores
@@ -91,6 +85,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                 row["CatalogoId"] = int.Parse(model.CatalogoId.ToString());
                 row["Nome"] = model.Nome.ToString();
                 row["Status"] = model.Ativo ? "Ativo" : "Inativo";
+                
                 tableCatalogos.Rows.Add(row);
 
             }

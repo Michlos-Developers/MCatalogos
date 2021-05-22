@@ -76,9 +76,16 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         public void FornecedoresListForm_Load(object sender, EventArgs e)
         {
+            LoadFornecedoresToDataGrid();
+
+        }
+
+        private void LoadFornecedoresToDataGrid()
+        {
             List<FornecedorModel> modelList = null;
             try
             {
+                modelList = (List<FornecedorModel>)_fornecedorServices.GetAll();
 
             }
             catch (Exception ex)
@@ -86,34 +93,50 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
                 MessageBox.Show($"Não foi possível trazer a lista de fornecedores.\nMessage: {ex.Message}", "Error Acess List");
             }
-            foreach (FornecedorModel model in modelList)
-            {
 
-            }
-            /*
-            SqlConnection connection = new SqlConnection(_queryString.GetQuery());
-            string query = "SELECT FornecedorId, RazaoSocial, NomeFantasia, Cnpj FROM Fornecedores";
-            SqlCommand cmd = new SqlCommand(query, connection);
-            try
-            {
-                connection.Open();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable fornecedores = new DataTable();
+            DataTable tableFornecedores = new DataTable();
+            DataColumn column;
+            DataRow row;
 
-                da.Fill(fornecedores);
-                dgvFornecedores.DataSource = fornecedores;
-                ConfigraDataGridView();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Falha ao acessar o banco de dados. \n{ex.Message}", "Falha no DataBase");
-            }
-            finally
-            {
-                connection.Close();
-            }
-            */
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "FornecedorId";
+            tableFornecedores.Columns.Add(column);
 
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "RazaoSocial";
+            column.Caption = "Razão Social";
+            tableFornecedores.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "NomeFantasia";
+            column.Caption = "Nome Fantasia";
+            tableFornecedores.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Cnpj";
+            column.Caption = "CNPJ";
+            tableFornecedores.Columns.Add(column);
+
+            if (modelList.Count != 0)
+            {
+                foreach (FornecedorModel model in modelList)
+                {
+                    row = tableFornecedores.NewRow();
+                    row["FornecedorId"] = int.Parse(model.FornecedorId.ToString());
+                    row["RazaoSocial"] = model.RazaoSocial.ToString();
+                    row["NomeFantasia"] = model.NomeFantasia.ToString();
+                    row["Cnpj"] = model.Cnpj.ToString();
+
+                    tableFornecedores.Rows.Add(row);
+                }
+            }
+
+            dgvFornecedores.DataSource = tableFornecedores;
+            ConfigraDataGridView();
         }
 
         private void dgvFornecedores_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -17,6 +17,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -54,42 +55,58 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         
         public void VendedorasListForm_Load(object sender, EventArgs e)
         {
-
-            
-            //STRING DE CONEXÃO COM O BANCO DE DADOS
-            SqlConnection connection = new SqlConnection(_queryString.GetQuery());
-
-            //STRING DE INSTRUÇÃO DE QUERY
-            string sql = "SELECT VendedoraId, Nome, Cpf FROM Vendedoras";
-
-            //DEFINE O COMMAND DO BANCO DE DADOS
-            SqlCommand cmd = new SqlCommand(sql, connection);
-
-            try
-            {
-                connection.Open();
-                
-                //DATA ADAPTER
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                //Objeto DataTAble
-                DataTable vendedoras = new DataTable();
-
-                da.Fill(vendedoras);
-                dgvVendedoras.DataSource = vendedoras;
-                ConfiguraDataGridView();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao acessar o banco de dados; " + ex.Message, "Erro ao tentar preencher Dados");
-            }
-            finally
-            {
-                connection.Close();
-            }
+            LoadVendedorasToDataGridView();
 
            
+        }
+
+        public void LoadVendedorasToDataGridView()
+        {
+            List<VendedoraModel> modelList = null;
+            try
+            {
+                modelList = (List<VendedoraModel>)_vendedoraServices.GetAll();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Não foi possível trazer a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List" );
+            }
+
+            DataTable tableVendedoras = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "VendedoraId";
+            tableVendedoras.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Nome";
+            tableVendedoras.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Cpf";
+            column.Caption = "CPF";
+            tableVendedoras.Columns.Add(column);
+
+            if (modelList.Count != 0)
+            {
+                foreach (VendedoraModel model in modelList)
+                {
+                    row = tableVendedoras.NewRow();
+                    row["VendedoraId"] = int.Parse(model.VendedoraId.ToString());
+                    row["Nome"] = model.Nome.ToString();
+                    row["Cpf"] = model.Cpf.ToString();
+
+                    tableVendedoras.Rows.Add(row);
+                }
+            }
+
+            dgvVendedoras.DataSource = tableVendedoras;
+            ConfiguraDataGridView();
         }
 
         public void ConfiguraDataGridView()
