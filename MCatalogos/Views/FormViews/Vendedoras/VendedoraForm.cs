@@ -435,6 +435,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             PreencheCampos();
 
             TelefonesVendedoraListUC telefones = new TelefonesVendedoraListUC(this);
+            telefones.vendedoraId = int.Parse(this.textVendedoraId.Text);
             panelTelefonesList.Controls.Clear();
             panelTelefonesList.Controls.Add(telefones);
             telefones.Dock = DockStyle.Fill;

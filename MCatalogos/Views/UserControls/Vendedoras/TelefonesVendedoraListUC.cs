@@ -28,16 +28,17 @@ namespace MCatalogos.Views.UserControls
 
 
         private TelefoneVendedoraServices _telefoneServices;
-        private TipoTelefoneServices _tipoServices;
+        private TipoTelefoneServices _tipoTelefoneServices;
         private VendedoraServices _vendedoraServices;
 
         private int? idTelefone = null;
+        public int vendedoraId = 0;
 
 
         public TelefonesVendedoraListUC(VendedoraForm vendedoraForm)
         {
             _queryString = new QueryStringServices(new QueryString());
-            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _telefoneServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
@@ -47,68 +48,66 @@ namespace MCatalogos.Views.UserControls
 
         public void TelefonesVendedoraListUC_Load(object sender, EventArgs e)
         {
-            //ConfiguraDGV();
-            VendedoraModel vm = new VendedoraModel();
-            int vendedoraId = 0;
-            //var vendModel;
-            if (this.VendedoraForm.textVendedoraId.Text != "")
+            LoadTelefonresToDataGridView();
+            ConfiguraDGV();
+
+        }
+
+        private void LoadTelefonresToDataGridView()
+        {
+            List<TelefoneVendedoraModel> modelList = null;
+
+            DataTable tableTelefones = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "TelefoneId";
+            tableTelefones.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "TiposTelefones";
+            tableTelefones.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Numero";
+            tableTelefones.Columns.Add(column);
+
+            if (vendedoraId != 0)
             {
-                vendedoraId = int.Parse(this.VendedoraForm.textVendedoraId.Text);
                 btnAdd.Enabled = true;
                 btnDelete.Enabled = true;
-
-
-
-                string query = "SELECT TelefonesVendedoras.TelefoneId, TiposTelefones.TipoTelefone, TelefonesVendedoras.Numero  " +
-                    " FROM(TelefonesVendedoras INNER JOIN TiposTelefones ON TiposTelefones.TipoId = TelefonesVendedoras.TipoTelefoneId) " +
-                    " WHERE TelefonesVendedoras.VendedoraId = @VendedoraId " +
-                    " ORDER BY TipoTelefoneId";
-
-                vm = _vendedoraServices.GetById(vendedoraId);
-                if (CheckTelefonesExistVendedora(vm.VendedoraId))
+                try
                 {
-
-                    using (SqlConnection connection = new SqlConnection(_queryString.GetQuery()))
-                    {
-                        try
-                        {
-
-                            connection.Open();
-                            using (SqlCommand cmd = new SqlCommand(query, connection))
-                            {
-                                cmd.Prepare();
-                                cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
-
-                                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                                {
-                                    DataTable dt = new DataTable();
-
-                                    da.Fill(dt);
-                                    dgvTelefonesVendedora.DataSource = dt;
-                                    ConfiguraDGV();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Falha ao tentar buscar telefones da vendedora.\n{ex.Message}", "Error");
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-
-
+                    modelList = (List<TelefoneVendedoraModel>)_telefoneServices.GetByVendedoraId(vendedoraId);
                 }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Não foi possível trazer a lista de Telefones da Vendedora.\nMessage: {e.Message}", "Data Access Error");
+                }
+                
+                if (modelList.Count != 0)
+                {
+                    foreach (TelefoneVendedoraModel model in modelList)
+                    {
+                        row = tableTelefones.NewRow();
+                        row["TelefoneId"] = int.Parse(model.TelefoneId.ToString());
+                        row["TiposTelefones"] = _tipoTelefoneServices.GetById(model.TipoTelefoneId).TipoTelefone.ToString();
+                        row["Numero"] = model.Numero.ToString();
 
+                        tableTelefones.Rows.Add(row);
+                    }
+                }
             }
             else
             {
                 btnAdd.Enabled = false;
                 btnDelete.Enabled = false;
             }
-
+            dgvTelefonesVendedora.DataSource = tableTelefones;
 
         }
 
