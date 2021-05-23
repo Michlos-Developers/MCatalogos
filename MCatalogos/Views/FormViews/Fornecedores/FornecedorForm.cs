@@ -24,14 +24,6 @@ using ServiceLayer.Services.ValidationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Configuration;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Fornecedores
@@ -177,6 +169,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private void LoadUserControlTelefones()
         {
             TelefonesFornecedorListUC telefone = new TelefonesFornecedorListUC(this);
+            telefone.fornecedorId = int.Parse(this.textFornecedorId.Text);
             panelContatosList.Controls.Clear();
             panelContatosList.Controls.Add(telefone);
             telefone.Dock = DockStyle.Fill;

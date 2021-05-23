@@ -32,66 +32,103 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         FornecedorForm FornecedorForm;
 
         private TelefoneFornecedorServices _telefoneServices;
-        private TipoTelefoneServices _tipoServices;
-        private FornecedorServices _fornecedorServices;
+        private TipoTelefoneServices _tipoTelefoneServices;
 
         private int? idTelefone = null;
+        public int fornecedorId = 0;
 
 
         public TelefonesFornecedorListUC(FornecedorForm fornecedorForm)
         {
             _queryString = new QueryStringServices(new QueryString());
-            _tipoServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
-            _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _telefoneServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
         }
 
-        public void LoadTelefones()
+        public void LoadTelefonesToDataGridView()
         {
-            int fornecedorId = 0;
-            if (this.FornecedorForm.textFornecedorId.Text != "")
+            List<TelefoneFornecedorModel> modelList = null;
+
+            DataTable tableTelefones = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "TelefoneId";
+            tableTelefones.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Departamento";
+            tableTelefones.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Contato";
+            tableTelefones.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "TipoTelefone";
+            tableTelefones.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Numero";
+            tableTelefones.Columns.Add(column);
+            
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Ramal";
+            tableTelefones.Columns.Add(column);
+
+
+
+            if (fornecedorId != 0)
             {
-                fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
                 btnAdd.Enabled = true;
                 btnDelete.Enabled = true;
-            }
+                btnEdit.Enabled = true;
 
-            string query = "SELECT Tel.TelefoneId, Tel.Departamento, Tel.Contato, Tipo.TipoTelefone, Tel.Numero, Tel.Ramal " +
-                               "FROM (TelefonesFornecedores AS Tel INNER JOIN TiposTelefones AS Tipo ON Tipo.TipoId = Tel.TipoTelefoneId) " +
-                               "WHERE Tel.FornecedorId = @FornecedorId " +
-                               "ORDER BY Tipo.TipoTelefone";
-
-            using (SqlConnection connection = new SqlConnection(_queryString.GetQuery()))
-            {
                 try
                 {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("@FornecedorId", fornecedorId));
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        DataTable telefones = new DataTable();
-
-                        da.Fill(telefones);
-                        dgvTeleForn.DataSource = telefones;
-                        ConfiguraDGV();
-                    }
+                    modelList = (List<TelefoneFornecedorModel>)_telefoneServices.GetByFornecedorId(fornecedorId);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Não foi possível trazser a lista de Telefones do Fornecedor.\nMessage: {e.Message}", "Alerta");
+                    MessageBox.Show($"Não foi possível trazer a lista de telefones do Fornecedor.\nMessage: {e.Message}", "Error Access Data");
                 }
-                finally
-                {
-                    connection.Close();
-                }
-            }
 
+                if (modelList.Count != 0)
+                {
+                    foreach (TelefoneFornecedorModel model in modelList)
+                    {
+                        row = tableTelefones.NewRow();
+                        row["TelefoneId"] = int.Parse(model.TelefoneId.ToString());
+                        row["Departamento"] = model.Departamento.ToString();
+                        row["Contato"] = model.Contato.ToString();
+                        row["TipoTelefone"] = _tipoTelefoneServices.GetById(model.TipoTelefoneId).TipoTelefone;
+                        row["Numero"] = model.Numero.ToString();
+                        row["Ramal"] = model.Ramal.ToString();
+
+                        tableTelefones.Rows.Add(row);
+                    }
+                }
+
+                dgvTeleForn.DataSource = tableTelefones;
+            }
+            else
+            {
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+                btnEdit.Enabled = false;
+            }
         }
+
 
         private void ConfiguraDGV()
         {
@@ -111,29 +148,10 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
         }
 
-        private bool CheckTelfefonesExistInFornecedor(int fornecedorId)
-        {
-            bool result = false;
-            List<TelefoneFornecedorModel> modelList = null;
-
-            try
-            {
-                modelList = (List<TelefoneFornecedorModel>)_telefoneServices.GetByFornecedorId(fornecedorId);
-            }
-            finally
-            {
-                if (modelList.Count != 0)
-                {
-                    result = true;
-                }
-
-            }
-            return result;
-        }
-
         private void TelefonesFornecedorListUC_Load(object sender, EventArgs e)
         {
-            LoadTelefones();
+            LoadTelefonesToDataGridView();
+            ConfiguraDGV();
         }
 
         private void dgvTeleForn_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -170,7 +188,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                 }
                 finally
                 {
-                    LoadTelefones();
+                    LoadTelefonesToDataGridView();
                 }
             }
         }

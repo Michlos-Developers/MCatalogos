@@ -230,7 +230,7 @@ namespace MCatalogos.Views.FormViews.Telefones
                         ClearControls();
                     }
 
-                    this.TelefonesFornecedorListUC.LoadTelefones();
+                    this.TelefonesFornecedorListUC.LoadTelefonesToDataGridView();
                     this.Close();
 
                 }
@@ -247,7 +247,7 @@ namespace MCatalogos.Views.FormViews.Telefones
                 }
                 finally
                 {
-                    this.TelefonesFornecedorListUC.LoadTelefones();
+                    this.TelefonesFornecedorListUC.LoadTelefonesToDataGridView();
                     this.Close();
                 }
             }
