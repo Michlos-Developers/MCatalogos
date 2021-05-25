@@ -24,13 +24,33 @@ using ServiceLayer.Services.ValidationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Fornecedores
 {
     public partial class FornecedorForm : Form
     {
+        #region PROPRIEDADES PARA MOVER A JANELA
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        #endregion
+
+        /// <summary>
+        /// Utilizado para manter as conexaões com o banco de dados
+        /// em um único método separado.
+        /// Origens:
+        /// -> ServiceLayer/QueryStringServices
+        /// -> InfrastructureLayer/QueryString
+        /// </summary>
         QueryStringServices _queryString;
+
+        
         FornecedoresListForm FornecedoresListForm;
 
         private FornecedorServices _fornecedorServices;
@@ -39,6 +59,10 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private BairroServices _bairroServices;
         private ValidationCnpjServices _validationCnpjServices;
 
+        /// <summary>
+        /// Variável utilizada na validação de campos. 
+        /// Se campos válidos recebe true, senão recebe false;
+        /// </summary>
         bool permiteAddOrUpdate = false;
 
 
@@ -57,7 +81,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         }
 
 
-        //REPOSITORY COMMANDS
+        //REPOSITORY CALLERS
         private FornecedorModel FornecedorAdd()
         {
             FornecedorModel returnModel = new FornecedorModel();
@@ -148,7 +172,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
                 dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
                 formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
-                MessageBox.Show(formattedJsonStr, "Erro ao tentar atualizar os dados do Forencedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(formattedJsonStr, "Não foi possível atualizar os dados do Forencedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (operationSucceeded)
@@ -162,6 +186,10 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private void LoadUserControlCatalogos()
         {
             CatalogosFornecedorListUc catalogos = new CatalogosFornecedorListUc(this);
+            if (textFornecedorId.Text != "")
+            {
+                catalogos.fornecedorId = int.Parse(this.textFornecedorId.Text);
+            }
             panelCatalogosList.Controls.Clear();
             panelCatalogosList.Controls.Add(catalogos);
             catalogos.Dock = DockStyle.Fill;
@@ -169,7 +197,12 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private void LoadUserControlTelefones()
         {
             TelefonesFornecedorListUC telefone = new TelefonesFornecedorListUC(this);
-            telefone.fornecedorId = int.Parse(this.textFornecedorId.Text);
+            if (textFornecedorId.Text != "")
+            {
+                telefone.fornecedorId = int.Parse(this.textFornecedorId.Text);
+
+            }
+
             panelContatosList.Controls.Clear();
             panelContatosList.Controls.Add(telefone);
             telefone.Dock = DockStyle.Fill;
@@ -263,7 +296,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             switch (uf)
             {
                 case "AC":
-                    mTextInscricaoEstadual.Mask = "00.000.000/000-00";
+                    mTextInscricaoEstadual.Mask = "00,000,000/000-00";
                     break;
                 case "AL":
                     mTextInscricaoEstadual.Mask = "00000000#";
@@ -272,7 +305,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                     mTextInscricaoEstadual.Mask = "000000000";
                     break;
                 case "AM":
-                    mTextInscricaoEstadual.Mask = "00.000.000-0";
+                    mTextInscricaoEstadual.Mask = "00,000,000-0";
                     break;
                 case "BA":
                     if (mTextInscricaoEstadual.Text.Length == 8)
@@ -294,7 +327,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                     mTextInscricaoEstadual.Mask = "00000000-0";
                     break;
                 case "GO":
-                    mTextInscricaoEstadual.Mask = "00.000.000-0";
+                    mTextInscricaoEstadual.Mask = "00,000,000-0";
                     break;
                 case "MA":
                     mTextInscricaoEstadual.Mask = "00000000-0";
@@ -306,7 +339,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                     mTextInscricaoEstadual.Mask = "00000000-0";
                     break;
                 case "MG":
-                    mTextInscricaoEstadual.Mask = "000.000.000/0000";
+                    mTextInscricaoEstadual.Mask = "000,000,000/0000";
                     break;
                 case "PA":
                     mTextInscricaoEstadual.Mask = "00-000000-0";
@@ -321,22 +354,22 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                     mTextInscricaoEstadual.Mask = "0000000-00";
                     break;
                 case "PR":
-                    mTextInscricaoEstadual.Mask = "000.00000-00";
+                    mTextInscricaoEstadual.Mask = "000,00000-00";
                     break;
                 case "RJ":
-                    mTextInscricaoEstadual.Mask = "00.000.00-0";
+                    mTextInscricaoEstadual.Mask = "00,000,00-0";
                     break;
                 case "RN":
-                    mTextInscricaoEstadual.Mask = "00.000.000-0";
+                    mTextInscricaoEstadual.Mask = "00,000,000-0";
                     break;
                 case "RS":
                     mTextInscricaoEstadual.Mask = "000/0000000";
                     break;
                 case "SP":
-                    mTextInscricaoEstadual.Mask = "000.000.000.000";
+                    mTextInscricaoEstadual.Mask = "000,000,000,000";
                     break;
                 case "SC":
-                    mTextInscricaoEstadual.Mask = "000.000.000";
+                    mTextInscricaoEstadual.Mask = "000,000,000";
                     break;
                 case "SE":
                     mTextInscricaoEstadual.Mask = "00000000-0";
@@ -354,6 +387,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             cnpj = cnpj.Replace(".", "");
             cnpj = cnpj.Replace("-", "");
             cnpj = cnpj.Replace("/", "");
+            cnpj = cnpj.Replace(",", "");
             cnpj = cnpj.Replace(" ", "");
 
             return cnpj;
@@ -503,6 +537,12 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private void cbBairro_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = ValidaCampos(cbBairro);
+        }
+
+        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

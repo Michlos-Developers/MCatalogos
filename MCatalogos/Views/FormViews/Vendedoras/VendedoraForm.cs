@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Windows.Forms;
 
@@ -34,6 +35,16 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedoraForm : Form
     {
+        #region PROPRIEDADES PARA MOVER A JANELA
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        #endregion
+
         QueryStringServices _queryString;
         VendedorasListForm VendedorasListForm;
 
@@ -58,6 +69,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             _estadoCivilServices = new EstadoCivilServices(new EstadoCivilRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _validationCpfServices = new ValidationCpfServices(new CpfRepository());
+
             InitializeComponent();
             this.VendedorasListForm = vendedorasListForm;
 
@@ -65,80 +77,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
 
         //REPOSITORIES CALLERS
-        private void VendedoraUpdate()
-        {
-            var cpf = maskedTextCpf.Text;
-            cpf = cpf.Replace(".", "");
-            cpf = cpf.Replace(".", "");
-            cpf = cpf.Replace("-", "");
-
-            var cep = maskedTextCep.Text;
-            cep = cep.Replace("-", "");
-            int estadoId = _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId;
-
-            int cidadeId = _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
-                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId;
-
-            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxBairro.Text,
-                           _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
-                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId).BairroId;
-
-            VendedoraModel vendedoraModel = new VendedoraModel()
-            {
-                VendedoraId = int.Parse(textVendedoraId.Text),
-                Nome = textNome.Text,
-                Cpf = cpf,
-                Rg = textRg.Text,
-                RgEmissor = textEmissorRg.Text,
-                DataNascimento = DateTime.Parse(datePickerNascimento.Text),
-                Email = textEmail.Text,
-                NomePai = textNomePai.Text,
-                NomeMae = textNomeMae.Text,
-                NomeConjuge = textConjuge.Text,
-                Logradouro = textLogradouro.Text,
-                Numero = textNumero.Text,
-                Complemento = textComplemento.Text,
-                Cep = cep,
-                EstadoCivilId = _estadoCivilServices.GetByEstadoCivil(comboBoxEstadoCivil.Text).EstadoCivilId,
-                UfRgId = _estadoServices.GetByUf(comboBoxUfRg.Text).EstadoId,
-                EstadoId = estadoId,
-                CidadeId = cidadeId,
-                BairroId = bairroId,
-                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId
-
-            };
-
-            bool operationSucceeded = false;
-            string dataAccessStatusJsonStr = string.Empty;
-            string formattedJsonStr = string.Empty;
-
-            try
-            {
-                _vendedoraServices.Update(vendedoraModel);
-                operationSucceeded = true;
-
-            }
-            catch (DataAccessException e)
-            {
-                operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
-                dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
-                formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
-                MessageBox.Show(formattedJsonStr, "Erro ao tentar atualizar os dados da vendedora", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            try
-            {
-                if (operationSucceeded)
-                {
-                    MessageBox.Show("Registro atualizado com sucesso", "Salvar dados de Vendedora", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-            }
-            finally
-            {
-                //TODO: LER DADOS DA VENDEDORA
-            }
-        }
         public VendedoraModel VendedoraAdd()
         {
 
@@ -206,6 +144,74 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             return returnModel;
 
         }
+        private void VendedoraUpdate()
+        {
+            var cpf = maskedTextCpf.Text;
+            cpf = cpf.Replace(".", "");
+            cpf = cpf.Replace(".", "");
+            cpf = cpf.Replace("-", "");
+
+            var cep = maskedTextCep.Text;
+            cep = cep.Replace("-", "");
+            int estadoId = _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId;
+
+            int cidadeId = _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
+                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId;
+
+            int bairroId = _bairroServices.GetByNomeAndCidadeId(comboBoxBairro.Text,
+                           _cidadeServices.GetByNomeAndEstadoId(comboBoxCidade.Text,
+                           _estadoServices.GetByUf(comboBoxUfEndereco.Text).EstadoId).CidadeId).BairroId;
+
+            VendedoraModel vendedoraModel = new VendedoraModel()
+            {
+                VendedoraId = int.Parse(textVendedoraId.Text),
+                Nome = textNome.Text,
+                Cpf = cpf,
+                Rg = textRg.Text,
+                RgEmissor = textEmissorRg.Text,
+                DataNascimento = DateTime.Parse(datePickerNascimento.Text),
+                Email = textEmail.Text,
+                NomePai = textNomePai.Text,
+                NomeMae = textNomeMae.Text,
+                NomeConjuge = textConjuge.Text,
+                Logradouro = textLogradouro.Text,
+                Numero = textNumero.Text,
+                Complemento = textComplemento.Text,
+                Cep = cep,
+                EstadoCivilId = _estadoCivilServices.GetByEstadoCivil(comboBoxEstadoCivil.Text).EstadoCivilId,
+                UfRgId = _estadoServices.GetByUf(comboBoxUfRg.Text).EstadoId,
+                EstadoId = estadoId,
+                CidadeId = cidadeId,
+                BairroId = bairroId,
+                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId
+
+            };
+
+            bool operationSucceeded = false;
+            string dataAccessStatusJsonStr = string.Empty;
+            string formattedJsonStr = string.Empty;
+
+            try
+            {
+                _vendedoraServices.Update(vendedoraModel);
+                operationSucceeded = true;
+
+            }
+            catch (DataAccessException e)
+            {
+                operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
+                dataAccessStatusJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
+                formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
+                MessageBox.Show(formattedJsonStr, "Não foi possível atualizar os dados da vendedora", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (operationSucceeded)
+            {
+                MessageBox.Show("Registro atualizado com sucesso", "Salvar dados de Vendedora", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
+        }
         private void AddRotaLetra(string nextLetra)
         {
             RotaLetraModel model = new RotaLetraModel();
@@ -253,6 +259,20 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 MessageBox.Show($"Rota adicionada com sucesso: \nNúmero:{nextNumero}");
                 //TODO: REINDEXAR ROTAS
             }
+        }
+
+        //LOAD USER CONTROLS
+        private void LoadUserControlTelefones()
+        {
+            TelefonesVendedoraListUC telefones = new TelefonesVendedoraListUC(this);
+            if (textVendedoraId.Text != "")
+            {
+                telefones.vendedoraId = int.Parse(this.textVendedoraId.Text);
+            }
+            panelTelefonesList.Controls.Clear();
+            panelTelefonesList.Controls.Add(telefones);
+            telefones.Dock = DockStyle.Fill;
+
         }
 
 
@@ -433,12 +453,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             LoadUfRgToComboBox();
             LoadEstadoCivilToComboBox();
             PreencheCampos();
-
-            TelefonesVendedoraListUC telefones = new TelefonesVendedoraListUC(this);
-            telefones.vendedoraId = int.Parse(this.textVendedoraId.Text);
-            panelTelefonesList.Controls.Clear();
-            panelTelefonesList.Controls.Add(telefones);
-            telefones.Dock = DockStyle.Fill;
+            LoadUserControlTelefones();
 
             maskedTextCpf.Focus();
             if (textVendedoraId.Text == "")
@@ -453,6 +468,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
 
         }
+
+
         private void comboBoxRotaLetra_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxRotaLetra.SelectedIndex > -1)
@@ -546,8 +563,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
 
 
-        
-        
+
+
         //VALIDATIONS
         private bool ValidaCampo(Control control)
         {
@@ -770,7 +787,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void comboBoxUfEndereco_Enter(object sender, EventArgs e)
         {
             comboBoxUfEndereco.BackColor = SystemColors.ActiveCaption;
-            
+
         }
         private void comboBoxUfEndereco_Leave(object sender, EventArgs e)
         {
@@ -799,6 +816,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void textNome_Leave(object sender, EventArgs e)
         {
             textNome.BackColor = SystemColors.Window;
+        }
+
+        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

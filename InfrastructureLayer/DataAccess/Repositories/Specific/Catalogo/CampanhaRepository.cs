@@ -43,7 +43,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             int idReturned = 0;
             CampanhaModel model = new CampanhaModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "INSERTO INTO Campanhas " +
+            string query = "INSERT INTO Campanhas " +
                            "(Nome, DataLancamento, DataEncerramento, Ativa, CatalogoId) " +
                            "output INSERTED.CampanhaId " +
                            "VALUES (@Nome, @DataLancamento, @DataEncerramento, @Ativa, @CatalogoId)";
@@ -56,16 +56,16 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
-                        cmd.Parameters.AddWithValue("@Nome", model.Nome);
-                        cmd.Parameters.AddWithValue("@DataLancamento", model.DataLancamento);
-                        cmd.Parameters.AddWithValue("@DataEncerramento", model.DataEncerramento);
-                        cmd.Parameters.AddWithValue("@Ativa", model.Ativa);
-                        cmd.Parameters.AddWithValue("@CatalogoId", model.CatalogoId);
+                        cmd.Parameters.AddWithValue("@Nome", campanhaModel.Nome);
+                        cmd.Parameters.AddWithValue("@DataLancamento", campanhaModel.DataLancamento);
+                        cmd.Parameters.AddWithValue("@DataEncerramento", campanhaModel.DataEncerramento);
+                        cmd.Parameters.AddWithValue("@Ativa", campanhaModel.Ativa);
+                        cmd.Parameters.AddWithValue("@CatalogoId", campanhaModel.CatalogoId);
 
                         idReturned = (int)cmd.ExecuteScalar();
                     }
 
-                    
+
                 }
                 catch (SqlException e)
                 {
@@ -174,15 +174,19 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.Add(new SqlParameter("@CatalogoId", catalogoId));
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            CampanhaModel model = new CampanhaModel();
-                            model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                            model.Nome = reader["Nome"].ToString();
-                            model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
-                            model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
-                            model.Ativa = int.Parse(reader["Ativa"].ToString()) == 1 ? true : false;
-                            model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
+                            while (reader.Read())
+                            {
+                                CampanhaModel model = new CampanhaModel();
+                                model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
+                                model.Nome = reader["Nome"].ToString();
+                                model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
+                                model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
+                                model.Ativa = bool.Parse(reader["Ativa"].ToString());
+                                model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
 
-                            modelList.Add(model);
+                                modelList.Add(model);
+
+                            }
                         }
                     }
                 }
@@ -205,7 +209,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
         {
             CampanhaModel model = new CampanhaModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT CampanhaId, Nome, DataLancamento, DataEncerramenot, Ativa, CatalogoId " +
+            string query = "SELECT CampanhaId, Nome, DataLancamento, DataEncerramento, Ativa, CatalogoId " +
                            "FROM Campanhas WHERE CampanhaId = @CampanhaId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -219,14 +223,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            
+
                             while (reader.Read())
                             {
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
                                 model.Nome = reader["Nome"].ToString();
                                 model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
                                 model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
-                                model.Ativa = int.Parse(reader["Ativa"].ToString()) == 1 ? true : false;
+                                model.Ativa = bool.Parse(reader["Ativa"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                             }
                         }
@@ -264,7 +268,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@CampanhaId", campanhaModel.CampanhaId);
                         cmd.Parameters.AddWithValue("@Nome", campanhaModel.Nome);
-                        cmd.Parameters.AddWithValue("@DataLancamento", campanhaModel.DataLancamento);
                         cmd.Parameters.AddWithValue("@DataLancamento", campanhaModel.DataLancamento);
                         cmd.Parameters.AddWithValue("@DataEncerramento", campanhaModel.DataEncerramento);
                         cmd.Parameters.AddWithValue("@Ativa", campanhaModel.Ativa);

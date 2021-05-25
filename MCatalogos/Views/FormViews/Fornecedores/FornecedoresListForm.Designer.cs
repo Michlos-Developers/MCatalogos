@@ -34,14 +34,14 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
             this.panelListView = new System.Windows.Forms.Panel();
             this.panelContentGridView = new System.Windows.Forms.Panel();
             this.dgvFornecedores = new System.Windows.Forms.DataGridView();
             this.panelCommands.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelListView.SuspendLayout();
             this.panelContentGridView.SuspendLayout();
@@ -134,16 +134,17 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // panel1
+            // panelTitle
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.pictureClose);
-            this.panel1.Controls.Add(this.title);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 30);
-            this.panel1.TabIndex = 5;
+            this.panelTitle.BackColor = System.Drawing.Color.White;
+            this.panelTitle.Controls.Add(this.pictureClose);
+            this.panelTitle.Controls.Add(this.title);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(800, 30);
+            this.panelTitle.TabIndex = 5;
+            this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlePanel_MouseDown);
             // 
             // pictureClose
             // 
@@ -221,7 +222,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 485);
             this.Controls.Add(this.panelListView);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelTitle);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -231,8 +232,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FornecedoresListForm_FormClosing);
             this.Load += new System.EventHandler(this.FornecedoresListForm_Load);
             this.panelCommands.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelTitle.ResumeLayout(false);
+            this.panelTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.panelListView.ResumeLayout(false);
             this.panelContentGridView.ResumeLayout(false);
@@ -248,7 +249,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.PictureBox pictureClose;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panelListView;

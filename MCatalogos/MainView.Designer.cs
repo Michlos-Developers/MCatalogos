@@ -172,6 +172,7 @@ namespace MCatalogos
             this.btnCatalogos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTipMain.SetToolTip(this.btnCatalogos, "Catálogos");
             this.btnCatalogos.UseVisualStyleBackColor = false;
+            this.btnCatalogos.Click += new System.EventHandler(this.btnCatalogos_Click);
             // 
             // btnFornecedores
             // 

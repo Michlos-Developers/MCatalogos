@@ -32,7 +32,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedoraForm));
             this.panelContent = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
             this.comboBoxRotaNumero = new System.Windows.Forms.ComboBox();
@@ -100,7 +100,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelContent.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBoxEndereco.SuspendLayout();
@@ -113,7 +113,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
-            this.panelContent.Controls.Add(this.panel1);
+            this.panelContent.Controls.Add(this.panelTitle);
             this.panelContent.Controls.Add(this.comboBoxRotaNumero);
             this.panelContent.Controls.Add(this.btnAddNumeroRota);
             this.panelContent.Controls.Add(this.comboBoxRotaLetra);
@@ -156,16 +156,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Size = new System.Drawing.Size(800, 470);
             this.panelContent.TabIndex = 0;
             // 
-            // panel1
+            // panelTitle
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.pictureClose);
-            this.panel1.Controls.Add(this.title);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 30);
-            this.panel1.TabIndex = 38;
+            this.panelTitle.BackColor = System.Drawing.Color.White;
+            this.panelTitle.Controls.Add(this.pictureClose);
+            this.panelTitle.Controls.Add(this.title);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(800, 30);
+            this.panelTitle.TabIndex = 38;
+            this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseDown);
             // 
             // pictureClose
             // 
@@ -901,8 +902,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.Load += new System.EventHandler(this.VendedoraForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelTitle.ResumeLayout(false);
+            this.panelTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -967,7 +968,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Button btnAddNumeroRota;
         private System.Windows.Forms.Panel panelTelefonesList;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.PictureBox pictureClose;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Label label18;

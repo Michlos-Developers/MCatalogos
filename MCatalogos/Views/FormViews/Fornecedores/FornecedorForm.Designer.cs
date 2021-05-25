@@ -144,6 +144,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.panelTitle.Name = "panelTitle";
             this.panelTitle.Size = new System.Drawing.Size(800, 30);
             this.panelTitle.TabIndex = 39;
+            this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseDown);
             // 
             // pictureClose
             // 

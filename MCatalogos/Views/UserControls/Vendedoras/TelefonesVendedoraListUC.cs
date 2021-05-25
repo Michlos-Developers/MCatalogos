@@ -10,12 +10,10 @@ using MCatalogos.Views.FormViews.Vendedoras;
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.TelefoneVendedoraServices;
 using ServiceLayer.Services.TipoTelefoneServices;
-using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -29,7 +27,6 @@ namespace MCatalogos.Views.UserControls
 
         private TelefoneVendedoraServices _telefoneServices;
         private TipoTelefoneServices _tipoTelefoneServices;
-        private VendedoraServices _vendedoraServices;
 
         private int? idTelefone = null;
         public int vendedoraId = 0;
@@ -40,19 +37,12 @@ namespace MCatalogos.Views.UserControls
             _queryString = new QueryStringServices(new QueryString());
             _tipoTelefoneServices = new TipoTelefoneServices(new TipoTelefoneRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _telefoneServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
-            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.VendedoraForm = vendedoraForm;
         }
 
-        public void TelefonesVendedoraListUC_Load(object sender, EventArgs e)
-        {
-            LoadTelefonresToDataGridView();
-            ConfiguraDGV();
-
-        }
-
+        //SETTINGS AND GETTINS
         private void LoadTelefonresToDataGridView()
         {
             List<TelefoneVendedoraModel> modelList = null;
@@ -110,7 +100,6 @@ namespace MCatalogos.Views.UserControls
             dgvTelefonesVendedora.DataSource = tableTelefones;
 
         }
-
         private void ConfiguraDGV()
         {
             dgvTelefonesVendedora.ForeColor = Color.Black;
@@ -123,26 +112,13 @@ namespace MCatalogos.Views.UserControls
 
         }
 
-        private bool CheckTelefonesExistVendedora(int vendedoraId)
+        //EVENTS FORM
+        public void TelefonesVendedoraListUC_Load(object sender, EventArgs e)
         {
-            bool result = false;
-            List<TelefoneVendedoraModel> modelList = null;
-
-            try
-            {
-                modelList = (List<TelefoneVendedoraModel>)_telefoneServices.GetByVendedoraId(vendedoraId);
-            }
-            finally
-            {
-                if (modelList.Count != 0)
-                {
-                    result = true;
-                }
-            }
-            return result;
+            LoadTelefonresToDataGridView();
+            ConfiguraDGV();
 
         }
-
         private void dgvTelefonesVendedora_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 2 && e.RowIndex != dgvTelefonesVendedora.NewRowIndex)
@@ -157,7 +133,10 @@ namespace MCatalogos.Views.UserControls
                 }
             }
         }
-
+        private void dgvTelefonesVendedora_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idTelefone = e.RowIndex;
+        }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             TelefoneVendedoraModel model = _telefoneServices.GetById(
@@ -190,12 +169,6 @@ namespace MCatalogos.Views.UserControls
 
 
         }
-
-        private void dgvTelefonesVendedora_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            idTelefone = e.RowIndex;
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             TelefoneVendedoraAddForm telefoneVendedoraAddForm = new TelefoneVendedoraAddForm(this.VendedoraForm, this);

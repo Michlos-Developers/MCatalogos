@@ -1,7 +1,7 @@
 ﻿
-namespace MCatalogos.Views.FormViews.Vendedoras
+namespace MCatalogos.Views.FormViews.Catalogos
 {
-    partial class VendedorasListForm
+    partial class CatalogosListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,36 +29,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedorasListForm));
-            this.panelListView = new System.Windows.Forms.Panel();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
-            this.panelContentGridView = new System.Windows.Forms.Panel();
-            this.dgvVendedoras = new System.Windows.Forms.DataGridView();
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.panelListView.SuspendLayout();
+            this.panelContentDGV = new System.Windows.Forms.Panel();
+            this.dgvCatalogos = new System.Windows.Forms.DataGridView();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
-            this.panelContentGridView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVendedoras)).BeginInit();
             this.panelCommands.SuspendLayout();
+            this.panelContentDGV.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogos)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panelListView
-            // 
-            this.panelListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
-            this.panelListView.Controls.Add(this.panelTitle);
-            this.panelListView.Controls.Add(this.panelContentGridView);
-            this.panelListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelListView.Location = new System.Drawing.Point(0, 0);
-            this.panelListView.Name = "panelListView";
-            this.panelListView.Size = new System.Drawing.Size(800, 440);
-            this.panelListView.TabIndex = 4;
             // 
             // panelTitle
             // 
@@ -69,7 +55,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelTitle.Location = new System.Drawing.Point(0, 0);
             this.panelTitle.Name = "panelTitle";
             this.panelTitle.Size = new System.Drawing.Size(800, 30);
-            this.panelTitle.TabIndex = 2;
+            this.panelTitle.TabIndex = 3;
             this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseDown);
             // 
             // pictureClose
@@ -89,47 +75,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.title.AutoSize = true;
             this.title.Location = new System.Drawing.Point(10, 8);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(140, 14);
+            this.title.Size = new System.Drawing.Size(129, 14);
             this.title.TabIndex = 0;
-            this.title.Text = "Cadastro de Vendedoras";
-            // 
-            // panelContentGridView
-            // 
-            this.panelContentGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelContentGridView.Controls.Add(this.dgvVendedoras);
-            this.panelContentGridView.Location = new System.Drawing.Point(41, 70);
-            this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(715, 329);
-            this.panelContentGridView.TabIndex = 1;
-            // 
-            // dgvVendedoras
-            // 
-            this.dgvVendedoras.AllowUserToAddRows = false;
-            this.dgvVendedoras.AllowUserToDeleteRows = false;
-            this.dgvVendedoras.AllowUserToResizeColumns = false;
-            this.dgvVendedoras.AllowUserToResizeRows = false;
-            this.dgvVendedoras.BackgroundColor = System.Drawing.Color.White;
-            this.dgvVendedoras.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvVendedoras.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dgvVendedoras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVendedoras.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVendedoras.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dgvVendedoras.Location = new System.Drawing.Point(0, 0);
-            this.dgvVendedoras.Name = "dgvVendedoras";
-            this.dgvVendedoras.ReadOnly = true;
-            this.dgvVendedoras.RowHeadersVisible = false;
-            this.dgvVendedoras.RowTemplate.ReadOnly = true;
-            this.dgvVendedoras.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvVendedoras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVendedoras.ShowCellErrors = false;
-            this.dgvVendedoras.ShowEditingIcon = false;
-            this.dgvVendedoras.ShowRowErrors = false;
-            this.dgvVendedoras.Size = new System.Drawing.Size(715, 329);
-            this.dgvVendedoras.TabIndex = 0;
-            this.dgvVendedoras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellDoubleClick);
-            this.dgvVendedoras.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvVendedoras_CellFormatting);
+            this.title.Text = "Cadastro de Catálogos";
             // 
             // panelCommands
             // 
@@ -141,7 +89,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelCommands.Location = new System.Drawing.Point(0, 440);
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(800, 45);
-            this.panelCommands.TabIndex = 3;
+            this.panelCommands.TabIndex = 4;
             // 
             // btnAdd
             // 
@@ -150,7 +98,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Image = global::MCatalogos.Properties.Resources.IconAddVendedora20x20;
+            this.btnAdd.Image = global::MCatalogos.Properties.Resources.IconAddCatalogo20x20;
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdd.Location = new System.Drawing.Point(344, 9);
             this.btnAdd.Name = "btnAdd";
@@ -169,7 +117,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnEdit.FlatAppearance.BorderSize = 0;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.ForeColor = System.Drawing.Color.White;
-            this.btnEdit.Image = global::MCatalogos.Properties.Resources.IconEditVendedora20x20;
+            this.btnEdit.Image = global::MCatalogos.Properties.Resources.IconEditCatalogo20x20;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEdit.Location = new System.Drawing.Point(462, 9);
             this.btnEdit.Name = "btnEdit";
@@ -217,46 +165,80 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // VendedorasListForm
+            // panelContentDGV
+            // 
+            this.panelContentDGV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContentDGV.Controls.Add(this.dgvCatalogos);
+            this.panelContentDGV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContentDGV.Location = new System.Drawing.Point(0, 30);
+            this.panelContentDGV.Name = "panelContentDGV";
+            this.panelContentDGV.Size = new System.Drawing.Size(800, 410);
+            this.panelContentDGV.TabIndex = 5;
+            // 
+            // dgvCatalogos
+            // 
+            this.dgvCatalogos.AllowUserToAddRows = false;
+            this.dgvCatalogos.AllowUserToDeleteRows = false;
+            this.dgvCatalogos.AllowUserToResizeColumns = false;
+            this.dgvCatalogos.AllowUserToResizeRows = false;
+            this.dgvCatalogos.BackgroundColor = System.Drawing.Color.White;
+            this.dgvCatalogos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvCatalogos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvCatalogos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCatalogos.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvCatalogos.Location = new System.Drawing.Point(36, 33);
+            this.dgvCatalogos.Name = "dgvCatalogos";
+            this.dgvCatalogos.ReadOnly = true;
+            this.dgvCatalogos.RowHeadersVisible = false;
+            this.dgvCatalogos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvCatalogos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCatalogos.ShowCellErrors = false;
+            this.dgvCatalogos.ShowEditingIcon = false;
+            this.dgvCatalogos.ShowRowErrors = false;
+            this.dgvCatalogos.Size = new System.Drawing.Size(723, 338);
+            this.dgvCatalogos.TabIndex = 0;
+            this.dgvCatalogos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellClick);
+            this.dgvCatalogos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellDoubleClick);
+            this.dgvCatalogos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCatalogos_CellFormatting);
+            // 
+            // CatalogosListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 485);
-            this.Controls.Add(this.panelListView);
+            this.Controls.Add(this.panelContentDGV);
             this.Controls.Add(this.panelCommands);
+            this.Controls.Add(this.panelTitle);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "VendedorasListForm";
+            this.Name = "CatalogosListForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VendedorasListForm_FormClosing);
-            this.Load += new System.EventHandler(this.VendedorasListForm_Load);
-            this.panelListView.ResumeLayout(false);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CatalogosListForm_FormClosing);
+            this.Load += new System.EventHandler(this.CatalogosListForm_Load);
             this.panelTitle.ResumeLayout(false);
             this.panelTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
-            this.panelContentGridView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVendedoras)).EndInit();
             this.panelCommands.ResumeLayout(false);
+            this.panelContentDGV.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogos)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panelListView;
-        private System.Windows.Forms.Panel panelContentGridView;
+        private System.Windows.Forms.Panel panelTitle;
+        private System.Windows.Forms.PictureBox pictureClose;
+        private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panelCommands;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnCancel;
-        public System.Windows.Forms.DataGridView dgvVendedoras;
-        private System.Windows.Forms.Panel panelTitle;
-        private System.Windows.Forms.Label title;
-        private System.Windows.Forms.PictureBox pictureClose;
+        private System.Windows.Forms.Panel panelContentDGV;
+        public System.Windows.Forms.DataGridView dgvCatalogos;
     }
 }

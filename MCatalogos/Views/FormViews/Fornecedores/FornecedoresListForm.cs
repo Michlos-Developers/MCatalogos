@@ -3,6 +3,8 @@
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
+using Microsoft.Win32;
+
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.FornecedorServices;
 using ServiceLayer.Services.TelefoneFornecedorServices;
@@ -10,21 +12,38 @@ using ServiceLayer.Services.TelefoneFornecedorServices;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Fornecedores
 {
     public partial class FornecedoresListForm : Form
     {
+        #region PROPRIEDADES PARA MOVER A JANELA
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        
+        #endregion
+
+
         QueryStringServices _queryString;
         MainView MainView;
+        
+        //Instância de MainView. Evita que mais de uma janela seja aberta.
         private static FornecedoresListForm aForm = null;
         public static FornecedoresListForm Instance(MainView mainView)
         {
             if (aForm == null)
             {
                 aForm = new FornecedoresListForm(mainView);
+            }
+            else
+            {
+                aForm.BringToFront();
             }
             return aForm;
         }
@@ -194,7 +213,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Falha ao tentar apagar o registro do forneceddor.\nErrorMessage: \n{ex.Message}.", "Error");
+                    MessageBox.Show($"Não foi possível apagar o registro do forneceddor.\nErrorMessage: \n{ex.Message}.", "Error");
                 }
                 this.FornecedoresListForm_Load(sender, e);
             }
@@ -206,6 +225,12 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             {
                 e.Value = string.Format(@"{0:##\.###\.###\/####\-##}", Int64.Parse(e.Value.ToString()));
             }
+        }
+
+        private void titlePanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

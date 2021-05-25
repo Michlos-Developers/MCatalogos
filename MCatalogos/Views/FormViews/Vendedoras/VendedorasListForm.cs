@@ -26,18 +26,33 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 {
     public partial class VendedorasListForm : Form
     {
+        #region PROPRIEDADES PARA MOVER A JANELA
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        #endregion
+
+
         QueryStringServices _queryString;
         MainView MainView;
-        
+
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
         private int? id = null;
         private static VendedorasListForm aForm = null;
         public static VendedorasListForm Instance(MainView mainView)
         {
-            if (aForm== null)
+            if (aForm == null)
             {
                 aForm = new VendedorasListForm(mainView);
+            }
+            else
+            {
+                aForm.BringToFront();
             }
             return aForm;
         }
@@ -52,14 +67,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.MainView = mainView;
         }
 
-        
-        public void VendedorasListForm_Load(object sender, EventArgs e)
-        {
-            LoadVendedorasToDataGridView();
 
-           
-        }
-
+        //OWN METHODS
         public void LoadVendedorasToDataGridView()
         {
             List<VendedoraModel> modelList = null;
@@ -69,7 +78,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Não foi possível trazer a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List" );
+                MessageBox.Show($"Não foi possível trazer a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List");
             }
 
             DataTable tableVendedoras = new DataTable();
@@ -108,15 +117,14 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             dgvVendedoras.DataSource = tableVendedoras;
             ConfiguraDataGridView();
         }
-
         public void ConfiguraDataGridView()
         {
             dgvVendedoras.Columns[0].HeaderText = "Código";
             dgvVendedoras.Columns[0].Width = 50;
-            
+
             dgvVendedoras.Columns[1].HeaderText = "Nome";
             dgvVendedoras.Columns[1].Width = 555;
-            
+
             dgvVendedoras.Columns[2].HeaderText = "CPF";
             dgvVendedoras.Columns[2].Width = 108;
 
@@ -144,38 +152,38 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         #endregion
 
+        //EVENTS FORM
+        public void VendedorasListForm_Load(object sender, EventArgs e)
+        {
+            LoadVendedorasToDataGridView();
+
+
+        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //SetUnselectedButtons();
             this.Close();
         }
-
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             VendedoraForm vendedoraForm = new VendedoraForm(this);
             vendedoraForm.ShowDialog();
         }
-
         private void pictureSearch_Click_1(object sender, EventArgs e)
         {
 
         }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             VendedoraForm vendedoraForm = new VendedoraForm(this);
             vendedoraForm.textVendedoraId.Text = this.dgvVendedoras.CurrentRow.Cells[0].Value.ToString();
             vendedoraForm.ShowDialog();
         }
-
         private void dgvVendedoras_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             id = e.RowIndex;
             //VendedoraModel vm = dgvVendedoras.Columns["VendedoraId"].Selected();
         }
-
-
         private void dgvVendedoras_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             VendedoraForm vf = new VendedoraForm(this);
@@ -183,23 +191,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             vf.ShowDialog();
 
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apagar a vendedora " +
-                $"\n{dgvVendedoras.CurrentRow.Cells[1].Value.ToString()}.\nTem certeza disso?", 
-                "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); 
+                $"\n{dgvVendedoras.CurrentRow.Cells[1].Value.ToString()}.\nTem certeza disso?",
+                "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 VendedoraModel model = new VendedoraModel();
                 model = _vendedoraServices.GetById(int.Parse(dgvVendedoras.CurrentRow.Cells[0].Value.ToString()));
-                
+
                 List<TelefoneVendedoraModel> telefonesList = (List<TelefoneVendedoraModel>)_telefoneVendedoraServices.GetByVendedoraId(model.VendedoraId);
                 try
                 {
                     if (telefonesList.Count > 0)
                     {
-                        foreach (TelefoneVendedoraModel telModel  in telefonesList)
+                        foreach (TelefoneVendedoraModel telModel in telefonesList)
                         {
                             _telefoneVendedoraServices.Delete(telModel);
                         }
@@ -215,7 +222,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 this.VendedorasListForm_Load(sender, e);
             }
         }
-
         private void VendedorasListForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Disposing)
@@ -229,7 +235,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             base.Dispose(Disposing);
             aForm = null;
         }
-
         private void dgvVendedoras_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if ((e.ColumnIndex == 2) && (e.RowIndex != dgvVendedoras.NewRowIndex))
@@ -237,6 +242,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 e.Value = string.Format(@"{0:###\.###\.###\-##}", Int64.Parse(e.Value.ToString()));
             }
         }
+        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
     }
-    
+
 }

@@ -27,7 +27,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         private FornecedorServices _fornecedorServices;
 
         private int? idCatalogo = null;
-        private int fornecedorId = 0;
+        public int fornecedorId = 0;
 
 
         public CatalogosFornecedorListUc(FornecedorForm fornecedorForm)
@@ -38,7 +38,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
 
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
-            //this.fornecedorId = int.Parse(fornecedorForm.textFornecedorId.Text);
         }
 
 
@@ -46,7 +45,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         public void LoadCatalogos()
         {
             List<CatalogoModel> modelList = new List<CatalogoModel>();
-            //CatalogoModel model = null;
             try
             {
                 if (fornecedorId != 0)
@@ -126,8 +124,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             dgvCatalogos.Columns[2].HeaderText = "Status";
             dgvCatalogos.Columns[2].Width = 50;
 
-            //dgvCatalogos.Columns[2].Width = 50
-            //dgvCatalogos.Columns[2].CellTemplate = new DataGridViewTextBoxCell();
 
         }
         private void SetEnableButtons()
@@ -156,7 +152,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         //EVENTS FORM
         private void CatalogosFornecedorListUc_Load(object sender, EventArgs e)
         {
-            fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             LoadCatalogos();
             SetEnableButtons();
         }
@@ -196,7 +191,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             catalogoForm.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             catalogoForm.ShowDialog();
         }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             CatalogoAddForm catalogoForm = new CatalogoAddForm(this.FornecedorForm, this);
@@ -204,7 +198,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             catalogoForm.catalogoId = int.Parse(this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
             catalogoForm.ShowDialog();
         }
-
         private void dgvCatalogos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 2 && e.RowIndex != dgvCatalogos.NewRowIndex)
@@ -220,5 +213,6 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                 }
             }
         }
+
     }
 }
