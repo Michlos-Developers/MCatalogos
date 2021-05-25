@@ -87,6 +87,7 @@ namespace MCatalogos
             this.btnConfiguracoes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTipMain.SetToolTip(this.btnConfiguracoes, "Configurações");
             this.btnConfiguracoes.UseVisualStyleBackColor = false;
+            this.btnConfiguracoes.Click += new System.EventHandler(this.btnConfiguracoes_Click);
             // 
             // btnRelatorios
             // 

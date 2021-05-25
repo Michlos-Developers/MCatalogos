@@ -2,6 +2,7 @@
 using MCatalogos.UserControls;
 using MCatalogos.Views.FormViews;
 using MCatalogos.Views.FormViews.Catalogos;
+using MCatalogos.Views.FormViews.Configuracoes;
 using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.FormViews.Vendedoras;
 
@@ -182,6 +183,17 @@ namespace MCatalogos
             formCatalogosList.WindowState = FormWindowState.Normal;
             formCatalogosList.MdiParent = this;
             formCatalogosList.Show();
+        }
+
+        private void btnConfiguracoes_Click(object sender, EventArgs e)
+        {
+            SetUnselectedButtons();
+            SetSelectedButton(btnConfiguracoes);
+
+            ConfiguracoesForm configuracoesForm = ConfiguracoesForm.Instance(this);
+            configuracoesForm.WindowState = FormWindowState.Normal;
+            configuracoesForm.MdiParent = this;
+            configuracoesForm.Show();
         }
     }
 }
