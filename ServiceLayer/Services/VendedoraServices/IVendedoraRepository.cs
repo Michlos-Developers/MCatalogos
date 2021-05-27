@@ -15,5 +15,6 @@ namespace ServiceLayer.Services.VendedoraServices
         void Delete(IVendedoraModel vendedoraModel);
         IEnumerable<IVendedoraModel> GetAll();
         VendedoraModel GetById(int id);
+        VendedoraModel GetByCpf(string cpf);
     }
 }

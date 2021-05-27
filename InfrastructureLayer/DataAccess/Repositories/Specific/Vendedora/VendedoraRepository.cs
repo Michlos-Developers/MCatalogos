@@ -499,5 +499,70 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 return RecordExistsCheckPassed;
             }
         }
+
+        public VendedoraModel GetByCpf(string cpf)
+        {
+            VendedoraModel model = new VendedoraModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            bool redordFound = false;
+
+            string query = "SELECT * " +
+                            "FROM Vendedoras " +
+                            "WHERE Cpf = @Cpf";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@Cpf", cpf));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            redordFound = reader.HasRows;
+                            while (reader.Read())
+                            {
+                                model.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
+                                model.Nome = reader["Nome"].ToString();
+                                model.Cpf = reader["Cpf"].ToString();
+                                model.Rg = reader["Rg"].ToString();
+                                model.RgEmissor = reader["RgEmissor"].ToString();
+                                model.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
+                                model.Email = reader["Email"].ToString();
+                                model.NomePai = reader["NomePai"].ToString();
+                                model.NomeMae = reader["NomeMae"].ToString();
+                                model.NomeConjuge = reader["NomeConjuge"].ToString();
+                                model.Logradouro = reader["Logradouro"].ToString();
+                                model.Numero = reader["Numero"].ToString();
+                                model.Complemento = reader["Complemento"].ToString();
+                                model.Cep = reader["Cep"].ToString();
+                                model.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
+                                model.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
+                                model.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
+                                model.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
+                                model.BairroId = Int32.Parse(reader["BairroId"].ToString());
+                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível buscar os dados da vendedora GETBYCPF",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return model;
+            }
+        }
     }
 }

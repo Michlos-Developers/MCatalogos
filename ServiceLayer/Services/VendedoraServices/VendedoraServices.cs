@@ -46,6 +46,10 @@ namespace ServiceLayer.Services.VendedoraServices
             return _vendedoraRepository.GetById(id);
         }
 
+        public VendedoraModel GetByCpf(string cpf)
+        {
+            return _vendedoraRepository.GetByCpf(cpf);
+        }
 
 
         public void ValidateModelDataAnnotations(IVendedoraModel vendedoraModel)
@@ -59,5 +63,6 @@ namespace ServiceLayer.Services.VendedoraServices
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(vendedoraModel);
 
         }
+
     }
 }

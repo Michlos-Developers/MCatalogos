@@ -589,6 +589,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             CpfModel model = new CpfModel() { Cpf = maskedTextCpf.Text };
             string cpfReplaced = ReplaceCpf(maskedTextCpf.Text);
+            VendedoraModel vendedoraModel = _vendedoraServices.GetByCpf(cpfReplaced);
             //cpfReplaced = cpfReplaced.Replace(" ", "");
             if (string.IsNullOrEmpty(cpfReplaced))
             {
@@ -601,6 +602,16 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 e.Cancel = true;
                 maskedTextCpf.Focus();
                 errorProvider.SetError(maskedTextCpf, "CPF Inválido!");
+            }
+            else if (vendedoraModel.VendedoraId != 0) 
+            {
+                if (this.textVendedoraId.Text == "" ||
+                    this.textVendedoraId.Text != vendedoraModel.VendedoraId.ToString())
+                {
+                    e.Cancel = true;
+                    maskedTextCpf.Focus();
+                    errorProvider.SetError(maskedTextCpf, $"CPF já cadastrado\nVendedora: {vendedoraModel.Nome}");
+                }
             }
             else
             {
