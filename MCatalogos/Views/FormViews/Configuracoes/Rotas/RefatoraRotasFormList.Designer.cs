@@ -33,19 +33,19 @@ namespace MCatalogos.Views.FormViews.Configuracoes.Rotas
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.progressBarr = new System.Windows.Forms.ToolStripProgressBar();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.dgvRotasAntuais = new System.Windows.Forms.DataGridView();
+            this.panelCommands = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnRefact = new System.Windows.Forms.Button();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvRotasRefatoradas = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnConfirm = new System.Windows.Forms.Button();
-            this.btnRefact = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.panelCommands = new System.Windows.Forms.Panel();
+            this.dgvRotasAntuais = new System.Windows.Forms.DataGridView();
             this.statusStrip.SuspendLayout();
             this.panelContent.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasAntuais)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasRefatoradas)).BeginInit();
             this.panelCommands.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasRefatoradas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasAntuais)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -78,24 +78,72 @@ namespace MCatalogos.Views.FormViews.Configuracoes.Rotas
             this.panelContent.Size = new System.Drawing.Size(598, 539);
             this.panelContent.TabIndex = 1;
             // 
-            // dgvRotasAntuais
+            // panelCommands
             // 
-            this.dgvRotasAntuais.AllowUserToAddRows = false;
-            this.dgvRotasAntuais.AllowUserToDeleteRows = false;
-            this.dgvRotasAntuais.AllowUserToResizeRows = false;
-            this.dgvRotasAntuais.BackgroundColor = System.Drawing.Color.White;
-            this.dgvRotasAntuais.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvRotasAntuais.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRotasAntuais.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dgvRotasAntuais.Location = new System.Drawing.Point(9, 28);
-            this.dgvRotasAntuais.Name = "dgvRotasAntuais";
-            this.dgvRotasAntuais.ReadOnly = true;
-            this.dgvRotasAntuais.RowHeadersVisible = false;
-            this.dgvRotasAntuais.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvRotasAntuais.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRotasAntuais.ShowEditingIcon = false;
-            this.dgvRotasAntuais.Size = new System.Drawing.Size(580, 199);
-            this.dgvRotasAntuais.TabIndex = 0;
+            this.panelCommands.BackColor = System.Drawing.SystemColors.Control;
+            this.panelCommands.Controls.Add(this.btnCancel);
+            this.panelCommands.Controls.Add(this.btnRefact);
+            this.panelCommands.Controls.Add(this.btnConfirm);
+            this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelCommands.Location = new System.Drawing.Point(0, 504);
+            this.panelCommands.Name = "panelCommands";
+            this.panelCommands.Size = new System.Drawing.Size(598, 35);
+            this.panelCommands.TabIndex = 4;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(506, 3);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(83, 29);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Tag = "Pedidos";
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnRefact
+            // 
+            this.btnRefact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnRefact.FlatAppearance.BorderSize = 0;
+            this.btnRefact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefact.ForeColor = System.Drawing.Color.White;
+            this.btnRefact.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefact.Location = new System.Drawing.Point(299, 3);
+            this.btnRefact.Name = "btnRefact";
+            this.btnRefact.Size = new System.Drawing.Size(83, 29);
+            this.btnRefact.TabIndex = 3;
+            this.btnRefact.Tag = "Pedidos";
+            this.btnRefact.Text = "Refatorar";
+            this.btnRefact.UseVisualStyleBackColor = false;
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnConfirm.FlatAppearance.BorderSize = 0;
+            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirm.ForeColor = System.Drawing.Color.White;
+            this.btnConfirm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfirm.Location = new System.Drawing.Point(388, 3);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(83, 29);
+            this.btnConfirm.TabIndex = 3;
+            this.btnConfirm.Tag = "Pedidos";
+            this.btnConfirm.Text = "Confirmar";
+            this.btnConfirm.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 260);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 14);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Rotas Refatoradas:";
             // 
             // label1
             // 
@@ -120,72 +168,24 @@ namespace MCatalogos.Views.FormViews.Configuracoes.Rotas
             this.dgvRotasRefatoradas.Size = new System.Drawing.Size(580, 197);
             this.dgvRotasRefatoradas.TabIndex = 0;
             // 
-            // label2
+            // dgvRotasAntuais
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 260);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 14);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Rotas Refatoradas:";
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnConfirm.FlatAppearance.BorderSize = 0;
-            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirm.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfirm.Location = new System.Drawing.Point(388, 3);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(83, 29);
-            this.btnConfirm.TabIndex = 3;
-            this.btnConfirm.Tag = "Pedidos";
-            this.btnConfirm.Text = "Confirmar";
-            this.btnConfirm.UseVisualStyleBackColor = false;
-            // 
-            // btnRefact
-            // 
-            this.btnRefact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnRefact.FlatAppearance.BorderSize = 0;
-            this.btnRefact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefact.ForeColor = System.Drawing.Color.White;
-            this.btnRefact.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRefact.Location = new System.Drawing.Point(299, 3);
-            this.btnRefact.Name = "btnRefact";
-            this.btnRefact.Size = new System.Drawing.Size(83, 29);
-            this.btnRefact.TabIndex = 3;
-            this.btnRefact.Tag = "Pedidos";
-            this.btnRefact.Text = "Refatorar";
-            this.btnRefact.UseVisualStyleBackColor = false;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(506, 3);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(83, 29);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // panelCommands
-            // 
-            this.panelCommands.BackColor = System.Drawing.SystemColors.Control;
-            this.panelCommands.Controls.Add(this.btnCancel);
-            this.panelCommands.Controls.Add(this.btnRefact);
-            this.panelCommands.Controls.Add(this.btnConfirm);
-            this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 504);
-            this.panelCommands.Name = "panelCommands";
-            this.panelCommands.Size = new System.Drawing.Size(598, 35);
-            this.panelCommands.TabIndex = 4;
+            this.dgvRotasAntuais.AllowUserToAddRows = false;
+            this.dgvRotasAntuais.AllowUserToDeleteRows = false;
+            this.dgvRotasAntuais.AllowUserToResizeRows = false;
+            this.dgvRotasAntuais.BackgroundColor = System.Drawing.Color.White;
+            this.dgvRotasAntuais.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvRotasAntuais.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRotasAntuais.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvRotasAntuais.Location = new System.Drawing.Point(9, 28);
+            this.dgvRotasAntuais.Name = "dgvRotasAntuais";
+            this.dgvRotasAntuais.ReadOnly = true;
+            this.dgvRotasAntuais.RowHeadersVisible = false;
+            this.dgvRotasAntuais.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvRotasAntuais.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRotasAntuais.ShowEditingIcon = false;
+            this.dgvRotasAntuais.Size = new System.Drawing.Size(580, 199);
+            this.dgvRotasAntuais.TabIndex = 0;
             // 
             // RefatoraRotasFormList
             // 
@@ -210,9 +210,9 @@ namespace MCatalogos.Views.FormViews.Configuracoes.Rotas
             this.statusStrip.PerformLayout();
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasAntuais)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasRefatoradas)).EndInit();
             this.panelCommands.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasRefatoradas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRotasAntuais)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
