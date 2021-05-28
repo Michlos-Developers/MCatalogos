@@ -62,6 +62,11 @@ namespace ServiceLayer.Services.RotaServices
             return _rotaRepository.GetLastNumero(letraId);
         }
 
+        public void RefatoraRotas(IRotaModel rotaInicial, int vendedoraQueEntra, List<RotaModel> rotaList)
+        {
+            _rotaRepository.RefatoraRotas(rotaInicial, vendedoraQueEntra, rotaList);
+        }
+
         public void Update(IRotaModel rotaModel)
         {
             _rotaRepository.Update(rotaModel);

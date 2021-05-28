@@ -261,6 +261,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
         }
 
+        private void UpdateNumeroRota(RotaModel rotaModel)
+        {
+            _rotaServices.Update(rotaModel);
+        }
+
         //LOAD USER CONTROLS
         private void LoadUserControlTelefones()
         {
@@ -444,6 +449,49 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         }
 
+        private void VerificaVendedoraRotaSelecionada(int numeroRota)
+        {
+
+            RotaLetraModel rotaLetra = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text);
+            RotaModel rotaNumero = _rotaServices.GetByNumeroAndLetraId(numeroRota, rotaLetra.RotaLetraId);
+            List<RotaModel> rotasList = null;
+
+            if (rotaNumero.VendedoraId != 0 && rotaNumero.VendedoraId != int.Parse(textVendedoraId.Text))
+            {
+                VendedoraModel vendedoraNaRota = _vendedoraServices.GetById(rotaNumero.VendedoraId);
+                var resultRefatora = MessageBox.Show($"A Rota {rotaLetra.RotaLetra}-{rotaNumero.Numero} pertence à vendedora \n" +
+                    $"{vendedoraNaRota.Nome}. \n" +
+                    $"Deseja recalcular as rotas de todas as vendedoras das rotas {rotaLetra.RotaLetra}?",
+                    "Refatorar Rotas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resultRefatora == DialogResult.Yes)
+                {
+                    //verifica se a vendedora tem rota CASO NAO TENHA CRIA
+                    if (!ChecaRotaVendedora(int.Parse(textVendedoraId.Text)))
+                    {
+                        int lastNumero = _rotaServices.GetLastNumero(rotaLetra.RotaLetraId).Numero;
+                        int nextNumero = lastNumero + 1;
+                        RotaModel addedRota = new RotaModel() { Numero = nextNumero, RotaLetraId = rotaLetra.RotaLetraId, VendedoraId = int.Parse(textVendedoraId.Text) };
+                        _rotaServices.Add(addedRota);
+                    }
+
+                    //REFATORA AS ROTAS A PARTIR DESSA ROTA E COM A VENDEDORA ANTERIOR DA ROTA
+                    rotasList = (List<RotaModel>)_rotaServices.GetAllByLetraId(rotaLetra.RotaLetraId);
+                    try
+                    {
+                        _rotaServices.RefatoraRotas(rotaNumero, int.Parse(textVendedoraId.Text), rotasList);
+                        MessageBox.Show("Rotas refatoradas com sucesso");
+
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, "Impossível Refatorar Rotas");
+                    }
+
+                }
+            }
+        }
+
 
         //EVENTS FORM
         private void VendedoraForm_Load(object sender, EventArgs e)
@@ -498,7 +546,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void comboBoxRotaNumero_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO: Fazer a reindexação das rotas
+            if (comboBoxRotaNumero.SelectedIndex > -1)
+            {
+                VerificaVendedoraRotaSelecionada(int.Parse(comboBoxRotaNumero.Text));
+            }
         }
         private void btnAddRotaLetra_Click(object sender, EventArgs e)
         {
@@ -546,6 +597,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 {
                     VendedoraUpdate();
                 }
+
+
                 VendedorasListForm.VendedorasListForm_Load(sender, e);
                 this.VendedoraForm_Load(sender, e);
             }
@@ -603,7 +656,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 maskedTextCpf.Focus();
                 errorProvider.SetError(maskedTextCpf, "CPF Inválido!");
             }
-            else if (vendedoraModel.VendedoraId != 0) 
+            else if (vendedoraModel.VendedoraId != 0)
             {
                 if (this.textVendedoraId.Text == "" ||
                     this.textVendedoraId.Text != vendedoraModel.VendedoraId.ToString())

@@ -18,12 +18,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models.CommonModels.Address;
 using System.Data.Entity.SqlServer;
+using System.Threading;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 {
     public class RotaRepository : IRotaRepository
     {
         private string _connectionString;
+        DataAccessStatus dataAccessStatus = new DataAccessStatus();
         enum TypeOfExistenceCheck
         {
             DoesExistInDB,
@@ -545,9 +547,39 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
         }
 
+        public void RefatoraRotas(IRotaModel rotaInicial, int vendedoraQueEntra, List<RotaModel> rotaList)
+        {
 
-        private bool RecordExistsCheck(IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck,
-            RequestType requestType)
+            RotaModel rota = rotaInicial as RotaModel;
+            
+            int totalRotasAPercorrer = rotaList.Count(); //lista de rotas com a letra selecionada.
+            int vendedoraEntrante = vendedoraQueEntra;
+
+            try
+            {
+                for (int i = rota.Numero; i <= totalRotasAPercorrer; i++)
+                {
+
+                    RotaModel proximaRota = GetByNumeroAndLetraId(i, rota.RotaLetraId);
+                    int vendedoraSainte = proximaRota.VendedoraId; //guarda para colocar na próxima rota
+                    proximaRota.VendedoraId = vendedoraEntrante; //recebe vendedora entrante na rota
+                    Update(proximaRota); //atualiza a rota com a vendedora entrante
+                    vendedoraEntrante = vendedoraSainte; //vendedoraentrante passa a ser a vendedora da rota alterada.
+
+                }
+
+            }
+            catch (DataAccessException e)
+            {
+                dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível refatorar as rotas.", e.HelpLink, 0, e.StackTrace);
+                throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+            }
+            
+            
+            
+        }
+
+        private bool RecordExistsCheck(IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck, RequestType requestType)
         {
             Int32 countOfRecsFound = 0;
 
