@@ -1,19 +1,12 @@
 ﻿using CommonComponents;
 
 using DomainLayer.Models.CommonModels.Address;
-using DomainLayer.Models.Vendedora;
 
 using ServiceLayer.Services.BairroServices;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Commons
 {
@@ -120,7 +113,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
         {
             int countOfRecsFound = 0;
             DataAccessStatus dataAccess = new DataAccessStatus();
-            bool RecordExistsCheckPassed = true;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -147,26 +139,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                             cmd.Parameters.AddWithValue("@BairroId", bairroModel.BairroId);
                         }
 
-                        try
-                        {
-
-                        }
-                        catch (SqlException e)
-                        {
-                            string msg = e.Message;
-                            throw e;
-                        }
 
                         if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesNotExsitInDb) && (countOfRecsFound > 0))
                         {
                             dataAccessStatus.Status = "Error";
-                            RecordExistsCheckPassed = false;
                             throw new DataAccessException(dataAccessStatus);
                         }
                         else if ((typeOfExistenceCheck == TypeOfExistenceCheck.DoesExistInDb) && (countOfRecsFound == 0))
                         {
                             dataAccessStatus.Status = "Error";
-                            RecordExistsCheckPassed = false;
                             throw new DataAccessException(dataAccessStatus);
                         }
                     }

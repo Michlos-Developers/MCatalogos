@@ -7,7 +7,6 @@ using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
-using MCatalogos.Views.UserControls;
 using MCatalogos.Views.UserControls.Catalogos;
 
 using Newtonsoft.Json;
@@ -19,13 +18,7 @@ using ServiceLayer.Services.FornecedorServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Catalogos
@@ -33,7 +26,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
     public partial class CatalogoForm : Form
     {
         CatalogosListForm CatalogosListForm;
-        CampanhaCatalogoListUC CampanhaCatalogoListUC;
 
         private QueryStringServices _queryString;
         private CatalogoServices _catalogoServices;
