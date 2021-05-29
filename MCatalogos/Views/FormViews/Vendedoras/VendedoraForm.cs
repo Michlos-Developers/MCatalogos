@@ -454,6 +454,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             RotaLetraModel rotaLetra = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text);
             RotaModel rotaNumero = _rotaServices.GetByNumeroAndLetraId(numeroRota, rotaLetra.RotaLetraId);
+            RotaModel rotaAtual = null;
             List<RotaModel> rotasList = null;
 
             if (rotaNumero.VendedoraId != 0 && rotaNumero.VendedoraId != int.Parse(textVendedoraId.Text))
@@ -476,10 +477,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     }
 
                     //REFATORA AS ROTAS A PARTIR DESSA ROTA E COM A VENDEDORA ANTERIOR DA ROTA
+                    rotaAtual = _rotaServices.GetByVendedoraId(int.Parse(textVendedoraId.Text));
                     rotasList = (List<RotaModel>)_rotaServices.GetAllByLetraId(rotaLetra.RotaLetraId);
                     try
                     {
-                        _rotaServices.RefatoraRotas(rotaNumero, int.Parse(textVendedoraId.Text), rotasList);
+                        _rotaServices.RefatoraRotas(rotaNumero, int.Parse(textVendedoraId.Text), rotasList, rotaAtual);
                         MessageBox.Show("Rotas refatoradas com sucesso");
 
                     }

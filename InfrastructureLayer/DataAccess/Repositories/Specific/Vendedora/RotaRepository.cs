@@ -528,7 +528,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 }
 
                             }
-                            
+
                         }
                     }
                 }
@@ -547,25 +547,52 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
         }
 
-        public void RefatoraRotas(IRotaModel rotaInicial, int vendedoraQueEntra, List<RotaModel> rotaList)
+        public void RefatoraRotas(IRotaModel rotaInicial, int vendedoraQueEntra, List<RotaModel> rotaList, IRotaModel rotaAtual)
         {
 
-            RotaModel rota = rotaInicial as RotaModel;
-            
             int totalRotasAPercorrer = rotaList.Count(); //lista de rotas com a letra selecionada.
             int vendedoraEntrante = vendedoraQueEntra;
+            int vendedoraSainte = 0;
 
             try
             {
-                for (int i = rota.Numero; i <= totalRotasAPercorrer; i++)
+                if (rotaInicial.Numero < rotaAtual.Numero)
                 {
+                    for (int i = rotaInicial.Numero; i <= rotaAtual.Numero; i++)
+                    {
 
-                    RotaModel proximaRota = GetByNumeroAndLetraId(i, rota.RotaLetraId);
-                    int vendedoraSainte = proximaRota.VendedoraId; //guarda para colocar na próxima rota
-                    proximaRota.VendedoraId = vendedoraEntrante; //recebe vendedora entrante na rota
-                    Update(proximaRota); //atualiza a rota com a vendedora entrante
-                    vendedoraEntrante = vendedoraSainte; //vendedoraentrante passa a ser a vendedora da rota alterada.
+                        RotaModel proximaRota = GetByNumeroAndLetraId(i, rotaInicial.RotaLetraId);
+                        if (proximaRota.VendedoraId != vendedoraQueEntra)
+                        {
+                            vendedoraSainte = proximaRota.VendedoraId; //guarda para colocar na próxima rota
+                        }
+                        else
+                        {
+                            vendedoraSainte = GetByNumeroAndLetraId(i + 1, rotaInicial.RotaLetraId).VendedoraId;
+                        }
+                        proximaRota.VendedoraId = vendedoraEntrante; //recebe vendedora entrante na rota
+                        Update(proximaRota); //atualiza a rota com a vendedora entrante
+                        vendedoraEntrante = vendedoraSainte; //vendedoraentrante passa a ser a vendedora da rota alterada.
 
+                    }
+                }
+                else
+                {
+                    for (int i = rotaInicial.Numero; i >= rotaAtual.Numero; i--)
+                    {
+                        RotaModel proximaRota = GetByNumeroAndLetraId(i, rotaInicial.RotaLetraId);
+                        if (proximaRota.VendedoraId != vendedoraQueEntra)
+                        {
+                            vendedoraSainte = proximaRota.VendedoraId; //guarda para colocar na próxima rota
+                        }
+                        else
+                        {
+                            vendedoraSainte = GetByNumeroAndLetraId(i + -1, rotaInicial.RotaLetraId).VendedoraId;
+                        }
+                        proximaRota.VendedoraId = vendedoraEntrante; //recebe vendedora entrante na rota
+                        Update(proximaRota); //atualiza a rota com a vendedora entrante
+                        vendedoraEntrante = vendedoraSainte;
+                    } 
                 }
 
             }
@@ -574,9 +601,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível refatorar as rotas.", e.HelpLink, 0, e.StackTrace);
                 throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
             }
-            
-            
-            
+
+
+
         }
 
         private bool RecordExistsCheck(IRotaModel rotaModel, TypeOfExistenceCheck typeOfExistenceCheck, RequestType requestType)
