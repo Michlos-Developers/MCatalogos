@@ -53,9 +53,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO Catalogos " +
-                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, FornecedorId) " +
+                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, FornecedorId) " +
                            "output INSERTED.CatalogoId " +
-                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @FornecedorId) ";
+                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @FornecedorId) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -71,6 +71,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@MargemPadraoVendedora", catalogoModel.MargemPadraoVendedora);
                         cmd.Parameters.AddWithValue("@MargemPadraoDistribuidor", catalogoModel.MargemPadraoDistribuidor);
                         cmd.Parameters.AddWithValue("@Ativo", catalogoModel.Ativo);
+                        cmd.Parameters.AddWithValue("@TaxaProduto", catalogoModel.TaxaProduto);
+                        cmd.Parameters.AddWithValue("@ValorTaxaProduto", catalogoModel.ValorTaxaProduto);
+                        cmd.Parameters.AddWithValue("@TaxaPedido", catalogoModel.TaxaPedido);
+                        cmd.Parameters.AddWithValue("@ValorTaxaPedido", catalogoModel.ValorTaxaPedido);
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
 
                         try
@@ -175,6 +179,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.MargemPadraoVendedora = float.Parse(reader["MargemPadraoVendedora"].ToString());
                                 model.MargemPadraoDistribuidor = float.Parse(reader["MargemPadraoDistribuidor"].ToString());
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
+                                model.TaxaProduto = bool.Parse(reader["TaxaProduto"].ToString());
+                                model.TaxaPedido = bool.Parse(reader["TaxaProduto"].ToString());
+                                model.ValorTaxaPedido = float.Parse(reader["ValorTaxaPedido"].ToString());
+                                model.ValorTaxaProduto = float.Parse(reader["ValorTaxaProduto"].ToString());
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
 
                                 modelList.Add(model);
@@ -223,6 +231,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.MargemPadraoVendedora = float.Parse(reader["MargemPadraoVendedora"].ToString());
                                 model.MargemPadraoDistribuidor = float.Parse(reader["MargemPadraoDistribuidor"].ToString());
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
+                                model.TaxaProduto = bool.Parse(reader["TaxaProduto"].ToString());
+                                model.TaxaPedido = bool.Parse(reader["TaxaPedido"].ToString());
+                                model.ValorTaxaProduto = float.Parse(reader["ValorTaxaProduto"].ToString());
+                                model.ValorTaxaPedido = float.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
 
                                 modelList.Add(model);
@@ -247,7 +259,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
         {
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT CatalogoId, Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, FornecedorId " +
+            string query = "SELECT CatalogoId, Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, FornecedorId " +
                            "FROM Catalogos " +
                            "WHERE CatalogoId = @CatalogoId";
 
@@ -270,6 +282,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.MargemPadraoVendedora = float.Parse(reader["MargemPadraoVendedora"].ToString());
                                 model.MargemPadraoDistribuidor = float.Parse(reader["MargemPadraoDistribuidor"].ToString());
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
+                                model.TaxaProduto = bool.Parse(reader["TaxaProduto"].ToString());
+                                model.TaxaPedido = bool.Parse(reader["TaxaPedido"].ToString());
+                                model.ValorTaxaProduto = float.Parse(reader["ValorTaxaProduto"].ToString());
+                                model.ValorTaxaPedido = float.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
                             }
                         }
@@ -293,7 +309,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Catalogos " +
                            "SET Nome = @Nome, MargemPadraoVendedora = @MargemPadraoVendedora, MargemPadraoDistribuidor = @MargemPadraoDistribuidor, " +
-                           "Ativo = @Ativo, FornecedorId = @FornecedorId " +
+                           "Ativo = @Ativo, TaxaPedido = @TaxaPedido, ValorTaxaPedido = @ValorTaxaPedido, TaxaProduto = @TaxaProduto, " +
+                           "ValorTaxaProduto = @ValorTaxaProduto, FornecedorId = @FornecedorId " +
                            "WHERE CatalogoId = @CatalogoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -308,6 +325,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@Nome", catalogoModel.Nome);
                         cmd.Parameters.AddWithValue("@MargemPadraoVendedora", catalogoModel.MargemPadraoVendedora);
                         cmd.Parameters.AddWithValue("@MargemPadraoDistribuidor", catalogoModel.MargemPadraoDistribuidor);
+                        cmd.Parameters.AddWithValue("@ValorTaxaPedido", catalogoModel.ValorTaxaPedido);
+                        cmd.Parameters.AddWithValue("@ValorTaxaProduto", catalogoModel.ValorTaxaProduto);
+                        cmd.Parameters.Add("@TaxaPedido", SqlDbType.Bit).Value = catalogoModel.TaxaPedido;
+                        cmd.Parameters.Add("@TaxaProduto", SqlDbType.Bit).Value = catalogoModel.TaxaProduto;
                         cmd.Parameters.Add("@Ativo", SqlDbType.Bit).Value = catalogoModel.Ativo;
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
 

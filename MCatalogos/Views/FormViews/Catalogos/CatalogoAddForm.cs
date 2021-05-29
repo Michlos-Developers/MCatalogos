@@ -9,6 +9,8 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.UserControls.Fornecedores;
 
+using Microsoft.SqlServer.Server;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -27,7 +29,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
     {
         FornecedorForm FornecedorForm;
         CatalogosFornecedorListUc CatalogosFornecedorListUc;
-        
+
         private QueryStringServices _queryString;
         private CatalogoServices _catalogoServices;
         private FornecedorServices _fornecedorServices;
@@ -44,7 +46,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             InitializeComponent();
             this.FornecedorForm = fornecedorForm;
             this.CatalogosFornecedorListUc = catalogosFornecedorListUc;
-            
+
         }
 
 
@@ -65,6 +67,11 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 Nome = textNome.Text,
                 MargemPadraoVendedora = float.Parse(textMargemVendedora.Text),
                 MargemPadraoDistribuidor = float.Parse(textMargemDistribuidor.Text),
+                TaxaPedido = bool.Parse(checkBoxTaxaPedido.Checked.ToString()),
+                ValorTaxaPedido = (string.IsNullOrEmpty(textValorTaxaPedido.Text.Trim()) && !checkBoxTaxaPedido.Checked) ? 0 : float.Parse(textValorTaxaPedido.Text),
+                TaxaProduto = bool.Parse(checkBoxTaxaProduto.Checked.ToString()),
+                ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text),
+
                 FornecedorId = fornecedorId
 
             };
@@ -104,6 +111,11 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 Nome = textNome.Text,
                 MargemPadraoVendedora = float.Parse(textMargemVendedora.Text),
                 MargemPadraoDistribuidor = float.Parse(textMargemDistribuidor.Text),
+                TaxaPedido = checkBoxTaxaPedido.Checked,
+                ValorTaxaPedido = (string.IsNullOrEmpty(textValorTaxaPedido.Text.Trim()) && !checkBoxTaxaPedido.Checked) ? 0 : float.Parse(textValorTaxaPedido.Text),
+                TaxaProduto = checkBoxTaxaProduto.Checked,
+                ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text),
+
                 FornecedorId = fornecedorId
             };
             try
@@ -131,7 +143,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             CatalogoModel model = null;
             if (catalogoId != 0)
             {
-                
+
                 try
                 {
                     model = _catalogoServices.GetById(catalogoId);
@@ -149,6 +161,11 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     textNome.Text = model.Nome.ToString();
                     textMargemVendedora.Text = model.MargemPadraoVendedora.ToString();
                     textMargemDistribuidor.Text = model.MargemPadraoDistribuidor.ToString();
+                    checkBoxTaxaPedido.Checked = model.TaxaPedido;
+                    textValorTaxaPedido.Text = model.ValorTaxaPedido.ToString("0.00");
+                    checkBoxTaxaProduto.Checked = model.TaxaProduto;
+                    textValorTaxaProduto.Text = model.ValorTaxaProduto.ToString("0.00");
+                   
                     cbFornecedor.Text = _fornecedorServices.GetById(fornecedorId).NomeFantasia;
 
                     VerificaAtivo(model);
@@ -158,7 +175,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             else
             {
                 cbFornecedor.Text = _fornecedorServices.GetById(fornecedorId).NomeFantasia;
-                
+
             }
 
         }
@@ -196,7 +213,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         }
 
 
-
         //EVENTS FORM
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -231,12 +247,12 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 model = CatalogoAdd();
                 catalogoId = int.Parse(model.CatalogoId.ToString());
             }
-            else 
+            else
             {
                 {
                     CatalogoUpdate();
                 }
-                
+
             }
             FornecedorForm.PreencheCampos();
             this.CatalogosFornecedorListUc.LoadCatalogos();
@@ -247,6 +263,30 @@ namespace MCatalogos.Views.FormViews.Catalogos
         {
             this.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             PreencheCamposForUpdate();
+        }
+
+        private void checkBoxTaxaProduto_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (checkBoxTaxaProduto.Checked)
+            {
+                textValorTaxaProduto.Enabled = true;
+            }
+            else
+            {
+                textValorTaxaProduto.Enabled = false;
+            }
+        }
+
+        private void checkBoxTaxaPedido_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (checkBoxTaxaPedido.Checked)
+            {
+                textValorTaxaPedido.Enabled = true;
+            }
+            else
+            {
+                textValorTaxaPedido.Enabled = false;
+            }
         }
     }
 }

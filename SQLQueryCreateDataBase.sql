@@ -6012,8 +6012,12 @@ CREATE TABLE Catalogos(
 	Nome						VARCHAR(200) NOT NULL,
 	MargemPadraoVendedora		FLOAT NOT NULL,
 	MargemPadraoDistribuidor	FLOAT NOT NULL,
-	Ativo						BIT NOT NULL,
+	Ativo						BIT NOT NULL DEFAULT (1),
 	FornecedorId				INT NOT NULL,
+	TaxaProduto					BIT NOT NULL DEFAULT(0),
+	ValorTaxaProduto			FLOAT NOT NULL DEFAULT(0.0),
+	TaxaPedido					BIT NOT NULL DEFAULT(0),
+	ValorTaxaPedido				FLOAT NOT NULL DEFAULT(0.0),
 	CONSTRAINT PK_CATALOGOS PRIMARY KEY NONCLUSTERED (CatalogoId),
 	CONSTRAINT FK_CATALOGO_FORNECEDOR FOREIGN KEY (FornecedorId) REFERENCES Fornecedores(FornecedorId)
 )
