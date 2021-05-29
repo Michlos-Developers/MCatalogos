@@ -167,7 +167,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void btnAdd_Click(object sender, EventArgs e)
         {
             VendedoraForm vendedoraForm = new VendedoraForm(this);
-            vendedoraForm.ShowDialog();
+            vendedoraForm.Show();
         }
         private void pictureSearch_Click_1(object sender, EventArgs e)
         {
@@ -177,7 +177,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             VendedoraForm vendedoraForm = new VendedoraForm(this);
             vendedoraForm.textVendedoraId.Text = this.dgvVendedoras.CurrentRow.Cells[0].Value.ToString();
-            vendedoraForm.ShowDialog();
+            vendedoraForm.Show();
         }
         private void dgvVendedoras_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -188,7 +188,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             VendedoraForm vf = new VendedoraForm(this);
             vf.textVendedoraId.Text = this.dgvVendedoras.CurrentRow.Cells[0].Value.ToString();
-            vf.ShowDialog();
+            vf.WindowState = FormWindowState.Normal;
+            vf.Show();
 
         }
         private void btnDelete_Click(object sender, EventArgs e)

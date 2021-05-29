@@ -34,7 +34,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
-            this.title = new System.Windows.Forms.Label();
+            this.titleFicha = new System.Windows.Forms.Label();
             this.comboBoxRotaNumero = new System.Windows.Forms.ComboBox();
             this.btnAddNumeroRota = new System.Windows.Forms.Button();
             this.comboBoxRotaLetra = new System.Windows.Forms.ComboBox();
@@ -160,7 +160,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.panelTitle.BackColor = System.Drawing.Color.White;
             this.panelTitle.Controls.Add(this.pictureClose);
-            this.panelTitle.Controls.Add(this.title);
+            this.panelTitle.Controls.Add(this.titleFicha);
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(0, 0);
             this.panelTitle.Name = "panelTitle";
@@ -180,15 +180,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.pictureClose.TabStop = false;
             this.pictureClose.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // title
+            // titleFicha
             // 
-            this.title.AutoSize = true;
-            this.title.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.title.Location = new System.Drawing.Point(10, 8);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(121, 14);
-            this.title.TabIndex = 0;
-            this.title.Text = "Ficha da Vendedoras";
+            this.titleFicha.AutoSize = true;
+            this.titleFicha.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.titleFicha.Location = new System.Drawing.Point(10, 8);
+            this.titleFicha.Name = "titleFicha";
+            this.titleFicha.Size = new System.Drawing.Size(121, 14);
+            this.titleFicha.TabIndex = 0;
+            this.titleFicha.Text = "Ficha da Vendedoras";
             // 
             // comboBoxRotaNumero
             // 
@@ -896,9 +896,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.MinimizeBox = false;
             this.Name = "VendedoraForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Ficha de Cadastro de Vendedora";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Ficha de Vendedora";
             this.Load += new System.EventHandler(this.VendedoraForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
@@ -970,7 +969,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.PictureBox pictureClose;
-        private System.Windows.Forms.Label title;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBoxEndereco;
@@ -989,5 +987,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Label titleFicha;
     }
 }

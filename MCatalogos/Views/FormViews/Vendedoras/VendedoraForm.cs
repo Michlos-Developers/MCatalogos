@@ -45,6 +45,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         #endregion
 
+        bool isClosing = false;
         QueryStringServices _queryString;
         VendedorasListForm VendedorasListForm;
 
@@ -261,11 +262,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
         }
 
-        private void UpdateNumeroRota(RotaModel rotaModel)
-        {
-            _rotaServices.Update(rotaModel);
-        }
-
         //LOAD USER CONTROLS
         private void LoadUserControlTelefones()
         {
@@ -306,6 +302,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     RotaLetraModel rlm = null;
                     RotaModel rm = null;
 
+                    this.Text = $"Ficha de {vm.Nome}";
+                    this.titleFicha.Text = this.Text;
                     textNome.Text = vm.Nome.ToString();
                     maskedTextCpf.Text = vm.Cpf;
                     textRg.Text = vm.Rg;
@@ -505,9 +503,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             PreencheCampos();
             LoadUserControlTelefones();
 
-            maskedTextCpf.Focus();
+            textVendedoraId.Focus();
             if (textVendedoraId.Text == "")
             {
+                this.Text = "Ficha de Nova Vendedora";
+                this.titleFicha.Text = this.Text;
                 btnAddNumeroRota.Enabled = false;
                 comboBoxRotaNumero.Enabled = false;
             }
@@ -582,6 +582,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            isClosing = true;
             this.Close();
         }
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -624,54 +625,61 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private bool ValidaCampo(Control control)
         {
             bool eventArgs = false;
-            if (string.IsNullOrEmpty(control.Text))
+            if (!this.isClosing)
             {
+                if (string.IsNullOrEmpty(control.Text))
+                {
 
-                eventArgs = true;
-                control.Focus();
-                errorProvider.SetError(control, "Campo Obrigatório!");
+                    eventArgs = true;
+                    control.BackColor = Color.Red;
+                    errorProvider.SetError(control, "Campo Obrigatório!");
 
-            }
-            else
-            {
-                eventArgs = false;
-                errorProvider.SetError(control, null);
+                }
+                else
+                {
+                    eventArgs = false;
+                    errorProvider.SetError(control, null);
+                }
             }
 
             return eventArgs;
         }
         private void maskedTextCpf_Validating(object sender, CancelEventArgs e)
         {
-            CpfModel model = new CpfModel() { Cpf = maskedTextCpf.Text };
-            string cpfReplaced = ReplaceCpf(maskedTextCpf.Text);
-            VendedoraModel vendedoraModel = _vendedoraServices.GetByCpf(cpfReplaced);
-            //cpfReplaced = cpfReplaced.Replace(" ", "");
-            if (string.IsNullOrEmpty(cpfReplaced))
+            if (!this.isClosing)
             {
-                e.Cancel = true;
-                maskedTextCpf.Focus();
-                errorProvider.SetError(maskedTextCpf, "Campo obrigatório!");
-            }
-            else if (!_validationCpfServices.ValidaCpf(model))
-            {
-                e.Cancel = true;
-                maskedTextCpf.Focus();
-                errorProvider.SetError(maskedTextCpf, "CPF Inválido!");
-            }
-            else if (vendedoraModel.VendedoraId != 0)
-            {
-                if (this.textVendedoraId.Text == "" ||
-                    this.textVendedoraId.Text != vendedoraModel.VendedoraId.ToString())
+                
+                CpfModel model = new CpfModel() { Cpf = maskedTextCpf.Text };
+                string cpfReplaced = ReplaceCpf(maskedTextCpf.Text);
+                VendedoraModel vendedoraModel = _vendedoraServices.GetByCpf(cpfReplaced);
+                //cpfReplaced = cpfReplaced.Replace(" ", "");
+                if (string.IsNullOrEmpty(cpfReplaced))
                 {
                     e.Cancel = true;
-                    maskedTextCpf.Focus();
-                    errorProvider.SetError(maskedTextCpf, $"CPF já cadastrado\nVendedora: {vendedoraModel.Nome}");
+                    maskedTextCpf.BackColor = Color.Red;
+                    errorProvider.SetError(maskedTextCpf, "Campo obrigatório!");
                 }
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(maskedTextCpf, null);
+                else if (!_validationCpfServices.ValidaCpf(model))
+                {
+                    e.Cancel = true;
+                    maskedTextCpf.BackColor = Color.Red;
+                    errorProvider.SetError(maskedTextCpf, "CPF Inválido!");
+                }
+                else if (vendedoraModel.VendedoraId != 0)
+                {
+                    if (this.textVendedoraId.Text == "" ||
+                        this.textVendedoraId.Text != vendedoraModel.VendedoraId.ToString())
+                    {
+                        e.Cancel = true;
+                        maskedTextCpf.BackColor = Color.Red;
+                        errorProvider.SetError(maskedTextCpf, $"CPF já cadastrado\nVendedora: {vendedoraModel.Nome}");
+                    }
+                }
+                else
+                {
+                    e.Cancel = false;
+                    errorProvider.SetError(maskedTextCpf, null);
+                }
             }
         }
         private void comboBoxRotaLetra_Validating(object sender, CancelEventArgs e)
@@ -732,7 +740,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         //FOCUSED
         private void maskedTextCpf_Enter(object sender, EventArgs e)
         {
-            maskedTextCpf.BackColor = SystemColors.ActiveCaption;
+            if (this.errorProvider.GetError(maskedTextCpf) != "")
+            {
+                maskedTextCpf.BackColor = Color.Red;
+            }
+            else
+                maskedTextCpf.BackColor = SystemColors.ActiveCaption;
         }
         private void maskedTextCpf_Leave(object sender, EventArgs e)
         {
