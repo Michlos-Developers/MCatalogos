@@ -6041,9 +6041,17 @@ CREATE TABLE TiposProdutos (
 
 CREATE TABLE FormatosCampos (
 	FormatoId		INT IDENTITY(1,1),
+	Nome			VARCHAR(200) NOT NULL,
 	Formato			VARCHAR(200) NOT NULL,
 	CONSTRAINT PK_FORMATOCAMPO PRIMARY KEY NONCLUSTERED (FormatoId)
 )
+
+INSERT INTO FormatosCampos VALUES
+('Texto', 'System.String'),
+('Valor', 'System.Float'),
+('Numérico', 'System.Int32'),
+('Numérico Longo', 'System.Int64'),
+('Boleano', 'System.Boolean')
 
 
 CREATE TABLE CamposTiposProdutos(

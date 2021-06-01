@@ -258,7 +258,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     throw e;
                 }
                 MessageBox.Show($"Rota adicionada com sucesso: \nNúmero:{nextNumero}");
-                //TODO: REINDEXAR ROTAS
             }
         }
 
