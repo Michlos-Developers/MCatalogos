@@ -564,5 +564,42 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 return model;
             }
         }
+
+        public void AlteraRota(int vendedoraId, int rotaLetraId)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "UPDATE Vendedoras " +
+                           "SET RotaLetraId = @RotaLetraId " +
+                           "WHERE VendedoraId = @VendedoraId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
+                        cmd.Parameters.Add(new SqlParameter("@RotaLetraId", rotaLetraId));
+                        
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Não foi possível alterar a Letra da Rota da Vendedora.", helpLink: e.HelpLink,
+                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

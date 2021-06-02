@@ -122,6 +122,7 @@ namespace MCatalogos
             this.btnRotas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTipMain.SetToolTip(this.btnRotas, "Rotas");
             this.btnRotas.UseVisualStyleBackColor = false;
+            this.btnRotas.Click += new System.EventHandler(this.btnRotas_Click);
             // 
             // btnEstoque
             // 

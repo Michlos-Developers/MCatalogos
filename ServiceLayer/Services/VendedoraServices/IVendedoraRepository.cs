@@ -12,5 +12,6 @@ namespace ServiceLayer.Services.VendedoraServices
         IEnumerable<IVendedoraModel> GetAll();
         VendedoraModel GetById(int id);
         VendedoraModel GetByCpf(string cpf);
+        void AlteraRota(int vendedoraId, int rotaLetraId);
     }
 }

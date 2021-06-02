@@ -680,5 +680,37 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
         }
 
+        public void AlteraLetraId(int rotaId, int rotaLetraId)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "UPDATE Rotas SET RotaLetraId = @RotaLetraId WHERE RotaId = @RotaId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@RotaLetraId", rotaLetraId));
+                        cmd.Parameters.Add(new SqlParameter("@RotaId", rotaId));
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, $"Não foi possível alterar a Letra da Rota",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

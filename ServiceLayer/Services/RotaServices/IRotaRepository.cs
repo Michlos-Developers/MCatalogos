@@ -16,5 +16,6 @@ namespace ServiceLayer.Services.RotaServices
         RotaModel GetByVendedoraId(int vendedoraId);
         RotaModel GetLastNumero(int letraId);
         void RefatoraRotas(IRotaModel rotaInicial, int vendedoraQueEntra, List<RotaModel> rotaList, IRotaModel rotaAtual);
+        void AlteraLetraId(int rotaId, int rotaLetraId);
     }
 }

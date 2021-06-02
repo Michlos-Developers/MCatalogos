@@ -91,10 +91,10 @@
     <Compile Include="Views\FormViews\Configuracoes\ConfiguracoesForm.Designer.cs">
       <DependentUpon>ConfiguracoesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FormViews\Configuracoes\Rotas\RefatoraRotasFormList.cs">
+    <Compile Include="Views\FormViews\Rotas\RefatoraRotasFormList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FormViews\Configuracoes\Rotas\RefatoraRotasFormList.Designer.cs">
+    <Compile Include="Views\FormViews\Rotas\RefatoraRotasFormList.Designer.cs">
       <DependentUpon>RefatoraRotasFormList.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.cs">
@@ -108,6 +108,12 @@
     </Compile>
     <Compile Include="Views\FormViews\Fornecedores\FornecedorForm.Designer.cs">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormViews\Rotas\RotasFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Rotas\RotasFormView.Designer.cs">
+      <DependentUpon>RotasFormView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormViews\Telefones\TelefoneFornecedorAddForm.cs">
       <SubType>Form</SubType>
@@ -201,7 +207,7 @@
     <EmbeddedResource Include="Views\FormViews\Configuracoes\ConfiguracoesForm.resx">
       <DependentUpon>ConfiguracoesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FormViews\Configuracoes\Rotas\RefatoraRotasFormList.resx">
+    <EmbeddedResource Include="Views\FormViews\Rotas\RefatoraRotasFormList.resx">
       <DependentUpon>RefatoraRotasFormList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedorForm.resx">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Rotas\RotasFormView.resx">
+      <DependentUpon>RotasFormView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Telefones\TelefoneFornecedorAddForm.resx">
       <DependentUpon>TelefoneFornecedorAddForm.cs</DependentUpon>

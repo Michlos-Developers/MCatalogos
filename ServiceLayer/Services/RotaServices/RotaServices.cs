@@ -27,6 +27,11 @@ namespace ServiceLayer.Services.RotaServices
             _rotaRepository.Add(rotaModel);
         }
 
+        public void AlteraLetraId(int rotaId, int rotaLetraId)
+        {
+            _rotaRepository.AlteraLetraId(rotaId, rotaLetraId);
+        }
+
         public void Delete(IRotaModel rotaModel)
         {
             _rotaRepository.Delete(rotaModel);

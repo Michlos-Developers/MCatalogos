@@ -3,7 +3,9 @@ using MCatalogos.UserControls;
 using MCatalogos.Views.FormViews;
 using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
+using MCatalogos.Views.FormViews.Configuracoes.Rotas;
 using MCatalogos.Views.FormViews.Fornecedores;
+using MCatalogos.Views.FormViews.Rotas;
 using MCatalogos.Views.FormViews.Vendedoras;
 
 using System;
@@ -194,6 +196,17 @@ namespace MCatalogos
             configuracoesForm.WindowState = FormWindowState.Normal;
             configuracoesForm.MdiParent = this;
             configuracoesForm.Show();
+        }
+
+        private void btnRotas_Click(object sender, EventArgs e)
+        {
+            SetUnselectedButtons();
+            SetSelectedButton(btnRotas);
+
+            RotasFormView rotasForm = RotasFormView.Instance(this);
+            rotasForm.MdiParent = this;
+            rotasForm.Show();
+            
         }
     }
 }

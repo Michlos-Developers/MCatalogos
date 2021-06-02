@@ -570,9 +570,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show("Erro ao tentar adicionar uma nova letra à lista de Rotas", ex.Message);
+                    MessageBox.Show("Não foi possível adicionar uma nova letra à lista de Rotas", ex.Message);
                 }
-                MessageBox.Show($"Letra {nextLetra} adicionada com suceddo.", "Adicionado",
+                MessageBox.Show($"Letra {nextLetra} adicionada com sucesso.", "Adicionado",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadRotasLetrasToComboBox();
             }

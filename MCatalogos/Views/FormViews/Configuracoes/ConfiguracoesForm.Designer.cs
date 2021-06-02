@@ -33,23 +33,21 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.groupTarefas = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnRotas = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnDadosDistribuidor = new System.Windows.Forms.Button();
             this.panelContentCadastros = new System.Windows.Forms.Panel();
+            this.btnDadosDistribuidor = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupTarefas = new System.Windows.Forms.GroupBox();
             this.panelContentTarefas = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelContent.SuspendLayout();
-            this.groupTarefas.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelContentCadastros.SuspendLayout();
-            this.panelContentTarefas.SuspendLayout();
+            this.groupTarefas.SuspendLayout();
             this.panelCommands.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +59,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(0, 0);
             this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(800, 32);
+            this.panelTitle.Size = new System.Drawing.Size(221, 32);
             this.panelTitle.TabIndex = 39;
             this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseDown);
             // 
@@ -69,7 +67,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             // 
             this.pictureClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureClose.Image = global::MCatalogos.Properties.Resources.IconClose20x20;
-            this.pictureClose.Location = new System.Drawing.Point(777, 6);
+            this.pictureClose.Location = new System.Drawing.Point(198, 8);
             this.pictureClose.Name = "pictureClose";
             this.pictureClose.Size = new System.Drawing.Size(15, 16);
             this.pictureClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -95,43 +93,8 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.Location = new System.Drawing.Point(0, 32);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(800, 453);
+            this.panelContent.Size = new System.Drawing.Size(221, 453);
             this.panelContent.TabIndex = 40;
-            // 
-            // groupTarefas
-            // 
-            this.groupTarefas.Controls.Add(this.panelContentTarefas);
-            this.groupTarefas.Controls.Add(this.label1);
-            this.groupTarefas.Location = new System.Drawing.Point(581, 6);
-            this.groupTarefas.Name = "groupTarefas";
-            this.groupTarefas.Size = new System.Drawing.Size(182, 393);
-            this.groupTarefas.TabIndex = 3;
-            this.groupTarefas.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 14);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Tarefas:";
-            // 
-            // btnRotas
-            // 
-            this.btnRotas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnRotas.FlatAppearance.BorderSize = 0;
-            this.btnRotas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRotas.ForeColor = System.Drawing.Color.White;
-            this.btnRotas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRotas.Location = new System.Drawing.Point(6, 6);
-            this.btnRotas.Name = "btnRotas";
-            this.btnRotas.Size = new System.Drawing.Size(164, 47);
-            this.btnRotas.TabIndex = 2;
-            this.btnRotas.Tag = "Pedidos";
-            this.btnRotas.Text = "Rafatorar Rotas";
-            this.btnRotas.UseVisualStyleBackColor = false;
-            this.btnRotas.Click += new System.EventHandler(this.btnRotas_Click);
             // 
             // groupBox1
             // 
@@ -143,14 +106,15 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
-            // label2
+            // panelContentCadastros
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 14);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Cadastros:";
+            this.panelContentCadastros.BackColor = System.Drawing.SystemColors.Control;
+            this.panelContentCadastros.Controls.Add(this.btnDadosDistribuidor);
+            this.panelContentCadastros.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContentCadastros.Location = new System.Drawing.Point(3, 18);
+            this.panelContentCadastros.Name = "panelContentCadastros";
+            this.panelContentCadastros.Size = new System.Drawing.Size(176, 375);
+            this.panelContentCadastros.TabIndex = 5;
             // 
             // btnDadosDistribuidor
             // 
@@ -167,25 +131,42 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.btnDadosDistribuidor.Text = "Dados do Distribuidor";
             this.btnDadosDistribuidor.UseVisualStyleBackColor = false;
             // 
-            // panelContentCadastros
+            // label2
             // 
-            this.panelContentCadastros.BackColor = System.Drawing.SystemColors.Control;
-            this.panelContentCadastros.Controls.Add(this.btnDadosDistribuidor);
-            this.panelContentCadastros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContentCadastros.Location = new System.Drawing.Point(3, 18);
-            this.panelContentCadastros.Name = "panelContentCadastros";
-            this.panelContentCadastros.Size = new System.Drawing.Size(176, 375);
-            this.panelContentCadastros.TabIndex = 5;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 14);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Cadastros:";
+            // 
+            // groupTarefas
+            // 
+            this.groupTarefas.Controls.Add(this.panelContentTarefas);
+            this.groupTarefas.Controls.Add(this.label1);
+            this.groupTarefas.Location = new System.Drawing.Point(581, 6);
+            this.groupTarefas.Name = "groupTarefas";
+            this.groupTarefas.Size = new System.Drawing.Size(182, 393);
+            this.groupTarefas.TabIndex = 3;
+            this.groupTarefas.TabStop = false;
             // 
             // panelContentTarefas
             // 
             this.panelContentTarefas.BackColor = System.Drawing.SystemColors.Control;
-            this.panelContentTarefas.Controls.Add(this.btnRotas);
             this.panelContentTarefas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContentTarefas.Location = new System.Drawing.Point(3, 18);
             this.panelContentTarefas.Name = "panelContentTarefas";
             this.panelContentTarefas.Size = new System.Drawing.Size(176, 372);
             this.panelContentTarefas.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 14);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Tarefas:";
             // 
             // panelCommands
             // 
@@ -194,7 +175,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.panelCommands.ForeColor = System.Drawing.SystemColors.Control;
             this.panelCommands.Location = new System.Drawing.Point(0, 440);
             this.panelCommands.Name = "panelCommands";
-            this.panelCommands.Size = new System.Drawing.Size(800, 45);
+            this.panelCommands.Size = new System.Drawing.Size(221, 45);
             this.panelCommands.TabIndex = 5;
             // 
             // btnCancel
@@ -205,7 +186,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(698, 9);
+            this.btnCancel.Location = new System.Drawing.Point(119, 9);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 2;
@@ -218,7 +199,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(221, 485);
             this.Controls.Add(this.panelCommands);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelTitle);
@@ -232,12 +213,11 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.panelTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.panelContent.ResumeLayout(false);
-            this.groupTarefas.ResumeLayout(false);
-            this.groupTarefas.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panelContentCadastros.ResumeLayout(false);
-            this.panelContentTarefas.ResumeLayout(false);
+            this.groupTarefas.ResumeLayout(false);
+            this.groupTarefas.PerformLayout();
             this.panelCommands.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -251,7 +231,6 @@ namespace MCatalogos.Views.FormViews.Configuracoes
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.GroupBox groupTarefas;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnRotas;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnDadosDistribuidor;
