@@ -50,9 +50,9 @@ namespace ServiceLayer.Services.VendedoraServices
         {
             return _vendedoraRepository.GetByCpf(cpf);
         }
-        public void AlteraRota(int vendedoraId, int rotaLetraId)
+        public void AlteraRotaLetra(int vendedoraId, int rotaLetraId)
         {
-            _vendedoraRepository.AlteraRota(vendedoraId, rotaLetraId);
+            _vendedoraRepository.AlteraRotaLetra(vendedoraId, rotaLetraId);
         }
 
 

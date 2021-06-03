@@ -35,31 +35,23 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.panelListSemRotas = new System.Windows.Forms.Panel();
+            this.dgvVendedoraSemRota = new System.Windows.Forms.DataGridView();
             this.gboxEditRotas = new System.Windows.Forms.GroupBox();
-            this.btnAddLetraRota = new System.Windows.Forms.Button();
-            this.btnAddNumRota = new System.Windows.Forms.Button();
-            this.cbNumeroRota = new System.Windows.Forms.ComboBox();
-            this.cbLetraRota = new System.Windows.Forms.ComboBox();
-            this.textNomeVendedora = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panelListRotas = new System.Windows.Forms.Panel();
             this.dgvRotas = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panelListSemRotas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.dgvVendedoraSemRota = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
+            this.panelListSemRotas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVendedoraSemRota)).BeginInit();
             this.gboxEditRotas.SuspendLayout();
             this.panelListRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRotas)).BeginInit();
-            this.panelListSemRotas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVendedoraSemRota)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTitle
@@ -137,101 +129,39 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.panelContainer.Size = new System.Drawing.Size(973, 403);
             this.panelContainer.TabIndex = 42;
             // 
+            // panelListSemRotas
+            // 
+            this.panelListSemRotas.Controls.Add(this.dgvVendedoraSemRota);
+            this.panelListSemRotas.Location = new System.Drawing.Point(645, 232);
+            this.panelListSemRotas.Name = "panelListSemRotas";
+            this.panelListSemRotas.Size = new System.Drawing.Size(319, 141);
+            this.panelListSemRotas.TabIndex = 2;
+            // 
+            // dgvVendedoraSemRota
+            // 
+            this.dgvVendedoraSemRota.AllowUserToAddRows = false;
+            this.dgvVendedoraSemRota.AllowUserToDeleteRows = false;
+            this.dgvVendedoraSemRota.AllowUserToOrderColumns = true;
+            this.dgvVendedoraSemRota.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVendedoraSemRota.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvVendedoraSemRota.Location = new System.Drawing.Point(0, 0);
+            this.dgvVendedoraSemRota.Name = "dgvVendedoraSemRota";
+            this.dgvVendedoraSemRota.ReadOnly = true;
+            this.dgvVendedoraSemRota.RowHeadersVisible = false;
+            this.dgvVendedoraSemRota.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvVendedoraSemRota.Size = new System.Drawing.Size(319, 141);
+            this.dgvVendedoraSemRota.TabIndex = 0;
+            this.dgvVendedoraSemRota.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoraSemRota_CellClick);
+            // 
             // gboxEditRotas
             // 
-            this.gboxEditRotas.Controls.Add(this.btnAddLetraRota);
-            this.gboxEditRotas.Controls.Add(this.btnAddNumRota);
-            this.gboxEditRotas.Controls.Add(this.cbNumeroRota);
-            this.gboxEditRotas.Controls.Add(this.cbLetraRota);
-            this.gboxEditRotas.Controls.Add(this.textNomeVendedora);
-            this.gboxEditRotas.Controls.Add(this.label3);
-            this.gboxEditRotas.Controls.Add(this.label4);
             this.gboxEditRotas.Controls.Add(this.label1);
-            this.gboxEditRotas.Controls.Add(this.label2);
             this.gboxEditRotas.Enabled = false;
-            this.gboxEditRotas.Location = new System.Drawing.Point(645, 24);
+            this.gboxEditRotas.Location = new System.Drawing.Point(645, 32);
             this.gboxEditRotas.Name = "gboxEditRotas";
-            this.gboxEditRotas.Size = new System.Drawing.Size(319, 107);
+            this.gboxEditRotas.Size = new System.Drawing.Size(319, 143);
             this.gboxEditRotas.TabIndex = 1;
             this.gboxEditRotas.TabStop = false;
-            // 
-            // btnAddLetraRota
-            // 
-            this.btnAddLetraRota.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnAddLetraRota.FlatAppearance.BorderSize = 0;
-            this.btnAddLetraRota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddLetraRota.ForeColor = System.Drawing.Color.White;
-            this.btnAddLetraRota.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
-            this.btnAddLetraRota.Location = new System.Drawing.Point(118, 68);
-            this.btnAddLetraRota.Name = "btnAddLetraRota";
-            this.btnAddLetraRota.Size = new System.Drawing.Size(20, 20);
-            this.btnAddLetraRota.TabIndex = 37;
-            this.btnAddLetraRota.TabStop = false;
-            this.btnAddLetraRota.Tag = "";
-            this.btnAddLetraRota.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddLetraRota.UseVisualStyleBackColor = false;
-            this.btnAddLetraRota.Click += new System.EventHandler(this.btnAddLetraRota_Click);
-            // 
-            // btnAddNumRota
-            // 
-            this.btnAddNumRota.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnAddNumRota.FlatAppearance.BorderSize = 0;
-            this.btnAddNumRota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNumRota.ForeColor = System.Drawing.Color.White;
-            this.btnAddNumRota.Image = global::MCatalogos.Properties.Resources.IconAdd10x10;
-            this.btnAddNumRota.Location = new System.Drawing.Point(288, 69);
-            this.btnAddNumRota.Name = "btnAddNumRota";
-            this.btnAddNumRota.Size = new System.Drawing.Size(20, 20);
-            this.btnAddNumRota.TabIndex = 37;
-            this.btnAddNumRota.TabStop = false;
-            this.btnAddNumRota.Tag = "";
-            this.btnAddNumRota.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddNumRota.UseVisualStyleBackColor = false;
-            this.btnAddNumRota.Click += new System.EventHandler(this.btnAddNumRota_Click);
-            // 
-            // cbNumeroRota
-            // 
-            this.cbNumeroRota.FormattingEnabled = true;
-            this.cbNumeroRota.Location = new System.Drawing.Point(226, 68);
-            this.cbNumeroRota.Name = "cbNumeroRota";
-            this.cbNumeroRota.Size = new System.Drawing.Size(61, 22);
-            this.cbNumeroRota.TabIndex = 5;
-            this.cbNumeroRota.SelectedIndexChanged += new System.EventHandler(this.cbNumeroRota_SelectedIndexChanged);
-            // 
-            // cbLetraRota
-            // 
-            this.cbLetraRota.FormattingEnabled = true;
-            this.cbLetraRota.Location = new System.Drawing.Point(56, 67);
-            this.cbLetraRota.Name = "cbLetraRota";
-            this.cbLetraRota.Size = new System.Drawing.Size(61, 22);
-            this.cbLetraRota.TabIndex = 5;
-            this.cbLetraRota.SelectedIndexChanged += new System.EventHandler(this.cbLetraRota_SelectedIndexChanged);
-            // 
-            // textNomeVendedora
-            // 
-            this.textNomeVendedora.Enabled = false;
-            this.textNomeVendedora.Location = new System.Drawing.Point(12, 32);
-            this.textNomeVendedora.Name = "textNomeVendedora";
-            this.textNomeVendedora.Size = new System.Drawing.Size(296, 22);
-            this.textNomeVendedora.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 71);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 14);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Letra:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(167, 72);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 14);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Número:";
             // 
             // label1
             // 
@@ -241,15 +171,6 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.label1.Size = new System.Drawing.Size(88, 14);
             this.label1.TabIndex = 0;
             this.label1.Text = "Edição de Rota";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 14);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Vendedora:";
             // 
             // panelListRotas
             // 
@@ -284,6 +205,15 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.dgvRotas.TabIndex = 0;
             this.dgvRotas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRotas_CellClick);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(642, 215);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(135, 14);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Vendedoras Sem Rotas:";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -292,39 +222,6 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.label5.Size = new System.Drawing.Size(129, 14);
             this.label5.TabIndex = 0;
             this.label5.Text = "Vendedoras Com Rota:";
-            // 
-            // panelListSemRotas
-            // 
-            this.panelListSemRotas.Controls.Add(this.dgvVendedoraSemRota);
-            this.panelListSemRotas.Location = new System.Drawing.Point(645, 164);
-            this.panelListSemRotas.Name = "panelListSemRotas";
-            this.panelListSemRotas.Size = new System.Drawing.Size(319, 209);
-            this.panelListSemRotas.TabIndex = 2;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(642, 147);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(135, 14);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Vendedoras Sem Rotas:";
-            // 
-            // dgvVendedoraSemRota
-            // 
-            this.dgvVendedoraSemRota.AllowUserToAddRows = false;
-            this.dgvVendedoraSemRota.AllowUserToDeleteRows = false;
-            this.dgvVendedoraSemRota.AllowUserToOrderColumns = true;
-            this.dgvVendedoraSemRota.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVendedoraSemRota.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVendedoraSemRota.Location = new System.Drawing.Point(0, 0);
-            this.dgvVendedoraSemRota.Name = "dgvVendedoraSemRota";
-            this.dgvVendedoraSemRota.ReadOnly = true;
-            this.dgvVendedoraSemRota.RowHeadersVisible = false;
-            this.dgvVendedoraSemRota.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvVendedoraSemRota.Size = new System.Drawing.Size(319, 209);
-            this.dgvVendedoraSemRota.TabIndex = 0;
-            this.dgvVendedoraSemRota.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoraSemRota_CellClick);
             // 
             // RotasFormView
             // 
@@ -353,12 +250,12 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.panelCommands.ResumeLayout(false);
             this.panelContainer.ResumeLayout(false);
             this.panelContainer.PerformLayout();
+            this.panelListSemRotas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVendedoraSemRota)).EndInit();
             this.gboxEditRotas.ResumeLayout(false);
             this.gboxEditRotas.PerformLayout();
             this.panelListRotas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRotas)).EndInit();
-            this.panelListSemRotas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVendedoraSemRota)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -372,17 +269,9 @@ namespace MCatalogos.Views.FormViews.Rotas
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.GroupBox gboxEditRotas;
-        private System.Windows.Forms.ComboBox cbNumeroRota;
-        private System.Windows.Forms.ComboBox cbLetraRota;
-        public System.Windows.Forms.TextBox textNomeVendedora;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panelListRotas;
         public System.Windows.Forms.DataGridView dgvRotas;
-        private System.Windows.Forms.Button btnAddLetraRota;
-        private System.Windows.Forms.Button btnAddNumRota;
         private System.Windows.Forms.Panel panelListSemRotas;
         public System.Windows.Forms.DataGridView dgvVendedoraSemRota;
         private System.Windows.Forms.Label label6;

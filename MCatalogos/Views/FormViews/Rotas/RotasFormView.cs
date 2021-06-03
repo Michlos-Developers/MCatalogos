@@ -314,6 +314,7 @@ namespace MCatalogos.Views.FormViews.Rotas
                         _rotaServices.RefatoraRotas(rotaNumero, vendedora.VendedoraId, rotaList, rotaAtual);
                         MessageBox.Show("Rotas recalculadas com sucesso");
                         LoadRotasToDataGrid();
+                        LoadLetrasToComboBox();
                         ConfiguraDataGridRotas();
                         LoadVendedorasSemRotasToDataGrid();
                         ConfiguraDataGridVendedoras();
@@ -325,19 +326,21 @@ namespace MCatalogos.Views.FormViews.Rotas
                 }
             }
         }
-        private void AlteraLetraRota(int rotaId, int rotaLetraId, int vendedoraId)
+        private void AlteraLetraRotaComNumeroRota(int rotaId, int rotaLetraId, int vendedoraId)
         {
             RotaLetraModel rotaLetra = _rotaLetraServices.GetByLetra(cbLetraRota.Text);
-            var result = MessageBox.Show($"Essa ação alterará a Letra da Rota da Vendedora\n\n" +
+            var result = MessageBox.Show($"Essa ação alterará a Letra da Rota da Vendedora\n" +
+                                         $"e Removerá o Número da Rota da Vendedora.\n" +
                                          $"Deseja Continuar?", "Alteração de Rota", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
                 try
                 {
-                    _vendedoraServices.AlteraRota(vendedoraId, rotaLetraId);
-                    _rotaServices.AlteraLetraId(rotaId, rotaLetraId);
+                    _vendedoraServices.AlteraRotaLetra(vendedoraId, rotaLetraId);
+                    _rotaServices.Delete(_rotaServices.GetByVendedoraId(vendedoraId));
                     MessageBox.Show("Rota alterada com sucesso");
+                    LoadLetrasToComboBox();
                     LoadRotasToDataGrid();
                     ConfiguraDataGridRotas();
                     LoadVendedorasSemRotasToDataGrid();
@@ -352,11 +355,28 @@ namespace MCatalogos.Views.FormViews.Rotas
             }
             ClearForm();
         }
+        private void AlteraLetraRota(int vendedoraId, int rotaLetraId)
+        {
+            try
+            {
+                _vendedoraServices.AlteraRotaLetra(vendedoraId, rotaLetraId);
+                MessageBox.Show("Rota alterada com sucesso");
+                LoadRotasToDataGrid();
+                ConfiguraDataGridRotas();
+                LoadVendedorasSemRotasToDataGrid();
+                ConfiguraDataGridVendedoras();
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Não foi possível alterar a rota da vendedora.\nMessage: {e.Message}");
+            }
+        }
         private async Task<List<VendedoraModel>> GetVendedorasSemRota()
         {
             List<RotaModel> rotaList = (List<RotaModel>)_rotaServices.GetAll();
             List<VendedoraModel> vendedoraList = (List<VendedoraModel>)_vendedoraServices.GetAll();
-            List<VendedoraModel> vendedoraSemRotaList = null;
+            List<VendedoraModel> vendedoraSemRotaList = new List<VendedoraModel>();
 
             foreach (VendedoraModel modelVendededora in vendedoraList)
             {
@@ -450,14 +470,19 @@ namespace MCatalogos.Views.FormViews.Rotas
         {
             if (cbLetraRota.SelectedIndex > -1)
             {
-
+                //GET ROTA LETRA ID FROM SELECTED LETRA
                 RotaLetraModel rotaLetra = _rotaLetraServices.GetByLetra(cbLetraRota.Text);
+                
                 LoadNumeroToCombox(rotaLetra.RotaLetraId);
 
-                if (vendedora.RotaLetraId != rotaLetra.RotaLetraId)
+                if (vendedora.RotaLetraId != rotaLetra.RotaLetraId && this.rota != null)
                 {
 
-                    AlteraLetraRota(this.rota.RotaId, rotaLetra.RotaLetraId, this.vendedora.VendedoraId);
+                    AlteraLetraRotaComNumeroRota(this.rota.RotaId, rotaLetra.RotaLetraId, this.vendedora.VendedoraId);
+                }
+                else
+                {
+                    AlteraLetraRota(this.vendedora.VendedoraId, rotaLetra.RotaLetraId);
                 }
 
 

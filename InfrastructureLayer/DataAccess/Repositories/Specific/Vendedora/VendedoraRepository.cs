@@ -565,7 +565,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
         }
 
-        public void AlteraRota(int vendedoraId, int rotaLetraId)
+        public void AlteraRotaLetra(int vendedoraId, int rotaLetraId)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Vendedoras " +
@@ -601,5 +601,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
+        
     }
 }

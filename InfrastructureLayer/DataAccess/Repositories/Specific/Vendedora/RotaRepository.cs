@@ -547,7 +547,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
         }
 
-        public void RefatoraRotas(IRotaModel rotaInicial, int vendedoraQueEntra, List<RotaModel> rotaList, IRotaModel rotaAtual)
+        public void RefatoraRotas(IRotaModel rotaAlvo, int vendedoraQueEntra, List<RotaModel> rotaList, IRotaModel rotaOrigem)
         {
 
             int totalRotasAPercorrer = rotaList.Count(); //lista de rotas com a letra selecionada.
@@ -556,19 +556,19 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
             try
             {
-                if (rotaInicial.Numero < rotaAtual.Numero)
+                if (rotaAlvo.Numero < rotaOrigem.Numero)
                 {
-                    for (int i = rotaInicial.Numero; i <= rotaAtual.Numero; i++)
+                    for (int i = rotaAlvo.Numero; i <= rotaOrigem.Numero; i++)
                     {
 
-                        RotaModel proximaRota = GetByNumeroAndLetraId(i, rotaInicial.RotaLetraId);
+                        RotaModel proximaRota = GetByNumeroAndLetraId(i, rotaAlvo.RotaLetraId);
                         if (proximaRota.VendedoraId != vendedoraQueEntra)
                         {
                             vendedoraSainte = proximaRota.VendedoraId; //guarda para colocar na próxima rota
                         }
                         else
                         {
-                            vendedoraSainte = GetByNumeroAndLetraId(i + 1, rotaInicial.RotaLetraId).VendedoraId;
+                            vendedoraSainte = GetByNumeroAndLetraId(i + 1, rotaAlvo.RotaLetraId).VendedoraId;
                         }
                         proximaRota.VendedoraId = vendedoraEntrante; //recebe vendedora entrante na rota
                         Update(proximaRota); //atualiza a rota com a vendedora entrante
@@ -578,16 +578,16 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
                 else
                 {
-                    for (int i = rotaInicial.Numero; i >= rotaAtual.Numero; i--)
+                    for (int i = rotaAlvo.Numero; i >= rotaOrigem.Numero; i--)
                     {
-                        RotaModel proximaRota = GetByNumeroAndLetraId(i, rotaInicial.RotaLetraId);
+                        RotaModel proximaRota = GetByNumeroAndLetraId(i, rotaAlvo.RotaLetraId);
                         if (proximaRota.VendedoraId != vendedoraQueEntra)
                         {
                             vendedoraSainte = proximaRota.VendedoraId; //guarda para colocar na próxima rota
                         }
                         else
                         {
-                            vendedoraSainte = GetByNumeroAndLetraId(i + -1, rotaInicial.RotaLetraId).VendedoraId;
+                            vendedoraSainte = GetByNumeroAndLetraId(i + -1, rotaAlvo.RotaLetraId).VendedoraId;
                         }
                         proximaRota.VendedoraId = vendedoraEntrante; //recebe vendedora entrante na rota
                         Update(proximaRota); //atualiza a rota com a vendedora entrante

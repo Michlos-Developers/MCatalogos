@@ -91,12 +91,6 @@
     <Compile Include="Views\FormViews\Configuracoes\ConfiguracoesForm.Designer.cs">
       <DependentUpon>ConfiguracoesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FormViews\Rotas\RefatoraRotasFormList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\FormViews\Rotas\RefatoraRotasFormList.Designer.cs">
-      <DependentUpon>RefatoraRotasFormList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +154,12 @@
     <Compile Include="Views\UserControls\HomeUC.Designer.cs">
       <DependentUpon>HomeUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\Rotas\RotasEditUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\Rotas\RotasEditUC.Designer.cs">
+      <DependentUpon>RotasEditUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Vendedoras\IVendedoraListViewUC.cs" />
     <Compile Include="Views\UserControls\Vendedoras\TelefonesVendedoraListUC.cs">
       <SubType>UserControl</SubType>
@@ -207,9 +207,6 @@
     <EmbeddedResource Include="Views\FormViews\Configuracoes\ConfiguracoesForm.resx">
       <DependentUpon>ConfiguracoesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FormViews\Rotas\RefatoraRotasFormList.resx">
-      <DependentUpon>RefatoraRotasFormList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
       <DependentUpon>FornecedoresListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\HomeUC.resx">
       <DependentUpon>HomeUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\Rotas\RotasEditUC.resx">
+      <DependentUpon>RotasEditUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\Vendedoras\TelefonesVendedoraListUC.resx">
       <DependentUpon>TelefonesVendedoraListUC.cs</DependentUpon>
