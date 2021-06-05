@@ -13,8 +13,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.SymbolStore;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Dynamic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -30,15 +32,15 @@ namespace MCatalogos.Views.UserControls.Rotas
 
         enum RotaNumeroAddType
         {
-            Added,
-            Updated,
+            Add,
+            Update,
             Delete
         }
 
         enum RotaLetraAddType
         {
-            Added,
-            Updated
+            Add,
+            Update
         }
 
         QueryStringServices _queryString;
@@ -47,23 +49,25 @@ namespace MCatalogos.Views.UserControls.Rotas
         private RotaLetraServices _rotaLetraServices;
         private VendedoraServices _vendedoraServices;
 
+        private VendedoraModel vendedoraModel = new VendedoraModel();
+        private RotasFormView rotasFormView;
+        private RotaModel collectedNumeroRota;
+        private RotaLetraModel collectedLetraRota;
 
-        /// <summary>
-        /// TODAS AS ALTERAÇÕES SÃO SALVAS NOS MODELS E NÃO DIRETO NO BANCO DE DADOS
-        /// AS ÚNICAS ALTERAÇÕES FEITAS DIRETAMENTE NO BANCO, ALÉM DO MÉTODO SALVAR, 
-        /// SÃO: ADIÇÃO DE LETRA DE ROTA / ADIÇÃO DE NÚMERO DE ROTA
-        /// </summary>
-        private RotaModel rotaNumeroModel;
-        private VendedoraModel vendedoraModel;
-        private RotaLetraModel rotaLetraModel;
+        private RotaModel rotaNumeroModel = new RotaModel();
+        private RotaLetraModel rotaLetraModel = new RotaLetraModel();
         private RotaModel rotaAlvoAlteracao;
+        private RotaModel rotaOrigemAlteracao;
+        private List<RotaModel> rotasListaParaAlteracao = new List<RotaModel>();
+
+
 
 
         /// <summary>
         /// INICIALIZA O FORMULÁRIO RECEBENDO A MODEL DA VENDEDORA
         /// </summary>
         /// <param name="vendedoraModel"></param>
-        public RotasEditUC(VendedoraModel vendedoraModel)
+        public RotasEditUC(VendedoraModel vendedoraModel, RotasFormView rotasFormView)
         {
             _queryString = new QueryStringServices(new QueryString());
             _rotaNumeroServices = new RotaServices(new RotaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
@@ -72,75 +76,42 @@ namespace MCatalogos.Views.UserControls.Rotas
 
             InitializeComponent();
             this.vendedoraModel = vendedoraModel;
+            this.rotasFormView = rotasFormView;
 
         }
 
-        /// <summary>
-        /// LoadForm
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RotasEditUC_Load(object sender, EventArgs e)
         {
-            this.btnSave.Enabled = false;
-            LoadModels();
-            FillCbLetraRota();
-            FillFieds();
+            LoadModelsFromVendedora();
+            LoadLetrasRotasToComboBox();
+            PreencheCampos();
+            LoadNumerosRotasToComboBox();
         }
 
-
-        /// <summary>
-        /// Carrega os daods nos Models RotaModel/RotaLetraModel
-        /// </summary>
-        /// <methods>GetVendedoraRotaNumero</methods>
-        public void LoadModels()
+        private void PreencheCampos()
         {
-
-            //VERIFICA SE VENDEDORA TEM ROTANUMERO
-            RotaModel checaRota = GetVendedoraRotaNumero(this.vendedoraModel);
-            if (checaRota.RotaId != 0) //SE SIM VENDEDORA COM ROTA SENÃO VENDEDORA SEM ROTA
-            {
-                this.rotaNumeroModel = checaRota;
-            }
-
-
-            this.rotaLetraModel = _rotaLetraServices.GetById(this.vendedoraModel.RotaLetraId);
-
-
+            this.textNomeVendedora.Text = this.vendedoraModel != null ? this.vendedoraModel.Nome : string.Empty;
+            this.cbLetraRota.Text = this.vendedoraModel != null ? this.rotaLetraModel.RotaLetra : string.Empty;
+            this.cbNumeroRota.Text = this.rotaNumeroModel != null ? this.rotaNumeroModel.Numero.ToString() : string.Empty;
+            this.btnAddNumRota.Enabled = true;
+            this.btnAddLetraRota.Enabled = true;
         }
 
-        /// <summary>
-        /// Busca a Rota da Vendedora
-        /// </summary>
-        /// <param name="vendedoraModel"></param>
-        /// <returns>RotaModel</returns>
-        public RotaModel GetVendedoraRotaNumero(VendedoraModel vendedoraModel)
+        private void LimpaCampos()
         {
-            RotaModel rotaNumeroModel = new RotaModel();
-            rotaNumeroModel = _rotaNumeroServices.GetByVendedoraId(vendedoraModel.VendedoraId);
-
-            return rotaNumeroModel;
+            this.textNomeVendedora.Text = string.Empty;
+            this.cbLetraRota.Text = string.Empty;
+            this.cbNumeroRota.Text = string.Empty;
+            this.btnAddLetraRota.Enabled = false;
+            this.btnAddNumRota.Enabled = false;
+            this.rotasFormView.gboxEditRotas.Enabled = false;
         }
 
-        /// <summary>
-        /// Preenche os campos com os dados dos models coletados
-        /// </summary>
-        public void FillFieds()
-        {
-            this.textNomeVendedora.Text = this.vendedoraModel.Nome;
-            this.cbLetraRota.Text = this.rotaLetraModel.RotaLetra;
-            this.cbNumeroRota.Text = (this.rotaNumeroModel.Numero != 0) ? this.rotaNumeroModel.Numero.ToString() : "Nullo";
-        }
-
-        /// <summary>
-        /// Gera Lista de RotasLetras para seleção no ComboBox
-        /// </summary>
-        public void FillCbLetraRota()
+        private void LoadLetrasRotasToComboBox()
         {
             List<RotaLetraModel> modelList = (List<RotaLetraModel>)_rotaLetraServices.GetAll();
 
             cbLetraRota.DisplayMember = "RotaLetra";
-            cbLetraRota.SelectedItem = null;
             cbLetraRota.Items.Clear();
             foreach (RotaLetraModel model in modelList)
             {
@@ -148,319 +119,275 @@ namespace MCatalogos.Views.UserControls.Rotas
             }
         }
 
-
-        /// <summary>
-        /// IDENTIFICA O ITEM SELECIONADO E CHAMA O MÉTODO PARA PREENCHER OS ITENS DO COMBOX NUMERO.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <method name="FillCbNumeroRota"></method>
-        private void cbLetraRota_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadModelsFromVendedora()
         {
-            RotaLetraModel rotaLetra = new RotaLetraModel();
+            this.rotaLetraModel = this.vendedoraModel != null ? _rotaLetraServices.GetById(this.vendedoraModel.RotaLetraId) : null;
 
-            //SE FOR NULL ACABOU DE CRIAR, ENTÃO TEM QUE SER DIFERENTE DE NULL
-            //SE FOR DIFERENTE DA LETRA DA VENDEDORA SELECIONADA.
-            if (cbLetraRota.SelectedItem != null && cbLetraRota.SelectedItem.ToString() != this.rotaLetraModel.RotaLetra.ToString())
+            RotaModel rotaModel = null;
+            rotaModel = VendedoraTemRota();
+            if (rotaModel != null)
             {
 
-                rotaLetra = _rotaLetraServices.GetByLetra(cbLetraRota.SelectedItem.ToString());
-                FillCbNumeroRota(rotaLetra);
-            }//SE FOR IGUAL AO DA VENDEDORA VERIFICA SE TEM ROTA NA VENDEDORA E PEGA A MESMA QUE JÁ ESTÁ NELA.
-            else if (cbLetraRota.SelectedItem.ToString() == this.rotaLetraModel.RotaLetra.ToString())
-            {
-                rotaLetra = _rotaLetraServices.GetByLetra(cbLetraRota.SelectedItem.ToString());
-                FillCbNumeroRota(rotaLetra);
-                cbNumeroRota.SelectedItem = (this.rotaNumeroModel.Numero != 0) ? this.rotaNumeroModel.Numero.ToString() : null;
+                this.rotaNumeroModel = rotaModel;
+                this.collectedNumeroRota = this.rotaNumeroModel;
+
             }
-            else
-            {
-                //CHAMA O ALTERA LETRA
-            }
+            this.collectedLetraRota = this.rotaLetraModel;
+
+
+
+
+
         }
 
-        /// <summary>
-        /// PREENCHE OS ITEMS DO COMBOBOX NÚMERO CONFORME SELEÇÃO DO COMBOBOX LETRA.
-        /// </summary>
-        /// <param name="rotaLetra"></param>
-        public void FillCbNumeroRota(RotaLetraModel rotaLetra)
+        private RotaModel VendedoraTemRota()
         {
-            List<RotaModel> modelList = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(rotaLetra.RotaLetraId);
-
-            cbNumeroRota.DisplayMember = "Numero";
-            cbNumeroRota.SelectedItem = null;
-            cbNumeroRota.Items.Clear();
-            foreach (RotaModel model in modelList)
-            {
-                cbNumeroRota.Items.Add(model);
-
-            }
-        }
-
-
-        /// <summary>
-        /// Detecta a última letra de rotas existentes e aciona o método AddRotaLetra 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddLetraRota_Click(object sender, EventArgs e)
-        {
-            string lastLetra = _rotaLetraServices.GetLastLetra().RotaLetra;
-            if (lastLetra != "Z")
-            {
-                string nextLetra = GetNextLetra(lastLetra);
-                try
-                {
-                    AddRotaLetra(nextLetra);
-                    MessageBox.Show($"Letra Adicionada com sucesso\nLetra: {nextLetra}", "Adicionar Rota", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.rotaLetraModel = _rotaLetraServices.GetByLetra(nextLetra);
-                    FillCbLetraRota();
-                    cbLetraRota.SelectedItem = this.rotaLetraModel.RotaLetra;
-                    FillFieds();
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Não foi possível adicionar uma nova letra à lista de Rotas. \n" + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Já foram adicionadas todas as letras para a Rota.\nEntre em contato com o Suporte.");
-            }
-        }
-
-
-        /// <summary>
-        /// Chama o método Add do RotaLetraSerivces para criar a nova letra.
-        /// </summary>
-        /// <param name="nextLetra"></param>
-        private void AddRotaLetra(string nextLetra)
-        {
-
-            RotaLetraModel model = new RotaLetraModel();
+            RotaModel model = null;
             try
             {
-                model.RotaLetra = nextLetra;
-                _rotaLetraServices.Add(model);
+                model = this.vendedoraModel != null ? _rotaNumeroServices.GetByVendedoraId(this.vendedoraModel.VendedoraId) : null;
+
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+
+                MessageBox.Show("Não foi possível verificar a rota da vendedora.");
+            }
+
+            return model;
+        }
+
+        private void cbLetraRota_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            RotaLetraModel selectedLetraRota = cbLetraRota.SelectedItem as RotaLetraModel;
+
+            if (this.rotaLetraModel.RotaLetraId != selectedLetraRota.RotaLetraId)
+            {
+
+                this.rotaLetraModel = cbLetraRota.SelectedItem as RotaLetraModel;
+                LoadNumerosRotasToComboBox();
+                //ALTERAR SEMPRE NA TROCA
+                //SE TROCAR A LETRA
+                //1- VERIFICA SE A VENDEDORA TEM ROTA
+                //1.1- SE TIVER ROTA ELE DEVE SER ALTERADA PARA O ÚLTIMO NÚMERO DA ROTA.
+                //1.2- DEPOIS DISSO ESSA ROTA DEVE SER APAGADA.
+                //2- SE NÃO TIVER ROTA
+                //3- ALTERA A LETRA DA VENDEDORA
+                this.rotaOrigemAlteracao = VendedoraTemRota();
+
+                if (this.rotaOrigemAlteracao.RotaId != 0) //1.1vendedora tem rota
+                {
+                    this.rotaAlvoAlteracao = _rotaNumeroServices.GetLastNumero(this.vendedoraModel.RotaLetraId);
+                    this.rotasListaParaAlteracao = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.vendedoraModel.RotaLetraId);
+
+                    //ALTERA PARA A ÚLTIMA
+                    AlteraNumeroRota(this.rotaAlvoAlteracao, this.rotaOrigemAlteracao);
+                    //_rotaNumeroServices.RefatoraRotas(this.rotaAlvoAlteracao, this.vendedoraModel.VendedoraId, this.rotasListaParaAlteracao, this.rotaOrigemAlteracao);
+
+                    this.rotaAlvoAlteracao = _rotaNumeroServices.GetByVendedoraId(this.vendedoraModel.VendedoraId);
+
+                    //DEPOIS DE ALTERADO APAGA
+                    DeleteNumeroRota(this.rotaAlvoAlteracao);
+
+                    //A ROTALETRAMODEL ESTÁ COM A ROTA SELECIONADA
+                    //ALTERA A ROTA NA VENDEDORA
+                    _vendedoraServices.AlteraRotaLetra(this.vendedoraModel.VendedoraId, this.rotaLetraModel.RotaLetraId);
+
+
+                }
+                else
+                {
+                    _vendedoraServices.AlteraRotaLetra(this.vendedoraModel.VendedoraId, this.rotaLetraModel.RotaLetraId);
+
+                }
+                LimpaCampos();
+                ReloadDataGridFormView();
+            }
+
+
+        }
+
+        private void DeleteNumeroRota(RotaModel rotaAlvo)
+        {
+            _rotaNumeroServices.Delete(rotaAlvo);
+        }
+
+        private void LoadNumerosRotasToComboBox()
+        {
+            List<RotaModel> modelList = new List<RotaModel>();
+            modelList = this.vendedoraModel != null ? (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.rotaLetraModel.RotaLetraId) : null;
+
+            cbNumeroRota.DisplayMember = "Numero";
+            cbNumeroRota.Items.Clear();
+            if (modelList != null)
+            {
+                if (modelList.Count > 0)
+                {
+                    foreach (RotaModel model in modelList)
+                    {
+                        cbNumeroRota.Items.Add(model);
+                    }
+                }
+                else
+                {
+                    cbNumeroRota.Text = string.Empty;
+                }
             }
         }
 
-        /// <summary>
-        /// IDENTIFICA AS ÚNICAS LETRAS DISPONÍVEIS PARA A ROTA E APONTA PARA A PRÓXIMA LETRA
-        /// </summary>
-        /// <param name="lastLetra"></param>
-        /// <returns></returns>
+        private void cbNumeroRota_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            RotaModel selectedNumeroRota = this.cbNumeroRota.SelectedItem as RotaModel;
+
+            if (this.rotaNumeroModel.RotaId != selectedNumeroRota.RotaId)
+            {
+                this.rotaAlvoAlteracao = this.cbNumeroRota.SelectedItem as RotaModel;
+                AlteraNumeroRota(this.rotaAlvoAlteracao, this.rotaNumeroModel);
+                ReloadDataGridFormView();
+                LimpaCampos();
+            }
+        }
+
+        private void AlteraNumeroRota(RotaModel rotalAlvo, RotaModel rotaOrigem)
+        {
+            //ver se a a vendedora tem não tem rota.
+            List<RotaModel> rotaList = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.rotaLetraModel.RotaLetraId);
+
+            if (rotaOrigem.Numero == 0)
+            {
+                AddNumeroRota();
+                rotaOrigem = this.rotaNumeroModel;
+            }
+
+            try
+            {
+                _rotaNumeroServices.RefatoraRotas(rotalAlvo, this.vendedoraModel.VendedoraId, rotaList, rotaOrigem);
+                MessageBox.Show("Rota Alterada");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível alterar o Número da Rota da Vendedora");
+            }
+        }
+
+
+        private void ReloadDataGridFormView()
+        {
+
+            this.rotasFormView.LoadRotasToDataGrid();
+            this.rotasFormView.dgvRotas.ClearSelection();
+            this.rotasFormView.pictureArrowRight.Visible = false;
+
+            this.rotasFormView.LoadVendedorasSemRotasToDataGrid();
+            this.rotasFormView.dgvVendedoraSemRota.ClearSelection();
+            this.rotasFormView.pictureArrowUp.Visible = false;
+        }
+
+        private void btnAddNumRota_Click(object sender, EventArgs e)
+        {
+            //ADICIONAR NÚMERO NA ROTA COM A VENDEDORA SEM ROTA.
+            RotaModel vendedoraTemRota = VendedoraTemRota();
+            if (vendedoraTemRota.RotaId == 0)
+            {
+                AddNumeroRota();
+                ReloadDataGridFormView();
+                LimpaCampos();
+
+            }
+            else
+            {
+                this.rotaAlvoAlteracao = _rotaNumeroServices.GetLastNumero(this.rotaLetraModel.RotaLetraId);
+                var result = MessageBox.Show($"A vendedora \"{this.vendedoraModel.Nome}\" já possui uma rota cadastrada. " +
+                    $"Não será permitido criar uma nova rota para ela. " +
+                    $"Ao invés disso você pode colocá-la na última rota da Letra \"{this.rotaLetraModel.RotaLetra}\" " +
+                    $"que pertence a \"{_vendedoraServices.GetById(rotaAlvoAlteracao.VendedoraId).Nome}\".\n\n" +
+                    $"Deseja realizar realizar a alteração da rota?",
+                    "Adicionando número de rota", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    AlteraNumeroRota(this.rotaAlvoAlteracao, vendedoraTemRota);
+                    ReloadDataGridFormView();
+                    LimpaCampos();
+                }
+            }
+
+        }
+
+        private void AddNumeroRota()
+        {
+            RotaModel lastNumeroRotaModel = _rotaNumeroServices.GetLastNumero(this.rotaLetraModel.RotaLetraId);
+            int nextNumero = lastNumeroRotaModel.Numero + 1;
+            this.rotaNumeroModel = new RotaModel()
+            {
+                RotaLetraId = this.rotaLetraModel.RotaLetraId,
+                VendedoraId = this.vendedoraModel.VendedoraId,
+                Numero = nextNumero
+            };
+
+            try
+            {
+                _rotaNumeroServices.Add(this.rotaNumeroModel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível adicionar um novo número à rota");
+                throw;
+            }
+
+        }
+
+        private void btnAddLetraRota_Click(object sender, EventArgs e)
+        {
+            //ADICIONAR LETRA NA ROTA DA VENDEDORA
+            try
+            {
+
+                AddLetraRota();
+                ReloadDataGridFormView();
+                LimpaCampos();
+                MessageBox.Show("Letra Adicionada");
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível adicionar uma nova Letra");
+            }
+
+        }
+
+        private void AddLetraRota()
+        {
+            string lastLetra = _rotaLetraServices.GetLastLetra().RotaLetra;
+            string nextLetra = GetNextLetra(lastLetra);
+            if (lastLetra == "Z")
+            {
+                MessageBox.Show("Já foram adicionadas todas as letras disponíveis para Rota.\nEntre em contato com o Suporte");
+            }
+            else
+            {
+                RotaLetraModel addRotaLetra = new RotaLetraModel() { RotaLetra = nextLetra };
+                _rotaLetraServices.Add(addRotaLetra);
+                this.rotaLetraModel = _rotaLetraServices.GetByLetra(addRotaLetra.RotaLetra);
+                _vendedoraServices.AlteraRotaLetra(this.vendedoraModel.VendedoraId, this.rotaLetraModel.RotaLetraId);
+                this.vendedoraModel = _vendedoraServices.GetById(this.vendedoraModel.VendedoraId);
+            }
+        }
+
         private string GetNextLetra(string lastLetra)
         {
-            string nextLetra = string.Empty;
             string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-            int pos = alfabeto.IndexOf(lastLetra) + 1;
-
+            int pos = alfabeto.IndexOf(lastLetra);
+            string nextLetra = string.Empty;
+            pos++;
             nextLetra = alfabeto[pos].ToString();
-
             return nextLetra;
         }
 
 
-        /// <summary>
-        /// CHAMA O MÉTODO AddNumeroRota
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddNumRota_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-                RotaNumeroAddType typeReturn = AddNumeroRota();
-                if (typeReturn == RotaNumeroAddType.Added)
-                {
-                    MessageBox.Show("A rota foi Adicionada com sucesso", "Adição de Número de Rota", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                else if (typeReturn == RotaNumeroAddType.Updated)
-                {
-                    MessageBox.Show("A rota foi Alterada com sucesso", "Adição de Número de Rota", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                this.rotaNumeroModel = _rotaNumeroServices.GetByVendedoraId(this.vendedoraModel.VendedoraId);
-                FillCbNumeroRota(this.rotaLetraModel);
-                cbNumeroRota.SelectedItem = this.rotaNumeroModel.Numero;
-                FillFieds();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Não foi possível adicionar um novo número à rota da Vendedora. \n" + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// VERIFICA SE A VENDEDORA TEM ROTA.
-        /// SE TIVER IDENTIFICAR AS PRÓXIMAS VENDEDORAS PARA SUBIR AS ROTAS 
-        /// ALTERANDO A ROTA DA VENDEDORA SELECIONADA PARA A ÚLTIMA ROTA DA LETRA
-        /// SE A VENDEDORA NÃO TIVER ROTA, APENAS ADICIONA.
-        /// </summary>
-        /// <returns></returns>
-        private RotaNumeroAddType AddNumeroRota()
-        {
-            RotaNumeroAddType typeReturn = new RotaNumeroAddType();
-
-            rotaAlvoAlteracao = _rotaNumeroServices.GetLastNumero(this.rotaLetraModel.RotaLetraId);
 
 
-            int nextNumero = rotaAlvoAlteracao.Numero + 1;
-
-            RotaModel rotaAtual = null;
-            List<RotaModel> rotasNumeroList = null;
-
-            //VENDEDORA NÃO TEM ROTA
-            if (!ChecaRotaVendedora())
-            {
-                this.rotaNumeroModel.Numero = nextNumero;
-                _rotaNumeroServices.Add(this.rotaNumeroModel);
-                typeReturn = RotaNumeroAddType.Added;
-
-            }
-            else
-            { //VENDEDORA TEM ROTA - TROCA VAI PARA A ÚLTIMA ROTA AS DEMAIS VENDEDORAS DEVEM SUBIR NA ROTA.
-                var result = MessageBox.Show("Essa vendedora já possui uma rota cadastrada. " +
-                                             "O passo correto é mudar a rota dessa vendedora para a última posição. " +
-                                             $"\nDeseja alterar a rota da vendedora para {this.rotaLetraModel.RotaLetra} - {rotaAlvoAlteracao.Numero} ?",
-                                             "Adição de Número da Rota", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    rotaAtual = this.rotaNumeroModel;
-                    rotasNumeroList = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.rotaLetraModel.RotaLetraId);
-                    try
-                    {
-                        //ALTERA A ROTA DA VENDEDORA PARA A ÚLTIMA E JÁ SALVA OS DADOS NO BANCO DE DADOS
-                        _rotaNumeroServices.RefatoraRotas(rotaAlvoAlteracao, this.vendedoraModel.VendedoraId, rotasNumeroList, rotaAtual);
-                        typeReturn = RotaNumeroAddType.Updated;
-
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Não foi possível refatorar as Rotas\nMessageError:" + e.Message, "Adição de Número de Rota");
-                    }
-                }
-            }
-            return typeReturn;
-        }
-
-        /// <summary>
-        /// VERIFICA SE EXISTE ROTA CADASTRADA COM A ID DA VENDEDORA
-        /// </summary>
-        /// <returns></returns>
-        private bool ChecaRotaVendedora()
-        {
-            bool vendedoraTemRota = false;
-
-            List<RotaModel> modelList = (List<RotaModel>)_rotaNumeroServices.GetAll();
-
-            foreach (RotaModel model in modelList)
-            {
-                if (model.VendedoraId == this.vendedoraModel.VendedoraId)
-                {
-                    vendedoraTemRota = true;
-                }
-            }
-
-            return vendedoraTemRota;
-        }
-
-
-        /// <summary>
-        /// ALTERAÇÃO DE NÚMERO DA ROTA DIRETO NO COMBOBOX
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cbNumeroRota_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbNumeroRota.SelectedItem.ToString() != this.rotaNumeroModel.Numero.ToString())
-            {
-                try
-                {
-                    RotaNumeroAddType addType = new RotaNumeroAddType();
-                    addType = RotaNumeroAddType.Updated;
-                    AlteraRotaNumero(addType);
-                    LoadModels();
-
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Não foi possível alterar a Rota da Vendedora", "Alteração de Número da Rota", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-        }
-
-        private void AlteraRotaNumero(RotaNumeroAddType addType)
-        {
-            /*
-             * SALVA A ROTA ALVO
-             * E FAZ A REFATORAÇÃO DE ROTAS.
-             */
-
-            this.rotaAlvoAlteracao = _rotaNumeroServices.GetByNumeroAndLetraId(int.Parse(cbNumeroRota.SelectedItem.ToString()), this.rotaLetraModel.RotaLetraId);
-
-            List<RotaModel> rotasNumeroList = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.rotaLetraModel.RotaLetraId);
-            RotaModel rotaOrigem = new RotaModel();
-
-            try
-            {
-                if (addType == RotaNumeroAddType.Updated)
-                {
-                    _rotaNumeroServices.RefatoraRotas(this.rotaAlvoAlteracao, this.vendedoraModel.VendedoraId, rotasNumeroList, this.rotaNumeroModel);
-                    this.rotaNumeroModel = this.rotaAlvoAlteracao;
-
-                }
-                else if (addType == RotaNumeroAddType.Delete)
-                {
-                    if (this.rotaNumeroModel.RotaId != rotasNumeroList.LastIndexOf(this.rotaNumeroModel))
-                    {
-                        this.rotaAlvoAlteracao = this.rotaNumeroModel;
-                        rotaOrigem = _rotaNumeroServices.GetByNumeroAndLetraId(this.rotaNumeroModel.Numero + 1, this.rotaLetraModel.RotaLetraId);
-                        _rotaNumeroServices.RefatoraRotas(this.rotaAlvoAlteracao, this.vendedoraModel.VendedoraId, rotasNumeroList, rotaOrigem);
-                        _rotaNumeroServices.Delete(this.rotaNumeroModel);
-                        //CHAMAR O LOAD MODELS DEPOIS DISSO
-
-                    }
-
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Não foi possível realizar a alteração da Rota da Vendedora.", "Alteração de Número da Rota", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-        
-
-        private void AlteraRotaLetra()
-        {
-            /*
-             * VERIFICA SE A VENDEDORA TEM ROTA.
-             * SE TIVER ROTA ELA IRÁ PERDER A ROTA.
-             * 
-             * SE A VENDEDORA TIVER VENDEDORAS ABAIXO DELA NA ROTA
-             * ENTÃO AS VENDEDORAS ABAIXO DELA SUBIRÃO.
-             * SENÃO A ROTA SIMPLESMENTE É APAGADA.
-             * ENTÃO DEVEMOS FAZER A ALTERAÇÃO DO NÚMERO PRIMEIRO
-             * LEMBRANDO QUE ELE PODERÁ SER CHAMADO POR ESSE.
-             * 
-             * 
-             */
-            if (this.rotaNumeroModel.Numero != 0)
-            {
-
-            }
-        }
+        //VERIFICAR O QUE FAZER SE O USUÁRIO SELECIONAR UM NÚMERO AO INVÉS DE ADICIONAR.
 
     }
 }

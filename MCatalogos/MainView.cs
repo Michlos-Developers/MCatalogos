@@ -1,18 +1,12 @@
 ﻿using MCatalogos.Commons;
-using MCatalogos.UserControls;
-using MCatalogos.Views.FormViews;
 using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
-using MCatalogos.Views.FormViews.Configuracoes.Rotas;
 using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.FormViews.Rotas;
 using MCatalogos.Views.FormViews.Vendedoras;
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace MCatalogos

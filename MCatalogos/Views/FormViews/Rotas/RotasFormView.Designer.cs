@@ -38,11 +38,14 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.panelListSemRotas = new System.Windows.Forms.Panel();
             this.dgvVendedoraSemRota = new System.Windows.Forms.DataGridView();
             this.gboxEditRotas = new System.Windows.Forms.GroupBox();
+            this.panelRotasEdit = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelListRotas = new System.Windows.Forms.Panel();
             this.dgvRotas = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.pictureArrowUp = new System.Windows.Forms.PictureBox();
+            this.pictureArrowRight = new System.Windows.Forms.PictureBox();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -52,6 +55,8 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.gboxEditRotas.SuspendLayout();
             this.panelListRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRotas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureArrowUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureArrowRight)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTitle
@@ -111,7 +116,7 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -123,6 +128,8 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.panelContainer.Controls.Add(this.panelListRotas);
             this.panelContainer.Controls.Add(this.label6);
             this.panelContainer.Controls.Add(this.label5);
+            this.panelContainer.Controls.Add(this.pictureArrowUp);
+            this.panelContainer.Controls.Add(this.pictureArrowRight);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 32);
             this.panelContainer.Name = "panelContainer";
@@ -132,9 +139,9 @@ namespace MCatalogos.Views.FormViews.Rotas
             // panelListSemRotas
             // 
             this.panelListSemRotas.Controls.Add(this.dgvVendedoraSemRota);
-            this.panelListSemRotas.Location = new System.Drawing.Point(645, 232);
+            this.panelListSemRotas.Location = new System.Drawing.Point(643, 196);
             this.panelListSemRotas.Name = "panelListSemRotas";
-            this.panelListSemRotas.Size = new System.Drawing.Size(319, 141);
+            this.panelListSemRotas.Size = new System.Drawing.Size(319, 177);
             this.panelListSemRotas.TabIndex = 2;
             // 
             // dgvVendedoraSemRota
@@ -142,26 +149,41 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.dgvVendedoraSemRota.AllowUserToAddRows = false;
             this.dgvVendedoraSemRota.AllowUserToDeleteRows = false;
             this.dgvVendedoraSemRota.AllowUserToOrderColumns = true;
+            this.dgvVendedoraSemRota.AllowUserToResizeColumns = false;
+            this.dgvVendedoraSemRota.AllowUserToResizeRows = false;
+            this.dgvVendedoraSemRota.BackgroundColor = System.Drawing.Color.White;
+            this.dgvVendedoraSemRota.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVendedoraSemRota.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVendedoraSemRota.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvVendedoraSemRota.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvVendedoraSemRota.Location = new System.Drawing.Point(0, 0);
             this.dgvVendedoraSemRota.Name = "dgvVendedoraSemRota";
             this.dgvVendedoraSemRota.ReadOnly = true;
             this.dgvVendedoraSemRota.RowHeadersVisible = false;
             this.dgvVendedoraSemRota.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvVendedoraSemRota.Size = new System.Drawing.Size(319, 141);
+            this.dgvVendedoraSemRota.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvVendedoraSemRota.Size = new System.Drawing.Size(319, 177);
             this.dgvVendedoraSemRota.TabIndex = 0;
             this.dgvVendedoraSemRota.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoraSemRota_CellClick);
             // 
             // gboxEditRotas
             // 
+            this.gboxEditRotas.Controls.Add(this.panelRotasEdit);
             this.gboxEditRotas.Controls.Add(this.label1);
             this.gboxEditRotas.Enabled = false;
-            this.gboxEditRotas.Location = new System.Drawing.Point(645, 32);
+            this.gboxEditRotas.Location = new System.Drawing.Point(643, 24);
             this.gboxEditRotas.Name = "gboxEditRotas";
             this.gboxEditRotas.Size = new System.Drawing.Size(319, 143);
             this.gboxEditRotas.TabIndex = 1;
             this.gboxEditRotas.TabStop = false;
+            // 
+            // panelRotasEdit
+            // 
+            this.panelRotasEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRotasEdit.Location = new System.Drawing.Point(3, 18);
+            this.panelRotasEdit.Name = "panelRotasEdit";
+            this.panelRotasEdit.Size = new System.Drawing.Size(313, 122);
+            this.panelRotasEdit.TabIndex = 1;
             // 
             // label1
             // 
@@ -177,13 +199,14 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.panelListRotas.Controls.Add(this.dgvRotas);
             this.panelListRotas.Location = new System.Drawing.Point(24, 32);
             this.panelListRotas.Name = "panelListRotas";
-            this.panelListRotas.Size = new System.Drawing.Size(605, 341);
+            this.panelListRotas.Size = new System.Drawing.Size(595, 341);
             this.panelListRotas.TabIndex = 0;
             // 
             // dgvRotas
             // 
             this.dgvRotas.AllowUserToAddRows = false;
             this.dgvRotas.AllowUserToDeleteRows = false;
+            this.dgvRotas.AllowUserToOrderColumns = true;
             this.dgvRotas.AllowUserToResizeColumns = false;
             this.dgvRotas.AllowUserToResizeRows = false;
             this.dgvRotas.BackgroundColor = System.Drawing.Color.White;
@@ -201,14 +224,14 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.dgvRotas.ShowCellToolTips = false;
             this.dgvRotas.ShowEditingIcon = false;
             this.dgvRotas.ShowRowErrors = false;
-            this.dgvRotas.Size = new System.Drawing.Size(605, 341);
+            this.dgvRotas.Size = new System.Drawing.Size(595, 341);
             this.dgvRotas.TabIndex = 0;
             this.dgvRotas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRotas_CellClick);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(642, 215);
+            this.label6.Location = new System.Drawing.Point(640, 179);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 14);
             this.label6.TabIndex = 0;
@@ -222,6 +245,28 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.label5.Size = new System.Drawing.Size(129, 14);
             this.label5.TabIndex = 0;
             this.label5.Text = "Vendedoras Com Rota:";
+            // 
+            // pictureArrowUp
+            // 
+            this.pictureArrowUp.Image = global::MCatalogos.Properties.Resources.UpArrow;
+            this.pictureArrowUp.Location = new System.Drawing.Point(937, 179);
+            this.pictureArrowUp.Name = "pictureArrowUp";
+            this.pictureArrowUp.Size = new System.Drawing.Size(29, 37);
+            this.pictureArrowUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureArrowUp.TabIndex = 3;
+            this.pictureArrowUp.TabStop = false;
+            this.pictureArrowUp.Visible = false;
+            // 
+            // pictureArrowRight
+            // 
+            this.pictureArrowRight.Image = global::MCatalogos.Properties.Resources.RightArrow;
+            this.pictureArrowRight.Location = new System.Drawing.Point(600, 29);
+            this.pictureArrowRight.Name = "pictureArrowRight";
+            this.pictureArrowRight.Size = new System.Drawing.Size(37, 29);
+            this.pictureArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureArrowRight.TabIndex = 3;
+            this.pictureArrowRight.TabStop = false;
+            this.pictureArrowRight.Visible = false;
             // 
             // RotasFormView
             // 
@@ -256,6 +301,8 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.gboxEditRotas.PerformLayout();
             this.panelListRotas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRotas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureArrowUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureArrowRight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -268,7 +315,6 @@ namespace MCatalogos.Views.FormViews.Rotas
         private System.Windows.Forms.Panel panelCommands;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panelContainer;
-        private System.Windows.Forms.GroupBox gboxEditRotas;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelListRotas;
         public System.Windows.Forms.DataGridView dgvRotas;
@@ -276,5 +322,9 @@ namespace MCatalogos.Views.FormViews.Rotas
         public System.Windows.Forms.DataGridView dgvVendedoraSemRota;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panelRotasEdit;
+        public System.Windows.Forms.PictureBox pictureArrowRight;
+        public System.Windows.Forms.PictureBox pictureArrowUp;
+        public System.Windows.Forms.GroupBox gboxEditRotas;
     }
 }
