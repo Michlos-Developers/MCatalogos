@@ -70,5 +70,10 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             base.Dispose(Disposing);
             aForm = null;
         }
+
+        private void btnDadosDistribuidor_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

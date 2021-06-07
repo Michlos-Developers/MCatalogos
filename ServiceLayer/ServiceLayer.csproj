@@ -59,6 +59,8 @@
     <Compile Include="Services\CidadeServices\CidadeServices.cs" />
     <Compile Include="Services\CidadeServices\ICidadeRepository.cs" />
     <Compile Include="Services\CidadeServices\ICidadeServices.cs" />
+    <Compile Include="Services\DistribuidorServices\IDistribuidorRepository.cs" />
+    <Compile Include="Services\DistribuidorServices\IDistribuidorServices.cs" />
     <Compile Include="Services\EstadoCivilServices\EstadoCivilServices.cs" />
     <Compile Include="Services\EstadoCivilServices\IEstadoCivilRepository.cs" />
     <Compile Include="Services\EstadoCivilServices\IEstadoCivilServices.cs" />

@@ -69,6 +69,8 @@
     <Compile Include="Models\CommonModels\Enums\AlfabetoRotas.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
+    <Compile Include="Models\Distribuidor\DistribuidorModel.cs" />
+    <Compile Include="Models\Distribuidor\IDistribuidorModel.cs" />
     <Compile Include="Models\Fornecedores\FornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\IFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\ITelefoneFornecedorModel.cs" />

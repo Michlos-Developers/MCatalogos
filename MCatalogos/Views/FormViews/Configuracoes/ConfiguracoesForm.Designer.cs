@@ -130,6 +130,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             this.btnDadosDistribuidor.Tag = "Pedidos";
             this.btnDadosDistribuidor.Text = "Dados do Distribuidor";
             this.btnDadosDistribuidor.UseVisualStyleBackColor = false;
+            this.btnDadosDistribuidor.Click += new System.EventHandler(this.btnDadosDistribuidor_Click);
             // 
             // label2
             // 
