@@ -1,5 +1,6 @@
 ﻿using CommonComponents;
 
+using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.Produtos;
 
 using ServiceLayer.Services.ProdutoServices;
@@ -46,7 +47,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             string query = "INSERT INTO TiposProdutos " +
                            "(Descricao) " +
                            "OUTPUT INSERTED.TipoProdutoId " +
-                           "VALUES (@Descricao)";
+                           "VALUES (@Descricao, @CatalogoId)";
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -59,6 +60,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@Descricao", tipoProduto.Descricao);
+                        cmd.Parameters.AddWithValue("@CatalogoId", tipoProduto.CatalogoId);
 
                         idReturned = (int)cmd.ExecuteScalar();
                     }
@@ -130,6 +132,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 TipoProdutoModel model = new TipoProdutoModel();
                                 model.TipoProdutoId = int.Parse(reader["TipoProdutoId"].ToString());
                                 model.Descricao = reader["Descricao"].ToString();
+                                model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
 
                                 modelList.Add(model);
                             }
@@ -205,13 +208,68 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             }
         }
 
+        public IEnumerable<TipoProdutoModel> GetByCatalogo(ICatalogoModel catalogo)
+        {
+            List<TipoProdutoModel> modelList = new List<TipoProdutoModel>();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            bool recordFound = false;
+
+            string query = "SELECT TipoProdutoId, Descricao, CatalogoId FROM TiposProdutos WHERE CatalogoId = @CatalogoId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@CatalogoId", catalogo.CatalogoId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            recordFound = reader.HasRows;
+                            while (reader.Read())
+                            {
+                                TipoProdutoModel model = new TipoProdutoModel();
+                                model.TipoProdutoId = int.Parse(reader["TipoProdutoId"].ToString());
+                                model.Descricao = reader["Descricao"].ToString();
+                                model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
+
+                                modelList.Add(model);
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                        customMessage: $"Não foi possível recuperar lista de Tipos de Produtos por Catalogo", helpLink: e.HelpLink,
+                        errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                if (!recordFound)
+                {
+                    dataAccessStatus.setValues("Error", false, "", "Registro não encontrado. Não foi possível recuperar o Tipo de Produto no DataBase",
+                        "", 0, "");
+                    throw new DataAccessException(dataAccessStatus);
+                }
+
+                return modelList;
+            }
+        }
         public TipoProdutoModel GetByDescricao(string descricao)
         {
             TipoProdutoModel model = new TipoProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             bool recordFound = false;
 
-            string query = "SELECT TipoProdutoId, Descricao FROM TiposProdutos WHERE Descricao = @Descricao";
+            string query = "SELECT TipoProdutoId, Descricao, CatalogoId FROM TiposProdutos WHERE Descricao = @Descricao";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -231,6 +289,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                             {
                                 model.TipoProdutoId = int.Parse(reader["TipoProdutoId"].ToString());
                                 model.Descricao = reader["Descricao"].ToString();
+                                model.CatalogoId = int.Parse(reader["CatalogId"].ToString());
                             }
                         }
                     }
@@ -264,7 +323,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
 
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE TiposProdutos SET " +
-                           "Descricao = @Descricao " +
+                           "Descricao = @Descricao, CatalogoId = @CatalogoId " +
                            "WHERE TipoProdutoId = @TipoProdutoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -278,6 +337,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@TipoProdutoId", model.TipoProdutoId);
                         cmd.Parameters.AddWithValue("@Descricao", model.Descricao);
+                        cmd.Parameters.AddWithValue("@CatalogoId", model.CatalogoId);
 
                         cmd.ExecuteNonQuery();
                     }

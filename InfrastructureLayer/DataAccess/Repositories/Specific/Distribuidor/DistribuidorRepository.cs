@@ -54,7 +54,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
                 "Logradouro, Numero, Complemento, Cep, UfId, CidadeId, BairroId) " +
                 "OUTPUT INSERTED.DistribuidorId " +
                 "VALUES " +
-                "(NomeFantasia = @NomeFantasia, RazaoSocial = @RazaoSocial, Cnpj = @Cnpj, InscricaoEstadual = @InscricaoEstadual, Email = @Email, WebSite = @WebSite, NomeResponsavel = @NomeResponsavel, TelefoneContato = @TelefoneContato, Logradouro = @Logradouro, Numero = @Numero, Complemento = @Complemento, Cep = @Cep, UfId = @UfId, CidadeId = @CidadeId, BairroId = @BairroId)";
+                "(@NomeFantasia, @RazaoSocial, @Cnpj, @InscricaoEstadual, @Email, @WebSite, @NomeResponsavel, @TelefoneContato, @Logradouro, @Numero, @Complemento, @Cep, @UfId, @CidadeId, @BairroId)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -96,17 +96,17 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
                     connection.Close();
                 }
 
-                distribuidorReturned = GetById(idReturned);
+                distribuidorReturned = GetModel();
                 return distribuidorReturned;
             }
         }
 
-        public DistribuidorModel GetById(int id)
+        public DistribuidorModel GetModel()
         {
 
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             DistribuidorModel model = new DistribuidorModel();
-            string query = "SELECT * FROM Distribuidor WHERE DistribuidorId = @DistribuidorId";
+            string query = "SELECT TOP 1 * FROM Distribuidor";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -116,7 +116,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("@DistibuidorId", id));
+                        //cmd.Parameters.Add(new SqlParameter("@DistibuidorId", id));
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())

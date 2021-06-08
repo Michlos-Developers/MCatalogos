@@ -10,5 +10,9 @@ namespace DomainLayer.Models.Produtos
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório")]
         [StringLength(600)]
         public string Descricao { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório")]
+        public int CatalogoId { get; set; }
+
     }
 }

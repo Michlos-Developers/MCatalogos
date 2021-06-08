@@ -213,6 +213,9 @@
     <EmbeddedResource Include="Views\FormViews\Configuracoes\ConfiguracoesForm.resx">
       <DependentUpon>ConfiguracoesForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Distribuidor\DistribuidorForm.resx">
+      <DependentUpon>DistribuidorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
       <DependentUpon>FornecedoresListForm.cs</DependentUpon>
     </EmbeddedResource>

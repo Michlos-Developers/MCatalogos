@@ -259,16 +259,16 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // textNumero
             // 
-            this.textNumero.Location = new System.Drawing.Point(82, 49);
+            this.textNumero.Location = new System.Drawing.Point(96, 49);
             this.textNumero.Name = "textNumero";
-            this.textNumero.Size = new System.Drawing.Size(62, 22);
+            this.textNumero.Size = new System.Drawing.Size(48, 22);
             this.textNumero.TabIndex = 1;
             this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 53);
+            this.label5.Location = new System.Drawing.Point(44, 53);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 14);
             this.label5.TabIndex = 23;
@@ -301,19 +301,19 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // textLogradouro
             // 
-            this.textLogradouro.Location = new System.Drawing.Point(82, 21);
+            this.textLogradouro.Location = new System.Drawing.Point(96, 21);
             this.textLogradouro.MaxLength = 300;
             this.textLogradouro.Name = "textLogradouro";
-            this.textLogradouro.Size = new System.Drawing.Size(383, 22);
+            this.textLogradouro.Size = new System.Drawing.Size(369, 22);
             this.textLogradouro.TabIndex = 0;
             this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
             // 
             // cbCidade
             // 
             this.cbCidade.FormattingEnabled = true;
-            this.cbCidade.Location = new System.Drawing.Point(82, 105);
+            this.cbCidade.Location = new System.Drawing.Point(96, 105);
             this.cbCidade.Name = "cbCidade";
-            this.cbCidade.Size = new System.Drawing.Size(172, 22);
+            this.cbCidade.Size = new System.Drawing.Size(158, 22);
             this.cbCidade.TabIndex = 5;
             this.cbCidade.SelectedIndexChanged += new System.EventHandler(this.cbCidade_SelectedIndexChanged);
             this.cbCidade.Validating += new System.ComponentModel.CancelEventHandler(this.cbCidade_Validating);
@@ -321,7 +321,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 25);
+            this.label4.Location = new System.Drawing.Point(26, 25);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 14);
             this.label4.TabIndex = 23;
@@ -379,7 +379,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(26, 108);
+            this.label10.Location = new System.Drawing.Point(49, 108);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 14);
             this.label10.TabIndex = 13;
@@ -532,7 +532,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // textFornecedorId
             // 
             this.textFornecedorId.Enabled = false;
-            this.textFornecedorId.Location = new System.Drawing.Point(62, 8);
+            this.textFornecedorId.Location = new System.Drawing.Point(108, 8);
             this.textFornecedorId.Name = "textFornecedorId";
             this.textFornecedorId.Size = new System.Drawing.Size(100, 22);
             this.textFornecedorId.TabIndex = 17;
@@ -540,7 +540,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // LblCodigo
             // 
             this.LblCodigo.AutoSize = true;
-            this.LblCodigo.Location = new System.Drawing.Point(15, 11);
+            this.LblCodigo.Location = new System.Drawing.Point(61, 11);
             this.LblCodigo.Name = "LblCodigo";
             this.LblCodigo.Size = new System.Drawing.Size(47, 14);
             this.LblCodigo.TabIndex = 19;

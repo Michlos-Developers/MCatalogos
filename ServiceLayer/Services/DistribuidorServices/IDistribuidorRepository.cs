@@ -6,7 +6,7 @@ namespace ServiceLayer.Services.DistribuidorServices
     {
         DistribuidorModel Add(IDistribuidorModel distribuidorModel);
         void Update(IDistribuidorModel distribuidorModel);
-        DistribuidorModel GetById(int id);
+        DistribuidorModel GetModel();
         
     }
 }

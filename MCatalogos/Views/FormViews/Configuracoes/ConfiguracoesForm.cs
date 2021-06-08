@@ -1,4 +1,6 @@
 ﻿
+using MCatalogos.Views.FormViews.Distribuidor;
+
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -18,6 +20,8 @@ namespace MCatalogos.Views.FormViews.Configuracoes
         #endregion
 
         MainView MainView;
+
+        DistribuidorForm distribuidorForm = new DistribuidorForm();
 
         private static ConfiguracoesForm aForm = null;
         public static ConfiguracoesForm Instance(MainView mainView)
@@ -73,7 +77,13 @@ namespace MCatalogos.Views.FormViews.Configuracoes
 
         private void btnDadosDistribuidor_Click(object sender, EventArgs e)
         {
+            distribuidorForm.ShowDialog();
+            distribuidorForm = new DistribuidorForm();
 
+            //ConfiguracoesForm configuracoesForm = ConfiguracoesForm.Instance(this);
+            //configuracoesForm.WindowState = FormWindowState.Normal;
+            //configuracoesForm.MdiParent = this;
+            //configuracoesForm.Show();
         }
     }
 }

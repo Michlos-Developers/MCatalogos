@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.Produtos;
+﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.Produtos;
 
 using ServiceLayer.CommonServices;
 
@@ -30,6 +31,11 @@ namespace ServiceLayer.Services.ProdutoServices
         public IEnumerable<TipoProdutoModel> GetAll()
         {
             return _tipoProdutoRepository.GetAll();
+        }
+
+        public IEnumerable<TipoProdutoModel> GetByCatalogo(ICatalogoModel catalogo)
+        {
+            return _tipoProdutoRepository.GetByCatalogo(catalogo);
         }
 
         public TipoProdutoModel GetByDescricao(string tipoProdutoName)
