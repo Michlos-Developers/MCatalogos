@@ -47,6 +47,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textValorTaxaPedido = new System.Windows.Forms.TextBox();
@@ -63,14 +65,13 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCampanhas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panelListTiposProdutos = new System.Windows.Forms.Panel();
             this.panelContent.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxCampanhas.SuspendLayout();
             this.panelCommands.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbFornecedor
@@ -262,6 +263,25 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContent.Size = new System.Drawing.Size(854, 409);
             this.panelContent.TabIndex = 4;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.panelListTiposProdutos);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Location = new System.Drawing.Point(591, 232);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(236, 156);
+            this.groupBox3.TabIndex = 31;
+            this.groupBox3.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(105, 14);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Tipos de Produtos";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label14);
@@ -415,23 +435,13 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Size = new System.Drawing.Size(854, 48);
             this.panelCommands.TabIndex = 5;
             // 
-            // label15
+            // panelListTiposProdutos
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(105, 14);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "Tipos de Produtos";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Location = new System.Drawing.Point(591, 232);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(236, 156);
-            this.groupBox3.TabIndex = 31;
-            this.groupBox3.TabStop = false;
+            this.panelListTiposProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelListTiposProdutos.Location = new System.Drawing.Point(3, 18);
+            this.panelListTiposProdutos.Name = "panelListTiposProdutos";
+            this.panelListTiposProdutos.Size = new System.Drawing.Size(230, 135);
+            this.panelListTiposProdutos.TabIndex = 24;
             // 
             // CatalogoForm
             // 
@@ -452,6 +462,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.Load += new System.EventHandler(this.CatalogoForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -459,8 +471,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBoxCampanhas.ResumeLayout(false);
             this.groupBoxCampanhas.PerformLayout();
             this.panelCommands.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -502,5 +512,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Panel panelListTiposProdutos;
     }
 }

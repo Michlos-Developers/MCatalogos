@@ -112,7 +112,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             dgvCampanhas.Columns[0].Visible = false;
 
             dgvCampanhas.Columns[1].HeaderText = "Campanha";
-            dgvCampanhas.Columns[1].Width = 100;
+            dgvCampanhas.Columns[1].Width = 228;
             
             dgvCampanhas.Columns[2].HeaderText = "Início";
             dgvCampanhas.Columns[2].Width = 100;
@@ -222,6 +222,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             CampanhaAddForm campanhaForm = new CampanhaAddForm(this.CatalogoForm, this);
             campanhaForm.Text = "Adicionar Campanha";
             campanhaForm.catalogoId = catalogoId;
+            campanhaForm.StartPosition = FormStartPosition.CenterScreen;
             campanhaForm.ShowDialog();
             this.CampanhaCatalogoListUC_Load(sender, e);
         }
@@ -232,6 +233,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             campanhaForm.Text = "Editar Campanha";
             campanhaForm.catalogoId = catalogoId;
             campanhaForm.campanhaId = int.Parse(this.dgvCampanhas.CurrentRow.Cells[0].Value.ToString());
+            campanhaForm.StartPosition = FormStartPosition.CenterScreen;
             campanhaForm.ShowDialog();
             this.CampanhaCatalogoListUC_Load(sender, e);
         }
