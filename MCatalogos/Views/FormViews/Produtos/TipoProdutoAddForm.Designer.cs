@@ -29,28 +29,26 @@ namespace MCatalogos.Views.FormViews.Produtos
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoProdutoAddForm));
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.gBoxCampos = new System.Windows.Forms.GroupBox();
+            this.panelCampos = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.textTipoProduto = new System.Windows.Forms.TextBox();
             this.textCatalogo = new System.Windows.Forms.TextBox();
             this.textTipoProdutoId = new System.Windows.Forms.TextBox();
-            this.textTipoProduto = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.gBoxCampos = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panelCampos = new System.Windows.Forms.Panel();
-            this.dgvCampos = new System.Windows.Forms.DataGridView();
-            this.CampoTipoId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Formato = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelCommands.SuspendLayout();
             this.panelContent.SuspendLayout();
             this.gBoxCampos.SuspendLayout();
-            this.panelCampos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCampos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -58,9 +56,9 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelCommands.Controls.Add(this.btnSalvar);
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 136);
+            this.panelCommands.Location = new System.Drawing.Point(0, 147);
             this.panelCommands.Name = "panelCommands";
-            this.panelCommands.Size = new System.Drawing.Size(593, 45);
+            this.panelCommands.Size = new System.Drawing.Size(593, 48);
             this.panelCommands.TabIndex = 5;
             // 
             // btnSalvar
@@ -72,15 +70,16 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.btnSalvar.ForeColor = System.Drawing.Color.White;
             this.btnSalvar.Image = global::MCatalogos.Properties.Resources.iconSave20x20;
             this.btnSalvar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalvar.Location = new System.Drawing.Point(377, 9);
+            this.btnSalvar.Location = new System.Drawing.Point(377, 10);
             this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(91, 27);
+            this.btnSalvar.Size = new System.Drawing.Size(91, 29);
             this.btnSalvar.TabIndex = 0;
             this.btnSalvar.TabStop = false;
             this.btnSalvar.Tag = "";
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnCancel
             // 
@@ -90,9 +89,9 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(495, 9);
+            this.btnCancel.Location = new System.Drawing.Point(495, 10);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(91, 27);
+            this.btnCancel.Size = new System.Drawing.Size(91, 29);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.TabStop = false;
             this.btnCancel.Tag = "Pedidos";
@@ -114,68 +113,26 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelContent.ForeColor = System.Drawing.Color.White;
             this.panelContent.Location = new System.Drawing.Point(0, 0);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(593, 136);
+            this.panelContent.Size = new System.Drawing.Size(593, 147);
             this.panelContent.TabIndex = 6;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 14);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Catálogo:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 14);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Código:";
-            // 
-            // textCatalogo
-            // 
-            this.textCatalogo.Enabled = false;
-            this.textCatalogo.Location = new System.Drawing.Point(79, 41);
-            this.textCatalogo.Name = "textCatalogo";
-            this.textCatalogo.Size = new System.Drawing.Size(158, 22);
-            this.textCatalogo.TabIndex = 1;
-            // 
-            // textTipoProdutoId
-            // 
-            this.textTipoProdutoId.Enabled = false;
-            this.textTipoProdutoId.Location = new System.Drawing.Point(79, 14);
-            this.textTipoProdutoId.Name = "textTipoProdutoId";
-            this.textTipoProdutoId.Size = new System.Drawing.Size(59, 22);
-            this.textTipoProdutoId.TabIndex = 0;
-            // 
-            // textTipoProduto
-            // 
-            this.textTipoProduto.Location = new System.Drawing.Point(22, 94);
-            this.textTipoProduto.Name = "textTipoProduto";
-            this.textTipoProduto.Size = new System.Drawing.Size(215, 22);
-            this.textTipoProduto.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 77);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 14);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Tipo de Produto:";
             // 
             // gBoxCampos
             // 
             this.gBoxCampos.Controls.Add(this.panelCampos);
             this.gBoxCampos.Controls.Add(this.label4);
-            this.gBoxCampos.Location = new System.Drawing.Point(268, 12);
+            this.gBoxCampos.Location = new System.Drawing.Point(268, 13);
             this.gBoxCampos.Name = "gBoxCampos";
-            this.gBoxCampos.Size = new System.Drawing.Size(313, 107);
+            this.gBoxCampos.Size = new System.Drawing.Size(313, 115);
             this.gBoxCampos.TabIndex = 9;
             this.gBoxCampos.TabStop = false;
+            // 
+            // panelCampos
+            // 
+            this.panelCampos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCampos.Location = new System.Drawing.Point(3, 18);
+            this.panelCampos.Name = "panelCampos";
+            this.panelCampos.Size = new System.Drawing.Size(307, 94);
+            this.panelCampos.TabIndex = 9;
             // 
             // label4
             // 
@@ -186,65 +143,85 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.label4.TabIndex = 8;
             this.label4.Text = "Campos Adicionais:";
             // 
-            // panelCampos
+            // label3
             // 
-            this.panelCampos.Controls.Add(this.dgvCampos);
-            this.panelCampos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCampos.Location = new System.Drawing.Point(3, 18);
-            this.panelCampos.Name = "panelCampos";
-            this.panelCampos.Size = new System.Drawing.Size(307, 86);
-            this.panelCampos.TabIndex = 9;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 14);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Tipo de Produto:";
             // 
-            // dgvCampos
+            // label2
             // 
-            this.dgvCampos.BackgroundColor = System.Drawing.Color.White;
-            this.dgvCampos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCampos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CampoTipoId,
-            this.Nome,
-            this.Formato});
-            this.dgvCampos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCampos.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dgvCampos.Location = new System.Drawing.Point(0, 0);
-            this.dgvCampos.Name = "dgvCampos";
-            this.dgvCampos.RowHeadersVisible = false;
-            this.dgvCampos.Size = new System.Drawing.Size(307, 86);
-            this.dgvCampos.TabIndex = 0;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(19, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 14);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Catálogo:";
             // 
-            // CampoTipoId
+            // label1
             // 
-            this.CampoTipoId.HeaderText = "CampoTipoId";
-            this.CampoTipoId.Name = "CampoTipoId";
-            this.CampoTipoId.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(154, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 14);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Código:";
+            this.label1.Visible = false;
             // 
-            // Nome
+            // textTipoProduto
             // 
-            this.Nome.HeaderText = "Campo";
-            this.Nome.Name = "Nome";
-            this.Nome.Width = 140;
+            this.textTipoProduto.Location = new System.Drawing.Point(22, 89);
+            this.textTipoProduto.Name = "textTipoProduto";
+            this.textTipoProduto.Size = new System.Drawing.Size(215, 22);
+            this.textTipoProduto.TabIndex = 1;
+            this.textTipoProduto.Enter += new System.EventHandler(this.textTipoProduto_Enter);
+            this.textTipoProduto.Leave += new System.EventHandler(this.textTipoProduto_Leave);
+            this.textTipoProduto.Validating += new System.ComponentModel.CancelEventHandler(this.textTipoProduto_Validating);
             // 
-            // Formato
+            // textCatalogo
             // 
-            this.Formato.HeaderText = "Formato";
-            this.Formato.Name = "Formato";
-            this.Formato.Width = 140;
+            this.textCatalogo.Enabled = false;
+            this.textCatalogo.Location = new System.Drawing.Point(22, 31);
+            this.textCatalogo.Name = "textCatalogo";
+            this.textCatalogo.Size = new System.Drawing.Size(215, 22);
+            this.textCatalogo.TabIndex = 1;
+            // 
+            // textTipoProdutoId
+            // 
+            this.textTipoProdutoId.Enabled = false;
+            this.textTipoProdutoId.Location = new System.Drawing.Point(203, 10);
+            this.textTipoProdutoId.Name = "textTipoProdutoId";
+            this.textTipoProdutoId.Size = new System.Drawing.Size(59, 22);
+            this.textTipoProdutoId.TabIndex = 0;
+            this.textTipoProdutoId.Visible = false;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // TipoProdutoAddForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 181);
+            this.ClientSize = new System.Drawing.Size(593, 195);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelCommands);
+            this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.White;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TipoProdutoAddForm";
             this.Text = "Cadastro de Tipo de Produto";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TipoProdutoAddForm_FormClosing);
+            this.Load += new System.EventHandler(this.TipoProdutoAddForm_Load);
             this.panelCommands.ResumeLayout(false);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
             this.gBoxCampos.ResumeLayout(false);
             this.gBoxCampos.PerformLayout();
-            this.panelCampos.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCampos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -263,10 +240,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         private System.Windows.Forms.TextBox textTipoProdutoId;
         private System.Windows.Forms.GroupBox gBoxCampos;
         private System.Windows.Forms.Panel panelCampos;
-        private System.Windows.Forms.DataGridView dgvCampos;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CampoTipoId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nome;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Formato;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

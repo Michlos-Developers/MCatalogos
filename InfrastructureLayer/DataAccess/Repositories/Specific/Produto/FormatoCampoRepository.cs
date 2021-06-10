@@ -78,12 +78,57 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             }
         }
 
+        public IEnumerable<IFormatoCampoModel> GetAllByTipoProdutoId(int tipoProdutoId)
+        {
+            List<FormatoCampoModel> modelList = new List<FormatoCampoModel>();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "SELECT * FROM FormatosCampos WHERE TipoProdutoId = @TipoProdutoId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@TipoProdutoId", tipoProdutoId));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                FormatoCampoModel model = new FormatoCampoModel();
+                                model.FormatoId = int.Parse(reader["FormatoId"].ToString());
+                                model.Nome = reader["Nome"].ToString();
+                                model.Formato = reader["Formato"].ToString();
+
+                                modelList.Add(model);
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                        customMessage: "Não foi possível recuperar a lista de Formatos de Campos por Tipo de Produto", helpLink: e.HelpLink, errorCode: e.ErrorCode,
+                        stackTrace: e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return modelList;
+            }
+        }
+
         public FormatoCampoModel GetById(int formatoId)
         {
             FormatoCampoModel model = new FormatoCampoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             bool RecordFound = false;
-            string query = "SELECT Nome, Formato FROM FormatosCampos WHERE FormatoId = @FormatoId";
+            string query = "SELECT Nome, Formato, TipoProdutoId FROM FormatosCampos WHERE FormatoId = @FormatoId";
             
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

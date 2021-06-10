@@ -86,6 +86,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             this.btnEdit.Tag = "";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 

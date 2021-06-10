@@ -45,8 +45,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO CamposTiposProdutos " +
                            "(Nome, FormatoId, TipoProdutoId) " +
-                           "OUTPU INSERTED.CampoTipoId " +
-                           "VALUES (@Nome, @FromatoId, @TipoProdutoId";
+                           "OUTPUT INSERTED.CampoTipoId " +
+                           "VALUES (@Nome, @FormatoId, @TipoProdutoId)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -254,7 +254,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             CampoTipoProdutoModel model = new CampoTipoProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT CampoTipoId, Nome, FormatoId, TipoProdutoId WHERE CampoTipoId = @CampoTipoId";
+            string query = "SELECT CampoTipoId, Nome, FormatoId, TipoProdutoId FROM CamposTiposProdutos WHERE CampoTipoId = @CampoTipoId";
 
             bool recordFound = false;
 

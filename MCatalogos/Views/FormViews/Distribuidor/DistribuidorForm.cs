@@ -198,7 +198,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
                 operationSucceeded = e.DataAccessStatusInfo.OperationSucceeded;
                 dataAcessStatussJsonStr = JsonConvert.SerializeObject(e.DataAccessStatusInfo);
                 formattedJsonStr = JToken.Parse(dataAcessStatussJsonStr).ToString();
-                MessageBox.Show(formattedJsonStr, "Erro ao tentar adicioanr Distribuidor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(formattedJsonStr, "Não foi possível adicioanr Distribuidor", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (operationSucceeded)

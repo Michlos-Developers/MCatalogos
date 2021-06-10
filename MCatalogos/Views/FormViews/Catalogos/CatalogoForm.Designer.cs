@@ -48,6 +48,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panelTiposProdutos = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCampanhas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
-            this.panelListTiposProdutos = new System.Windows.Forms.Panel();
             this.panelContent.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -265,13 +265,21 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.panelListTiposProdutos);
+            this.groupBox3.Controls.Add(this.panelTiposProdutos);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Location = new System.Drawing.Point(591, 232);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(236, 156);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
+            // 
+            // panelTiposProdutos
+            // 
+            this.panelTiposProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTiposProdutos.Location = new System.Drawing.Point(3, 18);
+            this.panelTiposProdutos.Name = "panelTiposProdutos";
+            this.panelTiposProdutos.Size = new System.Drawing.Size(230, 135);
+            this.panelTiposProdutos.TabIndex = 24;
             // 
             // label15
             // 
@@ -435,14 +443,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Size = new System.Drawing.Size(854, 48);
             this.panelCommands.TabIndex = 5;
             // 
-            // panelListTiposProdutos
-            // 
-            this.panelListTiposProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelListTiposProdutos.Location = new System.Drawing.Point(3, 18);
-            this.panelListTiposProdutos.Name = "panelListTiposProdutos";
-            this.panelListTiposProdutos.Size = new System.Drawing.Size(230, 135);
-            this.panelListTiposProdutos.TabIndex = 24;
-            // 
             // CatalogoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -512,6 +512,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Panel panelListTiposProdutos;
+        private System.Windows.Forms.Panel panelTiposProdutos;
     }
 }
