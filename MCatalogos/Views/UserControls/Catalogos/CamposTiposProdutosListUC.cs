@@ -80,24 +80,25 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         private void ConfiguraDGV()
         {
+
             PopulaComboBoxFormatos();
             if (ListaCampos != null)
             {
-                if (ListaCampos.Count > 0)
-                {
-                    this.ListaCampos = PopulaDgv();
+            if (ListaCampos.Count > 0)
+            {
+                this.ListaCampos = PopulaDgv();
                     //dgvCampos.VirtualMode = true;
-                    dgvCampos.AutoSize = true;
-                    dgvCampos.AutoGenerateColumns = false;
+                dgvCampos.AutoSize = true;
+                dgvCampos.AutoGenerateColumns = false;
                     //dgvCampos.DataSource = this.ListaCampos;
+                
 
-
-                    //pra cada linha adiciona um model da lista
-                    foreach (CampoTipoProdutoModel modelCampo in this.ListaCampos)
-                    {
+                //pra cada linha adiciona um model da lista
+                foreach (CampoTipoProdutoModel modelCampo in this.ListaCampos)
+                {
                         //para cada registro da LIsta de Campos adiciona um array à linha do DGV.
                         for (int i = 0; i < ListaCampos.Count; i++)
-                        {
+                    {
                             string[] stringRow =
                             {
                                 modelCampo.CampoTipoId.ToString(),
@@ -111,7 +112,14 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
                     }
                 }
+
+
+
+
+
             }
+
+
         }
         public void PopulaComboBoxFormatos()
         {
