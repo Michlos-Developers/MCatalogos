@@ -54,13 +54,10 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         }
 
-
-
         private void CamposTiposProdutosListUC_Load(object sender, EventArgs e)
         {
             try
             {
-
                 if (this.TipoProdutoModel != null)
                 {
                     if (this.TipoProdutoModel.TipoProdutoId != 0)
@@ -69,28 +66,23 @@ namespace MCatalogos.Views.UserControls.Catalogos
                     }
                 }
                 ConfiguraDGV();
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
         private void ConfiguraDGV()
         {
-
             PopulaComboBoxFormatos();
             if (ListaCampos != null)
             {
             if (ListaCampos.Count > 0)
             {
                 this.ListaCampos = PopulaDgv();
-                    //dgvCampos.VirtualMode = true;
                 dgvCampos.AutoSize = true;
                 dgvCampos.AutoGenerateColumns = false;
-                    //dgvCampos.DataSource = this.ListaCampos;
                 
 
                 //pra cada linha adiciona um model da lista
@@ -112,27 +104,18 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
                     }
                 }
-
-
-
-
-
             }
-
-
         }
+
         public void PopulaComboBoxFormatos()
         {
             List<FormatoCampoModel> modelsFormatos = new List<FormatoCampoModel>();
             try
             {
-
                 modelsFormatos = (List<FormatoCampoModel>)_formatoServices.GetAll();
-
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -149,7 +132,6 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         private List<CampoTipoProdutoModel> PopulaDgv()
         {
-
             List<CampoTipoProdutoModel> modelsCampos = new List<CampoTipoProdutoModel>();
             try
             {
@@ -163,25 +145,9 @@ namespace MCatalogos.Views.UserControls.Catalogos
             }
             catch (Exception)
             {
-
                 throw;
             }
-
-            //DataTable dataTable = new DataTable();
-            //dataTable.Columns.Add("CampoTipoId", typeof(int));
-            //dataTable.Columns.Add("Nome");
-            //dataTable.Columns.Add("FormatoId", typeof(int));
-            //dataTable.Columns.Add("TipoProdutoId", typeof(int));
-            //foreach (CampoTipoProdutoModel model in modelsCampos)
-            //{
-            //    dataTable.Rows.Add(model);
-            //}
-
-            //return dataTable;
             return modelsCampos;
-
         }
-
-
     }
 }
