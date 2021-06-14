@@ -6,6 +6,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
 using MCatalogos.Views.FormViews.Catalogos;
+using MCatalogos.Views.FormViews.Produtos;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
@@ -32,8 +33,8 @@ namespace MCatalogos.Views.UserControls.Catalogos
         private TipoProdutoServices _tipoProdutoServices;
         private CatalogoServices _catalogoServices;
 
-        private CatalogoModel CatalogoModel = new CatalogoModel();
-        private TipoProdutoModel TipoProdutoModel = new TipoProdutoModel();
+        public CatalogoModel CatalogoModel; //recebe o model na chamada do form
+        public TipoProdutoModel TipoProdutoModel = new TipoProdutoModel();
 
         public int? idTipoProdutoDgv = null;
 
@@ -45,7 +46,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
             InitializeComponent();
             this.CatalogoForm = catalogoForm;
-            this.CatalogoModel = _catalogoServices.GetById(int.Parse(this.CatalogoForm.textCatalogoId.Text));
+            //this.CatalogoModel = _catalogoServices.GetById(int.Parse(this.CatalogoForm.textCatalogoId.Text));
 
             
         }
@@ -108,7 +109,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             dgvTiposProdutos.Columns[0].Visible = false;
 
             dgvTiposProdutos.Columns[1].HeaderText = "Tipos de Produtos";
-            dgvTiposProdutos.Columns[1].Width = 100;
+            dgvTiposProdutos.Columns[1].Width = 180;
 
             dgvTiposProdutos.Columns[2].Visible = false;
         }
@@ -128,7 +129,6 @@ namespace MCatalogos.Views.UserControls.Catalogos
                     else
                     {
                         btnEdit.Enabled = false;
-                        btnAdd.Enabled = false;
                         btnDelete.Enabled = false;
                     }
                 }
@@ -155,7 +155,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             return result;
         }
 
-        private void TiposProdutosListUC_Load(object sender, EventArgs e)
+        public void TiposProdutosListUC_Load(object sender, EventArgs e)
         {
             LoadTiposProdutosToGridView();
             SetEnableButtons();
@@ -193,7 +193,25 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            TipoProdutoAddForm tipoProdutoForm = new TipoProdutoAddForm(this.CatalogoForm, this);
+            tipoProdutoForm.Text = "Adicionar Tipo de Produto";
+            tipoProdutoForm.TipoProdutoModel = this.TipoProdutoModel;
+            tipoProdutoForm.CatalogoModel = this.CatalogoModel;
+            tipoProdutoForm.StartPosition = FormStartPosition.CenterScreen;
+            tipoProdutoForm.ShowDialog();
+            this.TiposProdutosListUC_Load(sender, e);
+        }
 
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            this.TipoProdutoModel = _tipoProdutoServices.GetById(int.Parse(this.dgvTiposProdutos.CurrentRow.Cells[0].Value.ToString()));
+            TipoProdutoAddForm tipoProdutoForm = new TipoProdutoAddForm(this.CatalogoForm, this);
+            tipoProdutoForm.Text = "Editando Tipo de Produto";
+            tipoProdutoForm.TipoProdutoModel = this.TipoProdutoModel;
+            tipoProdutoForm.CatalogoModel = this.CatalogoModel;
+            tipoProdutoForm.StartPosition = FormStartPosition.CenterScreen;
+            tipoProdutoForm.ShowDialog();
+            this.TiposProdutosListUC_Load(sender, e);
         }
     }
 }

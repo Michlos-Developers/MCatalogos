@@ -148,6 +148,12 @@
     <Compile Include="Views\UserControls\Catalogos\CampanhaCatalogoListUC.Designer.cs">
       <DependentUpon>CampanhaCatalogoListUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\Catalogos\CamposTiposProdutosListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\Catalogos\CamposTiposProdutosListUC.Designer.cs">
+      <DependentUpon>CamposTiposProdutosListUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Catalogos\TiposProdutosListUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\Catalogos\CampanhaCatalogoListUC.resx">
       <DependentUpon>CampanhaCatalogoListUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\Catalogos\CamposTiposProdutosListUC.resx">
+      <DependentUpon>CamposTiposProdutosListUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\Catalogos\TiposProdutosListUC.resx">
       <DependentUpon>TiposProdutosListUC.cs</DependentUpon>

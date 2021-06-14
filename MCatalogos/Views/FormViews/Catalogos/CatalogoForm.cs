@@ -145,6 +145,20 @@ namespace MCatalogos.Views.FormViews.Catalogos
             panelCampanhas.Controls.Add(campanhas);
             campanhas.Dock = DockStyle.Fill;
         }
+
+        private void LoadUserControlTipoProdutos()
+        {
+            TiposProdutosListUC tiposProdutos = new TiposProdutosListUC(this);
+            if (catalogoId != 0)
+            {
+                tiposProdutos.CatalogoModel = _catalogoServices.GetById(catalogoId);
+            }
+            panelTiposProdutos.Controls.Clear();
+            panelTiposProdutos.Controls.Add(tiposProdutos);
+            tiposProdutos.Dock = DockStyle.Fill;
+        }
+
+
         //SETTINGS AND GETTINGS
         public void PreencheCamposForUpdate()
         {
@@ -286,6 +300,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
         {
             PreencheCamposForUpdate();
             LoadUserControlCampanhas();
+            LoadUserControlTipoProdutos();
         }
 
         private void checkBoxTaxaPedido_CheckStateChanged(object sender, EventArgs e)

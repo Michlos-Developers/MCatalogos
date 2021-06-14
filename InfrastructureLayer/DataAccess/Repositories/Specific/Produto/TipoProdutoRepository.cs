@@ -45,7 +45,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             TipoProdutoModel model = new TipoProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO TiposProdutos " +
-                           "(Descricao) " +
+                           "(Descricao, CatalogoId) " +
                            "OUTPUT INSERTED.TipoProdutoId " +
                            "VALUES (@Descricao, @CatalogoId)";
 
@@ -158,7 +158,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             TipoProdutoModel model = new TipoProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT TipoProdutoId, Descricao FROM TiposProdutos WHERE TipoProdutoId = @TipoProdutoId";
+            string query = "SELECT TipoProdutoId, Descricao, CatalogoId FROM TiposProdutos WHERE TipoProdutoId = @TipoProdutoId";
             bool recordFound = false;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -180,6 +180,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                             {
                                 model.TipoProdutoId = int.Parse(reader["TipoProdutoId"].ToString());
                                 model.Descricao = reader["Descricao"].ToString();
+                                model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                             }
                         }
 
@@ -212,7 +213,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             List<TipoProdutoModel> modelList = new List<TipoProdutoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            bool recordFound = false;
 
             string query = "SELECT TipoProdutoId, Descricao, CatalogoId FROM TiposProdutos WHERE CatalogoId = @CatalogoId";
 
@@ -228,7 +228,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            recordFound = reader.HasRows;
                             while (reader.Read())
                             {
                                 TipoProdutoModel model = new TipoProdutoModel();
@@ -253,12 +252,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                     connection.Close();
                 }
 
-                if (!recordFound)
-                {
-                    dataAccessStatus.setValues("Error", false, "", "Registro não encontrado. Não foi possível recuperar o Tipo de Produto no DataBase",
-                        "", 0, "");
-                    throw new DataAccessException(dataAccessStatus);
-                }
 
                 return modelList;
             }
