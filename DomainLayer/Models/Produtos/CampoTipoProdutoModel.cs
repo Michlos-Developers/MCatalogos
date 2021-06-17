@@ -6,6 +6,7 @@ namespace DomainLayer.Models.Produtos
     {
         [Key]
         public int CampoTipoId { get; set; }
+        
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório (Nome).")]
         [StringLength(100, ErrorMessage = "Não pode ter mais que 100 caracteres.")]
         public string Nome { get; set; }

@@ -97,6 +97,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.btnCancel.Tag = "Pedidos";
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // panelContent
             // 
@@ -212,6 +213,8 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TipoProdutoAddForm";
             this.Text = "Cadastro de Tipo de Produto";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TipoProdutoAddForm_FormClosing);

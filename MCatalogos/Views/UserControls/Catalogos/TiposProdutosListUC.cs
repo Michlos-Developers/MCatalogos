@@ -195,7 +195,6 @@ namespace MCatalogos.Views.UserControls.Catalogos
         {
             TipoProdutoAddForm tipoProdutoForm = new TipoProdutoAddForm(this.CatalogoForm, this);
             tipoProdutoForm.Text = "Adicionar Tipo de Produto";
-            tipoProdutoForm.TipoProdutoModel = this.TipoProdutoModel;
             tipoProdutoForm.CatalogoModel = this.CatalogoModel;
             tipoProdutoForm.StartPosition = FormStartPosition.CenterScreen;
             tipoProdutoForm.ShowDialog();
