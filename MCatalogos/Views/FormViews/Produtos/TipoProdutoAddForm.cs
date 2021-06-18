@@ -96,12 +96,17 @@ namespace MCatalogos.Views.FormViews.Produtos
                         TipoProdutoUpdate(this.TipoProdutoModel);
 
                         //verificar se tem campo se tiver atualiza o que tem
+                        DataGridViewRowCollection rowsCamposAdicionais = this.camposAdicionaisUC.dgvCampos.Rows;
+
                         if (this.ListaCamposAdicionais != null)
                         {
                             if (this.ListaCamposAdicionais.Count > 0)
                             {
-                                DataGridViewRowCollection rowsCamposAdicionais = this.camposAdicionaisUC.dgvCampos.Rows;
                                 CampoTipoUpdate(this.ListaCamposAdicionais, rowsCamposAdicionais);
+                            }
+                            else
+                            {
+                                CampoTipoAdd(rowsCamposAdicionais);
                             }
                         }
                     }
@@ -148,27 +153,69 @@ namespace MCatalogos.Views.FormViews.Produtos
                 //adiciona os demais da linha
                 AdicionaFormatos(campoListModels, rowsCamposAdicionais);
             }
+            else if (campoListModels.Count > rowsCamposAdicionais.Count - 1)
+            {
+                ApagaFormatos(campoListModels, rowsCamposAdicionais);
+            }
+        }
+
+        private void ApagaFormatos(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
+        {
+            List<CampoTipoProdutoModel> modelsForUpdate = new List<CampoTipoProdutoModel>();
+            List<CampoTipoProdutoModel> modelsForDelete = new List<CampoTipoProdutoModel>();
+
+            int indexCampos = campoListModels.Count - 1;
+            int indexRows = rowsCamposAdicionais.Count - 2;
+
+            for (int c = indexCampos; c >= 0; c--)
+            {
+                if (c > indexRows)
+                {
+                    modelsForDelete.Add(campoListModels[c]);
+                }
+                else if (indexRows >= 0)
+                {
+                    modelsForUpdate.Add(campoListModels[c]);
+                }
+            }
+
+            try
+            {
+                foreach (var model in modelsForDelete)
+                {
+                    _campoTipoProdutoServices.Delete(model);
+                }
+
+                foreach (var model in modelsForUpdate)
+                {
+                    _campoTipoProdutoServices.Update(model);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
 
         private void AdicionaFormatos(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
         {
             List<CampoTipoProdutoModel> listaCamposForAdd = new List<CampoTipoProdutoModel>();
-            bool operationSucceeded = false;
-            string dataAccessStatusJsonStr = string.Empty;
-            string formattedJsonStr = string.Empty;
+
             for (int c = 0; c < campoListModels.Count; c++)
             {
                 for (int r = 0; r < rowsCamposAdicionais.Count - 1; r++)
                 {
-                    while (r <= c)
+                    if (r <= c)
                     {
-                        //altera as models para lançar o update.
                         campoListModels[c].Nome = rowsCamposAdicionais[c].Cells["ColumnNome"].Value.ToString();
                         int formatoId = _formatoServices.GetByNome(rowsCamposAdicionais[c].Cells["ColumnFormato"].Value.ToString()).FormatoId;
                         campoListModels[c].FormatoId = formatoId;
                     }
 
-                    while (r > c)
+                    if (r > c)
                     {
                         CampoTipoProdutoModel campoModel = new CampoTipoProdutoModel();
 
@@ -184,13 +231,15 @@ namespace MCatalogos.Views.FormViews.Produtos
             {
                 foreach (var model in campoListModels)
                 {
-                    _campoTipoProdutoServices.Update(model);
+                    _campoTipoProdutoServices.Update(model); //UPDATE
                 }
 
                 foreach (var model in listaCamposForAdd)
                 {
-                    CampoTipoProdutoModel addedModel = _campoTipoProdutoServices.Add(model);
+
+                    CampoTipoProdutoModel addedModel = _campoTipoProdutoServices.Add(model);  //INSERT
                     this.ListaCamposAdicionais.Add(addedModel);
+
                 }
             }
             catch (Exception)
@@ -211,12 +260,9 @@ namespace MCatalogos.Views.FormViews.Produtos
 
             for (int c = 0; c < campoListModels.Count; c++)
             {
-
-                //altera as models para lançar o update.
                 campoListModels[c].Nome = rowsCamposAdicionais[c].Cells["ColumnNome"].Value.ToString();
                 int formatoId = _formatoServices.GetByNome(rowsCamposAdicionais[c].Cells["ColumnFormato"].Value.ToString()).FormatoId;
                 campoListModels[c].FormatoId = formatoId;
-
             }
 
             foreach (var model in campoListModels)
@@ -224,7 +270,6 @@ namespace MCatalogos.Views.FormViews.Produtos
                 try
                 {
                     _campoTipoProdutoServices.Update(model);
-
                 }
                 catch (DataAccessException e)
                 {
@@ -233,8 +278,6 @@ namespace MCatalogos.Views.FormViews.Produtos
                     formattedJsonStr = JToken.Parse(dataAccessStatusJsonStr).ToString();
                     MessageBox.Show(formattedJsonStr, "Não foi possível atualizar o Tipo de Produto", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
             }
         }
 
@@ -252,7 +295,8 @@ namespace MCatalogos.Views.FormViews.Produtos
                 {
                     CampoTipoProdutoModel model = new CampoTipoProdutoModel();
                     model.Nome = row.Cells["ColumnNome"].Value.ToString();
-                    model.FormatoId = int.Parse(row.Cells["ColumnFormato"].Value.ToString());
+                    int formatoId = _formatoServices.GetByNome(row.Cells["ColumnFormato"].Value.ToString()).FormatoId;
+                    model.FormatoId = formatoId;
                     model.TipoProdutoId = this.TipoProdutoModel.TipoProdutoId;
                     modelList.Add(model);
                 }

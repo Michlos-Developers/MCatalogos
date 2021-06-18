@@ -78,19 +78,18 @@ namespace MCatalogos.Views.UserControls.Catalogos
             PopulaComboBoxFormatos();
             if (ListaCampos != null)
             {
-            if (ListaCampos.Count > 0)
-            {
-                this.ListaCampos = PopulaDgv();
-                dgvCampos.AutoSize = true;
-                dgvCampos.AutoGenerateColumns = false;
-                
-
-                //pra cada linha adiciona um model da lista
-                foreach (CampoTipoProdutoModel modelCampo in this.ListaCampos)
+                if (ListaCampos.Count > 0)
                 {
-                        //para cada registro da LIsta de Campos adiciona um array à linha do DGV.
-                        for (int i = 0; i < ListaCampos.Count; i++)
+                    this.ListaCampos = PopulaDgv();
+                    dgvCampos.AutoSize = true;
+                    dgvCampos.AutoGenerateColumns = false;
+
+
+                    //pra cada linha adiciona um model da lista
+                    foreach (CampoTipoProdutoModel modelCampo in this.ListaCampos)  
                     {
+                        //para cada registro da LIsta de Campos adiciona um array à linha do DGV.
+                        
                             string[] stringRow =
                             {
                                 modelCampo.CampoTipoId.ToString(),
@@ -100,7 +99,6 @@ namespace MCatalogos.Views.UserControls.Catalogos
                                 _formatoServices.GetById(modelCampo.FormatoId).Nome.ToString()
                             };
                             dgvCampos.Rows.Add(stringRow);
-                         }
 
                     }
                 }
