@@ -4,7 +4,6 @@ using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.Produtos;
 
 using InfrastructureLayer;
-using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
 using MCatalogos.Views.FormViews.Catalogos;
@@ -14,18 +13,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using ServiceLayer.CommonServices;
-using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.ProdutoServices;
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Produtos
@@ -88,41 +81,45 @@ namespace MCatalogos.Views.FormViews.Produtos
         {
             if (ValidateChildren(ValidationConstraints.Enabled))
             {
-                if (this.TipoProdutoModel.TipoProdutoId != 0) //UPDATE
+                if (this.TipoProdutoModel != null)
                 {
-                    try
+                    if (this.TipoProdutoModel.TipoProdutoId != 0) //UPDATE
                     {
-
-                        TipoProdutoUpdate(this.TipoProdutoModel);
-
-                        //verificar se tem campo se tiver atualiza o que tem
-                        DataGridViewRowCollection rowsCamposAdicionais = this.camposAdicionaisUC.dgvCampos.Rows;
-
-                        if (this.ListaCamposAdicionais != null)
+                        try
                         {
-                            if (this.ListaCamposAdicionais.Count > 0)
+
+                            UpdateTipoProduto(this.TipoProdutoModel);
+                            //verificar se tem campo se tiver atualiza o que tem
+                            DataGridViewRowCollection rowsCamposAdicionais = this.camposAdicionaisUC.dgvCampos.Rows;
+
+                            if (this.ListaCamposAdicionais != null)
                             {
-                                CampoTipoUpdate(this.ListaCamposAdicionais, rowsCamposAdicionais);
+                                if (this.ListaCamposAdicionais.Count > 0)
+                                {
+                                    SaveCamposAdicionais(this.ListaCamposAdicionais, rowsCamposAdicionais);
+                                }
+                                else
+                                {
+                                    InsertNewCamposAdicionais(rowsCamposAdicionais);
+                                }
                             }
-                            else
-                            {
-                                CampoTipoAdd(rowsCamposAdicionais);
-                            }
+                            MessageBox.Show("Tipo de Produto alterado com sucesso", "Atualizando Tipo de Produto");
                         }
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Não foi possível atualizar o Tipo de Produto", "Atualizando Tipo de Produto");
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Não foi possível atualizar o Tipo de Produto", "Atualizando Tipo de Produto");
+                        }
                     }
                 }
                 else //INSERT
                 {
                     try
                     {
-                        this.TipoProdutoModel = TipoProdutoAdd();
+
+                        this.TipoProdutoModel = InsertTipoProduto();
 
                         DataGridViewRowCollection rowsCamposAdicionais = this.camposAdicionaisUC.dgvCampos.Rows;
-                        this.ListaCamposAdicionais = CampoTipoAdd(rowsCamposAdicionais);
+                        this.ListaCamposAdicionais = InsertNewCamposAdicionais(rowsCamposAdicionais);
 
                         MessageBox.Show($"Tipo de Produto Adicionado com sucesso", "Adicionando Tipo de Produto");
 
@@ -137,29 +134,29 @@ namespace MCatalogos.Views.FormViews.Produtos
             }
         }
 
-        private void CampoTipoUpdate(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
+        private void SaveCamposAdicionais(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
         {
 
 
             //checa se a lista de tipos atual é do mesmo tamanho da linha da dgv
             if (campoListModels.Count == rowsCamposAdicionais.Count - 1) //-1 pq tem a linha de adição habilitada.
             {
-                AtualizaFormatos(campoListModels, rowsCamposAdicionais);
+                UpdateCamposAdicionais(campoListModels, rowsCamposAdicionais);
 
 
             }
             else if (campoListModels.Count < rowsCamposAdicionais.Count - 1)
             {
                 //adiciona os demais da linha
-                AdicionaFormatos(campoListModels, rowsCamposAdicionais);
+                InsertCamposAdicionais(campoListModels, rowsCamposAdicionais);
             }
             else if (campoListModels.Count > rowsCamposAdicionais.Count - 1)
             {
-                ApagaFormatos(campoListModels, rowsCamposAdicionais);
+                DeleteCamposAdicionais(campoListModels, rowsCamposAdicionais);
             }
         }
 
-        private void ApagaFormatos(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
+        private void DeleteCamposAdicionais(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
         {
             List<CampoTipoProdutoModel> modelsForUpdate = new List<CampoTipoProdutoModel>();
             List<CampoTipoProdutoModel> modelsForDelete = new List<CampoTipoProdutoModel>();
@@ -200,7 +197,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         }
 
-        private void AdicionaFormatos(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
+        private void InsertCamposAdicionais(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
         {
             List<CampoTipoProdutoModel> listaCamposForAdd = new List<CampoTipoProdutoModel>();
 
@@ -252,7 +249,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         }
 
-        private void AtualizaFormatos(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
+        private void UpdateCamposAdicionais(List<CampoTipoProdutoModel> campoListModels, DataGridViewRowCollection rowsCamposAdicionais)
         {
             bool operationSucceeded = false;
             string dataAccessStatusJsonStr = string.Empty;
@@ -281,7 +278,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             }
         }
 
-        private List<CampoTipoProdutoModel> CampoTipoAdd(DataGridViewRowCollection rowsCamposAdicionais) //que que eu vou fazer com a lista retornada???
+        private List<CampoTipoProdutoModel> InsertNewCamposAdicionais(DataGridViewRowCollection rowsCamposAdicionais) //que que eu vou fazer com a lista retornada???
         {
             List<CampoTipoProdutoModel> modelList = new List<CampoTipoProdutoModel>();
 
@@ -325,7 +322,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         }
 
-        private TipoProdutoModel TipoProdutoAdd()
+        private TipoProdutoModel InsertTipoProduto()
         {
             TipoProdutoModel returnedModel = new TipoProdutoModel();
 
@@ -356,7 +353,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             return returnedModel;
         }
 
-        private void TipoProdutoUpdate(TipoProdutoModel tipoProdutoModel)
+        private void UpdateTipoProduto(TipoProdutoModel tipoProdutoModel)
         {
             this.TipoProdutoModel.Descricao = textTipoProduto.Text;
 
@@ -378,12 +375,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             }
 
         }
-
-        private void textTipoProduto_Enter(object sender, EventArgs e)
-        {
-            SetBGColorFocused(textTipoProduto);
-        }
-
+        
         private bool ValidaCampo(Control control)
         {
             bool eventArgs = false;
@@ -399,6 +391,11 @@ namespace MCatalogos.Views.FormViews.Produtos
                 errorProvider.SetError(control, null);
             }
             return eventArgs;
+        }
+
+        private void textTipoProduto_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textTipoProduto);
         }
 
         private void textTipoProduto_Validating(object sender, CancelEventArgs e)
