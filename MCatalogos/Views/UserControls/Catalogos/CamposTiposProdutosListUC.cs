@@ -10,14 +10,6 @@ using ServiceLayer.Services.ProdutoServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.UserControls.Catalogos
@@ -25,18 +17,13 @@ namespace MCatalogos.Views.UserControls.Catalogos
     public partial class CamposTiposProdutosListUC : UserControl
     {
 
-
-
-        /// <summary>
-        /// VAMOS TRABALHAR SEM ADICIONAR O TIPOPRODUTO. ELE SERÁ ADICIONADO DEPOIS.
-        /// </summary>
         QueryStringServices _queryString;
-        TipoProdutoAddForm TipoProdutoAddForm; //UTILIZADO PARA DEVOLVER CAMPOS ADICIONADOS
+        TipoProdutoAddForm TipoProdutoAddForm;
 
         private CampoTipoProdutoServices _camposServices;
         private FormatoCampoServices _formatoServices;
 
-        public TipoProdutoModel TipoProdutoModel;  //RECEBE NO CHAMADO DO FORM
+        public TipoProdutoModel TipoProdutoModel;
         public CampoTipoProdutoModel CampoTipoProdutoModel;
         public FormatoCampoModel FormatoCampoModel;
 
@@ -56,49 +43,29 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         private void CamposTiposProdutosListUC_Load(object sender, EventArgs e)
         {
-            try
-            {
-                if (this.TipoProdutoModel != null)
-                {
-                    if (this.TipoProdutoModel.TipoProdutoId != 0)
-                    {
-                        ListaCampos = (List<CampoTipoProdutoModel>)_camposServices.GetAllByTipoProdutoId(TipoProdutoModel.TipoProdutoId);
-                    }
-                }
-                ConfiguraDGV();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            this.ListaCampos = PopulaModelListCampos();
+            ConfiguraPopulaDGV();
         }
 
-        private void ConfiguraDGV()
+        private void ConfiguraPopulaDGV()
         {
             PopulaComboBoxFormatos();
-            if (ListaCampos != null)
+            if (this.ListaCampos != null)
             {
-                if (ListaCampos.Count > 0)
+                if (this.ListaCampos.Count > 0)
                 {
-                    this.ListaCampos = PopulaDgv();
                     dgvCampos.AutoSize = true;
                     dgvCampos.AutoGenerateColumns = false;
 
-
-                    //pra cada linha adiciona um model da lista
-                    foreach (CampoTipoProdutoModel modelCampo in this.ListaCampos)  
+                    foreach (CampoTipoProdutoModel modelCampo in this.ListaCampos)
                     {
-                        //para cada registro da LIsta de Campos adiciona um array à linha do DGV.
-                        
-                            string[] stringRow =
-                            {
-                                modelCampo.CampoTipoId.ToString(),
-                                modelCampo.Nome.ToString(),
-                                //O Nome do Formato vem de outro Model, mas busquei do Repository diretamente.
-                                //TODO: Melhorar isso
-                                _formatoServices.GetById(modelCampo.FormatoId).Nome.ToString()
-                            };
-                            dgvCampos.Rows.Add(stringRow);
+                        string[] stringRow =
+                        {
+                            modelCampo.CampoTipoId.ToString(),
+                            modelCampo.Nome.ToString(),
+                            _formatoServices.GetById(modelCampo.FormatoId).Nome.ToString()
+                         };
+                        dgvCampos.Rows.Add(stringRow);
 
                     }
                 }
@@ -108,19 +75,13 @@ namespace MCatalogos.Views.UserControls.Catalogos
         public void PopulaComboBoxFormatos()
         {
             List<FormatoCampoModel> modelsFormatos = new List<FormatoCampoModel>();
-            try
-            {
-                modelsFormatos = (List<FormatoCampoModel>)_formatoServices.GetAll();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            modelsFormatos = (List<FormatoCampoModel>)_formatoServices.GetAll();
 
             ColumnFormato.DataPropertyName = "FormatoId";
             ColumnFormato.ValueMember = "Nome";
             ColumnFormato.DisplayMember = "Nome";
             ColumnFormato.Items.Clear();
+
             foreach (var model in modelsFormatos)
             {
                 ColumnFormato.Items.Add(model);
@@ -128,23 +89,18 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         }
 
-        private List<CampoTipoProdutoModel> PopulaDgv()
+        private List<CampoTipoProdutoModel> PopulaModelListCampos()
         {
             List<CampoTipoProdutoModel> modelsCampos = new List<CampoTipoProdutoModel>();
-            try
+
+            if (this.TipoProdutoModel != null)
             {
-                if (this.TipoProdutoModel != null)
+                if (this.TipoProdutoModel.TipoProdutoId != 0)
                 {
-                    if (this.TipoProdutoModel.TipoProdutoId != 0)
-                    {
-                        modelsCampos = (List<CampoTipoProdutoModel>)_camposServices.GetAllByTipoProdutoId(this.TipoProdutoModel.TipoProdutoId);
-                    }
+                    modelsCampos = (List<CampoTipoProdutoModel>)_camposServices.GetAllByTipoProdutoId(this.TipoProdutoModel.TipoProdutoId);
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
             return modelsCampos;
         }
     }
