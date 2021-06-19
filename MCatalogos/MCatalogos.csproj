@@ -413,5 +413,8 @@
   <ItemGroup>
     <None Include="Resources\RightArrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\FormViews\Produtos\Estoque\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

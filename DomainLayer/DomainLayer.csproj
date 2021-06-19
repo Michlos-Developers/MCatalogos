@@ -71,6 +71,10 @@
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
     <Compile Include="Models\Distribuidor\DistribuidorModel.cs" />
     <Compile Include="Models\Distribuidor\IDistribuidorModel.cs" />
+    <Compile Include="Models\Estoques\EstoqueModel.cs" />
+    <Compile Include="Models\Estoques\HistoricoEstoqueModel.cs" />
+    <Compile Include="Models\Estoques\IEstoqueModel.cs" />
+    <Compile Include="Models\Estoques\IHistoricoEstoqueModel.cs" />
     <Compile Include="Models\Fornecedores\FornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\IFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\ITelefoneFornecedorModel.cs" />

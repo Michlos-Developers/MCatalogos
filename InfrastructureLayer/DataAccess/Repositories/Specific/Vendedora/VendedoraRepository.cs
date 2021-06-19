@@ -429,8 +429,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
-        private bool RecordExistsCheck(IVendedoraModel vendedoraModel, TypeOfExistenceCheck typeOfExistenceCheck,
-            RequestType requestType)
+        private bool RecordExistsCheck(IVendedoraModel vendedoraModel, TypeOfExistenceCheck typeOfExistenceCheck, RequestType requestType)
         {
             Int32 countOfRecsFound = 0;
             bool RecordExistsCheckPassed = true;
