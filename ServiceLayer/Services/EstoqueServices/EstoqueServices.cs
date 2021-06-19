@@ -67,5 +67,10 @@ namespace ServiceLayer.Services.EstoqueServices
         {
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(estoqueModel);
         }
+
+        public void ValidateModelDataAnnotations(IEstoqueModel estoqueModel)
+        {
+            _modelDataAnnotationCheck.ValidateModelDataAnnotations(estoqueModel);
+        }
     }
 }

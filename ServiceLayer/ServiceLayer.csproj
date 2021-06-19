@@ -69,8 +69,11 @@
     <Compile Include="Services\EstadosServices\IEstadoServices.cs" />
     <Compile Include="Services\EstadosServices\IEstadosRepository.cs" />
     <Compile Include="Services\EstoqueServices\EstoqueServices.cs" />
+    <Compile Include="Services\EstoqueServices\HistoricoEstoqueServices.cs" />
     <Compile Include="Services\EstoqueServices\IEstoqueRepository.cs" />
     <Compile Include="Services\EstoqueServices\IEstoqueService.cs" />
+    <Compile Include="Services\EstoqueServices\IHistoricoEstoqueRepository.cs" />
+    <Compile Include="Services\EstoqueServices\IHistorioEstoqueService.cs" />
     <Compile Include="Services\FornecedorServices\FornecedorServices.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorRepository.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorService.cs" />

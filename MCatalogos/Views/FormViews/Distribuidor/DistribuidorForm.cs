@@ -749,7 +749,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
                     LoadBairrosToComboBox();
                     bairroModel = bairroAddForm.BairroModel;
                     cbBairro.Text = bairroModel.Nome;
-                    MessageBox.Show($"Bairro {bairroModel.Nome} foi adicionado à cidade {cbCidade.Text}." "Adicionando Bairro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Bairro {bairroModel.Nome} foi adicionado à cidade {cbCidade.Text}.", "Adicionando Bairro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
