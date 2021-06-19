@@ -71,6 +71,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.textNomeFantasia = new System.Windows.Forms.TextBox();
             this.formError = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnAddBairro = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -262,6 +263,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnAddBairro);
             this.groupBox1.Controls.Add(this.cbBairro);
             this.groupBox1.Controls.Add(this.cbCidade);
             this.groupBox1.Controls.Add(this.label13);
@@ -286,7 +288,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // cbBairro
             // 
             this.cbBairro.FormattingEnabled = true;
-            this.cbBairro.Location = new System.Drawing.Point(432, 78);
+            this.cbBairro.Location = new System.Drawing.Point(432, 76);
             this.cbBairro.Name = "cbBairro";
             this.cbBairro.Size = new System.Drawing.Size(121, 22);
             this.cbBairro.TabIndex = 6;
@@ -327,7 +329,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(388, 82);
+            this.label16.Location = new System.Drawing.Point(369, 82);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(43, 14);
             this.label16.TabIndex = 4;
@@ -513,6 +515,24 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.formError.ContainerControl = this;
             // 
+            // btnAddBairro
+            // 
+            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBairro.Enabled = false;
+            this.btnAddBairro.FlatAppearance.BorderSize = 0;
+            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
+            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
+            this.btnAddBairro.Location = new System.Drawing.Point(409, 76);
+            this.btnAddBairro.Name = "btnAddBairro";
+            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
+            this.btnAddBairro.TabIndex = 25;
+            this.btnAddBairro.TabStop = false;
+            this.btnAddBairro.Tag = "";
+            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddBairro.UseVisualStyleBackColor = false;
+            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
+            // 
             // DistribuidorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -586,5 +606,6 @@ namespace MCatalogos.Views.FormViews.Distribuidor
         private System.Windows.Forms.TextBox textResponsavel;
         private System.Windows.Forms.ErrorProvider formError;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button btnAddBairro;
     }
 }

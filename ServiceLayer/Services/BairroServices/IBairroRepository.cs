@@ -6,7 +6,7 @@ namespace ServiceLayer.Services.BairroServices
 {
     public interface IBairroRepository
     {
-        void Add(IBairroModel bairroModel);
+        BairroModel Add(IBairroModel bairroModel);
         void Update(IBairroModel bairroModel);
         void Delete(IBairroModel bairroModel);
         BairroModel GetById(int id);

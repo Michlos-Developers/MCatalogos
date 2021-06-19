@@ -9,6 +9,7 @@ using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 using InfrastructureLayer.Validations;
 
+using MCatalogos.Views.FormViews.Bairros;
 using MCatalogos.Views.UserControls.Fornecedores;
 
 using Newtonsoft.Json;
@@ -24,6 +25,7 @@ using ServiceLayer.Services.ValidationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -50,7 +52,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         /// </summary>
         QueryStringServices _queryString;
 
-        
+
         FornecedoresListForm FornecedoresListForm;
 
         private FornecedorServices _fornecedorServices;
@@ -80,6 +82,16 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.FornecedoresListForm = fornecedoresListForm;
         }
 
+        private void SetBGColorFocused(Control control)
+        {
+
+            control.BackColor = SystemColors.GradientActiveCaption;
+        }
+
+        private void SetBgColorUnfocused(Control control)
+        {
+            control.BackColor = SystemColors.Window;
+        }
 
         //REPOSITORY CALLERS
         private FornecedorModel FornecedorAdd()
@@ -233,7 +245,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 cbCidade.Items.Add(model);
             }
         }
-        private void LoadBAirrosToComboBox(string text)
+        private void LoadBairrosToComboBox(string text)
         {
             List<BairroModel> modelList = (List<BairroModel>)_bairroServices.GetByCidadeId(
                     _cidadeServices.GetByNomeAndEstadoId(
@@ -457,7 +469,11 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         }
         private void cbCidade_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadBAirrosToComboBox(cbCidade.Text);
+            LoadBairrosToComboBox(cbCidade.Text);
+            if (cbCidade.Text != string.Empty)
+            {
+                btnAddBairro.Enabled = true;
+            }
         }
 
 
@@ -544,5 +560,201 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+        private void btnAddBairro_Click(object sender, EventArgs e)
+        {
+            EstadoModel estadoModel = new EstadoModel();
+            CidadeModel cidadeModel = new CidadeModel();
+            BairroModel bairroModel = new BairroModel();
+            estadoModel = _estadoServices.GetByUf(this.cbUf.Text);
+            cidadeModel = _cidadeServices.GetByNomeAndEstadoId(this.cbCidade.Text, estadoModel.EstadoId);
+
+
+
+
+            try
+            {
+                if (cbCidade.Text != string.Empty)
+                {
+
+                    BairroAddForm bairroAddForm = new BairroAddForm(cidadeModel, bairroModel);
+                    bairroAddForm.Text = "Adicionando Novo Bairro";
+                    bairroAddForm.StartPosition = FormStartPosition.CenterScreen;
+                    bairroAddForm.ShowDialog();
+                    LoadBairrosToComboBox(cbCidade.Text);
+                    bairroModel = bairroAddForm.BairroModel;
+                    cbBairro.Text = bairroModel.Nome;
+                    MessageBox.Show($"Bairro {bairroModel.Nome} foi adicionado à cidade {cbCidade.Text}.", "Adicionando Bairro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Para adicionar um bairro você deve selecionar uma Cidade.", "Adicionando Bairro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    throw new Exception();
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível adicionar um novo bairro à cidade");
+            }
+        }
+
+
+        #region METHOD CONTROL ENTER SET BGCOLOR
+
+        private void mTextCnpj_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(mTextCnpj);
+        }
+
+        private void textRazaoSocial_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textRazaoSocial);
+
+        }
+
+        private void mTextInscricaoEstadual_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(mTextInscricaoEstadual);
+
+        }
+
+        private void textNomeFantasia_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textNomeFantasia);
+
+        }
+
+        private void textLogradouro_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textLogradouro);
+
+        }
+
+        private void textNumero_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textNumero);
+
+        }
+
+        private void mTextCep_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(mTextCep);
+
+        }
+
+        private void cbUf_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(cbUf);
+
+        }
+
+        private void textComplemento_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textComplemento);
+
+        }
+
+        private void cbCidade_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(cbCidade);
+
+        }
+
+        private void cbBairro_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(cbBairro);
+
+        }
+
+        private void textEmail_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textEmail);
+
+        }
+
+        private void textSite_Enter(object sender, EventArgs e)
+        {
+            SetBGColorFocused(textSite);
+        }
+
+        private void mTextCnpj_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(mTextCnpj);
+        }
+
+        private void textRazaoSocial_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textRazaoSocial);
+
+        }
+
+        private void mTextInscricaoEstadual_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(mTextInscricaoEstadual);
+
+        }
+
+        private void textNomeFantasia_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textNomeFantasia);
+
+        }
+
+        private void textLogradouro_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textLogradouro);
+
+        }
+
+        private void textNumero_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textNumero);
+
+        }
+
+        private void mTextCep_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(mTextCep);
+
+        }
+
+        private void cbUf_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(cbUf);
+
+        }
+
+        private void textComplemento_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textComplemento);
+
+        }
+
+        private void cbCidade_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(cbCidade);
+
+        }
+
+        private void cbBairro_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(cbBairro);
+
+        }
+
+        private void textEmail_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textEmail);
+
+        }
+
+        private void textSite_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(textSite);
+
+        }
+
+        #endregion
     }
 }

@@ -9,6 +9,8 @@ using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor;
 using InfrastructureLayer.Validations;
 
+using MCatalogos.Views.FormViews.Bairros;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -636,6 +638,10 @@ namespace MCatalogos.Views.FormViews.Distribuidor
         {
             CidadeModel cidade = cbCidade.SelectedItem as CidadeModel;
             LoadBairrosToComboBox();
+            if (cbCidade.Text != string.Empty)
+            {
+                btnAddBairro.Enabled = true;
+            }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -722,6 +728,39 @@ namespace MCatalogos.Views.FormViews.Distribuidor
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void btnAddBairro_Click(object sender, EventArgs e)
+        {
+            EstadoModel estadoModel = new EstadoModel();
+            CidadeModel cidadeModel = new CidadeModel();
+            BairroModel bairroModel = new BairroModel();
+            estadoModel = _estadoServices.GetByUf(this.cbUf.Text);
+            cidadeModel = _cidadeServices.GetByNomeAndEstadoId(cbCidade.Text, estadoModel.EstadoId);
+
+            try
+            {
+                if (cbCidade.Text != string.Empty)
+                {
+                    BairroAddForm bairroAddForm = new BairroAddForm(cidadeModel, bairroModel);
+                    bairroAddForm.Text = "Adicionando Novo Bairro";
+                    bairroAddForm.StartPosition = FormStartPosition.CenterScreen;
+                    bairroAddForm.ShowDialog();
+                    LoadBairrosToComboBox();
+                    bairroModel = bairroAddForm.BairroModel;
+                    cbBairro.Text = bairroModel.Nome;
+                    MessageBox.Show($"Bairro {bairroModel.Nome} foi adicionado à cidade {cbCidade.Text}." "Adicionando Bairro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Para adicionar um bairro você deve selecionar uma Cidade.", "Adicionando Bairro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível adicioanr um novo bairro à cidade");
+            }
         }
     }
 }

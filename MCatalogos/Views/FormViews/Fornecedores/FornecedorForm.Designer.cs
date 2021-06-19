@@ -76,6 +76,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textFornecedorId = new System.Windows.Forms.TextBox();
             this.LblCodigo = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnAddBairro = new System.Windows.Forms.Button();
             this.panelCommands.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -227,6 +228,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // groupBoxEndereco
             // 
+            this.groupBoxEndereco.Controls.Add(this.btnAddBairro);
             this.groupBoxEndereco.Controls.Add(this.label3);
             this.groupBoxEndereco.Controls.Add(this.textNumero);
             this.groupBoxEndereco.Controls.Add(this.label5);
@@ -259,10 +261,14 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // textNumero
             // 
+            this.textNumero.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textNumero.Location = new System.Drawing.Point(96, 49);
             this.textNumero.Name = "textNumero";
             this.textNumero.Size = new System.Drawing.Size(48, 22);
             this.textNumero.TabIndex = 1;
+            this.textNumero.WordWrap = false;
+            this.textNumero.Enter += new System.EventHandler(this.textNumero_Enter);
+            this.textNumero.Leave += new System.EventHandler(this.textNumero_Leave);
             this.textNumero.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
             // 
             // label5
@@ -280,6 +286,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textComplemento.Name = "textComplemento";
             this.textComplemento.Size = new System.Drawing.Size(369, 22);
             this.textComplemento.TabIndex = 4;
+            this.textComplemento.Enter += new System.EventHandler(this.textComplemento_Enter);
+            this.textComplemento.Leave += new System.EventHandler(this.textComplemento_Leave);
             // 
             // label8
             // 
@@ -293,10 +301,12 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // cbBairro
             // 
             this.cbBairro.FormattingEnabled = true;
-            this.cbBairro.Location = new System.Drawing.Point(309, 105);
+            this.cbBairro.Location = new System.Drawing.Point(335, 105);
             this.cbBairro.Name = "cbBairro";
-            this.cbBairro.Size = new System.Drawing.Size(156, 22);
+            this.cbBairro.Size = new System.Drawing.Size(130, 22);
             this.cbBairro.TabIndex = 6;
+            this.cbBairro.Enter += new System.EventHandler(this.cbBairro_Enter);
+            this.cbBairro.Leave += new System.EventHandler(this.cbBairro_Leave);
             this.cbBairro.Validating += new System.ComponentModel.CancelEventHandler(this.cbBairro_Validating);
             // 
             // textLogradouro
@@ -306,6 +316,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textLogradouro.Name = "textLogradouro";
             this.textLogradouro.Size = new System.Drawing.Size(369, 22);
             this.textLogradouro.TabIndex = 0;
+            this.textLogradouro.Enter += new System.EventHandler(this.textLogradouro_Enter);
+            this.textLogradouro.Leave += new System.EventHandler(this.textLogradouro_Leave);
             this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
             // 
             // cbCidade
@@ -316,6 +328,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.cbCidade.Size = new System.Drawing.Size(158, 22);
             this.cbCidade.TabIndex = 5;
             this.cbCidade.SelectedIndexChanged += new System.EventHandler(this.cbCidade_SelectedIndexChanged);
+            this.cbCidade.Enter += new System.EventHandler(this.cbCidade_Enter);
+            this.cbCidade.Leave += new System.EventHandler(this.cbCidade_Leave);
             this.cbCidade.Validating += new System.ComponentModel.CancelEventHandler(this.cbCidade_Validating);
             // 
             // label4
@@ -335,6 +349,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextCep.Name = "mTextCep";
             this.mTextCep.Size = new System.Drawing.Size(80, 22);
             this.mTextCep.TabIndex = 2;
+            this.mTextCep.Enter += new System.EventHandler(this.mTextCep_Enter);
+            this.mTextCep.Leave += new System.EventHandler(this.mTextCep_Leave);
             // 
             // label6
             // 
@@ -356,12 +372,14 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.cbUf.Size = new System.Drawing.Size(47, 22);
             this.cbUf.TabIndex = 3;
             this.cbUf.SelectedIndexChanged += new System.EventHandler(this.cbUf_SelectedIndexChanged);
+            this.cbUf.Enter += new System.EventHandler(this.cbUf_Enter);
+            this.cbUf.Leave += new System.EventHandler(this.cbUf_Leave);
             this.cbUf.Validating += new System.ComponentModel.CancelEventHandler(this.cbUf_Validating);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(260, 108);
+            this.label11.Location = new System.Drawing.Point(273, 108);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(43, 14);
             this.label11.TabIndex = 13;
@@ -418,6 +436,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textSite.Name = "textSite";
             this.textSite.Size = new System.Drawing.Size(200, 22);
             this.textSite.TabIndex = 6;
+            this.textSite.Enter += new System.EventHandler(this.textSite_Enter);
+            this.textSite.Leave += new System.EventHandler(this.textSite_Leave);
             // 
             // label14
             // 
@@ -434,6 +454,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(200, 22);
             this.textEmail.TabIndex = 5;
+            this.textEmail.Enter += new System.EventHandler(this.textEmail_Enter);
+            this.textEmail.Leave += new System.EventHandler(this.textEmail_Leave);
             // 
             // label13
             // 
@@ -451,6 +473,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textNomeFantasia.Name = "textNomeFantasia";
             this.textNomeFantasia.Size = new System.Drawing.Size(396, 22);
             this.textNomeFantasia.TabIndex = 3;
+            this.textNomeFantasia.Enter += new System.EventHandler(this.textNomeFantasia_Enter);
+            this.textNomeFantasia.Leave += new System.EventHandler(this.textNomeFantasia_Leave);
             this.textNomeFantasia.Validating += new System.ComponentModel.CancelEventHandler(this.textNomeFantasia_Validating);
             // 
             // label1
@@ -469,6 +493,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textRazaoSocial.Name = "textRazaoSocial";
             this.textRazaoSocial.Size = new System.Drawing.Size(396, 22);
             this.textRazaoSocial.TabIndex = 2;
+            this.textRazaoSocial.Enter += new System.EventHandler(this.textRazaoSocial_Enter);
+            this.textRazaoSocial.Leave += new System.EventHandler(this.textRazaoSocial_Leave);
             this.textRazaoSocial.Validating += new System.ComponentModel.CancelEventHandler(this.textRazaoSocial_Validating);
             // 
             // LblRazaoSocial
@@ -487,6 +513,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextInscricaoEstadual.Name = "mTextInscricaoEstadual";
             this.mTextInscricaoEstadual.Size = new System.Drawing.Size(118, 22);
             this.mTextInscricaoEstadual.TabIndex = 1;
+            this.mTextInscricaoEstadual.Enter += new System.EventHandler(this.mTextInscricaoEstadual_Enter);
+            this.mTextInscricaoEstadual.Leave += new System.EventHandler(this.mTextInscricaoEstadual_Leave);
             // 
             // label9
             // 
@@ -506,6 +534,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextCnpj.Name = "mTextCnpj";
             this.mTextCnpj.Size = new System.Drawing.Size(118, 22);
             this.mTextCnpj.TabIndex = 0;
+            this.mTextCnpj.Enter += new System.EventHandler(this.mTextCnpj_Enter);
+            this.mTextCnpj.Leave += new System.EventHandler(this.mTextCnpj_Leave);
             this.mTextCnpj.Validating += new System.ComponentModel.CancelEventHandler(this.mTextCnpj_Validating);
             // 
             // label12
@@ -549,6 +579,25 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            // 
+            // btnAddBairro
+            // 
+            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBairro.Enabled = false;
+            this.btnAddBairro.FlatAppearance.BorderSize = 0;
+            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
+            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
+            this.btnAddBairro.Location = new System.Drawing.Point(312, 104);
+            this.btnAddBairro.Name = "btnAddBairro";
+            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
+            this.btnAddBairro.TabIndex = 24;
+            this.btnAddBairro.TabStop = false;
+            this.btnAddBairro.Tag = "";
+            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTipFornecedorForm.SetToolTip(this.btnAddBairro, "Adicionar Bairro");
+            this.btnAddBairro.UseVisualStyleBackColor = false;
+            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
             // 
             // FornecedorForm
             // 
@@ -633,5 +682,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         private System.Windows.Forms.Panel panelContatosList;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button btnAddBairro;
     }
 }

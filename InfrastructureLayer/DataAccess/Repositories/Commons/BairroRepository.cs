@@ -38,10 +38,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
             _connectionString = connectionString;
         }
 
-        public void Add(IBairroModel bairroModel)
+        public BairroModel Add(IBairroModel bairroModel)
         {
+            int idReturned = 0;
+            BairroModel bairroAdded = new BairroModel();
+
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " INSERT INTO Bairros (Nome, CidadeId) " +
+                           " OUTPUT INSERTED.BairroId" +
                            " VALUES (@Nome, @CidadeId) ";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -50,16 +54,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     connection.Open();
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        try
-                        {
-                            RecordExistsCheck(bairroModel, TypeOfExistenceCheck.DoesNotExsitInDb, RequestType.Add);
-                        }
-                        catch (DataAccessException e)
-                        {
-                            e.DataAccessStatusInfo.CustomMessage = "BairroModel could not be added becouse it is already in the Database.";
-                            throw e;
-                        }
-
+                        
                         cmd.Prepare();
 
                         cmd.Parameters.AddWithValue("@Nome", bairroModel.Nome);
@@ -67,7 +62,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
 
                         try
                         {
-                            cmd.ExecuteNonQuery();
+                            idReturned = (int)cmd.ExecuteScalar();
+                            bairroAdded = GetById(idReturned);
                         }
                         catch (SqlException e)
                         {
@@ -78,19 +74,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                             throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                         }
 
-                        try
-                        {
-                            RecordExistsCheck(bairroModel, TypeOfExistenceCheck.DoesExistInDb, RequestType.ConfirmAdd);
-                        }
-                        catch (DataAccessException e)
-                        {
-                            e.DataAccessStatusInfo.Status = "Error";
-                            e.DataAccessStatusInfo.OperationSucceeded = false;
-                            e.DataAccessStatusInfo.CustomMessage = "Failed to find Bairro Model in Database after AddOperation completed.";
-                            e.DataAccessStatusInfo.StackTrace = e.StackTrace;
-                            throw e;
-
-                        }
+                        
                     }
                 }
                 catch (SqlException e)
@@ -105,6 +89,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                 {
                     connection.Close();
                 }
+                
+                return bairroAdded;
             }
         }
 

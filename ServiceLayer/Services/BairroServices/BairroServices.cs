@@ -2,11 +2,7 @@
 
 using ServiceLayer.CommonServices;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Services.BairroServices
 {
@@ -26,9 +22,10 @@ namespace ServiceLayer.Services.BairroServices
             return _bairroRepository.GetByNomeAndCidadeId(nome, cidadeId);
         }
 
-        public void Add(IBairroModel bairroModel)
+        public BairroModel Add(IBairroModel bairroModel)
         {
-            _bairroRepository.Add(bairroModel);
+            BairroModel bairroAdded = _bairroRepository.Add(bairroModel);
+            return bairroAdded;
         }
 
         public void Delete(IBairroModel bairroModel)

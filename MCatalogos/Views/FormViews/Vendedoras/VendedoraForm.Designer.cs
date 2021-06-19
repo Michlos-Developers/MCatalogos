@@ -99,6 +99,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnAddBairro = new System.Windows.Forms.Button();
             this.panelContent.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -296,6 +297,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBoxEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxEndereco.Controls.Add(this.btnAddBairro);
             this.groupBoxEndereco.Controls.Add(this.label16);
             this.groupBoxEndereco.Controls.Add(this.maskedTextCep);
             this.groupBoxEndereco.Controls.Add(this.label4);
@@ -367,9 +369,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // comboBoxBairro
             // 
             this.comboBoxBairro.FormattingEnabled = true;
-            this.comboBoxBairro.Location = new System.Drawing.Point(86, 165);
+            this.comboBoxBairro.Location = new System.Drawing.Point(101, 165);
             this.comboBoxBairro.Name = "comboBoxBairro";
-            this.comboBoxBairro.Size = new System.Drawing.Size(224, 22);
+            this.comboBoxBairro.Size = new System.Drawing.Size(292, 22);
             this.comboBoxBairro.TabIndex = 6;
             this.comboBoxBairro.Enter += new System.EventHandler(this.comboBoxBairro_Enter);
             this.comboBoxBairro.Leave += new System.EventHandler(this.comboBoxBairro_Leave);
@@ -882,6 +884,24 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnAddBairro
+            // 
+            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBairro.Enabled = false;
+            this.btnAddBairro.FlatAppearance.BorderSize = 0;
+            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
+            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
+            this.btnAddBairro.Location = new System.Drawing.Point(79, 164);
+            this.btnAddBairro.Name = "btnAddBairro";
+            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
+            this.btnAddBairro.TabIndex = 25;
+            this.btnAddBairro.TabStop = false;
+            this.btnAddBairro.Tag = "";
+            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddBairro.UseVisualStyleBackColor = false;
+            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
+            // 
             // VendedoraForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -988,5 +1008,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.Label titleFicha;
+        private System.Windows.Forms.Button btnAddBairro;
     }
 }
