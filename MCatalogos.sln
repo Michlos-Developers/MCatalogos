@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainLayer", "DomainLayer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{6225ABFE-9E55-4B43-AE65-B3856A5846D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesLayer.Tests", "ServicesLayer.Tests\ServicesLayer.Tests.csproj", "{FA9BB3B3-26EA-456C-891A-B74045C507CA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureLayer", "InfrastructureLayer\InfrastructureLayer.csproj", "{BF2D907C-0BA0-478D-AE7B-4930EC5E0DD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonComponents", "CommonComponents\CommonComponents.csproj", "{533A3DC1-7E95-4CED-8CDE-118A1369EB01}"
@@ -34,10 +32,6 @@ Global
 		{6225ABFE-9E55-4B43-AE65-B3856A5846D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6225ABFE-9E55-4B43-AE65-B3856A5846D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6225ABFE-9E55-4B43-AE65-B3856A5846D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA9BB3B3-26EA-456C-891A-B74045C507CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA9BB3B3-26EA-456C-891A-B74045C507CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA9BB3B3-26EA-456C-891A-B74045C507CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA9BB3B3-26EA-456C-891A-B74045C507CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF2D907C-0BA0-478D-AE7B-4930EC5E0DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF2D907C-0BA0-478D-AE7B-4930EC5E0DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF2D907C-0BA0-478D-AE7B-4930EC5E0DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
