@@ -103,6 +103,12 @@
     <Compile Include="Views\FormViews\Distribuidor\DistribuidorForm.Designer.cs">
       <DependentUpon>DistribuidorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Estoque\EstoqueListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Estoque\EstoqueListForm.Designer.cs">
+      <DependentUpon>EstoqueListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,12 @@
     </Compile>
     <Compile Include="Views\FormViews\Fornecedores\FornecedorForm.Designer.cs">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormViews\Produtos\ProdutosListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Produtos\ProdutosListForm.Designer.cs">
+      <DependentUpon>ProdutosListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormViews\Produtos\TipoProdutoAddForm.cs">
       <SubType>Form</SubType>
@@ -243,11 +255,17 @@
     <EmbeddedResource Include="Views\FormViews\Distribuidor\DistribuidorForm.resx">
       <DependentUpon>DistribuidorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Estoque\EstoqueListForm.resx">
+      <DependentUpon>EstoqueListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
       <DependentUpon>FornecedoresListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedorForm.resx">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Produtos\ProdutosListForm.resx">
+      <DependentUpon>ProdutosListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Produtos\TipoProdutoAddForm.resx">
       <DependentUpon>TipoProdutoAddForm.cs</DependentUpon>
@@ -310,9 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IconVendedora35x35.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\IconPedido35x35.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconFornecedor35X35.png" />
@@ -414,7 +429,28 @@
     <None Include="Resources\RightArrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\FormViews\Produtos\Estoque\" />
+    <None Include="Resources\IconProdutos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconAddEstoque20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconEditEstoque20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconPedido.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconPedido35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconProduto35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconEditProduto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconAddProduto.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

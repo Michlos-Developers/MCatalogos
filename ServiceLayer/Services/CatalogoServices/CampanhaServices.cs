@@ -37,6 +37,11 @@ namespace ServiceLayer.Services.CatalogoServices
             return _campanhaRepository.GetByCatalogoId(catalogoId);
         }
 
+        public IEnumerable<ICampanhaModel> GetByCatalogoModel(CatalogoModel catalogoModel)
+        {
+            return _campanhaRepository.GetByCatalogoModel(catalogoModel);
+        }
+
         public CampanhaModel GetById(int campanhaId)
         {
             return _campanhaRepository.GetById(campanhaId);

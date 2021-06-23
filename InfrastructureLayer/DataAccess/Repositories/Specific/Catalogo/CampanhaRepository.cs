@@ -156,6 +156,54 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             }
         }
 
+        public IEnumerable<ICampanhaModel> GetByCatalogoModel(CatalogoModel catalogoModel)
+        {
+            List<CampanhaModel> modelList = new List<CampanhaModel>();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "SELECT * FROM Campanhas " +
+                           "WHERE CatalogoId = @CatalogoId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@CatatlogoId", catalogoModel.CatalogoId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CampanhaModel model = new CampanhaModel();
+                                model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
+                                model.Nome = reader["Nome"].ToString();
+                                model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
+                                model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
+                                model.Ativa = bool.Parse(reader["Ativa"].ToString());
+                                model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
+
+                                modelList.Add(model);
+
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível gerar a Lista de Campanhas do Catalogo selecionado",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return modelList;
+            }
+        }
+
         public IEnumerable<ICampanhaModel> GetByCatalogoId(int catalogoId)
         {
             List<CampanhaModel> modelList = new List<CampanhaModel>();

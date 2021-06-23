@@ -103,9 +103,29 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconAddEstoque20x20 {
+            get {
+                object obj = ResourceManager.GetObject("IconAddEstoque20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconAddFornecedor20x20 {
             get {
                 object obj = ResourceManager.GetObject("IconAddFornecedor20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconAddProduto {
+            get {
+                object obj = ResourceManager.GetObject("IconAddProduto", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +213,29 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconEditEstoque20x20 {
+            get {
+                object obj = ResourceManager.GetObject("IconEditEstoque20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconEditFornecedor20x20 {
             get {
                 object obj = ResourceManager.GetObject("iconEditFornecedor20x20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconEditProduto {
+            get {
+                object obj = ResourceManager.GetObject("IconEditProduto", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -266,6 +306,16 @@ namespace MCatalogos.Properties {
         internal static System.Drawing.Bitmap IconPesquisa35x35 {
             get {
                 object obj = ResourceManager.GetObject("IconPesquisa35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconProduto35x35 {
+            get {
+                object obj = ResourceManager.GetObject("IconProduto35x35", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

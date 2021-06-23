@@ -69,7 +69,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             dgvFornecedores.Columns[0].Width = 50;
 
             dgvFornecedores.Columns[1].HeaderText = "Razao Social";
-            dgvFornecedores.Columns[1].Width = 225;
+            dgvFornecedores.Columns[1].Width = 275;
 
             dgvFornecedores.Columns[2].HeaderText = "Nome Fantasia";
             dgvFornecedores.Columns[2].Width = 225;

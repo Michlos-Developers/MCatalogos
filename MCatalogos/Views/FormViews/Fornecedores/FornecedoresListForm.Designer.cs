@@ -69,7 +69,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.btnAdd.ForeColor = System.Drawing.Color.White;
             this.btnAdd.Image = global::MCatalogos.Properties.Resources.IconAddFornecedor20x20;
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdd.Location = new System.Drawing.Point(344, 9);
+            this.btnAdd.Location = new System.Drawing.Point(381, 9);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(91, 27);
             this.btnAdd.TabIndex = 2;
@@ -88,7 +88,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.btnEdit.ForeColor = System.Drawing.Color.White;
             this.btnEdit.Image = global::MCatalogos.Properties.Resources.iconEditFornecedor20x20;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(462, 9);
+            this.btnEdit.Location = new System.Drawing.Point(478, 9);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(91, 27);
             this.btnEdit.TabIndex = 2;
@@ -107,7 +107,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.btnDelete.ForeColor = System.Drawing.Color.White;
             this.btnDelete.Image = global::MCatalogos.Properties.Resources.IconDelete20x20;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(580, 9);
+            this.btnDelete.Location = new System.Drawing.Point(575, 9);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(91, 27);
             this.btnDelete.TabIndex = 2;
@@ -125,7 +125,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(698, 9);
+            this.btnCancel.Location = new System.Drawing.Point(704, 9);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 2;
@@ -183,9 +183,9 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContentGridView.Controls.Add(this.dgvFornecedores);
-            this.panelContentGridView.Location = new System.Drawing.Point(34, 50);
+            this.panelContentGridView.Location = new System.Drawing.Point(5, 6);
             this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(715, 299);
+            this.panelContentGridView.Size = new System.Drawing.Size(790, 398);
             this.panelContentGridView.TabIndex = 1;
             // 
             // dgvFornecedores
@@ -210,7 +210,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.dgvFornecedores.ShowCellErrors = false;
             this.dgvFornecedores.ShowEditingIcon = false;
             this.dgvFornecedores.ShowRowErrors = false;
-            this.dgvFornecedores.Size = new System.Drawing.Size(715, 299);
+            this.dgvFornecedores.Size = new System.Drawing.Size(790, 398);
             this.dgvFornecedores.TabIndex = 0;
             this.dgvFornecedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFornecedores_CellClick);
             this.dgvFornecedores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFornecedores_CellDoubleClick);

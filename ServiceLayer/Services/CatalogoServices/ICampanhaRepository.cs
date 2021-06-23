@@ -14,6 +14,7 @@ namespace ServiceLayer.Services.CatalogoServices
         void Update(ICampanhaModel campanhaModel);
         void Delete(ICampanhaModel campanhaModel);
         IEnumerable<ICampanhaModel> GetAll();
+        IEnumerable<ICampanhaModel> GetByCatalogoModel(CatalogoModel catalogoModel);
         IEnumerable<ICampanhaModel> GetByCatalogoId(int catalogoId);
         CampanhaModel GetById(int campanhaId);
     }

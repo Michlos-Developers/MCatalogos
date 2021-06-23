@@ -1,7 +1,9 @@
 ﻿using MCatalogos.Commons;
 using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
+using MCatalogos.Views.FormViews.Estoque;
 using MCatalogos.Views.FormViews.Fornecedores;
+using MCatalogos.Views.FormViews.Produtos;
 using MCatalogos.Views.FormViews.Rotas;
 using MCatalogos.Views.FormViews.Vendedoras;
 
@@ -78,6 +80,12 @@ namespace MCatalogos
             set { btnConfiguracoes = value; }
         }
 
+        public Button ButtonProdutos
+        {
+            get { return btnProdutos; }
+            set { btnProdutos = value; }
+        }
+
 
 
 
@@ -129,6 +137,7 @@ namespace MCatalogos
             buttons.Add(ButtonEstoque);
             buttons.Add(ButtonRotas);
             buttons.Add(ButtonConfiguracoes);
+            buttons.Add(ButtonProdutos);
 
             ButtonHelper bh = new ButtonHelper();
             bh.SetUnselectedButtons(buttons);
@@ -201,6 +210,26 @@ namespace MCatalogos
             rotasForm.MdiParent = this;
             rotasForm.Show();
             
+        }
+
+        private void btnEstoque_Click(object sender, EventArgs e)
+        {
+            SetUnselectedButtons();
+            SetSelectedButton(btnEstoque);
+
+            EstoqueListForm estoqueForm = EstoqueListForm.Instance(this);
+            estoqueForm.MdiParent = this;
+            estoqueForm.Show();
+        }
+
+        private void btnProdutos_Click(object sender, EventArgs e)
+        {
+            SetUnselectedButtons();
+            SetSelectedButton(btnProdutos);
+
+            ProdutosListForm produtosForm = ProdutosListForm.Instance(this);
+            produtosForm.MdiParent = this;
+            produtosForm.Show();
         }
     }
 }
