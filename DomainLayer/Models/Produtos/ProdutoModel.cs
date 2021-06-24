@@ -18,6 +18,8 @@ namespace DomainLayer.Models.Produtos
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório (Valor Catálogo)")]
         public float ValorCatalogo { get; set; }
 
+
+        public float ValorCatalogo2 { get; set; }
         public int Pagina { get; set; }
         public float MargemVendedora { get; set; }
         public float MargemDistribuidor { get; set; }
@@ -32,8 +34,7 @@ namespace DomainLayer.Models.Produtos
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório. O produto deve estar vinculado a uma Campanha")]
         public int CampanhaId { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório. O produto deve estar vinculado a um Tipo de Produto")]
-        public int TipoProdutoId { get; set; }
+        public int TamanhoId { get; set; }
 
     }
 }

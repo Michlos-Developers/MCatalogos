@@ -67,6 +67,11 @@ namespace ServiceLayer.Services.ProdutoServices
             return _campoTipoProdutoRepository.GetByNameAndTipoProdutoId(campoName, tipoProdutoId);
         }
 
+        public CampoTipoProdutoModel GetByTipoProdutoModel(TipoProdutoModel tipoProdutoModel)
+        {
+            return _campoTipoProdutoRepository.GetByTipoProdutoModel(tipoProdutoModel);
+        }
+
         public void Update(ICampoTipoProdutoModel campo)
         {
             _campoTipoProdutoRepository.Update(campo);

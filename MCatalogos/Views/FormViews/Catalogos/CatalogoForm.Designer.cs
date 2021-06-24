@@ -47,9 +47,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.panelTiposProdutos = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textValorTaxaPedido = new System.Windows.Forms.TextBox();
@@ -67,7 +64,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.label6 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
             this.panelContent.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxCampanhas.SuspendLayout();
@@ -109,7 +105,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(554, 79);
+            this.label8.Location = new System.Drawing.Point(803, 310);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(16, 14);
             this.label8.TabIndex = 24;
@@ -118,7 +114,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(554, 52);
+            this.label7.Location = new System.Drawing.Point(803, 252);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(16, 14);
             this.label7.TabIndex = 24;
@@ -136,7 +132,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(342, 78);
+            this.label3.Location = new System.Drawing.Point(591, 309);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(164, 14);
             this.label3.TabIndex = 23;
@@ -145,7 +141,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(350, 52);
+            this.label2.Location = new System.Drawing.Point(599, 252);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(157, 14);
             this.label2.TabIndex = 23;
@@ -162,14 +158,14 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             // textMargemDistribuidor
             // 
-            this.textMargemDistribuidor.Location = new System.Drawing.Point(507, 74);
+            this.textMargemDistribuidor.Location = new System.Drawing.Point(756, 305);
             this.textMargemDistribuidor.Name = "textMargemDistribuidor";
             this.textMargemDistribuidor.Size = new System.Drawing.Size(46, 22);
             this.textMargemDistribuidor.TabIndex = 3;
             // 
             // textMargemVendedora
             // 
-            this.textMargemVendedora.Location = new System.Drawing.Point(507, 46);
+            this.textMargemVendedora.Location = new System.Drawing.Point(756, 246);
             this.textMargemVendedora.Name = "textMargemVendedora";
             this.textMargemVendedora.Size = new System.Drawing.Size(46, 22);
             this.textMargemVendedora.TabIndex = 2;
@@ -178,7 +174,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             this.textNome.Location = new System.Drawing.Point(63, 74);
             this.textNome.Name = "textNome";
-            this.textNome.Size = new System.Drawing.Size(231, 22);
+            this.textNome.Size = new System.Drawing.Size(487, 22);
             this.textNome.TabIndex = 1;
             // 
             // textCatalogoId
@@ -239,7 +235,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
-            this.panelContent.Controls.Add(this.groupBox3);
             this.panelContent.Controls.Add(this.groupBox2);
             this.panelContent.Controls.Add(this.groupBox1);
             this.panelContent.Controls.Add(this.groupBoxCampanhas);
@@ -262,33 +257,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(854, 409);
             this.panelContent.TabIndex = 4;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.panelTiposProdutos);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Location = new System.Drawing.Point(591, 232);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(236, 156);
-            this.groupBox3.TabIndex = 31;
-            this.groupBox3.TabStop = false;
-            // 
-            // panelTiposProdutos
-            // 
-            this.panelTiposProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTiposProdutos.Location = new System.Drawing.Point(3, 18);
-            this.panelTiposProdutos.Name = "panelTiposProdutos";
-            this.panelTiposProdutos.Size = new System.Drawing.Size(230, 135);
-            this.panelTiposProdutos.TabIndex = 24;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(105, 14);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "Tipos de Produtos";
             // 
             // groupBox2
             // 
@@ -355,9 +323,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBox1.Controls.Add(this.checkBoxTaxaProduto);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Location = new System.Drawing.Point(591, 123);
+            this.groupBox1.Location = new System.Drawing.Point(591, 116);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(236, 94);
+            this.groupBox1.Size = new System.Drawing.Size(236, 99);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             // 
@@ -462,8 +430,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.Load += new System.EventHandler(this.CatalogoForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -510,8 +476,5 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.CheckBox checkBoxTaxaProduto;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Panel panelTiposProdutos;
     }
 }

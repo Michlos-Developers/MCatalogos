@@ -13,8 +13,6 @@ namespace ServiceLayer.Services.ProdutoServices
         IEnumerable<ProdutoModel> GetAll();
         IEnumerable<ProdutoModel> GetAllByCatalogoId(int catalogoId);
         IEnumerable<ProdutoModel> GetAllByCampanhaId(int campanhaId);
-        IEnumerable<ProdutoModel> GetAllByTipoId(int tipoProdutoId);
-        IEnumerable<ProdutoModel> GetAllByCampanhaIdAndTipoId(int CampanhaId, int TipoProdutoId);
         ProdutoModel GetByReference(string Reference);
         ProdutoModel GetByCampanhaIdAndReference(int CampanhaId, string Reference);
         ProdutoModel GetById(int ProdutoId);

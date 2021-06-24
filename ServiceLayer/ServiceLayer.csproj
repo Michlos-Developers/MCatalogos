@@ -77,18 +77,9 @@
     <Compile Include="Services\FornecedorServices\FornecedorServices.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorRepository.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorService.cs" />
-    <Compile Include="Services\ProdutoServices\CampoTipoProdutoServices.cs" />
-    <Compile Include="Services\ProdutoServices\FormatoCampoServices.cs" />
-    <Compile Include="Services\ProdutoServices\ICampoTipoProdutoRepository.cs" />
-    <Compile Include="Services\ProdutoServices\ICampoTipoProdutoServices.cs" />
-    <Compile Include="Services\ProdutoServices\IFormatoCampoRepository.cs" />
-    <Compile Include="Services\ProdutoServices\IFormatoModelServices.cs" />
     <Compile Include="Services\ProdutoServices\IProdutoRepository.cs" />
     <Compile Include="Services\ProdutoServices\IProdutoServices.cs" />
-    <Compile Include="Services\ProdutoServices\ITipoProdutoRepository.cs" />
-    <Compile Include="Services\ProdutoServices\ITipoProdutoServices.cs" />
     <Compile Include="Services\ProdutoServices\ProdutoServices.cs" />
-    <Compile Include="Services\ProdutoServices\TipoProdutoServices.cs" />
     <Compile Include="Services\RotaServices\IRotaLetraRepository.cs" />
     <Compile Include="Services\RotaServices\IRotaLetraServices.cs" />
     <Compile Include="Services\RotaServices\IRotaRepository.cs" />
@@ -112,7 +103,9 @@
     <Compile Include="Services\VendedoraServices\IVendedoraService.cs" />
     <Compile Include="Services\VendedoraServices\VendedoraServices.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\TamanhoServices\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
       <Project>{0624db89-c93d-4d63-bb82-66a80d7ba182}</Project>

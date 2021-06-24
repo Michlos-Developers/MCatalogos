@@ -6,6 +6,7 @@ using ServiceLayer.Services.ProdutoServices;
 
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Net;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
 {
@@ -156,6 +157,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             }
         }
 
+        
         public IEnumerable<CampoTipoProdutoModel> GetAllByFormatoId(int formatoCampoId)
         {
             List<CampoTipoProdutoModel> modelList = new List<CampoTipoProdutoModel>();
@@ -203,6 +205,49 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             }
         }
 
+        public CampoTipoProdutoModel GetByTipoProdutoModel(TipoProdutoModel tipoProdutoModel)
+        {
+            CampoTipoProdutoModel model = new CampoTipoProdutoModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "SELECT TOP 1 * FROM CAmposTiposProdutos WHERE TipoProdutoId = @TipoProdutoId";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@TipoProdutoId", tipoProdutoModel.TipoProdutoId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                
+                                model.CampoTipoId = int.Parse(reader["CampoTipoId"].ToString());
+                                model.Nome = reader["Nome"].ToString();
+                                model.FormatoId = int.Parse(reader["FormatoId"].ToString());
+                                model.TipoProdutoId = int.Parse(reader["TipoProdutoId"].ToString());
+                                
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar o primeiro Campo pelo Tipo de Produto",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return model;
+            }
+        }
         public IEnumerable<CampoTipoProdutoModel> GetAllByTipoProdutoId(int tipoProdutoId)
         {
             List<CampoTipoProdutoModel> modelList = new List<CampoTipoProdutoModel>();

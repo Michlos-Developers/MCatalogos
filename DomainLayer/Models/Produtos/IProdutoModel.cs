@@ -11,7 +11,8 @@
         int Pagina { get; set; }
         int ProdutoId { get; set; }
         string Referencia { get; set; }
-        int TipoProdutoId { get; set; }
+        int TamanhoId { get; set; }
         float ValorCatalogo { get; set; }
+        float ValorCatalogo2 { get; set; }
     }
 }

@@ -13,7 +13,8 @@ namespace ServiceLayer.Services.ProdutoServices
         IEnumerable<CampoTipoProdutoModel> GetAllByTipoProdutoId(int tipoPodutoId);
 
         IEnumerable<CampoTipoProdutoModel> GetAllByFormatoId(int formatoCampoId);
-        
+
+        CampoTipoProdutoModel GetByTipoProdutoModel(TipoProdutoModel tipoProdutoModel);
         CampoTipoProdutoModel GetById(int campoTipoId);
         CampoTipoProdutoModel GetByName(string campoName);
         CampoTipoProdutoModel GetByNameAndTipoProdutoId(string campoName, int tipoProdutoId);

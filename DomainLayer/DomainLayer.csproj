@@ -79,14 +79,8 @@
     <Compile Include="Models\Fornecedores\IFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\ITelefoneFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\TelefoneFornecedorModel.cs" />
-    <Compile Include="Models\Produtos\CampoTipoProdutoModel.cs" />
-    <Compile Include="Models\Produtos\FormatoCampoModel.cs" />
-    <Compile Include="Models\Produtos\ICampoTipoProdutoModel.cs" />
-    <Compile Include="Models\Produtos\IFormatoCampoModel.cs" />
     <Compile Include="Models\Produtos\IProdutoModel.cs" />
-    <Compile Include="Models\Produtos\ITipoProdutoModel.cs" />
     <Compile Include="Models\Produtos\ProdutoModel.cs" />
-    <Compile Include="Models\Produtos\TipoProdutoModel.cs" />
     <Compile Include="Models\Validations\CnpjModel.cs" />
     <Compile Include="Models\Validations\CpfModel.cs" />
     <Compile Include="Models\Validations\ICnpjModel.cs" />
@@ -112,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Pedidos\" />
+    <Folder Include="Models\Tamanho\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

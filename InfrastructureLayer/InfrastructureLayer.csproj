@@ -65,10 +65,7 @@
     <Compile Include="DataAccess\Repositories\Specific\Estoque\HistoricoEstoqueRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\FornecedorRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\TelefoneFornecedorRepository.cs" />
-    <Compile Include="DataAccess\Repositories\Specific\Produto\CampoTipoProdutoRepository.cs" />
-    <Compile Include="DataAccess\Repositories\Specific\Produto\FormatoCampoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Produto\ProdutoRepository.cs" />
-    <Compile Include="DataAccess\Repositories\Specific\Produto\TipoProdutoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\EstadoCivilRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaLetraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaRepository.cs" />

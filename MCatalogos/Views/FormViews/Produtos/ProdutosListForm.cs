@@ -244,12 +244,14 @@ namespace MCatalogos.Views.FormViews.Produtos
                 cbCampanha.Text = string.Empty;
                 cbCampanha.Enabled = false;
                 btnImportProduto.Enabled = false;
+                btnAdd.Enabled = false;
                 LoadProdutosToDataGrid(null, null);
             }
             else
             {
                 cbCampanha.Enabled = true;
                 btnImportProduto.Enabled = true;
+                //btnAdd.Enabled = true;
                 this.CatalogoModel = _catalogoServices.GetById((cbCatalogo.SelectedItem as CatalogoModel).CatalogoId);
                 //this.campanhaModelList = (List<CampanhaModel>)_campanhaService.GetByCatalogoModel(this.CatalogoModel);
                 PopulaComboBoxCampanhas(this.CatalogoModel);
@@ -302,7 +304,13 @@ namespace MCatalogos.Views.FormViews.Produtos
             if (cbCampanha.SelectedIndex >= 0)
             {
                 this.CampanhaModel = _campanhaService.GetById((cbCampanha.SelectedItem as CampanhaModel).CampanhaId);
+                btnAdd.Enabled = true;
                 LoadProdutosToDataGrid(this.CatalogoModel, this.CampanhaModel);
+            }
+            else
+            {
+                this.CampanhaModel = null;
+                btnAdd.Enabled = false;
             }
         }
     }
