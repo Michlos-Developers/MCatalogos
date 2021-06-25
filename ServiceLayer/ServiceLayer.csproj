@@ -74,6 +74,9 @@
     <Compile Include="Services\EstoqueServices\IEstoqueService.cs" />
     <Compile Include="Services\EstoqueServices\IHistoricoEstoqueRepository.cs" />
     <Compile Include="Services\EstoqueServices\IHistorioEstoqueService.cs" />
+    <Compile Include="Services\FormatoTamanhoServices\FormatoTamanhoServices.cs" />
+    <Compile Include="Services\FormatoTamanhoServices\IFormatoTamanhoRepository.cs" />
+    <Compile Include="Services\FormatoTamanhoServices\IFormatoTamanhoServices.cs" />
     <Compile Include="Services\FornecedorServices\FornecedorServices.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorRepository.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorService.cs" />
@@ -86,6 +89,9 @@
     <Compile Include="Services\RotaServices\IRotaServices.cs" />
     <Compile Include="Services\RotaServices\RotaLetraServices.cs" />
     <Compile Include="Services\RotaServices\RotaServices.cs" />
+    <Compile Include="Services\TamanhoServices\ITamanhoRepository.cs" />
+    <Compile Include="Services\TamanhoServices\ITamanhoServices.cs" />
+    <Compile Include="Services\TamanhoServices\TamanhoServices.cs" />
     <Compile Include="Services\TelefoneFornecedorServices\ITelefoneFornecedorRepository.cs" />
     <Compile Include="Services\TelefoneFornecedorServices\ITelefoneFornecedorServices.cs" />
     <Compile Include="Services\TelefoneFornecedorServices\TelefoneFornecedorServices.cs" />
@@ -103,9 +109,7 @@
     <Compile Include="Services\VendedoraServices\IVendedoraService.cs" />
     <Compile Include="Services\VendedoraServices\VendedoraServices.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\TamanhoServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
       <Project>{0624db89-c93d-4d63-bb82-66a80d7ba182}</Project>

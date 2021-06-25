@@ -1,5 +1,7 @@
 ﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.Formatos;
 using DomainLayer.Models.Produtos;
+using DomainLayer.Models.Tamanho;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
@@ -7,7 +9,9 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.FormatoTamanhoServices;
 using ServiceLayer.Services.ProdutoServices;
+using ServiceLayer.Services.TamanhoServices;
 
 using System;
 using System.Collections.Generic;
@@ -26,11 +30,19 @@ namespace MCatalogos.Views.FormViews.Produtos
         private CatalogoModel CatalogoModel;
         private CampanhaModel CampanhaModel;
         private ProdutoModel ProdutoModel;
+        private TamanhosModel TamanhosModel;
+        private FormatosTamanhosModel FormatosModel;
 
         private QueryStringServices _queryString;
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaServices;
         private ProdutoServices _produtoServices;
+        private TamanhoServices _tamanhoServices;
+        private FormatoTamanhoServices _formatoServices;
+
+        private List<TamanhosModel> tamanhosList;
+        private List<FormatosTamanhosModel> formatosList;
+        
 
         public ProdutoAddForm(CatalogoModel catalogoModel, CampanhaModel campanhaModel, ProdutoModel produtoModel)
         {

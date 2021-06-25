@@ -2,11 +2,7 @@
 
 using ServiceLayer.CommonServices;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Services.ProdutoServices
 {
@@ -41,20 +37,12 @@ namespace ServiceLayer.Services.ProdutoServices
             return _produtoRepository.GetAllByCampanhaId(campanhaId);
         }
 
-        public IEnumerable<ProdutoModel> GetAllByCampanhaIdAndTipoId(int CampanhaId, int TipoProdutoId)
-        {
-            return _produtoRepository.GetAllByCampanhaIdAndTipoId(CampanhaId, TipoProdutoId);
-        }
 
         public IEnumerable<ProdutoModel> GetAllByCatalogoId(int catalogoId)
         {
             return _produtoRepository.GetAllByCatalogoId(catalogoId);
         }
 
-        public IEnumerable<ProdutoModel> GetAllByTipoId(int tipoProdutoId)
-        {
-            return _produtoRepository.GetAllByTipoId(tipoProdutoId);
-        }
 
         public ProdutoModel GetByCampanhaIdAndReference(int CampanhaId, string Reference)
         {

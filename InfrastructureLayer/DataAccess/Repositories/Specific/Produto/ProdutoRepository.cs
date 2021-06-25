@@ -6,7 +6,6 @@ using ServiceLayer.Services.ProdutoServices;
 
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Reflection.Emit;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
 {
@@ -128,7 +127,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             List<ProdutoModel> modelList = new List<ProdutoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " +
-                           "Ativo, CatalogoId, CampanhaId, TamanhoId" +
+                           "Ativo, CatalogoId, CampanhaId, TamanhoId " +
                            "FROM Produtos";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -183,7 +182,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             List<ProdutoModel> modelList = new List<ProdutoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " +
-                           "Ativo, CatalogoId, CampanhaId, TamanhoId" +
+                           "Ativo, CatalogoId, CampanhaId, TamanhoId " +
                            "FROM Produtos " +
                            "WHERE CampanhaId = @CampanhaId";
 
@@ -301,7 +300,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " + "Ativo, CatalogoId, CampanhaId, TamanhoId, " +
+            string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, " +
+                           "MargemDistribuidor, Ativo, CatalogoId, CampanhaId, TamanhoId " +
                            "FROM Produtos " +
                            "WHERE CampanhaId = @CampanhaId AND Referencia = @Referencia";
 
@@ -356,7 +356,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " + "Ativo, CatalogoId, CampanhaId, TamanhoId " +
+            string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, " +
+                           "MargemDistribuidor, " + "Ativo, CatalogoId, CampanhaId, TamanhoId " +
                            "FROM Produtos " +
                            "WHERE Referencia = @Referencia";
 
@@ -410,7 +411,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Produtos SET " +
-                           "(Referencia = @Referencia, Descricao = @Descricao, ValorCatalogo = @ValorCatalogo, ValorCatalogo2 = @ValorCatalogo2, Pagina = @Pagina, " +
+                           "(Referencia = @Referencia, Descricao = @Descricao, ValorCatalogo = @ValorCatalogo, " +
+                           "ValorCatalogo2 = @ValorCatalogo2, Pagina = @Pagina, " +
                            "MargemVendedora = @MargemVendedora, MargemDistribuidor = @MargemDistribuidor, Ativo = @Ativo, " +
                            "CatalogoId = @CatalogoId, CampanhaId = @CampanhaId, TamanhoId = @TamanhoId) " +
                            "WHERE ProdutoId = @ProdutoId";
@@ -458,8 +460,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " +
-                           "Ativo, CatalogoId, CampanhaId, TamanhoId " +
+            string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, " +
+                           "MargemDistribuidor, Ativo, CatalogoId, CampanhaId, TamanhoId " +
                            "FROM Produtos " +
                            "WHERE ProdutoId = @ProdutoId";
 
