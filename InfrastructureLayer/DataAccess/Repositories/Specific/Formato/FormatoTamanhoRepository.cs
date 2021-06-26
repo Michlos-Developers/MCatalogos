@@ -28,9 +28,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
             int idReturned = 0;
             FormatosTamanhosModel model = new FormatosTamanhosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "INSERT INTO FormatosTamanhos Formato " +
+            string query = "INSERT INTO FormatosTamanhos FormatoNome, Formato " +
                            "OUTPUT INSERTED.FormatoId " +
-                           "VALUES @Formato";
+                           "VALUES @FormatoNome, @Formato";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -41,6 +41,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@FormatoNome", formatosTamanhosModel.NomeFormato);
                         cmd.Parameters.AddWithValue("@Formato", formatosTamanhosModel.Formato);
 
                         idReturned = (int)cmd.ExecuteScalar();
@@ -110,6 +111,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
                             {
                                 FormatosTamanhosModel model = new FormatosTamanhosModel();
                                 model.FormatoId = int.Parse(reader["FormatoId"].ToString());
+                                model.NomeFormato = reader["FormatoNome"].ToString();
                                 model.Formato = reader["Formato"].ToString();
                                 modelList.Add(model);
                             }
@@ -135,7 +137,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
         {
             FormatosTamanhosModel model = new FormatosTamanhosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT FormatoId, Formato FROM FormatosTamanhos WHERE FormatoId = @FormatoId";
+            string query = "SELECT FormatoId, FormatoNome, Formato FROM FormatosTamanhos WHERE FormatoId = @FormatoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -153,6 +155,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
                             {
                                 model.FormatoId = int.Parse(reader["FormatoId"].ToString());
                                 model.Formato = reader["Formato"].ToString();
+                                model.NomeFormato = reader["FormatoNome"].ToString();
                             }
                         }
                     }
@@ -175,7 +178,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
         public void Update(IFormatosTamanhosModel formatosTamanhosModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "UPDATE FormatosTamanhos SET Formato = @Formato WHERE FormatoId = @FormatoId";
+            string query = "UPDATE FormatosTamanhos SET (FormatoNome = @FormatoNome, Formato = @Formato) WHERE FormatoId = @FormatoId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -185,6 +188,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Formato
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@FormatoId", formatosTamanhosModel.FormatoId);
+                        cmd.Parameters.AddWithValue("@FormatoNome", formatosTamanhosModel.NomeFormato);
                         cmd.Parameters.AddWithValue("@Formato", formatosTamanhosModel.Formato);
                         cmd.ExecuteNonQuery();
 

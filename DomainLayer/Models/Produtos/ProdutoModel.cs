@@ -21,8 +21,8 @@ namespace DomainLayer.Models.Produtos
 
         public float ValorCatalogo2 { get; set; }
         public int Pagina { get; set; }
-        public float MargemVendedora { get; set; }
-        public float MargemDistribuidor { get; set; }
+        public string MargemVendedora { get; set; }
+        public string MargemDistribuidor { get; set; }
 
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório (Produto Ativo)")]
@@ -34,7 +34,6 @@ namespace DomainLayer.Models.Produtos
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório. O produto deve estar vinculado a uma Campanha")]
         public int CampanhaId { get; set; }
 
-        public int TamanhoId { get; set; }
 
     }
 }

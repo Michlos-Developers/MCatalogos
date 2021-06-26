@@ -44,12 +44,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO Produtos " +
-                           "(Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, Ativo, CatalogoId, " +
-                           "CampanhaId, TipoProdutoId, TamanhoId) " +
+                           "(Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, Ativo, CatalogoId, CampanhaId) " +
                            "OUTPUT INSERTED.ProdutoId " +
-                           "VALUES " +
-                           "(@Referencia, @Descricao, @ValorCatalogo, @ValorCatalogo2, @Pagina, @MargemVendedora, @MargemDistribuidor, @Ativo, " +
-                           "@CatalogoId, @CampanhaId, @TamanhoId)";
+                           "VALUES (@Referencia, @Descricao, @ValorCatalogo, @ValorCatalogo2, @Pagina, @MargemVendedora, @MargemDistribuidor, @Ativo, @CatalogoId, @CampanhaId)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -70,7 +67,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                         cmd.Parameters.AddWithValue("@Ativo", produto.Ativo);
                         cmd.Parameters.AddWithValue("@CatalogoId", produto.CatalogoId);
                         cmd.Parameters.AddWithValue("@CampanhaId", produto.CampanhaId);
-                        cmd.Parameters.AddWithValue("@TamanhoId", produto.TamanhoId);
 
                         idReturned = (int)cmd.ExecuteScalar();
                     }
@@ -78,6 +74,52 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                 catch (SqlException e)
                 {
                     dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível registar um novo Produto",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                model = GetById(idReturned);
+                return model;
+            }
+        }
+
+        public ProdutoModel AddNoMargens(IProdutoModel produto)
+        {
+            int idReturned = 0;
+            ProdutoModel model = new ProdutoModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "INSERT INTO Produtos " +
+                           "(Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, Ativo, CatalogoId, CampanhaId) " +
+                           "OUTPUT INSERTED.ProdutoId " +
+                           "VALUES (@Referencia, @Descricao, @ValorCatalogo, @ValorCatalogo2, @Pagina, @Ativo, @CatalogoId, @CampanhaId)";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@Referencia", produto.Referencia);
+                        cmd.Parameters.AddWithValue("@Descricao", produto.Descricao);
+                        cmd.Parameters.AddWithValue("@ValorCatalogo", produto.ValorCatalogo);
+                        cmd.Parameters.AddWithValue("@ValorCatalogo2", produto.ValorCatalogo2);
+                        cmd.Parameters.AddWithValue("@Pagina", produto.Pagina);
+                        cmd.Parameters.AddWithValue("@Ativo", produto.Ativo);
+                        cmd.Parameters.AddWithValue("@CatalogoId", produto.CatalogoId);
+                        cmd.Parameters.AddWithValue("@CampanhaId", produto.CampanhaId);
+
+                        idReturned = (int)cmd.ExecuteScalar();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível registar um novo Produto sem Margens",
                         e.HelpLink, e.ErrorCode, e.StackTrace);
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
@@ -127,7 +169,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             List<ProdutoModel> modelList = new List<ProdutoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " +
-                           "Ativo, CatalogoId, CampanhaId, TamanhoId " +
+                           "Ativo, CatalogoId, CampanhaId " +
                            "FROM Produtos";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -149,12 +191,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 model.ValorCatalogo = float.Parse(reader["ValorCatalogo"].ToString());
                                 model.ValorCatalogo2 = float.Parse(reader["ValorCatalogo2"].ToString());
                                 model.Pagina = int.Parse(reader["Pagina"].ToString());
-                                model.MargemVendedora = float.Parse(reader["MargemVendedora"].ToString());
-                                model.MargemDistribuidor = float.Parse(reader["MargemDistribuidor"].ToString());
+                                model.MargemVendedora = reader["MargemVendedora"] != null ? (reader["MargemVendedora"].ToString()) : null;
+                                model.MargemDistribuidor = reader["MargemVendedora"] != null ? (reader["MargemDistribuidor"].ToString()) : null;
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.TamanhoId = reader["TamanhoId"] != null ? int.Parse(reader["TamanhoId"].ToString()) : 0;
 
                                 modelList.Add(model);
                             }
@@ -182,7 +223,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             List<ProdutoModel> modelList = new List<ProdutoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " +
-                           "Ativo, CatalogoId, CampanhaId, TamanhoId " +
+                           "Ativo, CatalogoId, CampanhaId " +
                            "FROM Produtos " +
                            "WHERE CampanhaId = @CampanhaId";
 
@@ -209,12 +250,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 model.ValorCatalogo = float.Parse(reader["ValorCatalogo"].ToString());
                                 model.ValorCatalogo2 = float.Parse(reader["ValorCatalogo2"].ToString());
                                 model.Pagina = int.Parse(reader["Pagina"].ToString());
-                                model.MargemVendedora = float.Parse(reader["MargemVendedora"].ToString());
-                                model.MargemDistribuidor = float.Parse(reader["MargemDistribuidor"].ToString());
+                                model.MargemVendedora = reader["MargemVendedora"] != null ? reader["MargemVendedora"].ToString() : null;
+                                model.MargemDistribuidor = reader["MargemDistribuidor"] != null ? reader["MargemDistribuidor"].ToString() : null;
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.TamanhoId = reader["TamanhoId"] != null ? int.Parse(reader["TamanhoId"].ToString()) : 0;
 
                                 modelList.Add(model);
                             }
@@ -244,7 +284,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             List<ProdutoModel> modelList = new List<ProdutoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, MargemDistribuidor, " +
-                           "Ativo, CatalogoId, CampanhaId, TamanhoId " +
+                           "Ativo, CatalogoId, CampanhaId " +
                            "FROM Produtos " +
                            "WHERE CatalogoId = @CatalogoId";
 
@@ -269,12 +309,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 model.ValorCatalogo = float.Parse(reader["ValorCatalogo"].ToString());
                                 model.ValorCatalogo2 = float.Parse(reader["ValorCatalogo2"].ToString());
                                 model.Pagina = int.Parse(reader["Pagina"].ToString());
-                                model.MargemVendedora = float.Parse(reader["MargemVendedora"].ToString());
-                                model.MargemDistribuidor = float.Parse(reader["MargemDistribuidor"].ToString());
+                                model.MargemVendedora = reader["MargemVendedora"] != null ? reader["MargemVendedora"].ToString() : null;
+                                model.MargemDistribuidor = reader["MargemDistribuidor"] != null ? reader["MargemDistribuidor"].ToString() : null;
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.TamanhoId = reader["TamanhoId"] != null ? int.Parse(reader["TamanhoId"].ToString()) : 0;
 
                                 modelList.Add(model);
                             }
@@ -301,7 +340,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, " +
-                           "MargemDistribuidor, Ativo, CatalogoId, CampanhaId, TamanhoId " +
+                           "MargemDistribuidor, Ativo, CatalogoId, CampanhaId " +
                            "FROM Produtos " +
                            "WHERE CampanhaId = @CampanhaId AND Referencia = @Referencia";
 
@@ -326,12 +365,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 model.ValorCatalogo = float.Parse(reader["ValorCatalogo"].ToString());
                                 model.ValorCatalogo2 = float.Parse(reader["ValorCatalogo2"].ToString());
                                 model.Pagina = int.Parse(reader["Pagina"].ToString());
-                                model.MargemVendedora = float.Parse(reader["MargemVendedora"].ToString());
-                                model.MargemDistribuidor = float.Parse(reader["MargemDistribuidor"].ToString());
+                                model.MargemVendedora = reader["MargemVendedora"] != null ? reader["MargemVendedora"].ToString() : null;
+                                model.MargemDistribuidor = reader["MargemDistribuidor"] != null ? reader["MargemDistribuidor"].ToString() : null;
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.TamanhoId = reader["TamanhoId"] != null ? int.Parse(reader["TamanhoId"].ToString()) : 0;
 
                             }
                         }
@@ -357,7 +395,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, " +
-                           "MargemDistribuidor, " + "Ativo, CatalogoId, CampanhaId, TamanhoId " +
+                           "MargemDistribuidor, " + "Ativo, CatalogoId, CampanhaId " +
                            "FROM Produtos " +
                            "WHERE Referencia = @Referencia";
 
@@ -381,12 +419,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 model.ValorCatalogo = float.Parse(reader["ValorCatalogo"].ToString());
                                 model.ValorCatalogo2 = float.Parse(reader["ValorCatalogo2"].ToString());
                                 model.Pagina = int.Parse(reader["Pagina"].ToString());
-                                model.MargemVendedora = float.Parse(reader["MargemVendedora"].ToString());
-                                model.MargemDistribuidor = float.Parse(reader["MargemDistribuidor"].ToString());
+                                model.MargemVendedora = reader["MargemVendedora"] != null ? reader["MargemVendedora"].ToString() : null;
+                                model.MargemDistribuidor = reader["MargemDistribuidor"] != null ? reader["MargemDistribuidor"].ToString() : null;
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.TamanhoId = reader["TamanhoId"] != null ? int.Parse(reader["TamanhoId"].ToString()) : 0;
 
                             }
                         }
@@ -414,7 +451,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                            "(Referencia = @Referencia, Descricao = @Descricao, ValorCatalogo = @ValorCatalogo, " +
                            "ValorCatalogo2 = @ValorCatalogo2, Pagina = @Pagina, " +
                            "MargemVendedora = @MargemVendedora, MargemDistribuidor = @MargemDistribuidor, Ativo = @Ativo, " +
-                           "CatalogoId = @CatalogoId, CampanhaId = @CampanhaId, TamanhoId = @TamanhoId) " +
+                           "CatalogoId = @CatalogoId, CampanhaId = @CampanhaId) " +
                            "WHERE ProdutoId = @ProdutoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -437,7 +474,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                         cmd.Parameters.AddWithValue("@Ativo", produto.Ativo);
                         cmd.Parameters.AddWithValue("@CatalogoId", produto.CatalogoId);
                         cmd.Parameters.AddWithValue("@CampanhaId", produto.CampanhaId);
-                        cmd.Parameters.AddWithValue("@TamanhoId", produto.TamanhoId);
 
                         cmd.ExecuteNonQuery();
 
@@ -456,12 +492,66 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             }
         }
 
+        public void UpdateNoMargem(IProdutoModel produto)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "UPDATE Produtos " +
+                           "SET Referencia = @Referencia, " +
+                           "Descricao = @Descricao, " +
+                           "ValorCatalogo = @ValorCatalogo, " +
+                           "ValorCatalogo2 = @ValorCatalogo2, " +
+                           "Pagina = @Pagina, " +
+                           "MargemVendedora = NULL, " +
+                           "MargemDistribuidor = NULL, " +
+                           "Ativo = @Ativo, " +
+                           "CatalogoId = @CatalogoId, " +
+                           "CampanhaId = @CampanhaId " +
+                           "WHERE ProdutoId = @ProdutoId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@ProdutoId", produto.ProdutoId);
+                        cmd.Parameters.AddWithValue("@Referencia", produto.Referencia);
+                        cmd.Parameters.AddWithValue("@Descricao", produto.Descricao);
+                        cmd.Parameters.AddWithValue("@ValorCatalogo", produto.ValorCatalogo);
+                        cmd.Parameters.AddWithValue("@ValorCatalogo2", produto.ValorCatalogo2);
+                        cmd.Parameters.AddWithValue("@Pagina", produto.Pagina);
+                        //cmd.Parameters.AddWithValue("@MargemVendedora", null);
+                        //cmd.Parameters.AddWithValue("@MargemDistribuidor", null);
+                        cmd.Parameters.AddWithValue("@Ativo", produto.Ativo);
+                        cmd.Parameters.AddWithValue("@CatalogoId", produto.CatalogoId);
+                        cmd.Parameters.AddWithValue("@CampanhaId", produto.CampanhaId);
+
+                        cmd.ExecuteNonQuery();
+
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível apagar o registro do Produto Selecionado sem Margem",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public ProdutoModel GetById(int ProdutoId)
         {
             ProdutoModel model = new ProdutoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT ProdutoId, Referencia, Descricao, ValorCatalogo, ValorCatalogo2, Pagina, MargemVendedora, " +
-                           "MargemDistribuidor, Ativo, CatalogoId, CampanhaId, TamanhoId " +
+                           "MargemDistribuidor, Ativo, CatalogoId, CampanhaId " +
                            "FROM Produtos " +
                            "WHERE ProdutoId = @ProdutoId";
 
@@ -487,12 +577,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                                 model.ValorCatalogo = float.Parse(reader["ValorCatalogo"].ToString());
                                 model.ValorCatalogo2 = float.Parse(reader["ValorCatalogo2"].ToString());
                                 model.Pagina = int.Parse(reader["Pagina"].ToString());
-                                model.MargemVendedora = float.Parse(reader["MargemVendedora"].ToString());
-                                model.MargemDistribuidor = float.Parse(reader["MargemDistribuidor"].ToString());
+                                model.MargemVendedora = reader["MargemVendedora"] != null ? reader["MargemVendedora"].ToString() : null;
+                                model.MargemDistribuidor = reader["MargemDistribuidor"] != null ? reader["MargemDistribuidor"].ToString() : null;
                                 model.Ativo = bool.Parse(reader["Ativo"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.TamanhoId = reader["TamanhoId"] != null ? int.Parse(reader["TamanhoId"].ToString()) : 0;
 
                             }
                         }

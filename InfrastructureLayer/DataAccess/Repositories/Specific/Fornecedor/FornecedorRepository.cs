@@ -50,10 +50,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
             string query = "INSERT INTO Fornecedores " +
-                "(NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Cep, UfId, CidadeId, BairroId) " +
+                "(NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Complemento, Cep, UfId, CidadeId, BairroId, Ativo) " +
                 "output INSERTED.FornecedorId " +
                 "VALUES " +
-                "(@NomeFantasia, @RazaoSocial, @Cnpj, @InscricaoEstadual, @Email, @WebSite, @ContatoPrincipal, @Logradouro, @Numero, @Cep, @UfId, @CidadeId, @BairroId) ";
+                "(@NomeFantasia, @RazaoSocial, @Cnpj, @InscricaoEstadual, @Email, @WebSite, @ContatoPrincipal, @Logradouro, @Numero, @Complemento, @Cep, @UfId, @CidadeId, @BairroId, @Ativo) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -85,10 +85,12 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                         cmd.Parameters.AddWithValue("@ContatoPrincipal", fornecedorModel.ContatoPrincipal);
                         cmd.Parameters.AddWithValue("@Logradouro", fornecedorModel.Logradouro);
                         cmd.Parameters.AddWithValue("@Numero", fornecedorModel.Numero);
+                        cmd.Parameters.AddWithValue("@Complemento", fornecedorModel.Complemento);
                         cmd.Parameters.AddWithValue("@Cep", fornecedorModel.Cep);
                         cmd.Parameters.AddWithValue("@UfId", fornecedorModel.UfId);
                         cmd.Parameters.AddWithValue("@CidadeId", fornecedorModel.CidadeId);
                         cmd.Parameters.AddWithValue("@BairroId", fornecedorModel.BairroId);
+                        cmd.Parameters.AddWithValue("@Ativo", fornecedorModel.Ativo);
 
                         try
                         {
@@ -238,6 +240,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                                 model.UfId = int.Parse(reader["UfId"].ToString());
                                 model.CidadeId = int.Parse(reader["CidadeId"].ToString());
                                 model.BairroId = int.Parse(reader["BairroId"].ToString());
+                                model.Ativo = bool.Parse(reader["Ativo"].ToString());
 
                                 modelList.Add(model);
                             }
@@ -268,7 +271,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
 
             bool recordFound = false;
 
-            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Complemento, Numero, Cep, UfId, CidadeId, BairroId " +
+            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Complemento, Cep, UfId, CidadeId, BairroId, Ativo " +
                            "FROM  Fornecedores WHERE FornecedorId = @FornecedorId ";
 
 
@@ -302,6 +305,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                                 model.UfId = int.Parse(reader["UfId"].ToString());
                                 model.CidadeId = int.Parse(reader["CidadeId"].ToString());
                                 model.BairroId = int.Parse(reader["BairroId"].ToString());
+                                model.Ativo = bool.Parse(reader["Ativo"].ToString());
                             }
                         }
                     }
@@ -339,7 +343,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
             bool recordFound = false;
-            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Cep, UfId, CidadeId, BairroId " +
+            string query = "SELECT FornecedorId, NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, ContatoPrincipal, Logradouro, Numero, Complemento, Cep, UfId, CidadeId, BairroId, Ativo " +
                            "FROM  Fornecedores WHERE NomeFantasia = @NomeFantasia ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -372,6 +376,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                                 model.UfId = int.Parse(reader["UfId"].ToString());
                                 model.CidadeId = int.Parse(reader["CidadeId"].ToString());
                                 model.BairroId = int.Parse(reader["BairroId"].ToString());
+                                model.Ativo = bool.Parse(reader["Ativo"].ToString());
                             }
                         }
                     }
@@ -403,9 +408,22 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
         {
             int result = -1;
             string query = "UPDATE Fornecedores " +
-                           "SET NomeFantasia = @NomeFantasia, RazaoSocial = @RazaoSocial, Cnpj = @Cnpj, InscricaoEstadual = @InscricaoEstadual, " +
-                           "Email = @Email, WebSite = @WebSite, ContatoPrincipal = @ContatoPrincipal, Logradouro = @Logradouro, " +
-                           "Numero = @Numero, Complemento = @Complemento, Cep = @Cep, UfId = @UfId, CidadeId = @CidadeId, BairroId = BairroId " +
+                           "SET " +
+                           "NomeFantasia = @NomeFantasia, " +
+                           "RazaoSocial = @RazaoSocial, " +
+                           "Cnpj = @Cnpj, " +
+                           "InscricaoEstadual = @InscricaoEstadual, " +
+                           "Email = @Email, " +
+                           "WebSite = @WebSite, " +
+                           "ContatoPrincipal = @ContatoPrincipal, " +
+                           "Logradouro = @Logradouro, " +
+                           "Numero = @Numero, " +
+                           "Complemento = @Complemento, " +
+                           "Cep = @Cep, " +
+                           "UfId = @UfId, " +
+                           "CidadeId = @CidadeId, " +
+                           "BairroId = @BairroId, " +
+                           "Ativo = @Ativo " +
                            "WHERE FornecedorId = @FornecedorId";
 
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
@@ -441,10 +459,12 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                         cmd.Parameters.AddWithValue("@ContatoPrincipal", fornecedorModel.ContatoPrincipal);
                         cmd.Parameters.AddWithValue("@Logradouro", fornecedorModel.Logradouro);
                         cmd.Parameters.AddWithValue("@Numero", fornecedorModel.Numero);
+                        cmd.Parameters.AddWithValue("@Complemento", fornecedorModel.Complemento);
                         cmd.Parameters.AddWithValue("@Cep", fornecedorModel.Cep);
                         cmd.Parameters.AddWithValue("@UfId", fornecedorModel.UfId);
                         cmd.Parameters.AddWithValue("@CidadeId", fornecedorModel.CidadeId);
                         cmd.Parameters.AddWithValue("@BairroId", fornecedorModel.BairroId);
+                        cmd.Parameters.AddWithValue("@Ativo", fornecedorModel.Ativo);
 
                         try
                         {

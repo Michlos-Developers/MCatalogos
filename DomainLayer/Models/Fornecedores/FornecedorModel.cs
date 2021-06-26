@@ -71,5 +71,8 @@ namespace DomainLayer.Models.Fornecedores
         public int BairroId { get; set; }
         public virtual BairroModel Bairro { get; set; }
 
+        [Required]
+        public bool Ativo { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.Tamanho;
+﻿using DomainLayer.Models.Produtos;
+using DomainLayer.Models.Tamanho;
 
 using ServiceLayer.CommonServices;
 
@@ -39,6 +40,11 @@ namespace ServiceLayer.Services.TamanhoServices
         public TamanhosModel GetById(int tamanhoId)
         {
             return _tamanhoRepository.GetById(tamanhoId);
+        }
+
+        public IEnumerable<TamanhosModel> GetByProdutoModel(ProdutoModel produtoModel)
+        {
+            return _tamanhoRepository.GetByProdutoModel(produtoModel);
         }
 
         public void Update(ITamanhosModel tamanhosModel)

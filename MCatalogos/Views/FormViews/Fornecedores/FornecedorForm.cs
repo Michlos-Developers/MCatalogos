@@ -119,7 +119,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 RazaoSocial = textRazaoSocial.Text,
                 UfId = _estadoServices.GetByUf(cbUf.Text).EstadoId,
                 WebSite = textSite.Text,
-                ContatoPrincipal = ""
+                ContatoPrincipal = "",
+                Ativo = true
 
             };
 
@@ -167,7 +168,9 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                            _cidadeServices.GetByNomeAndEstadoId(cbCidade.Text,
                            _estadoServices.GetByUf(cbUf.Text).EstadoId).CidadeId).BairroId,
                 Email = textEmail.Text,
-                WebSite = textSite.Text
+                WebSite = textSite.Text,
+                ContatoPrincipal = "",
+                Ativo = true
             };
 
             bool operationSucceeded = false;

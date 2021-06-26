@@ -13,5 +13,8 @@ namespace DomainLayer.Models.Tamanho
         [Required]
         public int FormatoId { get; set; }
 
+        [Required]
+        public int ProdutoId { get; set; }
+
     }
 }

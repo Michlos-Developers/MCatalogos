@@ -1,5 +1,6 @@
 ﻿using CommonComponents;
 
+using DomainLayer.Models.Produtos;
 using DomainLayer.Models.Tamanho;
 
 using ServiceLayer.Services.TamanhoServices;
@@ -50,10 +51,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
             TamanhosModel model = new TamanhosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO Tamanhos " +
-                           "(Tamanho, FormatoId) " +
+                           "(Tamanho, FormatoId, ProdutoId) " +
                            "OUTPUT INSERTED.TamanhoId " +
                            "VALUES " +
-                           "(@Tamanho, @FormatoId)";
+                           "(@Tamanho, @FormatoId, @ProdutoId)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -65,6 +66,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@Tamanho", tamanho.Tamanho);
                         cmd.Parameters.AddWithValue("@FormatoId", tamanho.FormatoId);
+                        cmd.Parameters.AddWithValue("@ProdutoId", tamanho.ProdutoId);
+
 
                         idReturned = (int)cmd.ExecuteScalar();
                     }
@@ -119,7 +122,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
         {
             List<TamanhosModel> modelList = new List<TamanhosModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT TamanhoId, Tamanho, FormatoId FROM Tamanhos";
+            string query = "SELECT TamanhoId, Tamanho, FormatoId, ProdutoId FROM Tamanhos";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -138,6 +141,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
                                 model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
                                 model.Tamanho = reader["Tamanho"].ToString();
                                 model.FormatoId = int.Parse(reader["FormatoId"].ToString());
+                                model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
 
                                 modelList.Add(model);
                             }
@@ -159,11 +163,56 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
             }
         }
 
+        public IEnumerable<TamanhosModel> GetByProdutoModel(ProdutoModel produtoModel)
+        {
+            List<TamanhosModel> modelList = new List<TamanhosModel>();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "SELECT TamanhoId, Tamanho, FormatoId, ProdutoId FROM Tamanhos WHERE ProdutoId = @ProdutoId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@ProdutoId", produtoModel.ProdutoId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                TamanhosModel model = new TamanhosModel();
+                                model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
+                                model.Tamanho = reader["Tamanho"].ToString();
+                                model.FormatoId = int.Parse(reader["FormatoId"].ToString());
+                                model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
+
+                                modelList.Add(model);
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar o Tamanho pelo Id",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return modelList;
+            }
+        }
+
         public TamanhosModel GetById(int tamanhoId)
         {
             TamanhosModel model = new TamanhosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT TamanhoId, Tamanho, FormatoId FROM Tamanhos WHERE TamanhoId = @TamanhoId";
+            string query = "SELECT TamanhoId, Tamanho, FormatoId, ProdutoId FROM Tamanhos WHERE TamanhoId = @TamanhoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -182,6 +231,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
                                 model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
                                 model.Tamanho = reader["Tamanho"].ToString();
                                 model.FormatoId = int.Parse(reader["FormatoId"].ToString());
+                                model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
                             }
                         }
                     }
@@ -205,7 +255,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Tamanhos SET " +
-                           "(Tamanho = @Tamanho, FormatoId = @FormatoId )" +
+                           "(Tamanho = @Tamanho, FormatoId = @FormatoId, ProdutoId = @ProdutoId )" +
                            "WHERE TamanhoId = @TamanhoId ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -219,6 +269,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
                         cmd.Parameters.AddWithValue("@TamanhoId", tamanho.TamanhoId);
                         cmd.Parameters.AddWithValue("@Tamanho", tamanho.Tamanho);
                         cmd.Parameters.AddWithValue("@FormatoId", tamanho.FormatoId);
+                        cmd.Parameters.AddWithValue("@ProdutoId", tamanho.ProdutoId);
 
                         cmd.ExecuteNonQuery();
 

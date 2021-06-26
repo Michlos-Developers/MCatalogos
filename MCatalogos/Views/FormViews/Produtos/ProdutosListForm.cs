@@ -5,6 +5,8 @@ using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
+using MCatalogos.Views.FormViews.Bairros;
+
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.ProdutoServices;
@@ -49,6 +51,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private CatalogoModel CatalogoModel;
         private CampanhaModel CampanhaModel;
+        private ProdutoModel ProdutoModel;
 
         public ProdutosListForm(MainView mainView)
         {
@@ -104,7 +107,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         public void PopulaComboBoxCatalogos()
         {
-           this.catalogoModelList = (List<CatalogoModel>)_catalogoServices.GetAll();
+            this.catalogoModelList = (List<CatalogoModel>)_catalogoServices.GetAll();
 
             cbCatalogo.ValueMember = "Nome";
             cbCatalogo.DisplayMember = "Nome";
@@ -130,31 +133,39 @@ namespace MCatalogos.Views.FormViews.Produtos
                 if (model.Ativa == true)
                     cbCampanha.Items.Add(model);
 
-                
+
             }
             if (cbCampanha.Items.Count == 1)
             {
                 cbCampanha.SelectedIndex = 0;
             }
-            
+
         }
 
         private void ProdutosListForm_Load(object sender, EventArgs e)
         {
             PopulaComboBoxCatalogos();
-            
-            
+
+
         }
 
         private void LoadProdutosToDataGrid(CatalogoModel catalogoModel, CampanhaModel campanhaModel)
         {
-            if (catalogoModel == null && campanhaModel != null)
+            if (catalogoModel != null)
             {
-                this.produtoModelList = (List<ProdutoModel>)_produtosServices.GetAllByCampanhaId(campanhaModel.CampanhaId);
+                if (campanhaModel != null)
+                {
+                    this.produtoModelList = (List<ProdutoModel>)_produtosServices.GetAllByCampanhaId(campanhaModel.CampanhaId);
+                }
+                else
+                {
+                    this.produtoModelList = (List<ProdutoModel>)_produtosServices.GetAll();
+                }
             }
             else
             {
                 this.produtoModelList = (List<ProdutoModel>)_produtosServices.GetAll();
+
             }
 
             DataTable tableProdutos = new DataTable();
@@ -192,12 +203,12 @@ namespace MCatalogos.Views.FormViews.Produtos
             tableProdutos.Columns.Add(column);
 
             column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
+            column.DataType = Type.GetType("System.String");
             column.ColumnName = "MargemVendedora";
             tableProdutos.Columns.Add(column);
 
             column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
+            column.DataType = Type.GetType("System.String");
             column.ColumnName = "MargemDistribuidor";
             tableProdutos.Columns.Add(column);
 
@@ -220,9 +231,9 @@ namespace MCatalogos.Views.FormViews.Produtos
                     row["Catalogo"] = _catalogoServices.GetById(model.CatalogoId).Nome;
                     row["Referencia"] = model.Referencia.ToString();
                     row["Descricao"] = model.Descricao.ToString();
-                    row["ValorCatalogo"] = float.Parse(model.ValorCatalogo.ToString());
-                    row["MargemVendedora"] = float.Parse(model.MargemVendedora.ToString());
-                    row["MargemDistribuidor"] = float.Parse(model.MargemDistribuidor.ToString());
+                    row["ValorCatalogo"] = double.Parse(model.ValorCatalogo.ToString());
+                    row["MargemVendedora"] = model.MargemVendedora.ToString();
+                    row["MargemDistribuidor"] = model.MargemDistribuidor.ToString();
                     row["CatalogoId"] = model.CatalogoId;
                     row["CampanhaId"] = model.CampanhaId;
 
@@ -257,17 +268,19 @@ namespace MCatalogos.Views.FormViews.Produtos
                 PopulaComboBoxCampanhas(this.CatalogoModel);
 
             }
-            
+
         }
 
         public void ConfiguraDataGridView()
         {
-            
+            dgvProdutos.ForeColor = Color.Black;
+
             dgvProdutos.Columns[0].HeaderText = "ProdutoId";
             dgvProdutos.Columns[1].HeaderText = "Catálogo";
             dgvProdutos.Columns[2].HeaderText = "Referência";
             dgvProdutos.Columns[3].HeaderText = "Descrição";
             dgvProdutos.Columns[4].HeaderText = "Valor";
+            dgvProdutos.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvProdutos.Columns[5].HeaderText = "Pág.";
             dgvProdutos.Columns[5].Width = 50;
             dgvProdutos.Columns[6].HeaderText = "% Vend.";
@@ -276,7 +289,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             dgvProdutos.Columns[7].Width = 50;
             dgvProdutos.Columns[8].HeaderText = "CatalogoId";
             dgvProdutos.Columns[9].HeaderText = "CampanhaId";
-           
+
             dgvProdutos.Columns[0].Visible = false;
             dgvProdutos.Columns[8].Visible = false;
             dgvProdutos.Columns[9].Visible = false;
@@ -303,6 +316,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         {
             if (cbCampanha.SelectedIndex >= 0)
             {
+                this.CatalogoModel = _catalogoServices.GetById((cbCatalogo.SelectedItem as CatalogoModel).CatalogoId);
                 this.CampanhaModel = _campanhaService.GetById((cbCampanha.SelectedItem as CampanhaModel).CampanhaId);
                 btnAdd.Enabled = true;
                 LoadProdutosToDataGrid(this.CatalogoModel, this.CampanhaModel);
@@ -311,6 +325,52 @@ namespace MCatalogos.Views.FormViews.Produtos
             {
                 this.CampanhaModel = null;
                 btnAdd.Enabled = false;
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProdutoAddForm produtoAddForm = new ProdutoAddForm(this.CatalogoModel, this.CampanhaModel, null);
+                produtoAddForm.Text = "Adicionando Novo Produto - " + this.CatalogoModel.Nome;
+                produtoAddForm.StartPosition = FormStartPosition.CenterScreen;
+                produtoAddForm.ShowDialog();
+                LoadProdutosToDataGrid(this.CatalogoModel, this.CampanhaModel);
+                if (produtoAddForm.ProdutoModel != null)
+                    MessageBox.Show($"Produto {produtoAddForm.ProdutoModel.Referencia} adcionado à Campanha {this.CampanhaModel.Nome}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível adicionar um novo Produto à Campanha\nMessageError: {ex.Message}\nStackTrace: {ex.StackTrace}\nInnerException: {ex.InnerException}");
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ProdutoModel = _produtosServices.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[0].Value.ToString()));
+                this.CatalogoModel = _catalogoServices.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[8].Value.ToString()));
+                this.CampanhaModel = _campanhaService.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[9].Value.ToString()));
+
+                ProdutoAddForm produtoEditForm = new ProdutoAddForm(this.CatalogoModel, this.CampanhaModel, this.ProdutoModel);
+                produtoEditForm.Text = "Editando Produto - " + this.ProdutoModel.Referencia + " - " + this.CatalogoModel.Nome;
+                produtoEditForm.StartPosition = FormStartPosition.CenterScreen;
+                produtoEditForm.ShowDialog();
+                LoadProdutosToDataGrid(null, null);
+                if (produtoEditForm.ProdutoModel != null)
+                {
+                    if (produtoEditForm.ProdutoModel != this.ProdutoModel)
+                    {
+                        MessageBox.Show($"Produto {produtoEditForm.ProdutoModel.Referencia} atualizado com sucesso");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível atualizar o registro do produto {this.ProdutoModel.Referencia}.\nMessageError: {ex.Message}\nStackTrace: {ex.StackTrace}\nInnerException: {ex.InnerException}");
             }
         }
     }

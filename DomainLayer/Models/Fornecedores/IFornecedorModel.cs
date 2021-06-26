@@ -21,5 +21,7 @@ namespace DomainLayer.Models.Fornecedores
         string WebSite { get; set; }
         EstadoModel Uf { get; set; }
         int UfId { get; set; }
+        string Complemento { get; set; }
+        bool Ativo { get; set; }
     }
 }

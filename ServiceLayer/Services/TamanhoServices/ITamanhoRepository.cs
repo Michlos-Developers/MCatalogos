@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.Tamanho;
+﻿using DomainLayer.Models.Produtos;
+using DomainLayer.Models.Tamanho;
 
 using System.Collections.Generic;
 
@@ -11,5 +12,6 @@ namespace ServiceLayer.Services.TamanhoServices
         void Delete(ITamanhosModel tamanhosModel);
         IEnumerable<TamanhosModel> GetAll();
         TamanhosModel GetById(int tamanhoId);
+        IEnumerable<TamanhosModel> GetByProdutoModel(ProdutoModel produtoModel);
     }
 }

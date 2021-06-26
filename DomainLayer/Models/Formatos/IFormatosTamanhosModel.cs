@@ -4,5 +4,6 @@
     {
         string Formato { get; set; }
         int FormatoId { get; set; }
+        string NomeFormato { get; set; }
     }
 }

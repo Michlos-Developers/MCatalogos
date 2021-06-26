@@ -190,6 +190,12 @@
     <Compile Include="Views\UserControls\Rotas\RotasEditUC.Designer.cs">
       <DependentUpon>RotasEditUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\Tamanhos\TamanhosListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\Tamanhos\TamanhosListUC.Designer.cs">
+      <DependentUpon>TamanhosListUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Vendedoras\IVendedoraListViewUC.cs" />
     <Compile Include="Views\UserControls\Vendedoras\TelefonesVendedoraListUC.cs">
       <SubType>UserControl</SubType>
@@ -284,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\Rotas\RotasEditUC.resx">
       <DependentUpon>RotasEditUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\Tamanhos\TamanhosListUC.resx">
+      <DependentUpon>TamanhosListUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\Vendedoras\TelefonesVendedoraListUC.resx">
       <DependentUpon>TelefonesVendedoraListUC.cs</DependentUpon>

@@ -16,5 +16,7 @@ namespace ServiceLayer.Services.ProdutoServices
         ProdutoModel GetByReference(string Reference);
         ProdutoModel GetByCampanhaIdAndReference(int CampanhaId, string Reference);
         ProdutoModel GetById(int ProdutoId);
+        ProdutoModel AddNoMargens(IProdutoModel produto);
+        void UpdateNoMargem(IProdutoModel produto);
     }
 }

@@ -8,6 +8,9 @@ namespace DomainLayer.Models.Formatos
         public int FormatoId { get; set; }
 
         [Required]
+        public string NomeFormato { get; set; }
+
+        [Required]
         public string Formato { get; set; }
     }
 }

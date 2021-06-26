@@ -22,6 +22,11 @@ namespace ServiceLayer.Services.ProdutoServices
             return _produtoRepository.Add(produto);
         }
 
+        public ProdutoModel AddNoMargens(IProdutoModel produto)
+        {
+            return _produtoRepository.AddNoMargens(produto);
+        }
+
         public void Delete(IProdutoModel produto)
         {
             _produtoRepository.Delete(produto);
@@ -62,6 +67,11 @@ namespace ServiceLayer.Services.ProdutoServices
         public void Update(IProdutoModel produto)
         {
             _produtoRepository.Update(produto);
+        }
+
+        public void UpdateNoMargem(IProdutoModel produto)
+        {
+            _produtoRepository.UpdateNoMargem(produto);
         }
 
         public void ValidateModel(IProdutoModel produto)
