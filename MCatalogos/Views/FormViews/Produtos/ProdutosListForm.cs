@@ -332,7 +332,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         {
             try
             {
-                ProdutoAddForm produtoAddForm = new ProdutoAddForm(this.CatalogoModel, this.CampanhaModel, null);
+                ProdutoAddForm produtoAddForm = new ProdutoAddForm(null, this.CatalogoModel, this.CampanhaModel);
                 produtoAddForm.Text = "Adicionando Novo Produto - " + this.CatalogoModel.Nome;
                 produtoAddForm.StartPosition = FormStartPosition.CenterScreen;
                 produtoAddForm.ShowDialog();
@@ -354,7 +354,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                 this.CatalogoModel = _catalogoServices.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[8].Value.ToString()));
                 this.CampanhaModel = _campanhaService.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[9].Value.ToString()));
 
-                ProdutoAddForm produtoEditForm = new ProdutoAddForm(this.CatalogoModel, this.CampanhaModel, this.ProdutoModel);
+                ProdutoAddForm produtoEditForm = new ProdutoAddForm(this.ProdutoModel, this.CatalogoModel, this.CampanhaModel);
                 produtoEditForm.Text = "Editando Produto - " + this.ProdutoModel.Referencia + " - " + this.CatalogoModel.Nome;
                 produtoEditForm.StartPosition = FormStartPosition.CenterScreen;
                 produtoEditForm.ShowDialog();

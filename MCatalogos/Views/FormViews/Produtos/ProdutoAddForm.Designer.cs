@@ -37,6 +37,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.groupBoxTamanhos = new System.Windows.Forms.GroupBox();
             this.cbFormatoTamanho = new System.Windows.Forms.ComboBox();
             this.panelTamanhosUC = new System.Windows.Forms.Panel();
+            this.dgvTamanhos = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,6 +62,8 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBoxTamanhos.SuspendLayout();
+            this.panelTamanhosUC.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTamanhos)).BeginInit();
             this.panelCatalogoCampanha.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,11 +166,25 @@ namespace MCatalogos.Views.FormViews.Produtos
             // 
             // panelTamanhosUC
             // 
+            this.panelTamanhosUC.Controls.Add(this.dgvTamanhos);
+            this.panelTamanhosUC.Enabled = false;
             this.panelTamanhosUC.Location = new System.Drawing.Point(121, 21);
             this.panelTamanhosUC.Name = "panelTamanhosUC";
             this.panelTamanhosUC.Size = new System.Drawing.Size(142, 119);
             this.panelTamanhosUC.TabIndex = 1;
             this.panelTamanhosUC.TabStop = true;
+            // 
+            // dgvTamanhos
+            // 
+            this.dgvTamanhos.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTamanhos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTamanhos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTamanhos.GridColor = System.Drawing.Color.DarkCyan;
+            this.dgvTamanhos.Location = new System.Drawing.Point(0, 0);
+            this.dgvTamanhos.Name = "dgvTamanhos";
+            this.dgvTamanhos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvTamanhos.Size = new System.Drawing.Size(142, 119);
+            this.dgvTamanhos.TabIndex = 0;
             // 
             // label10
             // 
@@ -386,6 +403,8 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelContainer.PerformLayout();
             this.groupBoxTamanhos.ResumeLayout(false);
             this.groupBoxTamanhos.PerformLayout();
+            this.panelTamanhosUC.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTamanhos)).EndInit();
             this.panelCatalogoCampanha.ResumeLayout(false);
             this.panelCatalogoCampanha.PerformLayout();
             this.ResumeLayout(false);
@@ -422,5 +441,6 @@ namespace MCatalogos.Views.FormViews.Produtos
         private System.Windows.Forms.TextBox textMargemVendedora;
         private System.Windows.Forms.TextBox textValorGG;
         private System.Windows.Forms.TextBox textValor;
+        public System.Windows.Forms.DataGridView dgvTamanhos;
     }
 }
