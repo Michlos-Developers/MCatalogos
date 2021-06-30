@@ -448,10 +448,16 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Produtos SET " +
-                           "(Referencia = @Referencia, Descricao = @Descricao, ValorCatalogo = @ValorCatalogo, " +
-                           "ValorCatalogo2 = @ValorCatalogo2, Pagina = @Pagina, " +
-                           "MargemVendedora = @MargemVendedora, MargemDistribuidor = @MargemDistribuidor, Ativo = @Ativo, " +
-                           "CatalogoId = @CatalogoId, CampanhaId = @CampanhaId) " +
+                           "Referencia = @Referencia, " +
+                           "Descricao = @Descricao, " +
+                           "ValorCatalogo = @ValorCatalogo, " +
+                           "ValorCatalogo2 = @ValorCatalogo2, " +
+                           "Pagina = @Pagina, " +
+                           "MargemVendedora = @MargemVendedora, " +
+                           "MargemDistribuidor = @MargemDistribuidor, " +
+                           "Ativo = @Ativo, " +
+                           "CatalogoId = @CatalogoId, " +
+                           "CampanhaId = @CampanhaId " +
                            "WHERE ProdutoId = @ProdutoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -469,7 +475,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
                         cmd.Parameters.AddWithValue("@ValorCatalogo", produto.ValorCatalogo);
                         cmd.Parameters.AddWithValue("@ValorCatalogo2", produto.ValorCatalogo2);
                         cmd.Parameters.AddWithValue("@Pagina", produto.Pagina);
-                        cmd.Parameters.AddWithValue("@MargemVendedora", produto.MargemVendedora);
+                        cmd.Parameters.AddWithValue("@MargemVendedora",  produto.MargemVendedora);
                         cmd.Parameters.AddWithValue("@MargemDistribuidor", produto.MargemDistribuidor);
                         cmd.Parameters.AddWithValue("@Ativo", produto.Ativo);
                         cmd.Parameters.AddWithValue("@CatalogoId", produto.CatalogoId);

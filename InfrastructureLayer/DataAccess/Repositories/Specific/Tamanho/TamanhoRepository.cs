@@ -255,7 +255,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Tamanhos SET " +
-                           "(Tamanho = @Tamanho, FormatoId = @FormatoId, ProdutoId = @ProdutoId )" +
+                           "Tamanho = @Tamanho, FormatoId = @FormatoId, ProdutoId = @ProdutoId " +
                            "WHERE TamanhoId = @TamanhoId ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))

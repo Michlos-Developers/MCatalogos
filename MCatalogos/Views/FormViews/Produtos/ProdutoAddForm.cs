@@ -26,10 +26,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 {
     public partial class ProdutoAddForm : Form
     {
-        enum TamanhosValue
-        {
-            P,M,G,GG,XXG,XLG
-        }
+
         public ProdutoModel ProdutoModel;
         private CampanhaModel CampanhaModel;
         private CatalogoModel CatalogoModel;
@@ -65,14 +62,21 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void ProdutoAddForm_Load(object sender, EventArgs e)
         {
-            CarregaListaTamanhosProduto(ProdutoModel);
             CarregaFormato(TamanhosModel);
-            PreencheComboBoxFormato();
             ConfiguraDataGridView(TamanhosList);
+            PreencheComboBoxFormato();
             if (ProdutoModel != null) //EDITANDO
             {
+                CarregaListaTamanhosProduto(ProdutoModel);
                 PreencheCampos(ProdutoModel, TamanhosList);
             }
+            else
+            {
+                PreencheCampos(null, TamanhosList);
+                cbFormatoTamanho.SelectedIndex = -1;
+            }
+
+
         }
 
         private void CarregaFormato(TamanhosModel tamanho)
@@ -99,19 +103,22 @@ namespace MCatalogos.Views.FormViews.Produtos
         {
             textCatalogo.Text = CatalogoModel.Nome;
             textCampanha.Text = CampanhaModel.Nome;
-            textReferencia.Text = produto.Referencia;
-            textDescricao.Text = produto.Descricao;
-            textValor.Text = produto.ValorCatalogo.ToString();
-            textValorGG.Text = produto.ValorCatalogo2.ToString();
-            textPagina.Text = produto.Pagina.ToString();
-            textMargemVendedora.Text = produto.MargemVendedora.ToString();
-            textMargemDistribuidor.Text = produto.MargemDistribuidor.ToString();
 
-            groupBoxTamanhos.Enabled = true;
-            if (tamanhos.Count > 0)
+            if (produto != null)
+            {
+                textReferencia.Text = produto.Referencia;
+                textDescricao.Text = produto.Descricao;
+                textValor.Text = produto.ValorCatalogo.ToString();
+                textValorGG.Text = produto.ValorCatalogo2.ToString();
+                textPagina.Text = produto.Pagina.ToString();
+                textMargemVendedora.Text = produto.MargemVendedora.ToString();
+                textMargemDistribuidor.Text = produto.MargemDistribuidor.ToString();
+                groupBoxTamanhos.Enabled = true;
+            }
+
+            if (tamanhos != null && tamanhos.Count > 0)
             {
                 panelTamanhosUC.Enabled = true;
-                //FormatoModel = _formatoServices.GetById(tamanhos[0].FormatoId);
                 cbFormatoTamanho.SelectedItem = FormatoModel;
 
                 ConfiguraDataGridView(tamanhos);
@@ -148,7 +155,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             column.ColumnName = "ProdutoId";
             tableTamanhos.Columns.Add(column);
 
-            if (tamanhos.Count != 0)
+            if (tamanhos != null && tamanhos.Count != 0)
             {
                 foreach (var model in tamanhos)
                 {
@@ -176,9 +183,10 @@ namespace MCatalogos.Views.FormViews.Produtos
             dgvTamanhos.Columns[2].Visible = false;
             dgvTamanhos.Columns[3].Visible = false;
 
-            if (tamanhos.Count == 0)
+            if (tamanhos == null || tamanhos.Count == 0)
             {
                 cbFormatoTamanho.SelectedIndex = -1;
+                cbFormatoTamanho.Text = string.Empty;
             }
         }
 
@@ -206,6 +214,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             }
 
             SaveTamanhos(ProdutoModel);
+            ProdutoAddForm_Load(sender, e);
 
         }
 
@@ -220,7 +229,14 @@ namespace MCatalogos.Views.FormViews.Produtos
             produtoModel.MargemDistribuidor = textMargemDistribuidor.Text;
             ProdutoModel.Ativo = true;
 
-            //_produtoServices.Update(produtoModel);
+            if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
+            {
+                _produtoServices.UpdateNoMargem(produtoModel);
+            }
+            else
+            {
+                _produtoServices.Update(produtoModel);
+            }
 
         }
         private void InsertProduto()
@@ -237,7 +253,14 @@ namespace MCatalogos.Views.FormViews.Produtos
             produto.CampanhaId = CampanhaModel.CampanhaId;
             produto.Ativo = true;
 
-            //_produtoServices.Add(produto);
+            if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
+            {
+                this.ProdutoModel = _produtoServices.AddNoMargens(produto);
+            }
+            else
+            {
+                this.ProdutoModel = _produtoServices.Add(produto);
+            }
         }
 
 
@@ -312,7 +335,8 @@ namespace MCatalogos.Views.FormViews.Produtos
                                 FormatoId = (cbFormatoTamanho.SelectedItem as FormatosTamanhosModel).FormatoId,
                                 ProdutoId = ProdutoModel.ProdutoId
                             };
-                            //_tamanhoServices.Add(t);
+                            this.TamanhosModel = _tamanhoServices.Add(t);
+                            this.TamanhosList.Add(this.TamanhosModel);
                         }
 
                     }
@@ -323,11 +347,12 @@ namespace MCatalogos.Views.FormViews.Produtos
 
                     if (ListToCompare.Exists(x => x.TamanhoId == model.TamanhoId))
                     {
-                        //_tamanhoServices.Update(model);
+                        _tamanhoServices.Update(model);
                     }
                     else
                     {
-                        //_tamanhoServices.Insert(model);
+                        this.TamanhosModel =  _tamanhoServices.Add(model);
+                        this.TamanhosList.Add(this.TamanhosModel);
                     }
                 }
             }
@@ -336,13 +361,17 @@ namespace MCatalogos.Views.FormViews.Produtos
 
                 foreach (DataGridViewRow row in rows)
                 {
-                    TamanhosModel t = new TamanhosModel()
+                    if (row.Cells[1].Value != null)
                     {
-                        Tamanho = row.Cells[1].Value.ToString(),
-                        FormatoId = (cbFormatoTamanho.SelectedItem as FormatosTamanhosModel).FormatoId,
-                        ProdutoId = ProdutoModel.ProdutoId
-                    };
-                    //_tamanhoServices.Add(t);
+                        TamanhosModel t = new TamanhosModel()
+                        {
+                            Tamanho = row.Cells[1].Value.ToString(),
+                            FormatoId = (cbFormatoTamanho.SelectedItem as FormatosTamanhosModel).FormatoId,
+                            ProdutoId = ProdutoModel.ProdutoId
+                        };
+                        this.TamanhosModel = _tamanhoServices.Add(t);
+                        this.TamanhosList.Add(this.TamanhosModel);
+                    }
                 }
             }
 
@@ -373,11 +402,11 @@ namespace MCatalogos.Views.FormViews.Produtos
             {
                 if (ListToCompare.Exists(x => x.TamanhoId == model.TamanhoId))
                 {
-                    //_tamanhoServices.Update(model);
+                    _tamanhoServices.Update(model);
                 }
                 else
                 {
-                    //_tamanhoServices.Delete(model);
+                    _tamanhoServices.Delete(model);
                 }
             }
 
@@ -399,7 +428,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                 tamanho.TamanhoId = tamanhos[t].TamanhoId;
                 tamanho.Tamanho = rows[t].Cells[1].Value.ToString();
 
-                //_tamanhoServices.Update(tamanho);
+                _tamanhoServices.Update(tamanho);
 
             }
 
