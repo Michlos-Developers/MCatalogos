@@ -153,29 +153,31 @@ namespace MCatalogos.Views.FormViews.Catalogos
             else
             {
                 textCatalogo.Text = _catalogoServices.GetById(catalogoId).Nome;
+                VErificaAtivo(null);
             }
         }
 
         private void VErificaAtivo(CampanhaModel model)
         {
-            if (model.Ativa)
+            if (model != null)
             {
-                cbStatus.Text = "Ativo";
-                cbStatus.BackColor = Color.LimeGreen;
-                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+                if (model.Ativa)
+                {
+                    cbStatus.Text = "Ativo";
+                    cbStatus.BackColor = Color.LimeGreen;
+                    cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
 
-            }
-            else if (!model.Ativa)
-            {
-                cbStatus.Text = "Inativo";
-                cbStatus.BackColor = Color.Red;
-                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+                }
+                else if (!model.Ativa)
+                {
+                    cbStatus.Text = "Inativo";
+                    cbStatus.BackColor = Color.Red;
+                    cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+                }
             }
             else
             {
-                cbStatus.Text = "";
-                cbStatus.BackColor = Color.White;
-                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+                cbStatus.Text = "Ativo";
             }
         }
 

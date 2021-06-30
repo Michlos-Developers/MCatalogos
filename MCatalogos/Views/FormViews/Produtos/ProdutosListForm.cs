@@ -373,5 +373,10 @@ namespace MCatalogos.Views.FormViews.Produtos
                 MessageBox.Show($"Não foi possível atualizar o registro do produto {this.ProdutoModel.Referencia}.\nMessageError: {ex.Message}\nStackTrace: {ex.StackTrace}\nInnerException: {ex.InnerException}");
             }
         }
+
+        private void dgvProdutos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEdit_Click(sender, e);
+        }
     }
 }

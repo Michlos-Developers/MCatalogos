@@ -45,6 +45,16 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.groupVariacaoValor = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.chkVariacaoValor = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textNumeracaoVariacao = new System.Windows.Forms.TextBox();
+            this.textTamanhoVariacao = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textValorTaxaPedido = new System.Windows.Forms.TextBox();
@@ -61,23 +71,13 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCampanhas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
-            this.groupVariacaoValor = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.chkVariacaoValor = new System.Windows.Forms.CheckBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textNumeracaoVariacao = new System.Windows.Forms.TextBox();
-            this.textTamanhoVariacao = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.panelContent.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupVariacaoValor.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxCampanhas.SuspendLayout();
             this.panelCommands.SuspendLayout();
-            this.groupVariacaoValor.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbFornecedor
@@ -247,6 +247,106 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContent.Size = new System.Drawing.Size(854, 409);
             this.panelContent.TabIndex = 4;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textMargemDistribuidor);
+            this.groupBox3.Controls.Add(this.textMargemVendedora);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Location = new System.Drawing.Point(591, 222);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(236, 69);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(104, 14);
+            this.label20.TabIndex = 23;
+            this.label20.Text = "Margens Padrões:";
+            // 
+            // groupVariacaoValor
+            // 
+            this.groupVariacaoValor.Controls.Add(this.label15);
+            this.groupVariacaoValor.Controls.Add(this.chkVariacaoValor);
+            this.groupVariacaoValor.Controls.Add(this.label17);
+            this.groupVariacaoValor.Controls.Add(this.textNumeracaoVariacao);
+            this.groupVariacaoValor.Controls.Add(this.textTamanhoVariacao);
+            this.groupVariacaoValor.Controls.Add(this.label18);
+            this.groupVariacaoValor.Controls.Add(this.label19);
+            this.groupVariacaoValor.Location = new System.Drawing.Point(591, 294);
+            this.groupVariacaoValor.Name = "groupVariacaoValor";
+            this.groupVariacaoValor.Size = new System.Drawing.Size(236, 110);
+            this.groupVariacaoValor.TabIndex = 6;
+            this.groupVariacaoValor.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(102, 14);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Valores Variados:";
+            // 
+            // chkVariacaoValor
+            // 
+            this.chkVariacaoValor.AutoSize = true;
+            this.chkVariacaoValor.Location = new System.Drawing.Point(174, 27);
+            this.chkVariacaoValor.Name = "chkVariacaoValor";
+            this.chkVariacaoValor.Size = new System.Drawing.Size(15, 14);
+            this.chkVariacaoValor.TabIndex = 0;
+            this.chkVariacaoValor.UseVisualStyleBackColor = true;
+            this.chkVariacaoValor.CheckStateChanged += new System.EventHandler(this.chkVariacaoValor_CheckStateChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(80, 26);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(96, 14);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "Possui Variação:";
+            // 
+            // textNumeracaoVariacao
+            // 
+            this.textNumeracaoVariacao.Enabled = false;
+            this.textNumeracaoVariacao.Location = new System.Drawing.Point(174, 75);
+            this.textNumeracaoVariacao.Name = "textNumeracaoVariacao";
+            this.textNumeracaoVariacao.Size = new System.Drawing.Size(29, 22);
+            this.textNumeracaoVariacao.TabIndex = 2;
+            // 
+            // textTamanhoVariacao
+            // 
+            this.textTamanhoVariacao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textTamanhoVariacao.Enabled = false;
+            this.textTamanhoVariacao.Location = new System.Drawing.Point(174, 47);
+            this.textTamanhoVariacao.Name = "textTamanhoVariacao";
+            this.textTamanhoVariacao.Size = new System.Drawing.Size(29, 22);
+            this.textTamanhoVariacao.TabIndex = 1;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(26, 78);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(150, 14);
+            this.label18.TabIndex = 23;
+            this.label18.Text = "Numeração para Variação:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(38, 51);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(138, 14);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "Tamanho para Variação:";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label14);
@@ -292,9 +392,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(14, 54);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(160, 14);
+            this.label10.Size = new System.Drawing.Size(156, 14);
             this.label10.TabIndex = 23;
-            this.label10.Text = "Valor da Taxa por Pedido: R$";
+            this.label10.Text = "Valor da Taxa por Pedido: %";
             // 
             // label11
             // 
@@ -400,106 +500,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Size = new System.Drawing.Size(854, 48);
             this.panelCommands.TabIndex = 5;
             // 
-            // groupVariacaoValor
-            // 
-            this.groupVariacaoValor.Controls.Add(this.label15);
-            this.groupVariacaoValor.Controls.Add(this.chkVariacaoValor);
-            this.groupVariacaoValor.Controls.Add(this.label17);
-            this.groupVariacaoValor.Controls.Add(this.textNumeracaoVariacao);
-            this.groupVariacaoValor.Controls.Add(this.textTamanhoVariacao);
-            this.groupVariacaoValor.Controls.Add(this.label18);
-            this.groupVariacaoValor.Controls.Add(this.label19);
-            this.groupVariacaoValor.Location = new System.Drawing.Point(591, 294);
-            this.groupVariacaoValor.Name = "groupVariacaoValor";
-            this.groupVariacaoValor.Size = new System.Drawing.Size(236, 110);
-            this.groupVariacaoValor.TabIndex = 6;
-            this.groupVariacaoValor.TabStop = false;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(102, 14);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "Valores Variados:";
-            // 
-            // chkVariacaoValor
-            // 
-            this.chkVariacaoValor.AutoSize = true;
-            this.chkVariacaoValor.Location = new System.Drawing.Point(174, 27);
-            this.chkVariacaoValor.Name = "chkVariacaoValor";
-            this.chkVariacaoValor.Size = new System.Drawing.Size(15, 14);
-            this.chkVariacaoValor.TabIndex = 0;
-            this.chkVariacaoValor.UseVisualStyleBackColor = true;
-            this.chkVariacaoValor.CheckStateChanged += new System.EventHandler(this.chkVariacaoValor_CheckStateChanged);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(80, 26);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(96, 14);
-            this.label17.TabIndex = 23;
-            this.label17.Text = "Possui Variação:";
-            // 
-            // textNumeracaoVariacao
-            // 
-            this.textNumeracaoVariacao.Enabled = false;
-            this.textNumeracaoVariacao.Location = new System.Drawing.Point(174, 75);
-            this.textNumeracaoVariacao.Name = "textNumeracaoVariacao";
-            this.textNumeracaoVariacao.Size = new System.Drawing.Size(29, 22);
-            this.textNumeracaoVariacao.TabIndex = 2;
-            // 
-            // textTamanhoVariacao
-            // 
-            this.textTamanhoVariacao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textTamanhoVariacao.Enabled = false;
-            this.textTamanhoVariacao.Location = new System.Drawing.Point(174, 47);
-            this.textTamanhoVariacao.Name = "textTamanhoVariacao";
-            this.textTamanhoVariacao.Size = new System.Drawing.Size(29, 22);
-            this.textTamanhoVariacao.TabIndex = 1;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(26, 78);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(150, 14);
-            this.label18.TabIndex = 23;
-            this.label18.Text = "Numeração para Variação:";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(38, 51);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(138, 14);
-            this.label19.TabIndex = 23;
-            this.label19.Text = "Tamanho para Variação:";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.textMargemDistribuidor);
-            this.groupBox3.Controls.Add(this.textMargemVendedora);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(591, 222);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(236, 69);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(104, 14);
-            this.label20.TabIndex = 23;
-            this.label20.Text = "Margens Padrões:";
-            // 
             // CatalogoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -519,6 +519,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.Load += new System.EventHandler(this.CatalogoForm_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupVariacaoValor.ResumeLayout(false);
+            this.groupVariacaoValor.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -526,10 +530,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBoxCampanhas.ResumeLayout(false);
             this.groupBoxCampanhas.PerformLayout();
             this.panelCommands.ResumeLayout(false);
-            this.groupVariacaoValor.ResumeLayout(false);
-            this.groupVariacaoValor.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }

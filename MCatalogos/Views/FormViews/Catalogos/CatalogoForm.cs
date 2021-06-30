@@ -59,23 +59,24 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
             CatalogoModel returnedModel = new CatalogoModel();
 
-            CatalogoModel model = new CatalogoModel()
-            {
-                Ativo = status,
-                Nome = textNome.Text,
-                MargemPadraoVendedora = float.Parse(textMargemVendedora.Text),
-                MargemPadraoDistribuidor = float.Parse(textMargemDistribuidor.Text),
-                TaxaPedido = checkBoxTaxaPedido.Checked,
-                ValorTaxaPedido = (string.IsNullOrEmpty(textValorTaxaPedido.Text.Trim()) && !checkBoxTaxaPedido.Checked) ? 0 : float.Parse(textValorTaxaPedido.Text),
-                TaxaProduto = checkBoxTaxaProduto.Checked,
-                ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text),
-                VariacaoDeValor = chkVariacaoValor.Checked,
-                TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textTamanhoVariacao.Text,
-                NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textNumeracaoVariacao.Text,
+            CatalogoModel model = new CatalogoModel();
 
-                FornecedorId = fornecedorId
+            model.Ativo = status;
+            model.Nome = textNome.Text;
+            model.MargemPadraoVendedora = textMargemVendedora.Text != string.Empty ? float.Parse(textMargemVendedora.Text) : 0;
+            model.MargemPadraoDistribuidor = textMargemDistribuidor.Text != string.Empty ? float.Parse(textMargemDistribuidor.Text) : 0;
+            model.TaxaPedido = checkBoxTaxaPedido.Checked;
+            model.ValorTaxaPedido = (string.IsNullOrEmpty(textValorTaxaPedido.Text.Trim()) && !checkBoxTaxaPedido.Checked) ? 0 : float.Parse(textValorTaxaPedido.Text);
+            model.TaxaProduto = checkBoxTaxaProduto.Checked;
+            model.ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text);
+            model.VariacaoDeValor = chkVariacaoValor.Checked;
+            model.TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textTamanhoVariacao.Text;
+            model.NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textNumeracaoVariacao.Text;
 
-            };
+            model.FornecedorId = (cbFornecedor.SelectedItem as FornecedorModel).FornecedorId;
+
+
+
 
             try
             {
@@ -117,10 +118,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 TaxaProduto = checkBoxTaxaProduto.Checked,
                 ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text),
                 VariacaoDeValor = chkVariacaoValor.Checked,
-                TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textTamanhoVariacao.Text,
-                NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textNumeracaoVariacao.Text,
+                TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textTamanhoVariacao.Text,
+                NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textNumeracaoVariacao.Text,
 
-                FornecedorId = fornecedorId
+                FornecedorId = _fornecedorServices.GetByNomeFantasia(cbFornecedor.Text).FornecedorId
             };
             try
             {
@@ -154,14 +155,14 @@ namespace MCatalogos.Views.FormViews.Catalogos
             campanhas.Dock = DockStyle.Fill;
         }
 
-       
+
 
 
         //SETTINGS AND GETTINGS
-        public void PreencheCamposForUpdate()
+        public void PreencheCamposForUpdate(CatalogoModel model)
         {
-            CatalogoModel model = null;
-            if (catalogoId != 0)
+            //CatalogoModel model = null;
+            if (model != null)
             {
 
                 try
@@ -189,7 +190,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     textTamanhoVariacao.Text = model.TamanhoValorVariavel.ToString();
                     textNumeracaoVariacao.Text = model.NumeracaoValorVariavel.ToString();
 
-                    cbFornecedor.Text = _fornecedorServices.GetById(fornecedorId).NomeFantasia;
+                    cbFornecedor.Text = _fornecedorServices.GetById(model.FornecedorId).NomeFantasia;
 
                     VerificaAtivo(model);
                 }
@@ -200,6 +201,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
                 LoadFornecedoresToComboBox();
                 cbFornecedor.Enabled = true;
+                VerificaAtivo(null);
             }
 
         }
@@ -219,23 +221,22 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         private void VerificaAtivo(CatalogoModel model)
         {
-            if (model.Ativo)
+            if (model != null)
             {
-                cbStatus.Text = "Ativo";
-                cbStatus.BackColor = Color.LimeGreen;
-                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
-            }
-            else if (!model.Ativo)
-            {
-                cbStatus.Text = "Inativo";
-                cbStatus.BackColor = Color.Red;
-                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+
+                if (model.Ativo)
+                {
+                    cbStatus.Text = "Ativo";
+                }
+                else
+                {
+                    cbStatus.Text = "Inativo";
+                }
+
             }
             else
             {
-                cbStatus.Text = "";
-                cbStatus.BackColor = Color.White;
-                cbStatus.Font = new Font("Calibri", 9F, FontStyle.Bold);
+                cbStatus.Text = "Ativo";
             }
         }
         private bool GetStatus(string status)
@@ -284,22 +285,25 @@ namespace MCatalogos.Views.FormViews.Catalogos
             {
                 model = CatalogoAdd();
                 catalogoId = int.Parse(model.CatalogoId.ToString());
+                PreencheCamposForUpdate(model);
+                LoadUserControlCampanhas();
+                CatalogosListForm.LoadCatalogosToDataGridView();
             }
             else
             {
                 {
                     CatalogoUpdate();
+                    this.Close();
                 }
 
             }
-            CatalogosListForm.LoadCatalogosToDataGridView();
-            PreencheCamposForUpdate();
-            this.Close();
+
         }
 
         private void CatalogoForm_Load(object sender, EventArgs e)
         {
-            PreencheCamposForUpdate();
+            CatalogoModel catalogoModel = catalogoId != 0 ? _catalogoServices.GetById(catalogoId) : null;
+            PreencheCamposForUpdate(catalogoModel);
             LoadUserControlCampanhas();
         }
 

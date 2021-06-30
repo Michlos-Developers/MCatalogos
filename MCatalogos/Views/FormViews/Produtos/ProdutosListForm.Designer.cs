@@ -291,6 +291,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.dgvProdutos.ShowRowErrors = false;
             this.dgvProdutos.Size = new System.Drawing.Size(790, 346);
             this.dgvProdutos.TabIndex = 1;
+            this.dgvProdutos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdutos_CellDoubleClick);
             // 
             // ProdutosListForm
             // 
