@@ -26,6 +26,10 @@ namespace MCatalogos.Views.FormViews.Produtos
 {
     public partial class ProdutoAddForm : Form
     {
+        enum TamanhosValue
+        {
+            P,M,G,GG,XXG,XLG
+        }
         public ProdutoModel ProdutoModel;
         private CampanhaModel CampanhaModel;
         private CatalogoModel CatalogoModel;

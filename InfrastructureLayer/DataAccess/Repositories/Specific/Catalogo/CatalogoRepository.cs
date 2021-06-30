@@ -7,6 +7,7 @@ using ServiceLayer.Services.CatalogoServices;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.AccessControl;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
 {
@@ -46,9 +47,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO Catalogos " +
-                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, FornecedorId) " +
+                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, VariacaoDeValor, TamanhoValorVariavel, NumeracaoValorVariavel, FornecedorId) " +
                            "output INSERTED.CatalogoId " +
-                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @FornecedorId) ";
+                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @VariacaoDeValor, @TamanhoValorVariavel, @NumeracaoValorVariavel, @FornecedorId) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -68,6 +69,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@ValorTaxaProduto", catalogoModel.ValorTaxaProduto);
                         cmd.Parameters.AddWithValue("@TaxaPedido", catalogoModel.TaxaPedido);
                         cmd.Parameters.AddWithValue("@ValorTaxaPedido", catalogoModel.ValorTaxaPedido);
+                        cmd.Parameters.AddWithValue("@VariacaoDeValor", catalogoModel.VariacaoDeValor);
+                        cmd.Parameters.AddWithValue("@TamanhoValorVariavel", catalogoModel.TamanhoValorVariavel);
+                        cmd.Parameters.AddWithValue("@NumeracaoValorVariavel", catalogoModel.NumeracaoValorVariavel);
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
 
                         try
@@ -176,6 +180,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.TaxaPedido = bool.Parse(reader["TaxaProduto"].ToString());
                                 model.ValorTaxaPedido = float.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.ValorTaxaProduto = float.Parse(reader["ValorTaxaProduto"].ToString());
+                                model.VariacaoDeValor = bool.Parse(reader["VariacaoDeValor"].ToString());
+                                model.TamanhoValorVariavel = reader["TamanhoValorVariavel"].ToString();
+                                model.NumeracaoValorVariavel = reader["NumeracaoValorVariavel"].ToString();
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
 
                                 modelList.Add(model);
@@ -228,6 +235,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.TaxaPedido = bool.Parse(reader["TaxaPedido"].ToString());
                                 model.ValorTaxaProduto = float.Parse(reader["ValorTaxaProduto"].ToString());
                                 model.ValorTaxaPedido = float.Parse(reader["ValorTaxaPedido"].ToString());
+                                model.VariacaoDeValor = bool.Parse(reader["VariacaoDeValor"].ToString());
+                                model.TamanhoValorVariavel = reader["TamanhoValorVariavel"].ToString();
+                                model.NumeracaoValorVariavel = reader["NumeracaoValorVariavel"].ToString();
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
 
                                 modelList.Add(model);
@@ -252,7 +262,20 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
         {
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT CatalogoId, Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, FornecedorId " +
+            string query = "SELECT " +
+                           "CatalogoId, " +
+                           "Nome, " +
+                           "MargemPadraoVendedora, " +
+                           "MargemPadraoDistribuidor, " +
+                           "Ativo, " +
+                           "TaxaProduto, " +
+                           "ValorTaxaProduto, " +
+                           "TaxaPedido, " +
+                           "ValorTaxaPedido, " +
+                           "VariacaoDeValor, " +
+                           "TamanhoValorVariavel, " +
+                           "NumeracaoValorVariavel, " +
+                           "FornecedorId " +
                            "FROM Catalogos " +
                            "WHERE CatalogoId = @CatalogoId";
 
@@ -279,6 +302,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.TaxaPedido = bool.Parse(reader["TaxaPedido"].ToString());
                                 model.ValorTaxaProduto = float.Parse(reader["ValorTaxaProduto"].ToString());
                                 model.ValorTaxaPedido = float.Parse(reader["ValorTaxaPedido"].ToString());
+                                model.VariacaoDeValor = bool.Parse(reader["VariacaoDeValor"].ToString());
+                                model.TamanhoValorVariavel = reader["TamanhoValorVariavel"].ToString();
+                                model.NumeracaoValorVariavel = reader["NumeracaoValorVariavel"].ToString();
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
                             }
                         }
@@ -301,9 +327,19 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Catalogos " +
-                           "SET Nome = @Nome, MargemPadraoVendedora = @MargemPadraoVendedora, MargemPadraoDistribuidor = @MargemPadraoDistribuidor, " +
-                           "Ativo = @Ativo, TaxaPedido = @TaxaPedido, ValorTaxaPedido = @ValorTaxaPedido, TaxaProduto = @TaxaProduto, " +
-                           "ValorTaxaProduto = @ValorTaxaProduto, FornecedorId = @FornecedorId " +
+                           "SET " +
+                           "Nome = @Nome, " +
+                           "MargemPadraoVendedora = @MargemPadraoVendedora, " +
+                           "MargemPadraoDistribuidor = @MargemPadraoDistribuidor, " +
+                           "Ativo = @Ativo, " +
+                           "TaxaPedido = @TaxaPedido, " +
+                           "ValorTaxaPedido = @ValorTaxaPedido, " +
+                           "TaxaProduto = @TaxaProduto, " +
+                           "ValorTaxaProduto = @ValorTaxaProduto, " +
+                           "VariacaoDeValor = @VariacaoDeValor, " +
+                           "TamanhoValorVariavel = @TamanhoValorVariavel, " +
+                           "NumeracaoValorVariavel = @NumeracaoValorVariavel, " +
+                           "FornecedorId = @FornecedorId " +
                            "WHERE CatalogoId = @CatalogoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -323,6 +359,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.Add("@TaxaPedido", SqlDbType.Bit).Value = catalogoModel.TaxaPedido;
                         cmd.Parameters.Add("@TaxaProduto", SqlDbType.Bit).Value = catalogoModel.TaxaProduto;
                         cmd.Parameters.Add("@Ativo", SqlDbType.Bit).Value = catalogoModel.Ativo;
+                        cmd.Parameters.Add("@VariacaoDeValor", SqlDbType.Bit).Value = catalogoModel.VariacaoDeValor;
+                        cmd.Parameters.AddWithValue("@TamanhoValorVariavel", catalogoModel.TamanhoValorVariavel);
+                        cmd.Parameters.AddWithValue("@NumeracaoValorVariavel", catalogoModel.NumeracaoValorVariavel);
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
 
                         cmd.ExecuteNonQuery();

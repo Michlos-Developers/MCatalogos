@@ -33,8 +33,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.cbFornecedor = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,11 +61,23 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCampanhas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
+            this.groupVariacaoValor = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.chkVariacaoValor = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textNumeracaoVariacao = new System.Windows.Forms.TextBox();
+            this.textTamanhoVariacao = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.panelContent.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxCampanhas.SuspendLayout();
             this.panelCommands.SuspendLayout();
+            this.groupVariacaoValor.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbFornecedor
@@ -77,7 +87,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.cbFornecedor.Location = new System.Drawing.Point(271, 18);
             this.cbFornecedor.Name = "cbFornecedor";
             this.cbFornecedor.Size = new System.Drawing.Size(282, 22);
-            this.cbFornecedor.TabIndex = 4;
+            this.cbFornecedor.TabIndex = 0;
             // 
             // label5
             // 
@@ -99,26 +109,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.cbStatus.Location = new System.Drawing.Point(63, 46);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(62, 22);
-            this.cbStatus.TabIndex = 0;
+            this.cbStatus.TabIndex = 1;
             this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(803, 310);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(16, 14);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "%";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(803, 252);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(16, 14);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "%";
             // 
             // label4
             // 
@@ -132,20 +124,20 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(591, 309);
+            this.label3.Location = new System.Drawing.Point(85, 45);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(164, 14);
+            this.label3.Size = new System.Drawing.Size(88, 14);
             this.label3.TabIndex = 23;
-            this.label3.Text = "Margem Padrão Distribuidor:";
+            this.label3.Text = "% Distribuidor:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(599, 252);
+            this.label2.Location = new System.Drawing.Point(93, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 14);
+            this.label2.Size = new System.Drawing.Size(81, 14);
             this.label2.TabIndex = 23;
-            this.label2.Text = "Margem Padrão Vendedora:";
+            this.label2.Text = "% Vendedora:";
             // 
             // label1
             // 
@@ -158,24 +150,24 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // 
             // textMargemDistribuidor
             // 
-            this.textMargemDistribuidor.Location = new System.Drawing.Point(756, 305);
+            this.textMargemDistribuidor.Location = new System.Drawing.Point(174, 41);
             this.textMargemDistribuidor.Name = "textMargemDistribuidor";
             this.textMargemDistribuidor.Size = new System.Drawing.Size(46, 22);
-            this.textMargemDistribuidor.TabIndex = 3;
+            this.textMargemDistribuidor.TabIndex = 1;
             // 
             // textMargemVendedora
             // 
-            this.textMargemVendedora.Location = new System.Drawing.Point(756, 246);
+            this.textMargemVendedora.Location = new System.Drawing.Point(174, 13);
             this.textMargemVendedora.Name = "textMargemVendedora";
             this.textMargemVendedora.Size = new System.Drawing.Size(46, 22);
-            this.textMargemVendedora.TabIndex = 2;
+            this.textMargemVendedora.TabIndex = 0;
             // 
             // textNome
             // 
             this.textNome.Location = new System.Drawing.Point(63, 74);
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(487, 22);
-            this.textNome.TabIndex = 1;
+            this.textNome.TabIndex = 2;
             // 
             // textCatalogoId
             // 
@@ -184,6 +176,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.textCatalogoId.Name = "textCatalogoId";
             this.textCatalogoId.Size = new System.Drawing.Size(100, 22);
             this.textCatalogoId.TabIndex = 0;
+            this.textCatalogoId.TabStop = false;
             // 
             // LblCodigo
             // 
@@ -235,20 +228,16 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContent.Controls.Add(this.groupBox3);
+            this.panelContent.Controls.Add(this.groupVariacaoValor);
             this.panelContent.Controls.Add(this.groupBox2);
             this.panelContent.Controls.Add(this.groupBox1);
             this.panelContent.Controls.Add(this.groupBoxCampanhas);
             this.panelContent.Controls.Add(this.cbFornecedor);
             this.panelContent.Controls.Add(this.label5);
             this.panelContent.Controls.Add(this.cbStatus);
-            this.panelContent.Controls.Add(this.label8);
-            this.panelContent.Controls.Add(this.label7);
             this.panelContent.Controls.Add(this.label4);
-            this.panelContent.Controls.Add(this.label3);
-            this.panelContent.Controls.Add(this.label2);
             this.panelContent.Controls.Add(this.label1);
-            this.panelContent.Controls.Add(this.textMargemDistribuidor);
-            this.panelContent.Controls.Add(this.textMargemVendedora);
             this.panelContent.Controls.Add(this.textNome);
             this.panelContent.Controls.Add(this.textCatalogoId);
             this.panelContent.Controls.Add(this.LblCodigo);
@@ -268,7 +257,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBox2.Location = new System.Drawing.Point(591, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(236, 94);
-            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
             // label14
@@ -283,25 +272,25 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // textValorTaxaPedido
             // 
             this.textValorTaxaPedido.Enabled = false;
-            this.textValorTaxaPedido.Location = new System.Drawing.Point(165, 50);
+            this.textValorTaxaPedido.Location = new System.Drawing.Point(174, 50);
             this.textValorTaxaPedido.Name = "textValorTaxaPedido";
             this.textValorTaxaPedido.Size = new System.Drawing.Size(46, 22);
-            this.textValorTaxaPedido.TabIndex = 3;
+            this.textValorTaxaPedido.TabIndex = 1;
             // 
             // checkBoxTaxaPedido
             // 
             this.checkBoxTaxaPedido.AutoSize = true;
-            this.checkBoxTaxaPedido.Location = new System.Drawing.Point(165, 28);
+            this.checkBoxTaxaPedido.Location = new System.Drawing.Point(174, 28);
             this.checkBoxTaxaPedido.Name = "checkBoxTaxaPedido";
             this.checkBoxTaxaPedido.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxTaxaPedido.TabIndex = 27;
+            this.checkBoxTaxaPedido.TabIndex = 0;
             this.checkBoxTaxaPedido.UseVisualStyleBackColor = true;
             this.checkBoxTaxaPedido.CheckStateChanged += new System.EventHandler(this.checkBoxTaxaPedido_CheckStateChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(5, 54);
+            this.label10.Location = new System.Drawing.Point(14, 54);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(160, 14);
             this.label10.TabIndex = 23;
@@ -310,7 +299,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(22, 28);
+            this.label11.Location = new System.Drawing.Point(31, 28);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(138, 14);
             this.label11.TabIndex = 23;
@@ -326,7 +315,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBox1.Location = new System.Drawing.Point(591, 116);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(236, 99);
-            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
             // textValorTaxaProduto
@@ -335,7 +324,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.textValorTaxaProduto.Location = new System.Drawing.Point(174, 50);
             this.textValorTaxaProduto.Name = "textValorTaxaProduto";
             this.textValorTaxaProduto.Size = new System.Drawing.Size(46, 22);
-            this.textValorTaxaProduto.TabIndex = 3;
+            this.textValorTaxaProduto.TabIndex = 1;
             // 
             // label9
             // 
@@ -352,7 +341,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.checkBoxTaxaProduto.Location = new System.Drawing.Point(174, 28);
             this.checkBoxTaxaProduto.Name = "checkBoxTaxaProduto";
             this.checkBoxTaxaProduto.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxTaxaProduto.TabIndex = 27;
+            this.checkBoxTaxaProduto.TabIndex = 0;
             this.checkBoxTaxaProduto.UseVisualStyleBackColor = true;
             this.checkBoxTaxaProduto.CheckStateChanged += new System.EventHandler(this.checkBoxTaxaProduto_CheckStateChanged);
             // 
@@ -390,7 +379,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCampanhas.Location = new System.Drawing.Point(3, 18);
             this.panelCampanhas.Name = "panelCampanhas";
             this.panelCampanhas.Size = new System.Drawing.Size(534, 251);
-            this.panelCampanhas.TabIndex = 22;
+            this.panelCampanhas.TabIndex = 0;
             // 
             // label6
             // 
@@ -410,6 +399,106 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(854, 48);
             this.panelCommands.TabIndex = 5;
+            // 
+            // groupVariacaoValor
+            // 
+            this.groupVariacaoValor.Controls.Add(this.label15);
+            this.groupVariacaoValor.Controls.Add(this.chkVariacaoValor);
+            this.groupVariacaoValor.Controls.Add(this.label17);
+            this.groupVariacaoValor.Controls.Add(this.textNumeracaoVariacao);
+            this.groupVariacaoValor.Controls.Add(this.textTamanhoVariacao);
+            this.groupVariacaoValor.Controls.Add(this.label18);
+            this.groupVariacaoValor.Controls.Add(this.label19);
+            this.groupVariacaoValor.Location = new System.Drawing.Point(591, 294);
+            this.groupVariacaoValor.Name = "groupVariacaoValor";
+            this.groupVariacaoValor.Size = new System.Drawing.Size(236, 110);
+            this.groupVariacaoValor.TabIndex = 6;
+            this.groupVariacaoValor.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(102, 14);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Valores Variados:";
+            // 
+            // chkVariacaoValor
+            // 
+            this.chkVariacaoValor.AutoSize = true;
+            this.chkVariacaoValor.Location = new System.Drawing.Point(174, 27);
+            this.chkVariacaoValor.Name = "chkVariacaoValor";
+            this.chkVariacaoValor.Size = new System.Drawing.Size(15, 14);
+            this.chkVariacaoValor.TabIndex = 0;
+            this.chkVariacaoValor.UseVisualStyleBackColor = true;
+            this.chkVariacaoValor.CheckStateChanged += new System.EventHandler(this.chkVariacaoValor_CheckStateChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(80, 26);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(96, 14);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "Possui Variação:";
+            // 
+            // textNumeracaoVariacao
+            // 
+            this.textNumeracaoVariacao.Enabled = false;
+            this.textNumeracaoVariacao.Location = new System.Drawing.Point(174, 75);
+            this.textNumeracaoVariacao.Name = "textNumeracaoVariacao";
+            this.textNumeracaoVariacao.Size = new System.Drawing.Size(29, 22);
+            this.textNumeracaoVariacao.TabIndex = 2;
+            // 
+            // textTamanhoVariacao
+            // 
+            this.textTamanhoVariacao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textTamanhoVariacao.Enabled = false;
+            this.textTamanhoVariacao.Location = new System.Drawing.Point(174, 47);
+            this.textTamanhoVariacao.Name = "textTamanhoVariacao";
+            this.textTamanhoVariacao.Size = new System.Drawing.Size(29, 22);
+            this.textTamanhoVariacao.TabIndex = 1;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(26, 78);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(150, 14);
+            this.label18.TabIndex = 23;
+            this.label18.Text = "Numeração para Variação:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(38, 51);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(138, 14);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "Tamanho para Variação:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textMargemDistribuidor);
+            this.groupBox3.Controls.Add(this.textMargemVendedora);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Location = new System.Drawing.Point(591, 222);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(236, 69);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(104, 14);
+            this.label20.TabIndex = 23;
+            this.label20.Text = "Margens Padrões:";
             // 
             // CatalogoForm
             // 
@@ -437,6 +526,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.groupBoxCampanhas.ResumeLayout(false);
             this.groupBoxCampanhas.PerformLayout();
             this.panelCommands.ResumeLayout(false);
+            this.groupVariacaoValor.ResumeLayout(false);
+            this.groupVariacaoValor.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -446,8 +539,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.ComboBox cbFornecedor;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbStatus;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -476,5 +567,15 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.CheckBox checkBoxTaxaProduto;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.GroupBox groupVariacaoValor;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox chkVariacaoValor;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textNumeracaoVariacao;
+        private System.Windows.Forms.TextBox textTamanhoVariacao;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
     }
 }

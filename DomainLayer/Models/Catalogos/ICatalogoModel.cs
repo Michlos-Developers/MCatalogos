@@ -12,5 +12,8 @@
         float MargemPadraoDistribuidor { get; set; }
         float MargemPadraoVendedora { get; set; }
         string Nome { get; set; }
+        bool VariacaoDeValor { get; set; }
+        string TamanhoValorVariavel { get; set; }
+        string NumeracaoValorVariavel { get; set; }
     }
 }

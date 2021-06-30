@@ -71,7 +71,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 ValorTaxaPedido = (string.IsNullOrEmpty(textValorTaxaPedido.Text.Trim()) && !checkBoxTaxaPedido.Checked) ? 0 : float.Parse(textValorTaxaPedido.Text),
                 TaxaProduto = bool.Parse(checkBoxTaxaProduto.Checked.ToString()),
                 ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text),
-
+                VariacaoDeValor = bool.Parse(chkVariacaoValor.Checked.ToString()),
+                TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textTamanhoVariacao.Text,
+                NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textNumeracaoVariacao.Text,
                 FornecedorId = fornecedorId
 
             };
@@ -115,6 +117,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 ValorTaxaPedido = (string.IsNullOrEmpty(textValorTaxaPedido.Text.Trim()) && !checkBoxTaxaPedido.Checked) ? 0 : float.Parse(textValorTaxaPedido.Text),
                 TaxaProduto = checkBoxTaxaProduto.Checked,
                 ValorTaxaProduto = (string.IsNullOrEmpty(textValorTaxaProduto.Text.Trim()) && !checkBoxTaxaProduto.Checked) ? 0 : float.Parse(textValorTaxaProduto.Text),
+                VariacaoDeValor = bool.Parse(chkVariacaoValor.Checked.ToString()),
+                TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textTamanhoVariacao.Text,
+                NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? null : textNumeracaoVariacao.Text,
 
                 FornecedorId = fornecedorId
             };
@@ -165,7 +170,9 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     textValorTaxaPedido.Text = model.ValorTaxaPedido.ToString("0.00");
                     checkBoxTaxaProduto.Checked = model.TaxaProduto;
                     textValorTaxaProduto.Text = model.ValorTaxaProduto.ToString("0.00");
-                   
+                    chkVariacaoValor.Checked = model.VariacaoDeValor;
+                    textTamanhoVariacao.Text = model.TamanhoValorVariavel.ToString();
+                    textNumeracaoVariacao.Text = model.NumeracaoValorVariavel.ToString();
                     cbFornecedor.Text = _fornecedorServices.GetById(fornecedorId).NomeFantasia;
 
                     VerificaAtivo(model);
@@ -286,6 +293,21 @@ namespace MCatalogos.Views.FormViews.Catalogos
             else
             {
                 textValorTaxaPedido.Enabled = false;
+            }
+        }
+
+        private void chkVariacaoValor_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chkVariacaoValor.Checked)
+            {
+                textTamanhoVariacao.Enabled = true;
+                textNumeracaoVariacao.Enabled = true;
+            }
+            else
+            {
+                textTamanhoVariacao.Enabled = false;
+                textNumeracaoVariacao.Enabled = false;
+                
             }
         }
     }

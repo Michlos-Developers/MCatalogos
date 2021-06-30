@@ -19,5 +19,11 @@ namespace DomainLayer.Models.Catalogos
         [Required]
         public int FornecedorId { get; set; }
 
+        public bool VariacaoDeValor { get; set; }
+        public string TamanhoValorVariavel { get; set; }
+        public string NumeracaoValorVariavel { get; set; }
+
+
+
     }
 }
