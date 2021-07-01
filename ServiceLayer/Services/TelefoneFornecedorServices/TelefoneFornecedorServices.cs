@@ -32,11 +32,6 @@ namespace ServiceLayer.Services.TelefoneFornecedorServices
             _telefoneFornecedorRepository.Delete(telelefoneFornecedorModel);
         }
 
-        public IEnumerable<ITelefoneFornecedorModel> GetAll()
-        {
-            return _telefoneFornecedorRepository.GetAll();
-        }
-
         public IEnumerable<ITelefoneFornecedorModel> GetByFornecedorId(int fornecedorId)
         {
             return _telefoneFornecedorRepository.GetByFornecedorId(fornecedorId);

@@ -2,23 +2,12 @@
 
 using DomainLayer.Models.Vendedora;
 
-using ServiceLayer.CommonServices;
 using ServiceLayer.Services.RotaServices;
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using DomainLayer.Models.CommonModels.Address;
-using System.Data.Entity.SqlServer;
-using System.Threading;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 {

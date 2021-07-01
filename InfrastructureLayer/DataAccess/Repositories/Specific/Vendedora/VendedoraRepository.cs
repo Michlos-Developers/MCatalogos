@@ -2,15 +2,11 @@
 
 using DomainLayer.Models.Vendedora;
 
-using ServiceLayer.Services.RotaServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Globalization;
-using System.Reflection;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 {
@@ -37,143 +33,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         public VendedoraRepository(string connectionString)
         {
             _connectionString = connectionString;
-        }
-        public IEnumerable<IVendedoraModel> GetAll()
-        {
-            List<VendedoraModel> vendedoraModelsList = new List<VendedoraModel>();
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-
-            using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    string sql = "SELECT * FROM Vendedoras ";
-
-                    SqlConnection.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                VendedoraModel vendedoraModel = new VendedoraModel();
-
-                                vendedoraModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
-                                vendedoraModel.Nome = reader["Nome"].ToString();
-                                vendedoraModel.Cpf = reader["Cpf"].ToString();
-                                vendedoraModel.Rg = reader["Rg"].ToString();
-                                vendedoraModel.RgEmissor = reader["RgEmissor"].ToString();
-                                vendedoraModel.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
-                                vendedoraModel.Email = reader["Email"].ToString();
-                                vendedoraModel.NomePai = reader["NomePai"].ToString();
-                                vendedoraModel.NomeMae = reader["NomeMae"].ToString();
-                                vendedoraModel.NomeConjuge = reader["NomeConjuge"].ToString();
-                                vendedoraModel.Logradouro = reader["Logradouro"].ToString();
-                                vendedoraModel.Numero = reader["Numero"].ToString();
-                                vendedoraModel.Complemento = reader["Complemento"].ToString();
-                                vendedoraModel.Cep = reader["Cep"].ToString();
-                                vendedoraModel.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
-                                vendedoraModel.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
-                                //vendedoraModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
-                                //vendedoraModel.Rota = new RotaModel { RotaId = Int32.Parse(reader["RotaId"].ToString()) };
-                                vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
-                                vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
-                                vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
-
-                                vendedoraModelsList.Add(vendedoraModel);
-                            }
-                        }
-                        SqlConnection.Close();
-                    }
-
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to get Vendedora Model list from database", helpLink: e.HelpLink,
-                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
-
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-                return vendedoraModelsList;
-            }
-        }
-        public VendedoraModel GetById(int vendedoraId)
-        {
-            VendedoraModel vendedoraModel = new VendedoraModel();
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            bool MatchingRecordFound = false;
-            string sql = " SELECT * " +
-                         " FROM Vendedoras " +
-                         " WHERE VendedoraId = @VendedoraId";
-            using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    SqlConnection.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
-                    {
-                        //cmd.CommandText = sql;
-                        cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            MatchingRecordFound = reader.HasRows;
-                            while (reader.Read())
-                            {
-                                vendedoraModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
-                                vendedoraModel.Nome = reader["Nome"].ToString();
-                                vendedoraModel.Cpf = reader["Cpf"].ToString();
-                                vendedoraModel.Rg = reader["Rg"].ToString();
-                                vendedoraModel.RgEmissor = reader["RgEmissor"].ToString();
-                                vendedoraModel.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
-                                vendedoraModel.Email = reader["Email"].ToString();
-                                vendedoraModel.NomePai = reader["NomePai"].ToString();
-                                vendedoraModel.NomeMae = reader["NomeMae"].ToString();
-                                vendedoraModel.NomeConjuge = reader["NomeConjuge"].ToString();
-                                vendedoraModel.Logradouro = reader["Logradouro"].ToString();
-                                vendedoraModel.Numero = reader["Numero"].ToString();
-                                vendedoraModel.Complemento = reader["Complemento"].ToString();
-                                vendedoraModel.Cep = reader["Cep"].ToString();
-                                vendedoraModel.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
-                                vendedoraModel.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
-                                vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
-                                vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
-                                vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
-
-                            }
-                        }
-                    }
-                    SqlConnection.Close();
-                }
-                catch (SqlException e)
-                {
-
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to get Vendedora Model list from database", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
-
-
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-
-                }
-
-                if (!MatchingRecordFound)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: "",
-                        customMessage: $"Record not found., Unable to get Vendedora MOdel for Vendedora ID {vendedoraId}. Id {vendedoraId} " +
-                        $"does not exist in the database",
-                        helpLink: "", errorCode: 0, stackTrace: "");
-
-                    throw new DataAccessException(dataAccessStatus);
-
-                }
-                return vendedoraModel;
-            }
         }
         public VendedoraModel Add(IVendedoraModel vendedoraModel)
         {
@@ -429,6 +288,243 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                 }
             }
         }
+        public IEnumerable<IVendedoraModel> GetAll()
+        {
+            List<VendedoraModel> vendedoraModelsList = new List<VendedoraModel>();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    string sql = "SELECT * FROM Vendedoras ";
+
+                    SqlConnection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                VendedoraModel vendedoraModel = new VendedoraModel();
+
+                                vendedoraModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
+                                vendedoraModel.Nome = reader["Nome"].ToString();
+                                vendedoraModel.Cpf = reader["Cpf"].ToString();
+                                vendedoraModel.Rg = reader["Rg"].ToString();
+                                vendedoraModel.RgEmissor = reader["RgEmissor"].ToString();
+                                vendedoraModel.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
+                                vendedoraModel.Email = reader["Email"].ToString();
+                                vendedoraModel.NomePai = reader["NomePai"].ToString();
+                                vendedoraModel.NomeMae = reader["NomeMae"].ToString();
+                                vendedoraModel.NomeConjuge = reader["NomeConjuge"].ToString();
+                                vendedoraModel.Logradouro = reader["Logradouro"].ToString();
+                                vendedoraModel.Numero = reader["Numero"].ToString();
+                                vendedoraModel.Complemento = reader["Complemento"].ToString();
+                                vendedoraModel.Cep = reader["Cep"].ToString();
+                                vendedoraModel.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
+                                vendedoraModel.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
+                                //vendedoraModel.RotaId = Int32.Parse(reader["RotaId"].ToString());
+                                //vendedoraModel.Rota = new RotaModel { RotaId = Int32.Parse(reader["RotaId"].ToString()) };
+                                vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
+                                vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
+                                vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
+                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+
+                                vendedoraModelsList.Add(vendedoraModel);
+                            }
+                        }
+                        SqlConnection.Close();
+                    }
+
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Unable to get Vendedora Model list from database", helpLink: e.HelpLink,
+                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                return vendedoraModelsList;
+            }
+        }
+        public VendedoraModel GetById(int vendedoraId)
+        {
+            VendedoraModel vendedoraModel = new VendedoraModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            bool MatchingRecordFound = false;
+            string sql = " SELECT * " +
+                         " FROM Vendedoras " +
+                         " WHERE VendedoraId = @VendedoraId";
+            using (SqlConnection SqlConnection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlConnection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(sql, SqlConnection))
+                    {
+                        //cmd.CommandText = sql;
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            MatchingRecordFound = reader.HasRows;
+                            while (reader.Read())
+                            {
+                                vendedoraModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
+                                vendedoraModel.Nome = reader["Nome"].ToString();
+                                vendedoraModel.Cpf = reader["Cpf"].ToString();
+                                vendedoraModel.Rg = reader["Rg"].ToString();
+                                vendedoraModel.RgEmissor = reader["RgEmissor"].ToString();
+                                vendedoraModel.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
+                                vendedoraModel.Email = reader["Email"].ToString();
+                                vendedoraModel.NomePai = reader["NomePai"].ToString();
+                                vendedoraModel.NomeMae = reader["NomeMae"].ToString();
+                                vendedoraModel.NomeConjuge = reader["NomeConjuge"].ToString();
+                                vendedoraModel.Logradouro = reader["Logradouro"].ToString();
+                                vendedoraModel.Numero = reader["Numero"].ToString();
+                                vendedoraModel.Complemento = reader["Complemento"].ToString();
+                                vendedoraModel.Cep = reader["Cep"].ToString();
+                                vendedoraModel.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
+                                vendedoraModel.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
+                                vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
+                                vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
+                                vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
+                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+
+                            }
+                        }
+                    }
+                    SqlConnection.Close();
+                }
+                catch (SqlException e)
+                {
+
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Unable to get Vendedora Model list from database", helpLink: e.HelpLink, errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+
+                }
+
+                if (!MatchingRecordFound)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: "",
+                        customMessage: $"Record not found., Unable to get Vendedora MOdel for Vendedora ID {vendedoraId}. Id {vendedoraId} " +
+                        $"does not exist in the database",
+                        helpLink: "", errorCode: 0, stackTrace: "");
+
+                    throw new DataAccessException(dataAccessStatus);
+
+                }
+                return vendedoraModel;
+            }
+        }
+        public VendedoraModel GetByCpf(string cpf)
+        {
+            VendedoraModel model = new VendedoraModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            bool redordFound = false;
+
+            string query = "SELECT * " +
+                            "FROM Vendedoras " +
+                            "WHERE Cpf = @Cpf";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@Cpf", cpf));
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            redordFound = reader.HasRows;
+                            while (reader.Read())
+                            {
+                                model.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
+                                model.Nome = reader["Nome"].ToString();
+                                model.Cpf = reader["Cpf"].ToString();
+                                model.Rg = reader["Rg"].ToString();
+                                model.RgEmissor = reader["RgEmissor"].ToString();
+                                model.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
+                                model.Email = reader["Email"].ToString();
+                                model.NomePai = reader["NomePai"].ToString();
+                                model.NomeMae = reader["NomeMae"].ToString();
+                                model.NomeConjuge = reader["NomeConjuge"].ToString();
+                                model.Logradouro = reader["Logradouro"].ToString();
+                                model.Numero = reader["Numero"].ToString();
+                                model.Complemento = reader["Complemento"].ToString();
+                                model.Cep = reader["Cep"].ToString();
+                                model.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
+                                model.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
+                                model.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
+                                model.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
+                                model.BairroId = Int32.Parse(reader["BairroId"].ToString());
+                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível buscar os dados da vendedora GETBYCPF",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return model;
+            }
+        }
+        public void AlteraRotaLetra(int vendedoraId, int rotaLetraId)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "UPDATE Vendedoras " +
+                           "SET RotaLetraId = @RotaLetraId " +
+                           "WHERE VendedoraId = @VendedoraId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
+                        cmd.Parameters.Add(new SqlParameter("@RotaLetraId", rotaLetraId));
+                        
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
+                                   customMessage: "Não foi possível alterar a Letra da Rota da Vendedora.", helpLink: e.HelpLink,
+                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
+
+
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
         private bool RecordExistsCheck(IVendedoraModel vendedoraModel, TypeOfExistenceCheck typeOfExistenceCheck, RequestType requestType)
         {
             Int32 countOfRecsFound = 0;
@@ -499,107 +595,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
             }
         }
 
-        public VendedoraModel GetByCpf(string cpf)
-        {
-            VendedoraModel model = new VendedoraModel();
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
-            bool redordFound = false;
-
-            string query = "SELECT * " +
-                            "FROM Vendedoras " +
-                            "WHERE Cpf = @Cpf";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("@Cpf", cpf));
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            redordFound = reader.HasRows;
-                            while (reader.Read())
-                            {
-                                model.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
-                                model.Nome = reader["Nome"].ToString();
-                                model.Cpf = reader["Cpf"].ToString();
-                                model.Rg = reader["Rg"].ToString();
-                                model.RgEmissor = reader["RgEmissor"].ToString();
-                                model.DataNascimento = DateTime.Parse(reader["DataNascimento"].ToString());
-                                model.Email = reader["Email"].ToString();
-                                model.NomePai = reader["NomePai"].ToString();
-                                model.NomeMae = reader["NomeMae"].ToString();
-                                model.NomeConjuge = reader["NomeConjuge"].ToString();
-                                model.Logradouro = reader["Logradouro"].ToString();
-                                model.Numero = reader["Numero"].ToString();
-                                model.Complemento = reader["Complemento"].ToString();
-                                model.Cep = reader["Cep"].ToString();
-                                model.UfRgId = Int32.Parse(reader["UfRgId"].ToString());
-                                model.EstadoCivilId = Int32.Parse(reader["EstadoCivilId"].ToString());
-                                model.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
-                                model.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
-                                model.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
-                            }
-                        }
-                    }
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível buscar os dados da vendedora GETBYCPF",
-                        e.HelpLink, e.ErrorCode, e.StackTrace);
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-
-                return model;
-            }
-        }
-
-        public void AlteraRotaLetra(int vendedoraId, int rotaLetraId)
-        {
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "UPDATE Vendedoras " +
-                           "SET RotaLetraId = @RotaLetraId " +
-                           "WHERE VendedoraId = @VendedoraId";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Prepare();
-                        cmd.Parameters.Add(new SqlParameter("@VendedoraId", vendedoraId));
-                        cmd.Parameters.Add(new SqlParameter("@RotaLetraId", rotaLetraId));
-                        
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Não foi possível alterar a Letra da Rota da Vendedora.", helpLink: e.HelpLink,
-                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
-
-
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-        }
         
     }
 }

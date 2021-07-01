@@ -7,8 +7,8 @@ namespace ServiceLayer.Services.ProdutoServices
     public interface IProdutoRepository
     {
 
-        ProdutoModel Add(IProdutoModel produto);
-        void Update(IProdutoModel produto);
+        ProdutoModel AddWithMargens(IProdutoModel produto);
+        void UpdateWithMargem(IProdutoModel produto);
         void Delete(IProdutoModel produto);
         IEnumerable<ProdutoModel> GetAll();
         IEnumerable<ProdutoModel> GetAllByCatalogoId(int catalogoId);

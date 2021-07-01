@@ -38,7 +38,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             _connectionString = connectionString;
         }
 
-        public ProdutoModel Add(IProdutoModel produto)
+        public ProdutoModel AddWithMargens(IProdutoModel produto)
         {
             int idReturned = 0;
             ProdutoModel model = new ProdutoModel();
@@ -444,7 +444,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Produto
             }
         }
 
-        public void Update(IProdutoModel produto)
+        public void UpdateWithMargem(IProdutoModel produto)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "UPDATE Produtos SET " +

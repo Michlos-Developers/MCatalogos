@@ -17,9 +17,9 @@ namespace ServiceLayer.Services.ProdutoServices
             _modelDataAnnotationCheck = modelDataAnnotationCheck;
         }
 
-        public ProdutoModel Add(IProdutoModel produto)
+        public ProdutoModel AddWithMargens(IProdutoModel produto)
         {
-            return _produtoRepository.Add(produto);
+            return _produtoRepository.AddWithMargens(produto);
         }
 
         public ProdutoModel AddNoMargens(IProdutoModel produto)
@@ -64,9 +64,9 @@ namespace ServiceLayer.Services.ProdutoServices
             return _produtoRepository.GetByReference(Reference);
         }
 
-        public void Update(IProdutoModel produto)
+        public void UpdateWithMargem(IProdutoModel produto)
         {
-            _produtoRepository.Update(produto);
+            _produtoRepository.UpdateWithMargem(produto);
         }
 
         public void UpdateNoMargem(IProdutoModel produto)

@@ -17,7 +17,7 @@ namespace ServiceLayer.Services.EstoqueServices
 
         IEnumerable<IEstoqueModel> GetAll();
         IEnumerable<IEstoqueModel> GetAllByCatalogo(ICatalogoModel catalogoModel);
-        IEnumerable<IEstoqueModel> GetAllBayCatalogoAndCampanha(ICatalogoModel catalogoModel, ICampanhaModel campanhaModel);
+        IEnumerable<IEstoqueModel> GetAllByCatalogoCampanha(ICatalogoModel catalogoModel, ICampanhaModel campanhaModel);
 
 
     }

@@ -235,7 +235,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             }
             else
             {
-                _produtoServices.Update(produtoModel);
+                _produtoServices.UpdateWithMargem(produtoModel);
             }
 
         }
@@ -259,7 +259,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             }
             else
             {
-                this.ProdutoModel = _produtoServices.Add(produto);
+                this.ProdutoModel = _produtoServices.AddWithMargens(produto);
             }
         }
 

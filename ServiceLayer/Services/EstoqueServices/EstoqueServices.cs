@@ -38,9 +38,9 @@ namespace ServiceLayer.Services.EstoqueServices
             return _estoqueRepository.GetAll();
         }
 
-        public IEnumerable<IEstoqueModel> GetAllBayCatalogoAndCampanha(ICatalogoModel catalogoModel, ICampanhaModel campanhaModel)
+        public IEnumerable<IEstoqueModel> GetAllByCatalogoCampanha(ICatalogoModel catalogoModel, ICampanhaModel campanhaModel)
         {
-            return _estoqueRepository.GetAllBayCatalogoAndCampanha(catalogoModel, campanhaModel);
+            return _estoqueRepository.GetAllByCatalogoCampanha(catalogoModel, campanhaModel);
         }
 
         public IEnumerable<IEstoqueModel> GetAllByCatalogo(ICatalogoModel catalogoModel)

@@ -191,54 +191,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
             }
         }
 
-        public IEnumerable<ITelefoneFornecedorModel> GetAll()
-        {
-            List<TelefoneFornecedorModel> modelList = new List<TelefoneFornecedorModel>();
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-
-            string query = "SELECT * FROM TelefonesForencedores";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                TelefoneFornecedorModel model = new TelefoneFornecedorModel();
-
-                                model.TelefoneId = int.Parse(reader["TelefoneId"].ToString());
-                                model.Numero = reader["Numero"].ToString();
-                                model.Ramal = reader["Ramal"].ToString();
-                                model.Contato = reader["Contato"].ToString();
-                                model.Departamento = reader["Departamento"].ToString();
-                                model.TipoTelefoneId = int.Parse(reader["TipoTelefoneId"].ToString());
-                                model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
-
-                                modelList.Add(model);
-                            }
-                        }
-                    }
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Não foi possível gerata a lista de telefones do fornecedor do DataBase", helpLink: e.HelpLink,
-                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-            return modelList;
-        }
-
         public IEnumerable<ITelefoneFornecedorModel> GetByFornecedorId(int fornecedorId)
         {
             List<TelefoneFornecedorModel> modelList = new List<TelefoneFornecedorModel>();

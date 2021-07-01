@@ -7,13 +7,7 @@ using ServiceLayer.Services.TelefoneVendedoraServices;
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects.DataClasses;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 {
@@ -43,51 +37,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         {
             _connectionString = connectionString;
         }
-        public IEnumerable<ITelefoneVendedoraModel> GetAll()
-        {
-            List<TelefoneVendedoraModel> telefoneVendedoraModelList = new List<TelefoneVendedoraModel>();
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    string sql = "SELECT * FROM TelefonesVendedoras ";
-
-                    connection.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                TelefoneVendedoraModel telefoneVendedoraModel = new TelefoneVendedoraModel();
-
-                                telefoneVendedoraModel.TelefoneId = Int32.Parse(reader["TelefoneId"].ToString());
-                                telefoneVendedoraModel.Numero = reader["Numero"].ToString();
-                                telefoneVendedoraModel.TipoTelefoneId = Int32.Parse(reader["TipoTelefoneId"].ToString());
-                                telefoneVendedoraModel.VendedoraId = Int32.Parse(reader["VendedoraId"].ToString());
-                                telefoneVendedoraModel.Vendedora = new VendedoraModel { VendedoraId = Int32.Parse(reader["VendedoraId"].ToString()) };
-
-                                telefoneVendedoraModelList.Add(telefoneVendedoraModel);
-                            }
-                        }
-                        connection.Close();
-                    }
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues(status: "Error", operationSucceeded: false, exceptionMessage: e.Message,
-                                   customMessage: "Unable to get TelefoneVendedora Model list from database", helpLink: e.HelpLink,
-                                   errorCode: e.ErrorCode, stackTrace: e.StackTrace);
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-                return telefoneVendedoraModelList;
-            }
-
-        }
-
+        
         public IEnumerable<ITelefoneVendedoraModel> GetByVendedoraId(int vendedoraId)
         {
             List<TelefoneVendedoraModel> telefoneModelList = new List<TelefoneVendedoraModel>();

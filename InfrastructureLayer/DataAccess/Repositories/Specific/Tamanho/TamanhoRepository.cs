@@ -5,13 +5,8 @@ using DomainLayer.Models.Tamanho;
 
 using ServiceLayer.Services.TamanhoServices;
 
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho
 {

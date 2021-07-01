@@ -32,11 +32,7 @@ namespace ServiceLayer.Services.TelefoneVendedoraServices
             _telefoneVendedoraRepository.Delete(telefoneVendedoraModel);
         }
 
-        public IEnumerable<ITelefoneVendedoraModel> GetAll()
-        {
-            return _telefoneVendedoraRepository.GetAll();
-        }
-
+        
         public IEnumerable<ITelefoneVendedoraModel> GetByVendedoraId(int vendedoraId)
         {
             return _telefoneVendedoraRepository.GetByVendedoraId(vendedoraId);

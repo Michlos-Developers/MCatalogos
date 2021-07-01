@@ -300,7 +300,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Estoque
             }
         }
 
-        public IEnumerable<IEstoqueModel> GetAllBayCatalogoAndCampanha(ICatalogoModel catalogoModel, ICampanhaModel campanhaModel)
+        public IEnumerable<IEstoqueModel> GetAllByCatalogoCampanha(ICatalogoModel catalogoModel, ICampanhaModel campanhaModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
