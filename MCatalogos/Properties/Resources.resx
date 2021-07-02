@@ -136,6 +136,9 @@
   <data name="IconAddFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAddFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconAddPedido" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddPedido.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconAddProduto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAddProduto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -147,6 +150,9 @@
   </data>
   <data name="IconCatalogo35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconCatalogo35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconClear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconClear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconClose20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconClose20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,6 +175,9 @@
   <data name="iconEditFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconEditFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconEditPedido" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditPedido.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconEditProduto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconEditProduto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -177,6 +186,9 @@
   </data>
   <data name="IconEstoque35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconEstoque35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconFilter20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconFilter20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconFinanceiro35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconFinanceiro35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

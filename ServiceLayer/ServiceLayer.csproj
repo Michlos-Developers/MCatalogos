@@ -80,6 +80,9 @@
     <Compile Include="Services\FornecedorServices\FornecedorServices.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorRepository.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorService.cs" />
+    <Compile Include="Services\PedidosVendedorasServices\IPedidosVendedorasRepository.cs" />
+    <Compile Include="Services\PedidosVendedorasServices\IPedidosVendedorasServices.cs" />
+    <Compile Include="Services\PedidosVendedorasServices\PedidosVendedorasServices.cs" />
     <Compile Include="Services\ProdutoServices\IProdutoRepository.cs" />
     <Compile Include="Services\ProdutoServices\IProdutoServices.cs" />
     <Compile Include="Services\ProdutoServices\ProdutoServices.cs" />

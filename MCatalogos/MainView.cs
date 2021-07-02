@@ -3,6 +3,7 @@ using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
 using MCatalogos.Views.FormViews.Estoque;
 using MCatalogos.Views.FormViews.Fornecedores;
+using MCatalogos.Views.FormViews.PedidoVendedora;
 using MCatalogos.Views.FormViews.Produtos;
 using MCatalogos.Views.FormViews.Rotas;
 using MCatalogos.Views.FormViews.Vendedoras;
@@ -176,7 +177,13 @@ namespace MCatalogos
 
         private void btnPedidos_Click(object sender, EventArgs e)
         {
+            SetUnselectedButtons();
+            SetSelectedButton(btnPedidos);
 
+            PedidosListForm formPedidosList = PedidosListForm.Instance(this);
+            formPedidosList.WindowState = FormWindowState.Normal;
+            formPedidosList.MdiParent = this;
+            formPedidosList.Show();
         }
 
         private void btnCatalogos_Click(object sender, EventArgs e)

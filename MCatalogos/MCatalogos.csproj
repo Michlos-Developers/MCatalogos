@@ -121,6 +121,12 @@
     <Compile Include="Views\FormViews\Fornecedores\FornecedorForm.Designer.cs">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\PedidoVendedora\PedidosListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\PedidoVendedora\PedidosListForm.Designer.cs">
+      <DependentUpon>PedidosListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Produtos\ProdutoAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -257,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedorForm.resx">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\PedidoVendedora\PedidosListForm.resx">
+      <DependentUpon>PedidosListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Produtos\ProdutoAddForm.resx">
       <DependentUpon>ProdutoAddForm.cs</DependentUpon>
@@ -442,6 +451,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IconAddProduto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconAddPedido.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconEditPedido.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconFilter20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconClear.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

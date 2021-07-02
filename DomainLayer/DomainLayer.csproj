@@ -81,6 +81,8 @@
     <Compile Include="Models\Fornecedores\ITelefoneFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\TelefoneFornecedorModel.cs" />
     <Compile Include="Models\Formatos\FormatosTamanhosModel.cs" />
+    <Compile Include="Models\PedidosVendedoras\IPedidosVendedorasModel.cs" />
+    <Compile Include="Models\PedidosVendedoras\PedidosVendedorasModel.cs" />
     <Compile Include="Models\Produtos\IProdutoModel.cs" />
     <Compile Include="Models\Tamanho\ITamanhosModel.cs" />
     <Compile Include="Models\Produtos\ProdutoModel.cs" />
@@ -108,9 +110,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Pedidos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

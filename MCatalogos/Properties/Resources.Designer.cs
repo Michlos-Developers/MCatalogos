@@ -123,6 +123,16 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconAddPedido {
+            get {
+                object obj = ResourceManager.GetObject("IconAddPedido", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconAddProduto {
             get {
                 object obj = ResourceManager.GetObject("IconAddProduto", resourceCulture);
@@ -156,6 +166,16 @@ namespace MCatalogos.Properties {
         internal static System.Drawing.Bitmap IconCatalogo35x35 {
             get {
                 object obj = ResourceManager.GetObject("IconCatalogo35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconClear {
+            get {
+                object obj = ResourceManager.GetObject("IconClear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,6 +253,16 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconEditPedido {
+            get {
+                object obj = ResourceManager.GetObject("IconEditPedido", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconEditProduto {
             get {
                 object obj = ResourceManager.GetObject("IconEditProduto", resourceCulture);
@@ -256,6 +286,16 @@ namespace MCatalogos.Properties {
         internal static System.Drawing.Bitmap IconEstoque35x35 {
             get {
                 object obj = ResourceManager.GetObject("IconEstoque35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconFilter20x20 {
+            get {
+                object obj = ResourceManager.GetObject("IconFilter20x20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -238,7 +238,6 @@ namespace MCatalogos
             // btnPedidos
             // 
             this.btnPedidos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnPedidos.Enabled = false;
             this.btnPedidos.FlatAppearance.BorderSize = 0;
             this.btnPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPedidos.ForeColor = System.Drawing.Color.White;
