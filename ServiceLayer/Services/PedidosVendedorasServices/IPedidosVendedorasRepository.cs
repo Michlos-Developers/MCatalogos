@@ -9,13 +9,7 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
     public interface IPedidosVendedorasRepository
     {
         IPedidosVendedorasModel Add(IPedidosVendedorasModel pedido);
-        void Cancelar(IPedidosVendedorasModel pedido);
-        void Enviar(IPedidosVendedorasModel pedido);
-        void Separar(IPedidosVendedorasModel pedido);
-        void Despachar(IPedidosVendedorasModel pedido);
-        void Conferir(IPedidosVendedorasModel pedido);
-        void Entregar(IPedidosVendedorasModel pedido);
-
+        void SetStatus(int status);
         void SomarTotalPedido(IPedidosVendedorasModel pedido);
         void SomarLucroVendedora(IPedidosVendedorasModel pedido);
         void SomarLucroDistribuidor(IPedidosVendedorasModel pedido);

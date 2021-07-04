@@ -545,6 +545,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
             try
             {
+                //TODO: PRA ONDE ESTÁ INDO A VENDEDORA DA ROTA ALVO?
                 if (rotaAlvo.Numero < rotaOrigem.Numero)
                 {
                     for (int i = rotaAlvo.Numero; i <= rotaOrigem.Numero; i++)

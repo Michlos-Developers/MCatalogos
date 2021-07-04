@@ -29,6 +29,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
@@ -40,27 +41,35 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelContainer = new System.Windows.Forms.Panel();
             this.dgvPedidos = new System.Windows.Forms.DataGridView();
             this.panelCatalogo = new System.Windows.Forms.GroupBox();
-            this.chkEnviados = new System.Windows.Forms.CheckBox();
-            this.chkSeparados = new System.Windows.Forms.CheckBox();
-            this.dateDataFim = new System.Windows.Forms.DateTimePicker();
-            this.dateDataInicio = new System.Windows.Forms.DateTimePicker();
-            this.chkConferidos = new System.Windows.Forms.CheckBox();
-            this.chkCancelados = new System.Windows.Forms.CheckBox();
-            this.chkEntregues = new System.Windows.Forms.CheckBox();
-            this.chkDespachados = new System.Windows.Forms.CheckBox();
+            this.dateDataFim = new System.Windows.Forms.MaskedTextBox();
+            this.dateDataInicio = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnClearDate = new System.Windows.Forms.Button();
             this.btlClearFilter = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.mTextCpf = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbNomeVendedora = new System.Windows.Forms.ComboBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.gbStatus = new System.Windows.Forms.GroupBox();
+            this.rbAberto = new System.Windows.Forms.RadioButton();
+            this.rbEnviado = new System.Windows.Forms.RadioButton();
+            this.rbSeparado = new System.Windows.Forms.RadioButton();
+            this.rbConferido = new System.Windows.Forms.RadioButton();
+            this.rbFinalizado = new System.Windows.Forms.RadioButton();
+            this.rbDespachado = new System.Windows.Forms.RadioButton();
+            this.rbEntregue = new System.Windows.Forms.RadioButton();
+            this.rbCancelado = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
             this.panelCatalogo.SuspendLayout();
+            this.gbStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTitle
@@ -199,24 +208,21 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvPedidos.BackgroundColor = System.Drawing.Color.White;
             this.dgvPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPedidos.GridColor = System.Drawing.Color.DeepSkyBlue;
-            this.dgvPedidos.Location = new System.Drawing.Point(5, 115);
+            this.dgvPedidos.Location = new System.Drawing.Point(5, 125);
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.ReadOnly = true;
-            this.dgvPedidos.Size = new System.Drawing.Size(790, 289);
+            this.dgvPedidos.Size = new System.Drawing.Size(790, 279);
             this.dgvPedidos.TabIndex = 4;
             // 
             // panelCatalogo
             // 
-            this.panelCatalogo.Controls.Add(this.chkEnviados);
-            this.panelCatalogo.Controls.Add(this.chkSeparados);
+            this.panelCatalogo.Controls.Add(this.gbStatus);
             this.panelCatalogo.Controls.Add(this.dateDataFim);
             this.panelCatalogo.Controls.Add(this.dateDataInicio);
-            this.panelCatalogo.Controls.Add(this.chkConferidos);
-            this.panelCatalogo.Controls.Add(this.chkCancelados);
-            this.panelCatalogo.Controls.Add(this.chkEntregues);
-            this.panelCatalogo.Controls.Add(this.chkDespachados);
+            this.panelCatalogo.Controls.Add(this.label1);
             this.panelCatalogo.Controls.Add(this.label5);
             this.panelCatalogo.Controls.Add(this.btnFiltrar);
+            this.panelCatalogo.Controls.Add(this.btnClearDate);
             this.panelCatalogo.Controls.Add(this.btlClearFilter);
             this.panelCatalogo.Controls.Add(this.label4);
             this.panelCatalogo.Controls.Add(this.mTextCpf);
@@ -224,96 +230,45 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelCatalogo.Controls.Add(this.cbNomeVendedora);
             this.panelCatalogo.Location = new System.Drawing.Point(5, 1);
             this.panelCatalogo.Name = "panelCatalogo";
-            this.panelCatalogo.Size = new System.Drawing.Size(790, 107);
+            this.panelCatalogo.Size = new System.Drawing.Size(790, 118);
             this.panelCatalogo.TabIndex = 3;
             this.panelCatalogo.TabStop = false;
             // 
-            // chkEnviados
-            // 
-            this.chkEnviados.AutoSize = true;
-            this.chkEnviados.Location = new System.Drawing.Point(15, 81);
-            this.chkEnviados.Name = "chkEnviados";
-            this.chkEnviados.Size = new System.Drawing.Size(75, 18);
-            this.chkEnviados.TabIndex = 7;
-            this.chkEnviados.Text = "Enviados";
-            this.chkEnviados.UseVisualStyleBackColor = true;
-            // 
-            // chkSeparados
-            // 
-            this.chkSeparados.AutoSize = true;
-            this.chkSeparados.Location = new System.Drawing.Point(97, 81);
-            this.chkSeparados.Name = "chkSeparados";
-            this.chkSeparados.Size = new System.Drawing.Size(84, 18);
-            this.chkSeparados.TabIndex = 7;
-            this.chkSeparados.Text = "Separados";
-            this.chkSeparados.UseVisualStyleBackColor = true;
-            // 
             // dateDataFim
             // 
-            this.dateDataFim.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateDataFim.Location = new System.Drawing.Point(684, 16);
+            this.dateDataFim.Location = new System.Drawing.Point(241, 14);
+            this.dateDataFim.Mask = "00/00/0000";
             this.dateDataFim.Name = "dateDataFim";
-            this.dateDataFim.Size = new System.Drawing.Size(98, 22);
-            this.dateDataFim.TabIndex = 6;
-            this.dateDataFim.Value = new System.DateTime(2021, 7, 1, 22, 0, 32, 0);
+            this.dateDataFim.Size = new System.Drawing.Size(75, 22);
+            this.dateDataFim.TabIndex = 9;
+            this.dateDataFim.ValidatingType = typeof(System.DateTime);
             // 
             // dateDataInicio
             // 
-            this.dateDataInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateDataInicio.Location = new System.Drawing.Point(567, 16);
+            this.dateDataInicio.Location = new System.Drawing.Point(131, 14);
+            this.dateDataInicio.Mask = "00/00/0000";
             this.dateDataInicio.Name = "dateDataInicio";
-            this.dateDataInicio.Size = new System.Drawing.Size(98, 22);
-            this.dateDataInicio.TabIndex = 6;
-            this.dateDataInicio.Value = new System.DateTime(2021, 7, 1, 22, 0, 27, 0);
+            this.dateDataInicio.Size = new System.Drawing.Size(76, 22);
+            this.dateDataInicio.TabIndex = 8;
+            this.dateDataInicio.ValidatingType = typeof(System.DateTime);
             // 
-            // chkConferidos
+            // label1
             // 
-            this.chkConferidos.AutoSize = true;
-            this.chkConferidos.Location = new System.Drawing.Point(188, 81);
-            this.chkConferidos.Name = "chkConferidos";
-            this.chkConferidos.Size = new System.Drawing.Size(85, 18);
-            this.chkConferidos.TabIndex = 7;
-            this.chkConferidos.Text = "Conferidos";
-            this.chkConferidos.UseVisualStyleBackColor = true;
-            // 
-            // chkCancelados
-            // 
-            this.chkCancelados.AutoSize = true;
-            this.chkCancelados.Location = new System.Drawing.Point(474, 81);
-            this.chkCancelados.Name = "chkCancelados";
-            this.chkCancelados.Size = new System.Drawing.Size(122, 18);
-            this.chkCancelados.TabIndex = 7;
-            this.chkCancelados.Text = "Exibir Cancelados";
-            this.chkCancelados.UseVisualStyleBackColor = true;
-            // 
-            // chkEntregues
-            // 
-            this.chkEntregues.AutoSize = true;
-            this.chkEntregues.Location = new System.Drawing.Point(387, 81);
-            this.chkEntregues.Name = "chkEntregues";
-            this.chkEntregues.Size = new System.Drawing.Size(80, 18);
-            this.chkEntregues.TabIndex = 7;
-            this.chkEntregues.Text = "Entregues";
-            this.chkEntregues.UseVisualStyleBackColor = true;
-            // 
-            // chkDespachados
-            // 
-            this.chkDespachados.AutoSize = true;
-            this.chkDespachados.Location = new System.Drawing.Point(280, 81);
-            this.chkDespachados.Name = "chkDespachados";
-            this.chkDespachados.Size = new System.Drawing.Size(100, 18);
-            this.chkDespachados.TabIndex = 7;
-            this.chkDespachados.Text = "Despachados";
-            this.chkDespachados.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(210, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(25, 14);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "até";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(459, 20);
+            this.label5.Location = new System.Drawing.Point(7, 18);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 14);
+            this.label5.Size = new System.Drawing.Size(121, 14);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Data de Registro:";
+            this.label5.Text = "Data de Registro:  de";
             // 
             // btnFiltrar
             // 
@@ -324,7 +279,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnFiltrar.ForeColor = System.Drawing.Color.White;
             this.btnFiltrar.Image = global::MCatalogos.Properties.Resources.IconFilter20x20;
             this.btnFiltrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFiltrar.Location = new System.Drawing.Point(636, 72);
+            this.btnFiltrar.Location = new System.Drawing.Point(634, 82);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(71, 27);
             this.btnFiltrar.TabIndex = 2;
@@ -332,6 +287,26 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFiltrar.UseVisualStyleBackColor = false;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // btnClearDate
+            // 
+            this.btnClearDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearDate.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnClearDate.FlatAppearance.BorderSize = 0;
+            this.btnClearDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearDate.ForeColor = System.Drawing.Color.White;
+            this.btnClearDate.Image = global::MCatalogos.Properties.Resources.IconClear15x15;
+            this.btnClearDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClearDate.Location = new System.Drawing.Point(321, 15);
+            this.btnClearDate.Name = "btnClearDate";
+            this.btnClearDate.Size = new System.Drawing.Size(20, 20);
+            this.btnClearDate.TabIndex = 2;
+            this.btnClearDate.Tag = "Pedidos";
+            this.btnClearDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.btnClearDate, "Limpar Datas");
+            this.btnClearDate.UseVisualStyleBackColor = false;
+            this.btnClearDate.Click += new System.EventHandler(this.btnClearDate_Click);
             // 
             // btlClearFilter
             // 
@@ -342,7 +317,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btlClearFilter.ForeColor = System.Drawing.Color.White;
             this.btlClearFilter.Image = global::MCatalogos.Properties.Resources.IconClear;
             this.btlClearFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btlClearFilter.Location = new System.Drawing.Point(713, 72);
+            this.btlClearFilter.Location = new System.Drawing.Point(711, 82);
             this.btlClearFilter.Name = "btlClearFilter";
             this.btlClearFilter.Size = new System.Drawing.Size(71, 27);
             this.btlClearFilter.TabIndex = 2;
@@ -350,11 +325,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btlClearFilter.Text = "Limpar";
             this.btlClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btlClearFilter.UseVisualStyleBackColor = false;
+            this.btlClearFilter.Click += new System.EventHandler(this.btlClearFilter_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 48);
+            this.label4.Location = new System.Drawing.Point(422, 47);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 14);
             this.label4.TabIndex = 4;
@@ -362,7 +338,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // 
             // mTextCpf
             // 
-            this.mTextCpf.Location = new System.Drawing.Point(117, 16);
+            this.mTextCpf.Location = new System.Drawing.Point(532, 14);
             this.mTextCpf.Mask = "000,000,000-99";
             this.mTextCpf.Name = "mTextCpf";
             this.mTextCpf.Size = new System.Drawing.Size(92, 22);
@@ -371,7 +347,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 20);
+            this.label3.Location = new System.Drawing.Point(443, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 14);
             this.label3.TabIndex = 2;
@@ -382,10 +358,120 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNomeVendedora.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbNomeVendedora.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbNomeVendedora.FormattingEnabled = true;
-            this.cbNomeVendedora.Location = new System.Drawing.Point(117, 44);
+            this.cbNomeVendedora.Location = new System.Drawing.Point(532, 44);
             this.cbNomeVendedora.Name = "cbNomeVendedora";
-            this.cbNomeVendedora.Size = new System.Drawing.Size(219, 22);
+            this.cbNomeVendedora.Size = new System.Drawing.Size(250, 22);
             this.cbNomeVendedora.TabIndex = 0;
+            this.cbNomeVendedora.SelectedIndexChanged += new System.EventHandler(this.cbNomeVendedora_SelectedIndexChanged);
+            this.cbNomeVendedora.Leave += new System.EventHandler(this.cbNomeVendedora_Leave);
+            // 
+            // gbStatus
+            // 
+            this.gbStatus.Controls.Add(this.rbCancelado);
+            this.gbStatus.Controls.Add(this.rbEntregue);
+            this.gbStatus.Controls.Add(this.rbDespachado);
+            this.gbStatus.Controls.Add(this.rbFinalizado);
+            this.gbStatus.Controls.Add(this.rbConferido);
+            this.gbStatus.Controls.Add(this.rbSeparado);
+            this.gbStatus.Controls.Add(this.rbEnviado);
+            this.gbStatus.Controls.Add(this.rbAberto);
+            this.gbStatus.Controls.Add(this.label2);
+            this.gbStatus.Location = new System.Drawing.Point(10, 44);
+            this.gbStatus.Name = "gbStatus";
+            this.gbStatus.Size = new System.Drawing.Size(400, 70);
+            this.gbStatus.TabIndex = 10;
+            this.gbStatus.TabStop = false;
+            // 
+            // rbAberto
+            // 
+            this.rbAberto.AutoSize = true;
+            this.rbAberto.Checked = true;
+            this.rbAberto.Location = new System.Drawing.Point(7, 19);
+            this.rbAberto.Name = "rbAberto";
+            this.rbAberto.Size = new System.Drawing.Size(80, 18);
+            this.rbAberto.TabIndex = 0;
+            this.rbAberto.TabStop = true;
+            this.rbAberto.Text = "Em Aberto";
+            this.rbAberto.UseVisualStyleBackColor = true;
+            // 
+            // rbEnviado
+            // 
+            this.rbEnviado.AutoSize = true;
+            this.rbEnviado.Location = new System.Drawing.Point(7, 43);
+            this.rbEnviado.Name = "rbEnviado";
+            this.rbEnviado.Size = new System.Drawing.Size(68, 18);
+            this.rbEnviado.TabIndex = 0;
+            this.rbEnviado.Text = "Enviado";
+            this.rbEnviado.UseVisualStyleBackColor = true;
+            // 
+            // rbSeparado
+            // 
+            this.rbSeparado.AutoSize = true;
+            this.rbSeparado.Location = new System.Drawing.Point(97, 19);
+            this.rbSeparado.Name = "rbSeparado";
+            this.rbSeparado.Size = new System.Drawing.Size(77, 18);
+            this.rbSeparado.TabIndex = 0;
+            this.rbSeparado.Text = "Separado";
+            this.rbSeparado.UseVisualStyleBackColor = true;
+            // 
+            // rbConferido
+            // 
+            this.rbConferido.AutoSize = true;
+            this.rbConferido.Location = new System.Drawing.Point(96, 43);
+            this.rbConferido.Name = "rbConferido";
+            this.rbConferido.Size = new System.Drawing.Size(78, 18);
+            this.rbConferido.TabIndex = 0;
+            this.rbConferido.Text = "Conferido";
+            this.rbConferido.UseVisualStyleBackColor = true;
+            // 
+            // rbFinalizado
+            // 
+            this.rbFinalizado.AutoSize = true;
+            this.rbFinalizado.Location = new System.Drawing.Point(195, 19);
+            this.rbFinalizado.Name = "rbFinalizado";
+            this.rbFinalizado.Size = new System.Drawing.Size(83, 18);
+            this.rbFinalizado.TabIndex = 0;
+            this.rbFinalizado.Text = "Finalizado";
+            this.rbFinalizado.UseVisualStyleBackColor = true;
+            // 
+            // rbDespachado
+            // 
+            this.rbDespachado.AutoSize = true;
+            this.rbDespachado.Location = new System.Drawing.Point(195, 43);
+            this.rbDespachado.Name = "rbDespachado";
+            this.rbDespachado.Size = new System.Drawing.Size(93, 18);
+            this.rbDespachado.TabIndex = 0;
+            this.rbDespachado.Text = "Despachado";
+            this.rbDespachado.UseVisualStyleBackColor = true;
+            // 
+            // rbEntregue
+            // 
+            this.rbEntregue.AutoSize = true;
+            this.rbEntregue.Location = new System.Drawing.Point(309, 19);
+            this.rbEntregue.Name = "rbEntregue";
+            this.rbEntregue.Size = new System.Drawing.Size(73, 18);
+            this.rbEntregue.TabIndex = 0;
+            this.rbEntregue.Text = "Entregue";
+            this.rbEntregue.UseVisualStyleBackColor = true;
+            // 
+            // rbCancelado
+            // 
+            this.rbCancelado.AutoSize = true;
+            this.rbCancelado.Location = new System.Drawing.Point(309, 45);
+            this.rbCancelado.Name = "rbCancelado";
+            this.rbCancelado.Size = new System.Drawing.Size(82, 18);
+            this.rbCancelado.TabIndex = 0;
+            this.rbCancelado.Text = "Cancelado";
+            this.rbCancelado.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 14);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Status:";
             // 
             // PedidosListForm
             // 
@@ -411,6 +497,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).EndInit();
             this.panelCatalogo.ResumeLayout(false);
             this.panelCatalogo.PerformLayout();
+            this.gbStatus.ResumeLayout(false);
+            this.gbStatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -433,15 +521,22 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbNomeVendedora;
         private System.Windows.Forms.DataGridView dgvPedidos;
-        private System.Windows.Forms.CheckBox chkEnviados;
-        private System.Windows.Forms.CheckBox chkSeparados;
-        private System.Windows.Forms.DateTimePicker dateDataFim;
-        private System.Windows.Forms.DateTimePicker dateDataInicio;
-        private System.Windows.Forms.CheckBox chkConferidos;
-        private System.Windows.Forms.CheckBox chkCancelados;
-        private System.Windows.Forms.CheckBox chkEntregues;
-        private System.Windows.Forms.CheckBox chkDespachados;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.MaskedTextBox dateDataFim;
+        private System.Windows.Forms.MaskedTextBox dateDataInicio;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnClearDate;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.GroupBox gbStatus;
+        private System.Windows.Forms.RadioButton rbCancelado;
+        private System.Windows.Forms.RadioButton rbEntregue;
+        private System.Windows.Forms.RadioButton rbDespachado;
+        private System.Windows.Forms.RadioButton rbFinalizado;
+        private System.Windows.Forms.RadioButton rbConferido;
+        private System.Windows.Forms.RadioButton rbSeparado;
+        private System.Windows.Forms.RadioButton rbEnviado;
+        private System.Windows.Forms.RadioButton rbAberto;
+        private System.Windows.Forms.Label label2;
     }
 }

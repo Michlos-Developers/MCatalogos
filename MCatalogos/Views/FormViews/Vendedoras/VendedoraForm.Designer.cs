@@ -44,6 +44,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelTelefonesList = new System.Windows.Forms.Panel();
             this.groupBoxTelones = new System.Windows.Forms.GroupBox();
             this.groupBoxEndereco = new System.Windows.Forms.GroupBox();
+            this.btnAddBairro = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.maskedTextCep = new System.Windows.Forms.MaskedTextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -71,8 +72,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfRg = new System.Windows.Forms.ComboBox();
             this.maskedTextCpf = new System.Windows.Forms.MaskedTextBox();
             this.comboBoxEstadoCivil = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.datePickerNascimento = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.LblNascimento = new System.Windows.Forms.Label();
             this.LblCpf = new System.Windows.Forms.Label();
@@ -99,7 +98,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnAddBairro = new System.Windows.Forms.Button();
+            this.textDataNascimento = new System.Windows.Forms.MaskedTextBox();
             this.panelContent.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -114,6 +113,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContent.Controls.Add(this.textDataNascimento);
             this.panelContent.Controls.Add(this.panelTitle);
             this.panelContent.Controls.Add(this.comboBoxRotaNumero);
             this.panelContent.Controls.Add(this.btnAddNumeroRota);
@@ -127,8 +127,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Controls.Add(this.comboBoxUfRg);
             this.panelContent.Controls.Add(this.maskedTextCpf);
             this.panelContent.Controls.Add(this.comboBoxEstadoCivil);
-            this.panelContent.Controls.Add(this.label13);
-            this.panelContent.Controls.Add(this.datePickerNascimento);
             this.panelContent.Controls.Add(this.label12);
             this.panelContent.Controls.Add(this.LblNascimento);
             this.panelContent.Controls.Add(this.LblCpf);
@@ -223,11 +221,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxRotaLetra
             // 
+            this.comboBoxRotaLetra.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxRotaLetra.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxRotaLetra.FormattingEnabled = true;
             this.comboBoxRotaLetra.Location = new System.Drawing.Point(641, 45);
             this.comboBoxRotaLetra.Name = "comboBoxRotaLetra";
             this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
-            this.comboBoxRotaLetra.TabIndex = 2;
+            this.comboBoxRotaLetra.TabIndex = 1;
             this.comboBoxRotaLetra.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaLetra_SelectedIndexChanged);
             this.comboBoxRotaLetra.Enter += new System.EventHandler(this.comboBoxRotaLetra_Enter);
             this.comboBoxRotaLetra.Leave += new System.EventHandler(this.comboBoxRotaLetra_Leave);
@@ -316,8 +316,26 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBoxEndereco.Location = new System.Drawing.Point(23, 245);
             this.groupBoxEndereco.Name = "groupBoxEndereco";
             this.groupBoxEndereco.Size = new System.Drawing.Size(415, 213);
-            this.groupBoxEndereco.TabIndex = 12;
+            this.groupBoxEndereco.TabIndex = 11;
             this.groupBoxEndereco.TabStop = false;
+            // 
+            // btnAddBairro
+            // 
+            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBairro.Enabled = false;
+            this.btnAddBairro.FlatAppearance.BorderSize = 0;
+            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
+            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
+            this.btnAddBairro.Location = new System.Drawing.Point(79, 164);
+            this.btnAddBairro.Name = "btnAddBairro";
+            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
+            this.btnAddBairro.TabIndex = 25;
+            this.btnAddBairro.TabStop = false;
+            this.btnAddBairro.Tag = "";
+            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddBairro.UseVisualStyleBackColor = false;
+            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
             // 
             // label16
             // 
@@ -368,6 +386,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxBairro
             // 
+            this.comboBoxBairro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxBairro.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxBairro.FormattingEnabled = true;
             this.comboBoxBairro.Location = new System.Drawing.Point(101, 165);
             this.comboBoxBairro.Name = "comboBoxBairro";
@@ -379,6 +399,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxCidade
             // 
+            this.comboBoxCidade.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxCidade.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCidade.FormattingEnabled = true;
             this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
             this.comboBoxCidade.Name = "comboBoxCidade";
@@ -391,6 +413,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxUfEndereco
             // 
+            this.comboBoxUfEndereco.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxUfEndereco.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxUfEndereco.FormattingEnabled = true;
             this.comboBoxUfEndereco.Items.AddRange(new object[] {
             "-"});
@@ -479,7 +503,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.groupBox1.Location = new System.Drawing.Point(31, 140);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(736, 58);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
             // label17
@@ -562,11 +586,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxUfRg
             // 
+            this.comboBoxUfRg.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxUfRg.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxUfRg.FormattingEnabled = true;
             this.comboBoxUfRg.Location = new System.Drawing.Point(363, 108);
             this.comboBoxUfRg.Name = "comboBoxUfRg";
             this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
-            this.comboBoxUfRg.TabIndex = 7;
+            this.comboBoxUfRg.TabIndex = 6;
             this.comboBoxUfRg.Enter += new System.EventHandler(this.comboBoxUfRg_Enter);
             this.comboBoxUfRg.Leave += new System.EventHandler(this.comboBoxUfRg_Leave);
             this.comboBoxUfRg.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfRg_Validating);
@@ -578,45 +604,25 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCpf.Mask = "000,000,000-99";
             this.maskedTextCpf.Name = "maskedTextCpf";
             this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
-            this.maskedTextCpf.TabIndex = 1;
+            this.maskedTextCpf.TabIndex = 0;
             this.maskedTextCpf.Enter += new System.EventHandler(this.maskedTextCpf_Enter);
             this.maskedTextCpf.Leave += new System.EventHandler(this.maskedTextCpf_Leave);
             this.maskedTextCpf.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextCpf_Validating);
             // 
             // comboBoxEstadoCivil
             // 
+            this.comboBoxEstadoCivil.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxEstadoCivil.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxEstadoCivil.FormattingEnabled = true;
             this.comboBoxEstadoCivil.Items.AddRange(new object[] {
             "-"});
             this.comboBoxEstadoCivil.Location = new System.Drawing.Point(217, 211);
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 22);
-            this.comboBoxEstadoCivil.TabIndex = 10;
+            this.comboBoxEstadoCivil.TabIndex = 9;
             this.comboBoxEstadoCivil.Enter += new System.EventHandler(this.comboBoxEstadoCivil_Enter);
             this.comboBoxEstadoCivil.Leave += new System.EventHandler(this.comboBoxEstadoCivil_Leave);
             this.comboBoxEstadoCivil.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxEstadoCivil_Validating);
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(586, 80);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(75, 14);
-            this.label13.TabIndex = 15;
-            this.label13.Text = "Nascimento:";
-            // 
-            // datePickerNascimento
-            // 
-            this.datePickerNascimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.datePickerNascimento.CustomFormat = "dd/MM/yyyy";
-            this.datePickerNascimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerNascimento.Location = new System.Drawing.Point(667, 77);
-            this.datePickerNascimento.Name = "datePickerNascimento";
-            this.datePickerNascimento.Size = new System.Drawing.Size(100, 22);
-            this.datePickerNascimento.TabIndex = 4;
-            this.datePickerNascimento.Value = new System.DateTime(2021, 3, 30, 16, 13, 7, 0);
             // 
             // label12
             // 
@@ -633,7 +639,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblNascimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblNascimento.AutoSize = true;
-            this.LblNascimento.Location = new System.Drawing.Point(586, 80);
+            this.LblNascimento.Location = new System.Drawing.Point(611, 80);
             this.LblNascimento.Name = "LblNascimento";
             this.LblNascimento.Size = new System.Drawing.Size(75, 14);
             this.LblNascimento.TabIndex = 15;
@@ -656,7 +662,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmissorRg.Location = new System.Drawing.Point(283, 108);
             this.textEmissorRg.Name = "textEmissorRg";
             this.textEmissorRg.Size = new System.Drawing.Size(52, 22);
-            this.textEmissorRg.TabIndex = 6;
+            this.textEmissorRg.TabIndex = 5;
             this.textEmissorRg.Enter += new System.EventHandler(this.textEmissorRg_Enter);
             this.textEmissorRg.Leave += new System.EventHandler(this.textEmissorRg_Leave);
             this.textEmissorRg.Validating += new System.ComponentModel.CancelEventHandler(this.textEmissorRg_Validating);
@@ -684,7 +690,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textRg.Location = new System.Drawing.Point(67, 108);
             this.textRg.Name = "textRg";
             this.textRg.Size = new System.Drawing.Size(121, 22);
-            this.textRg.TabIndex = 5;
+            this.textRg.TabIndex = 4;
             this.textRg.Enter += new System.EventHandler(this.textRg_Enter);
             this.textRg.Leave += new System.EventHandler(this.textRg_Leave);
             this.textRg.Validating += new System.ComponentModel.CancelEventHandler(this.textRg_Validating);
@@ -718,7 +724,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmail.Location = new System.Drawing.Point(471, 108);
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(296, 22);
-            this.textEmail.TabIndex = 8;
+            this.textEmail.TabIndex = 7;
             this.textEmail.Enter += new System.EventHandler(this.textEmail_Enter);
             this.textEmail.Leave += new System.EventHandler(this.textEmail_Leave);
             // 
@@ -740,7 +746,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textConjuge.Location = new System.Drawing.Point(430, 211);
             this.textConjuge.Name = "textConjuge";
             this.textConjuge.Size = new System.Drawing.Size(241, 22);
-            this.textConjuge.TabIndex = 11;
+            this.textConjuge.TabIndex = 10;
             this.textConjuge.Enter += new System.EventHandler(this.textConjuge_Enter);
             this.textConjuge.Leave += new System.EventHandler(this.textConjuge_Leave);
             this.textConjuge.Validating += new System.ComponentModel.CancelEventHandler(this.textConjuge_Validating);
@@ -760,7 +766,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNome.Location = new System.Drawing.Point(67, 76);
             this.textNome.Name = "textNome";
             this.textNome.Size = new System.Drawing.Size(404, 22);
-            this.textNome.TabIndex = 3;
+            this.textNome.TabIndex = 2;
             this.textNome.Enter += new System.EventHandler(this.textNome_Enter);
             this.textNome.Leave += new System.EventHandler(this.textNome_Leave);
             this.textNome.Validating += new System.ComponentModel.CancelEventHandler(this.textNome_Validating);
@@ -884,23 +890,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // btnAddBairro
+            // textDataNascimento
             // 
-            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddBairro.Enabled = false;
-            this.btnAddBairro.FlatAppearance.BorderSize = 0;
-            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
-            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
-            this.btnAddBairro.Location = new System.Drawing.Point(79, 164);
-            this.btnAddBairro.Name = "btnAddBairro";
-            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
-            this.btnAddBairro.TabIndex = 25;
-            this.btnAddBairro.TabStop = false;
-            this.btnAddBairro.Tag = "";
-            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddBairro.UseVisualStyleBackColor = false;
-            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
+            this.textDataNascimento.Location = new System.Drawing.Point(692, 77);
+            this.textDataNascimento.Mask = "00/00/0000";
+            this.textDataNascimento.Name = "textDataNascimento";
+            this.textDataNascimento.Size = new System.Drawing.Size(75, 22);
+            this.textDataNascimento.TabIndex = 3;
+            this.textDataNascimento.ValidatingType = typeof(System.DateTime);
+            this.textDataNascimento.Enter += new System.EventHandler(this.textDataNascimento_Enter);
+            this.textDataNascimento.Leave += new System.EventHandler(this.textDataNascimento_Leave);
+            this.textDataNascimento.Validating += new System.ComponentModel.CancelEventHandler(this.textDataNascimento_Validating);
             // 
             // VendedoraForm
             // 
@@ -916,6 +916,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.MinimizeBox = false;
             this.Name = "VendedoraForm";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ficha de Vendedora";
             this.Load += new System.EventHandler(this.VendedoraForm_Load);
@@ -950,7 +951,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label LblNomePai;
         public System.Windows.Forms.ComboBox comboBoxUfRg;
         public System.Windows.Forms.ComboBox comboBoxEstadoCivil;
-        public System.Windows.Forms.DateTimePicker datePickerNascimento;
         private System.Windows.Forms.Label LblNascimento;
         private System.Windows.Forms.Label LblCpf;
         public System.Windows.Forms.TextBox textEmissorRg;
@@ -975,7 +975,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         public System.Windows.Forms.TextBox textNomePai;
         private System.Windows.Forms.Label label15;
         public System.Windows.Forms.MaskedTextBox maskedTextCpf;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
@@ -1009,5 +1008,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.Label titleFicha;
         private System.Windows.Forms.Button btnAddBairro;
+        private System.Windows.Forms.MaskedTextBox textDataNascimento;
     }
 }

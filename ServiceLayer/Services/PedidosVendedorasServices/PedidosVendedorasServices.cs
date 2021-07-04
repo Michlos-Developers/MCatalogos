@@ -24,30 +24,7 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
             return _pedidosVendedorasRepository.Add(pedido);
         }
 
-        public void Cancelar(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.Cancelar(pedido);
-        }
-
-        public void Conferir(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.Conferir(pedido);
-        }
-
-        public void Despachar(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.Despachar(pedido);
-        }
-
-        public void Entregar(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.Entregar(pedido);
-        }
-
-        public void Enviar(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.Enviar(pedido);
-        }
+       
 
         public IEnumerable<IPedidosVendedorasModel> GetAll()
         {
@@ -99,9 +76,9 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
             return _pedidosVendedorasRepository.GetByVendedoraMes(vendedora, dataMes);
         }
 
-        public void Separar(IPedidosVendedorasModel pedido)
+        public void SetStatus(int status)
         {
-            _pedidosVendedorasRepository.Separar(pedido);
+            _pedidosVendedorasRepository.SetStatus(status);
         }
 
         public void SomarLucroDistribuidor(IPedidosVendedorasModel pedido)

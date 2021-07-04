@@ -4,29 +4,30 @@ using DomainLayer.Models.Validations;
 using ServiceLayer.Services.ValidationServices;
 
 using System.Linq;
+using System.Web;
 
 namespace InfrastructureLayer.Validations
 {
     public class CpfRepository : IValidationCpfRespository
     {
         string cpfStr = string.Empty;
-        long cpfLong = 0;
+        string cpfCalcula = string.Empty;
         int[] multiplicadorPrimeiroDigito = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
         int[] multiplicadorSegundoDigito = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
         bool resultValida = false;
         public bool ValidaCpf(ICpfModel cpfModel)
         {
             cpfStr = cpfModel.Cpf;
-            cpfLong = ReplaceCpfToLong(cpfStr);
+            cpfCalcula = ReplaceCpfToLong(cpfStr);
 
-            int primeiroDigito = int.Parse(cpfLong.ToString().Substring(9, 1));
-            int segundoDigito = int.Parse(cpfLong.ToString().Substring(10, 1));
+            int primeiroDigito = int.Parse(cpfCalcula.ToString().Substring(9, 1));
+            int segundoDigito = int.Parse(cpfCalcula.ToString().Substring(10, 1));
 
             int primeiroDigitoResult = 0;
             int segundoDigitoResult = 0;
 
-            if ((primeiroDigitoResult = CalculaPrimeiroDigito(cpfLong)) != primeiroDigito
-                || (segundoDigitoResult = CalculaSegundoDigito(cpfLong)) != segundoDigito)
+            if ((primeiroDigitoResult = CalculaPrimeiroDigito(cpfCalcula)) != primeiroDigito
+                || (segundoDigitoResult = CalculaSegundoDigito(cpfCalcula)) != segundoDigito)
             {
                 return false;
             }
@@ -38,7 +39,7 @@ namespace InfrastructureLayer.Validations
         }
 
 
-        private int CalculaSegundoDigito(long cpf)
+        private int CalculaSegundoDigito(string cpf)
         {
             int segundoDigitoCalculado = 0;
             int resultMultiplicador = 0;
@@ -53,7 +54,7 @@ namespace InfrastructureLayer.Validations
 
         }
 
-        private int CalculaPrimeiroDigito(long cpf)
+        private int CalculaPrimeiroDigito(string cpf)
         {
             int primeiroDigitoCalculado = 0;
             int resultMultiplicador = 0;
@@ -67,13 +68,13 @@ namespace InfrastructureLayer.Validations
             return primeiroDigitoCalculado;
         }
 
-        private long ReplaceCpfToLong(string cpfStr)
+        private string ReplaceCpfToLong(string cpfStr)
         {
             cpfStr = cpfStr.Replace(".", "");
             cpfStr = cpfStr.Replace("-", "");
             cpfStr = cpfStr.Replace(" ", "");
 
-            return long.Parse(cpfStr);
+            return cpfStr;
         }
     }
 }

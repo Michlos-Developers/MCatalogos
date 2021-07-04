@@ -183,6 +183,16 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconClear15x15 {
+            get {
+                object obj = ResourceManager.GetObject("IconClear15x15", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconClose20x20 {
             get {
                 object obj = ResourceManager.GetObject("IconClose20x20", resourceCulture);

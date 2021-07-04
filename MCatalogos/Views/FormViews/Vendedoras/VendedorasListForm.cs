@@ -108,7 +108,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     row = tableVendedoras.NewRow();
                     row["VendedoraId"] = int.Parse(model.VendedoraId.ToString());
                     row["Nome"] = model.Nome.ToString();
-                    row["Cpf"] = model.Cpf.ToString();
+                    row["Cpf"] = model.Cpf;
 
                     tableVendedoras.Rows.Add(row);
                 }
@@ -167,7 +167,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void btnAdd_Click(object sender, EventArgs e)
         {
             VendedoraForm vendedoraForm = new VendedoraForm(this);
-            vendedoraForm.Show();
+            vendedoraForm.ShowDialog();
         }
         private void pictureSearch_Click_1(object sender, EventArgs e)
         {
@@ -177,7 +177,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             VendedoraForm vendedoraForm = new VendedoraForm(this);
             vendedoraForm.textVendedoraId.Text = this.dgvVendedoras.CurrentRow.Cells[0].Value.ToString();
-            vendedoraForm.Show();
+            vendedoraForm.ShowDialog();
         }
         private void dgvVendedoras_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -240,7 +240,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             if ((e.ColumnIndex == 2) && (e.RowIndex != dgvVendedoras.NewRowIndex))
             {
-                e.Value = string.Format(@"{0:###\.###\.###\-##}", Int64.Parse(e.Value.ToString()));
+                e.Value = string.Format(@"{0:000\.000\.000\-00}", long.Parse(e.Value.ToString()));
             }
         }
         private void panelTitle_MouseDown(object sender, MouseEventArgs e)

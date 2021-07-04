@@ -102,7 +102,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 Cpf = cpf,
                 Rg = textRg.Text,
                 RgEmissor = textEmissorRg.Text,
-                DataNascimento = DateTime.Parse(datePickerNascimento.Text),
+                DataNascimento = DateTime.Parse(textDataNascimento.Text),
                 Email = textEmail.Text,
                 NomePai = textNomePai.Text,
                 NomeMae = textNomeMae.Text,
@@ -171,7 +171,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 Cpf = cpf,
                 Rg = textRg.Text,
                 RgEmissor = textEmissorRg.Text,
-                DataNascimento = DateTime.Parse(datePickerNascimento.Text),
+                DataNascimento = DateTime.Parse(textDataNascimento.Text),
                 Email = textEmail.Text,
                 NomePai = textNomePai.Text,
                 NomeMae = textNomeMae.Text,
@@ -308,7 +308,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     maskedTextCpf.Text = vm.Cpf;
                     textRg.Text = vm.Rg;
                     textEmissorRg.Text = vm.RgEmissor;
-                    datePickerNascimento.Text = vm.DataNascimento.ToString();
+                    textDataNascimento.Text = vm.DataNascimento.ToString();
                     textEmail.Text = vm.Email;
                     textNomePai.Text = vm.NomePai;
                     textNomeMae.Text = vm.NomeMae;
@@ -345,12 +345,22 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private string GetNextLetra(string lastLetra)
         {
-            string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            int pos = alfabeto.IndexOf(lastLetra);
             string nextLetra = string.Empty;
-            pos++;
-            nextLetra = alfabeto[pos].ToString();
+            string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (lastLetra != null)
+            {
+                int pos = alfabeto.IndexOf(lastLetra);
+                pos++;
+                nextLetra = alfabeto[pos].ToString();
+            }
+            else
+            {
+                nextLetra = "A";
+
+            }
+
             return nextLetra;
+
         }
         private bool ChecaRotaVendedora(int vendedoraId)
         {
@@ -631,7 +641,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             bool eventArgs = false;
             if (!this.isClosing)
             {
-                if (string.IsNullOrEmpty(control.Text))
+                if (string.IsNullOrEmpty(control.Text.Replace("/", "").Trim()))
                 {
 
                     eventArgs = true;
@@ -652,7 +662,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             if (!this.isClosing)
             {
-                
+
                 CpfModel model = new CpfModel() { Cpf = maskedTextCpf.Text };
                 string cpfReplaced = ReplaceCpf(maskedTextCpf.Text);
                 VendedoraModel vendedoraModel = _vendedoraServices.GetByCpf(cpfReplaced);
@@ -688,7 +698,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void comboBoxRotaLetra_Validating(object sender, CancelEventArgs e)
         {
-            e.Cancel = ValidaCampo(comboBoxRotaLetra);
+            if (comboBoxRotaLetra.Items.Count != 0)
+            {
+
+                e.Cancel = ValidaCampo(comboBoxRotaLetra);
+            }
         }
         private void textNome_Validating(object sender, CancelEventArgs e)
         {
@@ -736,6 +750,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void comboBoxBairro_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = ValidaCampo(comboBoxBairro);
+        }
+        private void textDataNascimento_Validating(object sender, CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textDataNascimento);
         }
 
 
@@ -939,6 +957,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             {
                 MessageBox.Show("Não foi possível adicionar um novo bairro à cidade");
             }
+        }
+
+        private void textDataNascimento_Enter(object sender, EventArgs e)
+        {
+           textDataNascimento.BackColor = SystemColors.ActiveCaption;
+
+        }
+
+        private void textDataNascimento_Leave(object sender, EventArgs e)
+        {
+                textDataNascimento.BackColor = SystemColors.Window;
         }
     }
 }
