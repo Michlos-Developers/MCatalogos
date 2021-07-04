@@ -41,6 +41,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelContainer = new System.Windows.Forms.Panel();
             this.dgvPedidos = new System.Windows.Forms.DataGridView();
             this.panelCatalogo = new System.Windows.Forms.GroupBox();
+            this.gbStatus = new System.Windows.Forms.GroupBox();
+            this.rbCancelado = new System.Windows.Forms.RadioButton();
+            this.rbEntregue = new System.Windows.Forms.RadioButton();
+            this.rbDespachado = new System.Windows.Forms.RadioButton();
+            this.rbFinalizado = new System.Windows.Forms.RadioButton();
+            this.rbConferido = new System.Windows.Forms.RadioButton();
+            this.rbSeparado = new System.Windows.Forms.RadioButton();
+            this.rbEnviado = new System.Windows.Forms.RadioButton();
+            this.rbAberto = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.dateDataFim = new System.Windows.Forms.MaskedTextBox();
             this.dateDataInicio = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,16 +63,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.label3 = new System.Windows.Forms.Label();
             this.cbNomeVendedora = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.gbStatus = new System.Windows.Forms.GroupBox();
-            this.rbAberto = new System.Windows.Forms.RadioButton();
-            this.rbEnviado = new System.Windows.Forms.RadioButton();
-            this.rbSeparado = new System.Windows.Forms.RadioButton();
-            this.rbConferido = new System.Windows.Forms.RadioButton();
-            this.rbFinalizado = new System.Windows.Forms.RadioButton();
-            this.rbDespachado = new System.Windows.Forms.RadioButton();
-            this.rbEntregue = new System.Windows.Forms.RadioButton();
-            this.rbCancelado = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -135,6 +135,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnEdit
             // 
@@ -211,6 +212,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvPedidos.Location = new System.Drawing.Point(5, 125);
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.ReadOnly = true;
+            this.dgvPedidos.RowHeadersVisible = false;
+            this.dgvPedidos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvPedidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPedidos.Size = new System.Drawing.Size(790, 279);
             this.dgvPedidos.TabIndex = 4;
             // 
@@ -233,6 +237,122 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelCatalogo.Size = new System.Drawing.Size(790, 118);
             this.panelCatalogo.TabIndex = 3;
             this.panelCatalogo.TabStop = false;
+            // 
+            // gbStatus
+            // 
+            this.gbStatus.Controls.Add(this.rbCancelado);
+            this.gbStatus.Controls.Add(this.rbEntregue);
+            this.gbStatus.Controls.Add(this.rbDespachado);
+            this.gbStatus.Controls.Add(this.rbFinalizado);
+            this.gbStatus.Controls.Add(this.rbConferido);
+            this.gbStatus.Controls.Add(this.rbSeparado);
+            this.gbStatus.Controls.Add(this.rbEnviado);
+            this.gbStatus.Controls.Add(this.rbAberto);
+            this.gbStatus.Controls.Add(this.label2);
+            this.gbStatus.Location = new System.Drawing.Point(10, 44);
+            this.gbStatus.Name = "gbStatus";
+            this.gbStatus.Size = new System.Drawing.Size(400, 70);
+            this.gbStatus.TabIndex = 10;
+            this.gbStatus.TabStop = false;
+            // 
+            // rbCancelado
+            // 
+            this.rbCancelado.AutoSize = true;
+            this.rbCancelado.Location = new System.Drawing.Point(309, 45);
+            this.rbCancelado.Name = "rbCancelado";
+            this.rbCancelado.Size = new System.Drawing.Size(82, 18);
+            this.rbCancelado.TabIndex = 0;
+            this.rbCancelado.Text = "Cancelado";
+            this.rbCancelado.UseVisualStyleBackColor = true;
+            this.rbCancelado.CheckedChanged += new System.EventHandler(this.rbCancelado_CheckedChanged);
+            // 
+            // rbEntregue
+            // 
+            this.rbEntregue.AutoSize = true;
+            this.rbEntregue.Location = new System.Drawing.Point(309, 19);
+            this.rbEntregue.Name = "rbEntregue";
+            this.rbEntregue.Size = new System.Drawing.Size(73, 18);
+            this.rbEntregue.TabIndex = 0;
+            this.rbEntregue.Text = "Entregue";
+            this.rbEntregue.UseVisualStyleBackColor = true;
+            this.rbEntregue.CheckedChanged += new System.EventHandler(this.rbEntregue_CheckedChanged);
+            // 
+            // rbDespachado
+            // 
+            this.rbDespachado.AutoSize = true;
+            this.rbDespachado.Location = new System.Drawing.Point(195, 43);
+            this.rbDespachado.Name = "rbDespachado";
+            this.rbDespachado.Size = new System.Drawing.Size(93, 18);
+            this.rbDespachado.TabIndex = 0;
+            this.rbDespachado.Text = "Despachado";
+            this.rbDespachado.UseVisualStyleBackColor = true;
+            this.rbDespachado.CheckedChanged += new System.EventHandler(this.rbDespachado_CheckedChanged);
+            // 
+            // rbFinalizado
+            // 
+            this.rbFinalizado.AutoSize = true;
+            this.rbFinalizado.Location = new System.Drawing.Point(195, 19);
+            this.rbFinalizado.Name = "rbFinalizado";
+            this.rbFinalizado.Size = new System.Drawing.Size(83, 18);
+            this.rbFinalizado.TabIndex = 0;
+            this.rbFinalizado.Text = "Finalizado";
+            this.rbFinalizado.UseVisualStyleBackColor = true;
+            this.rbFinalizado.CheckedChanged += new System.EventHandler(this.rbFinalizado_CheckedChanged);
+            // 
+            // rbConferido
+            // 
+            this.rbConferido.AutoSize = true;
+            this.rbConferido.Location = new System.Drawing.Point(96, 43);
+            this.rbConferido.Name = "rbConferido";
+            this.rbConferido.Size = new System.Drawing.Size(78, 18);
+            this.rbConferido.TabIndex = 0;
+            this.rbConferido.Text = "Conferido";
+            this.rbConferido.UseVisualStyleBackColor = true;
+            this.rbConferido.CheckedChanged += new System.EventHandler(this.rbConferido_CheckedChanged);
+            // 
+            // rbSeparado
+            // 
+            this.rbSeparado.AutoSize = true;
+            this.rbSeparado.Location = new System.Drawing.Point(97, 19);
+            this.rbSeparado.Name = "rbSeparado";
+            this.rbSeparado.Size = new System.Drawing.Size(77, 18);
+            this.rbSeparado.TabIndex = 0;
+            this.rbSeparado.Text = "Separado";
+            this.rbSeparado.UseVisualStyleBackColor = true;
+            this.rbSeparado.CheckedChanged += new System.EventHandler(this.rbSeparado_CheckedChanged);
+            // 
+            // rbEnviado
+            // 
+            this.rbEnviado.AutoSize = true;
+            this.rbEnviado.Location = new System.Drawing.Point(7, 43);
+            this.rbEnviado.Name = "rbEnviado";
+            this.rbEnviado.Size = new System.Drawing.Size(68, 18);
+            this.rbEnviado.TabIndex = 0;
+            this.rbEnviado.Text = "Enviado";
+            this.rbEnviado.UseVisualStyleBackColor = true;
+            this.rbEnviado.CheckedChanged += new System.EventHandler(this.rbEnviado_CheckedChanged);
+            // 
+            // rbAberto
+            // 
+            this.rbAberto.AutoSize = true;
+            this.rbAberto.Checked = true;
+            this.rbAberto.Location = new System.Drawing.Point(7, 19);
+            this.rbAberto.Name = "rbAberto";
+            this.rbAberto.Size = new System.Drawing.Size(80, 18);
+            this.rbAberto.TabIndex = 0;
+            this.rbAberto.TabStop = true;
+            this.rbAberto.Text = "Em Aberto";
+            this.rbAberto.UseVisualStyleBackColor = true;
+            this.rbAberto.CheckedChanged += new System.EventHandler(this.rbAberto_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 14);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Status:";
             // 
             // dateDataFim
             // 
@@ -364,114 +484,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNomeVendedora.TabIndex = 0;
             this.cbNomeVendedora.SelectedIndexChanged += new System.EventHandler(this.cbNomeVendedora_SelectedIndexChanged);
             this.cbNomeVendedora.Leave += new System.EventHandler(this.cbNomeVendedora_Leave);
-            // 
-            // gbStatus
-            // 
-            this.gbStatus.Controls.Add(this.rbCancelado);
-            this.gbStatus.Controls.Add(this.rbEntregue);
-            this.gbStatus.Controls.Add(this.rbDespachado);
-            this.gbStatus.Controls.Add(this.rbFinalizado);
-            this.gbStatus.Controls.Add(this.rbConferido);
-            this.gbStatus.Controls.Add(this.rbSeparado);
-            this.gbStatus.Controls.Add(this.rbEnviado);
-            this.gbStatus.Controls.Add(this.rbAberto);
-            this.gbStatus.Controls.Add(this.label2);
-            this.gbStatus.Location = new System.Drawing.Point(10, 44);
-            this.gbStatus.Name = "gbStatus";
-            this.gbStatus.Size = new System.Drawing.Size(400, 70);
-            this.gbStatus.TabIndex = 10;
-            this.gbStatus.TabStop = false;
-            // 
-            // rbAberto
-            // 
-            this.rbAberto.AutoSize = true;
-            this.rbAberto.Checked = true;
-            this.rbAberto.Location = new System.Drawing.Point(7, 19);
-            this.rbAberto.Name = "rbAberto";
-            this.rbAberto.Size = new System.Drawing.Size(80, 18);
-            this.rbAberto.TabIndex = 0;
-            this.rbAberto.TabStop = true;
-            this.rbAberto.Text = "Em Aberto";
-            this.rbAberto.UseVisualStyleBackColor = true;
-            // 
-            // rbEnviado
-            // 
-            this.rbEnviado.AutoSize = true;
-            this.rbEnviado.Location = new System.Drawing.Point(7, 43);
-            this.rbEnviado.Name = "rbEnviado";
-            this.rbEnviado.Size = new System.Drawing.Size(68, 18);
-            this.rbEnviado.TabIndex = 0;
-            this.rbEnviado.Text = "Enviado";
-            this.rbEnviado.UseVisualStyleBackColor = true;
-            // 
-            // rbSeparado
-            // 
-            this.rbSeparado.AutoSize = true;
-            this.rbSeparado.Location = new System.Drawing.Point(97, 19);
-            this.rbSeparado.Name = "rbSeparado";
-            this.rbSeparado.Size = new System.Drawing.Size(77, 18);
-            this.rbSeparado.TabIndex = 0;
-            this.rbSeparado.Text = "Separado";
-            this.rbSeparado.UseVisualStyleBackColor = true;
-            // 
-            // rbConferido
-            // 
-            this.rbConferido.AutoSize = true;
-            this.rbConferido.Location = new System.Drawing.Point(96, 43);
-            this.rbConferido.Name = "rbConferido";
-            this.rbConferido.Size = new System.Drawing.Size(78, 18);
-            this.rbConferido.TabIndex = 0;
-            this.rbConferido.Text = "Conferido";
-            this.rbConferido.UseVisualStyleBackColor = true;
-            // 
-            // rbFinalizado
-            // 
-            this.rbFinalizado.AutoSize = true;
-            this.rbFinalizado.Location = new System.Drawing.Point(195, 19);
-            this.rbFinalizado.Name = "rbFinalizado";
-            this.rbFinalizado.Size = new System.Drawing.Size(83, 18);
-            this.rbFinalizado.TabIndex = 0;
-            this.rbFinalizado.Text = "Finalizado";
-            this.rbFinalizado.UseVisualStyleBackColor = true;
-            // 
-            // rbDespachado
-            // 
-            this.rbDespachado.AutoSize = true;
-            this.rbDespachado.Location = new System.Drawing.Point(195, 43);
-            this.rbDespachado.Name = "rbDespachado";
-            this.rbDespachado.Size = new System.Drawing.Size(93, 18);
-            this.rbDespachado.TabIndex = 0;
-            this.rbDespachado.Text = "Despachado";
-            this.rbDespachado.UseVisualStyleBackColor = true;
-            // 
-            // rbEntregue
-            // 
-            this.rbEntregue.AutoSize = true;
-            this.rbEntregue.Location = new System.Drawing.Point(309, 19);
-            this.rbEntregue.Name = "rbEntregue";
-            this.rbEntregue.Size = new System.Drawing.Size(73, 18);
-            this.rbEntregue.TabIndex = 0;
-            this.rbEntregue.Text = "Entregue";
-            this.rbEntregue.UseVisualStyleBackColor = true;
-            // 
-            // rbCancelado
-            // 
-            this.rbCancelado.AutoSize = true;
-            this.rbCancelado.Location = new System.Drawing.Point(309, 45);
-            this.rbCancelado.Name = "rbCancelado";
-            this.rbCancelado.Size = new System.Drawing.Size(82, 18);
-            this.rbCancelado.TabIndex = 0;
-            this.rbCancelado.Text = "Cancelado";
-            this.rbCancelado.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 14);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Status:";
             // 
             // PedidosListForm
             // 

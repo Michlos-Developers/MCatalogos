@@ -59,6 +59,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
+        private bool aberto = false;
+        private bool enviado = false;
+        private bool separado = false;
+        private bool conferido = false;
+        private bool despachado = false;
+        private bool entregue = false;
+        private bool cancelado = false;
+        private bool finalizado = false;
+
+
         public PedidosListForm(MainView mainView)
         {
             _queryString = new QueryStringServices(new QueryString());
@@ -74,7 +84,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             DefineDataFinal();
             ReadModels();
             LoadComboBoxVendedoras();
-            
+            LoadDataGridView();
 
 
         }
@@ -85,12 +95,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             DateTime? dataRegistroIni = ReceiveDate(dateDataInicio.Text.ToString());
             DateTime? dataRegistroFim = ReceiveDate(dateDataFim.Text.ToString());
-            bool enviado    =   false;
-            bool separado   =   false;
-            bool conferido  =   false;
-            bool despachado =   false;
-            bool entregue   =   false;
-            bool cancelado  =   false;
+            
 
             pedidoVendedoraDGV = PedidosList;
 
@@ -103,6 +108,11 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             if (dataRegistroIni != null && dataRegistroFim != null)
             {
                 pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.DataRegistro >= dataRegistroIni && pedido.DataRegistro <= dataRegistroFim);
+            }
+
+            if (aberto)
+            {
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Aberto));
             }
 
             if (cancelado)
@@ -135,38 +145,43 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Entregue));
             }
 
+            if (finalizado)
+            {
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Finalizado));
+            }
+
             DataTable tablePedidos = new DataTable();
             DataColumn column;
             DataRow row;
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "Código";
+            column.ColumnName = "CodigoColumn";
             tablePedidos.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Vendedora";
+            column.ColumnName = "VendedoraNameColumn";
             tablePedidos.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.DateTime");
-            column.ColumnName = "Data Registro";
+            column.ColumnName = "DataRegColumn";
             tablePedidos.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "Qtd.Cat.";
+            column.ColumnName = "QtdCatalogoColumn";
             tablePedidos.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "Valor Total";
+            column.ColumnName = "ValorTotalColumn";
             tablePedidos.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Status";
+            column.ColumnName = "StatusColumn";
             tablePedidos.Columns.Add(column);
 
             if (pedidoVendedoraDGV.Any())
@@ -174,17 +189,30 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 foreach (PedidosVendedorasModel model in pedidoVendedoraDGV)
                 {
                     row = tablePedidos.NewRow();
-                    row["Código"] = int.Parse(model.PedidoId.ToString());
-                    row["Vendedora"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
-                    row["Data Registro"] = model.DataRegistro;
-                    row["Qtd.Cat."] = 0; //TODO: FAZER O COUNT DE DETALHES PARA REGISTRAR ESSE VALOR;
-                    row["Valor Total"] = model.ValotTotalPedido;
-                    row["Status"] = GetStatusPedido(model.StatusPed);
+                    row["CodigoColumn"] = int.Parse(model.PedidoId.ToString());
+                    row["VendedoraNameColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
+                    row["DataRegColumn"] = model.DataRegistro;
+                    row["QtdCatalogoColumn"] = 0; //TODO: FAZER O COUNT DE DETALHES PARA REGISTRAR ESSE VALOR;
+                    row["ValorTotalColumn"] = model.ValotTotalPedido;
+                    row["StatusColumn"] = GetStatusPedido(model.StatusPed);
+
+                    tablePedidos.Rows.Add(row);
                     
                 }
             }
 
+            dgvPedidos.DataSource = tablePedidos;
 
+            dgvPedidos.Columns[0].HeaderText = "Código";
+            dgvPedidos.Columns[0].Width = 80;
+            dgvPedidos.Columns[1].HeaderText = "Vendedora";
+            dgvPedidos.Columns[1].Width = 346;
+            dgvPedidos.Columns[2].HeaderText = "Data Reg.";
+            dgvPedidos.Columns[3].HeaderText = "Qtd.Cat.";
+            dgvPedidos.Columns[3].Width = 60;
+            dgvPedidos.Columns[4].HeaderText = "Val. Total";
+            dgvPedidos.Columns[5].HeaderText = "Status";
+            
 
 
         }
@@ -309,6 +337,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
                 VendedoraFilter = cbNomeVendedora.SelectedItem as VendedoraModel;
                 mTextCpf.Text = VendedoraFilter.Cpf;
+                LoadDataGridView();
             }
             else
             {
@@ -339,7 +368,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void UncheckRadiosButtons()
         {
-            rbAberto.Checked = true;
+            rbAberto.Checked = false;
             rbSeparado.Checked = false;
             rbFinalizado.Checked = false;
             rbEntregue.Checked = false;
@@ -350,6 +379,116 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbAberto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbAberto.Checked)
+            {
+                aberto = true;
+            }
+            else
+            {
+                aberto = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbSeparado_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (rbSeparado.Checked)
+            {
+                separado = true;
+            }
+            else
+            {
+                separado = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbFinalizado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbFinalizado.Checked)
+            {
+                finalizado = true;
+            }
+            else
+            {
+                finalizado = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbEntregue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbEntregue.Checked)
+            {
+                entregue = true;
+            }
+            else
+            {
+                entregue = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbEnviado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbEnviado.Checked)
+            {
+                enviado = true;
+            }
+            else
+            {
+                enviado = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbConferido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbConferido.Checked)
+            {
+                conferido = true;
+            }
+            else
+            {
+                conferido = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbDespachado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbDespachado.Checked)
+            {
+                despachado = true;
+            }
+            else
+            {
+                despachado = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void rbCancelado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbCancelado.Checked)
+            {
+                cancelado = true;
+            }
+            else
+            {
+                cancelado = false;
+            }
+            LoadDataGridView();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
         {
 
         }
