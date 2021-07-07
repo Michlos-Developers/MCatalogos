@@ -71,6 +71,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCampanhas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chkImporta = new System.Windows.Forms.CheckBox();
             this.panelContent.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupVariacaoValor.SuspendLayout();
@@ -230,8 +232,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
             this.panelContent.Controls.Add(this.groupBox3);
             this.panelContent.Controls.Add(this.groupVariacaoValor);
+            this.panelContent.Controls.Add(this.chkImporta);
             this.panelContent.Controls.Add(this.groupBox2);
             this.panelContent.Controls.Add(this.groupBox1);
+            this.panelContent.Controls.Add(this.label7);
             this.panelContent.Controls.Add(this.groupBoxCampanhas);
             this.panelContent.Controls.Add(this.cbFornecedor);
             this.panelContent.Controls.Add(this.label5);
@@ -500,6 +504,25 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelCommands.Size = new System.Drawing.Size(854, 48);
             this.panelCommands.TabIndex = 5;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(423, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 14);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Importa Produtos?";
+            // 
+            // chkImporta
+            // 
+            this.chkImporta.AutoSize = true;
+            this.chkImporta.Location = new System.Drawing.Point(536, 50);
+            this.chkImporta.Name = "chkImporta";
+            this.chkImporta.Size = new System.Drawing.Size(15, 14);
+            this.chkImporta.TabIndex = 0;
+            this.chkImporta.UseVisualStyleBackColor = true;
+            this.chkImporta.CheckStateChanged += new System.EventHandler(this.checkBoxTaxaPedido_CheckStateChanged);
+            // 
             // CatalogoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -577,5 +600,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.TextBox textTamanhoVariacao;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox chkImporta;
+        private System.Windows.Forms.Label label7;
     }
 }

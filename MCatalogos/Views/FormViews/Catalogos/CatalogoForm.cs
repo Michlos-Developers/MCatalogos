@@ -72,6 +72,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             model.VariacaoDeValor = chkVariacaoValor.Checked;
             model.TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textTamanhoVariacao.Text;
             model.NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textNumeracaoVariacao.Text;
+            model.ImportaProdutos = chkImporta.Checked;
 
             model.FornecedorId = (cbFornecedor.SelectedItem as FornecedorModel).FornecedorId;
 
@@ -120,6 +121,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 VariacaoDeValor = chkVariacaoValor.Checked,
                 TamanhoValorVariavel = (string.IsNullOrEmpty(textTamanhoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textTamanhoVariacao.Text,
                 NumeracaoValorVariavel = (string.IsNullOrEmpty(textNumeracaoVariacao.Text.Trim()) && !chkVariacaoValor.Checked) ? string.Empty : textNumeracaoVariacao.Text,
+                ImportaProdutos = chkImporta.Checked,
 
                 FornecedorId = _fornecedorServices.GetByNomeFantasia(cbFornecedor.Text).FornecedorId
             };
@@ -189,6 +191,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     chkVariacaoValor.Checked = model.VariacaoDeValor;
                     textTamanhoVariacao.Text = model.TamanhoValorVariavel.ToString();
                     textNumeracaoVariacao.Text = model.NumeracaoValorVariavel.ToString();
+                    chkImporta.Checked = model.ImportaProdutos;
 
                     cbFornecedor.Text = _fornecedorServices.GetById(model.FornecedorId).NomeFantasia;
 
