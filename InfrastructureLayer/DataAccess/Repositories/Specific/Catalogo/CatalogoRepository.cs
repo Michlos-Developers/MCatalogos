@@ -2,6 +2,8 @@
 
 using DomainLayer.Models.Catalogos;
 
+using Microsoft.Win32;
+
 using ServiceLayer.Services.CatalogoServices;
 
 using System.Collections.Generic;
@@ -47,9 +49,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO Catalogos " +
-                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, VariacaoDeValor, TamanhoValorVariavel, NumeracaoValorVariavel, FornecedorId) " +
+                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, VariacaoDeValor, TamanhoValorVariavel, NumeracaoValorVariavel, FornecedorId, ImportaProdutos) " +
                            "output INSERTED.CatalogoId " +
-                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @VariacaoDeValor, @TamanhoValorVariavel, @NumeracaoValorVariavel, @FornecedorId) ";
+                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @VariacaoDeValor, @TamanhoValorVariavel, @NumeracaoValorVariavel, @FornecedorId, @ImportaProdutos) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -73,6 +75,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@TamanhoValorVariavel", catalogoModel.TamanhoValorVariavel);
                         cmd.Parameters.AddWithValue("@NumeracaoValorVariavel", catalogoModel.NumeracaoValorVariavel);
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
+                        cmd.Parameters.AddWithValue("@ImportaProdutos", catalogoModel.ImportaProdutos);
 
                         try
                         {
@@ -118,7 +121,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
 
             }
         }
-
 
         public void Delete(ICatalogoModel catalogoModel)
         {
@@ -184,6 +186,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.TamanhoValorVariavel = reader["TamanhoValorVariavel"].ToString();
                                 model.NumeracaoValorVariavel = reader["NumeracaoValorVariavel"].ToString();
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
+                                model.ImportaProdutos = bool.Parse(reader["ImportaProdutos"].ToString());
 
                                 modelList.Add(model);
                             }
@@ -239,6 +242,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.TamanhoValorVariavel = reader["TamanhoValorVariavel"].ToString();
                                 model.NumeracaoValorVariavel = reader["NumeracaoValorVariavel"].ToString();
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
+                                model.ImportaProdutos = bool.Parse(reader["ImportaProdutos"].ToString());
 
                                 modelList.Add(model);
                             }
@@ -276,6 +280,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                            "TamanhoValorVariavel, " +
                            "NumeracaoValorVariavel, " +
                            "FornecedorId " +
+                           "ImportaProdutos " +
                            "FROM Catalogos " +
                            "WHERE CatalogoId = @CatalogoId";
 
@@ -306,6 +311,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.TamanhoValorVariavel = reader["TamanhoValorVariavel"].ToString();
                                 model.NumeracaoValorVariavel = reader["NumeracaoValorVariavel"].ToString();
                                 model.FornecedorId = int.Parse(reader["FornecedorId"].ToString());
+                                model.ImportaProdutos = bool.Parse(reader["ImportaProdutos"].ToString());
                             }
                         }
                     }
@@ -340,6 +346,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                            "TamanhoValorVariavel = @TamanhoValorVariavel, " +
                            "NumeracaoValorVariavel = @NumeracaoValorVariavel, " +
                            "FornecedorId = @FornecedorId " +
+                           "ImportaProudtos = @ImportaProdutos" +
                            "WHERE CatalogoId = @CatalogoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -363,6 +370,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@TamanhoValorVariavel", catalogoModel.TamanhoValorVariavel);
                         cmd.Parameters.AddWithValue("@NumeracaoValorVariavel", catalogoModel.NumeracaoValorVariavel);
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
+                        cmd.Parameters.AddWithValue("@ImportaProdutos", catalogoModel.ImportaProdutos);
 
                         cmd.ExecuteNonQuery();
                     }

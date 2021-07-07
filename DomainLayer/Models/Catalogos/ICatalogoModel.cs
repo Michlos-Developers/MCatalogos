@@ -15,5 +15,6 @@
         bool VariacaoDeValor { get; set; }
         string TamanhoValorVariavel { get; set; }
         string NumeracaoValorVariavel { get; set; }
+        bool ImportaProdutos { get; set; }
     }
 }
