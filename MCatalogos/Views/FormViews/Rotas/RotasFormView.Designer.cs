@@ -151,11 +151,12 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.dgvVendedoraSemRota.AllowUserToOrderColumns = true;
             this.dgvVendedoraSemRota.AllowUserToResizeColumns = false;
             this.dgvVendedoraSemRota.AllowUserToResizeRows = false;
+            this.dgvVendedoraSemRota.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVendedoraSemRota.BackgroundColor = System.Drawing.Color.White;
             this.dgvVendedoraSemRota.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVendedoraSemRota.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVendedoraSemRota.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVendedoraSemRota.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvVendedoraSemRota.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvVendedoraSemRota.Location = new System.Drawing.Point(0, 0);
             this.dgvVendedoraSemRota.Name = "dgvVendedoraSemRota";
             this.dgvVendedoraSemRota.ReadOnly = true;
@@ -209,11 +210,12 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.dgvRotas.AllowUserToOrderColumns = true;
             this.dgvRotas.AllowUserToResizeColumns = false;
             this.dgvRotas.AllowUserToResizeRows = false;
+            this.dgvRotas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRotas.BackgroundColor = System.Drawing.Color.White;
             this.dgvRotas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvRotas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRotas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRotas.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvRotas.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvRotas.Location = new System.Drawing.Point(0, 0);
             this.dgvRotas.Name = "dgvRotas";
             this.dgvRotas.ReadOnly = true;

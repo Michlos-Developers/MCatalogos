@@ -212,9 +212,9 @@ namespace MCatalogos.UserControls
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContentGridView.Controls.Add(this.dataGridViewVendedoras);
-            this.panelContentGridView.Location = new System.Drawing.Point(24, 36);
+            this.panelContentGridView.Location = new System.Drawing.Point(8, 36);
             this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(765, 399);
+            this.panelContentGridView.Size = new System.Drawing.Size(793, 420);
             this.panelContentGridView.TabIndex = 1;
             // 
             // dataGridViewVendedoras
@@ -227,7 +227,7 @@ namespace MCatalogos.UserControls
             this.dataGridViewVendedoras.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridViewVendedoras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVendedoras.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewVendedoras.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridViewVendedoras.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dataGridViewVendedoras.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewVendedoras.Name = "dataGridViewVendedoras";
             this.dataGridViewVendedoras.ReadOnly = true;
@@ -237,7 +237,7 @@ namespace MCatalogos.UserControls
             this.dataGridViewVendedoras.ShowCellErrors = false;
             this.dataGridViewVendedoras.ShowEditingIcon = false;
             this.dataGridViewVendedoras.ShowRowErrors = false;
-            this.dataGridViewVendedoras.Size = new System.Drawing.Size(765, 399);
+            this.dataGridViewVendedoras.Size = new System.Drawing.Size(793, 420);
             this.dataGridViewVendedoras.TabIndex = 0;
             // 
             // VendedorasListUC

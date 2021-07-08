@@ -110,7 +110,7 @@ namespace MCatalogos.Views.UserControls
             this.dgvTelefonesVendedora.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvTelefonesVendedora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTelefonesVendedora.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTelefonesVendedora.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvTelefonesVendedora.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvTelefonesVendedora.Location = new System.Drawing.Point(0, 0);
             this.dgvTelefonesVendedora.Name = "dgvTelefonesVendedora";
             this.dgvTelefonesVendedora.ReadOnly = true;

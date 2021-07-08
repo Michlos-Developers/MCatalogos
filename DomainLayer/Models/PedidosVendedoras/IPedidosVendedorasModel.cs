@@ -11,7 +11,7 @@ namespace DomainLayer.Models.PedidosVendedoras
         int StatusPed { get; set; }
         double? ValorLucroDistribuidor { get; set; }
         double? ValorLucroVendedora { get; set; }
-        double? ValotTotalPedido { get; set; }
+        double? ValorTotalPedido { get; set; }
         int VendedoraId { get; set; }
         VendedoraModel VendedoraModel { get; set; }
     }

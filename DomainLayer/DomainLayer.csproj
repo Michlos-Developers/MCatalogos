@@ -82,6 +82,7 @@
     <Compile Include="Models\Fornecedores\TelefoneFornecedorModel.cs" />
     <Compile Include="Models\Formatos\FormatosTamanhosModel.cs" />
     <Compile Include="Models\PedidosVendedoras\IPedidosVendedorasModel.cs" />
+    <Compile Include="Models\PedidosVendedoras\DetalhePedidoModel.cs" />
     <Compile Include="Models\PedidosVendedoras\PedidosVendedorasModel.cs" />
     <Compile Include="Models\Produtos\IProdutoModel.cs" />
     <Compile Include="Models\Tamanho\ITamanhosModel.cs" />

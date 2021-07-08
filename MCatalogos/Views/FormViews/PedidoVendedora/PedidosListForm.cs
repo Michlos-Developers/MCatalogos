@@ -23,17 +23,6 @@ using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.PedidoVendedora
 {
-    enum Status
-    {
-        Aberto,
-        Enviado,
-        Separado,
-        Conferido,
-        Finalizado,
-        Despachado,
-        Entregue,
-        Cancelado
-    }
     public partial class PedidosListForm : Form
     {
         #region PROPRIEDADES PARA MOVER A JANELA
@@ -112,42 +101,42 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             if (aberto)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Aberto));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Aberto));
             }
 
             if (cancelado)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Cancelado));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Cancelado));
             }
 
             if (enviado)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Enviado));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Enviado));
             }
 
             if (separado)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Separado));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Separado));
             }
 
             if (conferido)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Conferido));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Conferido));
             }
 
             if (despachado)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Despachado));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Despachado));
             }
 
             if (entregue)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Entregue));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Entregue));
             }
 
             if (finalizado)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)Status.Finalizado));
+                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Finalizado));
             }
 
             DataTable tablePedidos = new DataTable();
@@ -193,7 +182,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     row["VendedoraNameColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
                     row["DataRegColumn"] = model.DataRegistro;
                     row["QtdCatalogoColumn"] = 0; //TODO: FAZER O COUNT DE DETALHES PARA REGISTRAR ESSE VALOR;
-                    row["ValorTotalColumn"] = model.ValotTotalPedido;
+                    row["ValorTotalColumn"] = model.ValorTotalPedido;
                     row["StatusColumn"] = GetStatusPedido(model.StatusPed);
 
                     tablePedidos.Rows.Add(row);
@@ -201,6 +190,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 }
             }
 
+            
             dgvPedidos.DataSource = tablePedidos;
 
             dgvPedidos.Columns[0].HeaderText = "Código";
@@ -212,7 +202,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             dgvPedidos.Columns[3].Width = 60;
             dgvPedidos.Columns[4].HeaderText = "Val. Total";
             dgvPedidos.Columns[5].HeaderText = "Status";
-            
+
+            dgvPedidos.ForeColor = Color.Black;
 
 
         }
@@ -223,23 +214,23 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             switch (statusPed)
             {
                 case 0:
-                    return Status.Aberto;
+                    return StatusPedido.Aberto;
                 case 1:
-                    return Status.Enviado;
+                    return StatusPedido.Enviado;
                 case 2:
-                    return Status.Separado;
+                    return StatusPedido.Separado;
                 case 3:
-                    return Status.Conferido;
+                    return StatusPedido.Conferido;
                 case 4:
-                    return Status.Finalizado;
+                    return StatusPedido.Finalizado;
                 case 5:
-                    return Status.Despachado;
+                    return StatusPedido.Despachado;
                 case 6:
-                    return Status.Entregue;
+                    return StatusPedido.Entregue;
                 case 7:
-                    return Status.Cancelado;
+                    return StatusPedido.Cancelado;
                 default:
-                    return Status.Aberto;
+                    return StatusPedido.Aberto;
             }
         }
 
@@ -490,7 +481,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(null, null, this);
+            pedidoAddForm.Show();
         }
     }
 }

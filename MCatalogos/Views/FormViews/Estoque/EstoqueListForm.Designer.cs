@@ -187,7 +187,7 @@ namespace MCatalogos.Views.FormViews.Estoque
             this.dgvEstoque.BackgroundColor = System.Drawing.Color.White;
             this.dgvEstoque.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvEstoque.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEstoque.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvEstoque.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvEstoque.Location = new System.Drawing.Point(5, 53);
             this.dgvEstoque.Name = "dgvEstoque";
             this.dgvEstoque.RowHeadersVisible = false;

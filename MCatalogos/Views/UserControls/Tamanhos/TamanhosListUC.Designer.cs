@@ -39,7 +39,7 @@ namespace MCatalogos.Views.UserControls.Tamanhos
             this.dgvTamanhos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTamanhos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTamanhos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvTamanhos.GridColor = System.Drawing.Color.LightBlue;
+            this.dgvTamanhos.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvTamanhos.Location = new System.Drawing.Point(0, 0);
             this.dgvTamanhos.Name = "dgvTamanhos";
             this.dgvTamanhos.Size = new System.Drawing.Size(142, 119);

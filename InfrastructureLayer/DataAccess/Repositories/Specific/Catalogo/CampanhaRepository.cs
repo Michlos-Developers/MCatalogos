@@ -170,22 +170,25 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                     connection.Open();
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        cmd.Prepare();
-                        cmd.Parameters.AddWithValue("@CatatlogoId", catalogoModel.CatalogoId);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        if (catalogoModel != null)
                         {
-                            while (reader.Read())
+                            cmd.Prepare();
+                            cmd.Parameters.AddWithValue("@CatalogoId", catalogoModel.CatalogoId);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                CampanhaModel model = new CampanhaModel();
-                                model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
-                                model.Nome = reader["Nome"].ToString();
-                                model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
-                                model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
-                                model.Ativa = bool.Parse(reader["Ativa"].ToString());
-                                model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
+                                while (reader.Read())
+                                {
+                                    CampanhaModel model = new CampanhaModel();
+                                    model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
+                                    model.Nome = reader["Nome"].ToString();
+                                    model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
+                                    model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
+                                    model.Ativa = bool.Parse(reader["Ativa"].ToString());
+                                    model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
 
-                                modelList.Add(model);
+                                    modelList.Add(model);
 
+                                }
                             }
                         }
                     }

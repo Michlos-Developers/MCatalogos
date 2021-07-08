@@ -179,7 +179,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.dgvTamanhos.BackgroundColor = System.Drawing.Color.White;
             this.dgvTamanhos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTamanhos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTamanhos.GridColor = System.Drawing.Color.DarkCyan;
+            this.dgvTamanhos.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvTamanhos.Location = new System.Drawing.Point(0, 0);
             this.dgvTamanhos.Name = "dgvTamanhos";
             this.dgvTamanhos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;

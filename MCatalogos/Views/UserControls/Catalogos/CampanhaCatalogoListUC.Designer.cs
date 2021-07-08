@@ -123,7 +123,7 @@ namespace MCatalogos.Views.UserControls.Catalogos
             this.dgvCampanhas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvCampanhas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCampanhas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCampanhas.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvCampanhas.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvCampanhas.Location = new System.Drawing.Point(0, 0);
             this.dgvCampanhas.Name = "dgvCampanhas";
             this.dgvCampanhas.ReadOnly = true;

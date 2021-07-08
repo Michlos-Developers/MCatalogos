@@ -194,12 +194,13 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.dgvFornecedores.AllowUserToDeleteRows = false;
             this.dgvFornecedores.AllowUserToResizeColumns = false;
             this.dgvFornecedores.AllowUserToResizeRows = false;
+            this.dgvFornecedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvFornecedores.BackgroundColor = System.Drawing.Color.White;
             this.dgvFornecedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvFornecedores.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvFornecedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFornecedores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvFornecedores.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvFornecedores.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvFornecedores.Location = new System.Drawing.Point(0, 0);
             this.dgvFornecedores.Name = "dgvFornecedores";
             this.dgvFornecedores.ReadOnly = true;

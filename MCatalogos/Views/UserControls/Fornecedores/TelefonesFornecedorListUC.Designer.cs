@@ -131,7 +131,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             this.dgvTeleForn.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvTeleForn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTeleForn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTeleForn.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvTeleForn.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvTeleForn.Location = new System.Drawing.Point(0, 0);
             this.dgvTeleForn.Name = "dgvTeleForn";
             this.dgvTeleForn.ReadOnly = true;

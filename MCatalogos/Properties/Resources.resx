@@ -118,20 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="catlog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\catlog.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="iconFornecedor35X35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconFornecedor35X35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IconAdd10x10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAdd10x10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconAdd20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAdd20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconAddCatalogo20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAddCatalogo20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconAddEstoque20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAddEstoque20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IconEditEstoque20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditEstoque20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconAddFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAddFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,100 +130,112 @@
   <data name="IconAddPedido" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconAddPedido.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IconAddProduto" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAddProduto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconAddTelefone20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAddTelefone20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconAddVendedora20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconAddVendedora20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconCatalogo35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconCatalogo35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconClear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconClear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconClear15x15" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconClear15x15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconClose20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconClose20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconConfig35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconConfig35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconDelete20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconDelete20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconEdit20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconEdit20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconEditCatalogo20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconEditCatalogo20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconEditEstoque20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconEditEstoque20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconEditFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconEditFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconEditPedido" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconEditPedido.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconEditProduto" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconEditProduto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconEditVendedora20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconEditVendedora20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconEstoque35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconEstoque35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconFilter20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconFilter20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconFinanceiro35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconFinanceiro35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconFornecedor35X35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconFornecedor35X35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconMenuMobile35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconMenuMobile35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconPedido35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconPedido35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconPesquisa35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconPesquisa35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="IconProduto35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconProduto35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconReport35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconReport35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IconRotas35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconRotas35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconSave20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconSave20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IconFilter20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconFilter20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconVendedora35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconVendedora35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconClear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconClear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconEdit20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconEdit20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UpArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconMenuMobile35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconMenuMobile35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconCatalogo35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconCatalogo35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconClear15x15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconClear15x15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconEditVendedora20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditVendedora20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAdd10x10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAdd10x10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconSave20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconSave20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="LogoMCatalogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogoMCatalogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LOGOPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LOGOPNG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="iconEditFornecedor20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconEditFornecedor20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAddVendedora20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddVendedora20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconConfig35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconConfig35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAddProduto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddProduto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAdd20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAdd20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconEditPedido" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditPedido.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconClose20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconClose20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAddTelefone20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddTelefone20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconPesquisa35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconPesquisa35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconFinanceiro35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconFinanceiro35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="catlog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\catlog.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RightArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RightArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UpArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UpArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IconEstoque35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEstoque35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconEditProduto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditProduto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconRotas35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconRotas35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconPedido35x35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconPedido35x35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LOGOPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LOGOPNG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAddCatalogo20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddCatalogo20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconDelete20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconDelete20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconAddEstoque20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconAddEstoque20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconEditCatalogo20x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditCatalogo20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconEditProduto1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEditProduto1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -279,7 +279,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                            "VariacaoDeValor, " +
                            "TamanhoValorVariavel, " +
                            "NumeracaoValorVariavel, " +
-                           "FornecedorId " +
+                           "FornecedorId, " +
                            "ImportaProdutos " +
                            "FROM Catalogos " +
                            "WHERE CatalogoId = @CatalogoId";

@@ -249,7 +249,8 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void cbCatalogo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.catalogoModelList.Contains(cbCatalogo.SelectedItem))
+
+            if (cbCatalogo.SelectedIndex <= 0)
             {
                 cbCampanha.Items.Clear();
                 cbCampanha.Text = string.Empty;

@@ -272,11 +272,12 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.dgvProdutos.AllowUserToDeleteRows = false;
             this.dgvProdutos.AllowUserToResizeColumns = false;
             this.dgvProdutos.AllowUserToResizeRows = false;
+            this.dgvProdutos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProdutos.BackgroundColor = System.Drawing.Color.White;
             this.dgvProdutos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvProdutos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdutos.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvProdutos.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvProdutos.Location = new System.Drawing.Point(5, 58);
             this.dgvProdutos.Name = "dgvProdutos";
             this.dgvProdutos.ReadOnly = true;

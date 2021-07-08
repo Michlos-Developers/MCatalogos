@@ -8,6 +8,7 @@ using ServiceLayer.Services.PedidosVendedorasServices;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection.Emit;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
 {
@@ -31,9 +32,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             PedidosVendedorasModel pedidoVendedora = new PedidosVendedorasModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO PedidosVendedoras " +
-                "(VendedoraId) " +
-                "VALUES " +
-                "(@VendedoraId)";
+                           "(VendedoraId, StatusPed) " +
+                           "output INSERTED.PedidoId " +
+                           "VALUES (@VendedoraId, @StatusPed)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -44,6 +45,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@VendedoraId", pedido.VendedoraId);
+                        cmd.Parameters.AddWithValue("@StatusPed", pedido.StatusPed);
                         IdReturned = (int)cmd.ExecuteScalar();
                     }
 
@@ -89,9 +91,12 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+
+
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
+                                
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -136,9 +141,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -183,9 +188,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                               model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -230,9 +235,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -277,9 +282,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -324,9 +329,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -371,9 +376,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -417,9 +422,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -462,9 +467,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
                             }
                         }
@@ -508,9 +513,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.ValotTotalPedido = reader["ValotTotalPedido"] != null ? double.Parse(reader["ValotTotalPedido"].ToString()) : 0;
-                                model.ValorLucroVendedora = reader["ValorLucroVendedora"] != null ? double.Parse(reader["ValorLucroVendedora"].ToString()) : 0;
-                                model.ValorLucroDistribuidor = reader["ValorLucroDistribuidor"] != null ? double.Parse(reader["ValorLucroDistribuidor"].ToString()) : 0;
+                                model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
+                                model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
+                                model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
                             }
                         }

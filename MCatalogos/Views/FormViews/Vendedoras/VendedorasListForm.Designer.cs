@@ -99,9 +99,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContentGridView.Controls.Add(this.dgvVendedoras);
-            this.panelContentGridView.Location = new System.Drawing.Point(41, 70);
+            this.panelContentGridView.Location = new System.Drawing.Point(12, 36);
             this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(715, 329);
+            this.panelContentGridView.Size = new System.Drawing.Size(776, 398);
             this.panelContentGridView.TabIndex = 1;
             // 
             // dgvVendedoras
@@ -110,23 +110,25 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.dgvVendedoras.AllowUserToDeleteRows = false;
             this.dgvVendedoras.AllowUserToResizeColumns = false;
             this.dgvVendedoras.AllowUserToResizeRows = false;
+            this.dgvVendedoras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVendedoras.BackgroundColor = System.Drawing.Color.White;
             this.dgvVendedoras.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVendedoras.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvVendedoras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVendedoras.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVendedoras.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvVendedoras.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvVendedoras.Location = new System.Drawing.Point(0, 0);
             this.dgvVendedoras.Name = "dgvVendedoras";
             this.dgvVendedoras.ReadOnly = true;
             this.dgvVendedoras.RowHeadersVisible = false;
+            this.dgvVendedoras.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvVendedoras.RowTemplate.ReadOnly = true;
             this.dgvVendedoras.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvVendedoras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvVendedoras.ShowCellErrors = false;
             this.dgvVendedoras.ShowEditingIcon = false;
             this.dgvVendedoras.ShowRowErrors = false;
-            this.dgvVendedoras.Size = new System.Drawing.Size(715, 329);
+            this.dgvVendedoras.Size = new System.Drawing.Size(776, 398);
             this.dgvVendedoras.TabIndex = 0;
             this.dgvVendedoras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellDoubleClick);
             this.dgvVendedoras.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvVendedoras_CellFormatting);
