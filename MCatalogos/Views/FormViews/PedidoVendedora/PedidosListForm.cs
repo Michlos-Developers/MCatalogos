@@ -40,7 +40,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private List<VendedoraModel> VendedorasList = new List<VendedoraModel>();
 
         private VendedoraModel VendedoraFilter = new VendedoraModel();
-        private PedidosVendedorasModel Pedido = new PedidosVendedorasModel();
+        private PedidosVendedorasModel SelectedPedido = new PedidosVendedorasModel();
+        private VendedoraModel SelectedVendedora = new VendedoraModel();
+
 
         private QueryStringServices _queryString;
         private PedidosVendedorasServices _pedidosServices;
@@ -482,6 +484,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void btnAdd_Click(object sender, EventArgs e)
         {
             PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(null, null, this);
+            pedidoAddForm.Show();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this);
+            pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
             pedidoAddForm.Show();
         }
     }

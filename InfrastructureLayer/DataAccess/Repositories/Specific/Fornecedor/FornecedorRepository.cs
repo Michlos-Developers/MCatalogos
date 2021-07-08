@@ -123,7 +123,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Falha ao tentar adicionar registro. FornecedorAdd",
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível adicionar registro. FornecedorAdd",
                         e.HelpLink, e.ErrorCode, e.StackTrace);
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }

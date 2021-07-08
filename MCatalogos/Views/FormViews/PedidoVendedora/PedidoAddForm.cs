@@ -72,6 +72,18 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         }
 
+        private static PedidoAddForm aForm = null;
+        internal static PedidoAddForm Instance(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
+        {
+            if (aForm == null)
+            {
+                aForm = new PedidoAddForm(vendedoraModel, pedidoModel, pedidosListForm);
+            }
+
+            return aForm;
+        }
+        
+
         private void PedidoAddForm_Load(object sender, EventArgs e)
         {
             LoadComboBoxCatalogos();
@@ -92,9 +104,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
             else
             {
-                VendedoraModel = _vendedoraServices.GetById(PedidoModel.VendedoraId);
                 PreencheCampos(VendedoraModel, PedidoModel);
-                LoadDetalhesPedido(PedidoModel);
+                LoadDetalhesPedido(PedidoModel, null) ;
 
             }
         }
@@ -102,50 +113,47 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void LoadComboBoxCatalogos()
         {
             ListCatalogos = (List<CatalogoModel>)_catalogoServices.GetAll();
-            cbCatalogo.DataSource = ListCatalogos;
+
+            cbCatalogo.ValueMember = "Nome";
             cbCatalogo.DisplayMember = "Nome";
-            cbCatalogo.SelectedIndex = -1;
+            cbCatalogo.Items.Clear();
+            cbCatalogo.Items.Add("== Todos ==");
+            //cbCatalogo.DataSource = ListCatalogos;
+            foreach (CatalogoModel model in ListCatalogos)
+            {
+                if (model.Ativo)
+                    cbCampanha.Items.Add(model);
+            }
+            cbCatalogo.SelectedIndex = 0;
         }
         private void cbCatalogo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbCatalogo.SelectedIndex > -1)
+            if (cbCatalogo.SelectedIndex > 0)
             {
 
                 SelectedCatalogo = cbCatalogo.SelectedItem as CatalogoModel;
                 LoadComboBoxCampanhas(SelectedCatalogo);
-                //HabilitaDesabilitaEdicaoDGV(SelectedCatalogo);
+                LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
             }
             else
             {
+                LoadDetalhesPedido(PedidoModel, null);
                 cbCampanha.DataSource = null;
+
+
+
+
             }
         }
-
-        //private void HabilitaDesabilitaEdicaoDGV(CatalogoModel selectedCatalogo)
-        //{
-        //    if (selectedCatalogo.ImportaProdutos)
-        //    {
-        //        gbAddItem.Enabled = true;
-        //        dgvDetalhePedido.ShowEditingIcon = false;
-        //        dgvDetalhePedido.AllowUserToAddRows = false;
-        //        dgvDetalhePedido.AllowUserToDeleteRows = false;
-        //        dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        //    }
-        //    else
-        //    {
-        //        gbAddItem.Enabled = false;
-        //        dgvDetalhePedido.ShowEditingIcon = true;
-        //        dgvDetalhePedido.AllowUserToAddRows = true;
-        //        dgvDetalhePedido.AllowUserToDeleteRows = true;
-        //        dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
-        //    }
-        //}
-
-        private void LoadDataGridView()
+        private VendedoraModel SelecionarVendedora()
         {
+            SelectVendedoraForm selectVendedoraForm = SelectVendedoraForm.Instance(this);
+            selectVendedoraForm.WindowState = FormWindowState.Normal;
+            selectVendedoraForm.ShowDialog();
+
+            return selectVendedoraForm.SelectedVendedora;
 
         }
-
         private void LoadComboBoxCampanhas(CatalogoModel catalogo)
         {
             if (catalogo != null)
@@ -162,26 +170,24 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 cbCampanha.Text = string.Empty;
             }
         }
-
+        
         private void PreencheCampos(VendedoraModel vendedora, PedidosVendedorasModel pedido)
         {
+            rota = _rotaServices.GetByVendedoraId(vendedora.VendedoraId);
+            rotaLetra = _rotaLetraServices.GetById(vendedora.RotaLetraId);
+            mTextCpfVendedora.Text = vendedora.Cpf;
+            textNomeVendedora.Text = vendedora.Nome;
+            textRotaVendedora.Text = rotaLetra.RotaLetra + "-" + rota.Numero.ToString();
+
             if (pedido != null)
             {
-
+                //EDITA PEDIDO
+                LoadDetalhesPedido(pedido, null); //preenche com todos os catálogos
             }
-
-            if (vendedora != null)
+            else
             {
-                if (!VendedoraTemPedidoAberto(vendedora))
-                {
-
-                    rota = _rotaServices.GetByVendedoraId(vendedora.VendedoraId);
-                    rotaLetra = _rotaLetraServices.GetById(vendedora.RotaLetraId);
-                    mTextCpfVendedora.Text = vendedora.Cpf;
-                    textNomeVendedora.Text = vendedora.Nome;
-                    textRotaVendedora.Text = rotaLetra.RotaLetra + "-" + rota.Numero.ToString();
-                }
-                else
+                //NOVO PEDIDO
+                if (VendedoraTemPedidoAberto(vendedora))
                 {
                     MessageBox.Show("A Vendedora selecionada já possui um pedido em aberto\nNão é pertido que a vendedora tenha mais de um pedido em Aberto.\nEdite o pedido ou finalize-o");
                     this.Close();
@@ -189,31 +195,125 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
         }
 
-        private void LoadDetalhesPedido(PedidosVendedorasModel pedidoModel)
+        private void LoadDetalhesPedido(PedidosVendedorasModel pedidoModel, CatalogoModel catalogoModel)
         {
-            throw new NotImplementedException();
-        }
-
-        private VendedoraModel SelecionarVendedora()
-        {
-            SelectVendedoraForm selectVendedoraForm = SelectVendedoraForm.Instance(this);
-            selectVendedoraForm.WindowState = FormWindowState.Normal;
-            selectVendedoraForm.ShowDialog();
-
-            return selectVendedoraForm.SelectedVendedora;
-
-        }
-
-        private static PedidoAddForm aForm = null;
-        internal static PedidoAddForm Instance(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
-        {
-            if (aForm == null)
+            if (catalogoModel != null)
             {
-                aForm = new PedidoAddForm(vendedoraModel, pedidoModel, pedidosListForm);
+                //SELECIONOU O CATÁLOGO NO COMBOBOX
+            }
+            else
+            {
+                //PREENCHE COM TODOS OS ITENS DO PEDIDO INCLUÍNDO A COLUNA CATÁLOGO
+
             }
 
-            return aForm;
+            DataTable tableDetalhes = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+
+            //COLUMN 0
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "DetalheId";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 1
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "PedidoId";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 2
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "CatalogoId";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 3
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "ProdutoId";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 4
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Catalogo";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 5
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Referencia";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 6
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "MargemVendedora";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 7
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "MargeDistribuidor";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 8
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "ValorProduto";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 9
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int32");
+            column.ColumnName = "Quantidade";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 10
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tamanho";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 11
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "ValorTotalItem";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 12
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "ValorLucroVendedoraItem";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 13
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "ValorLucroDistribuidorItem";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 14
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Double");
+            column.ColumnName = "ValorPagarFornecedorItem";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 15
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Boolean");
+            column.ColumnName = "Faltou";
+            tableDetalhes.Columns.Add(column);
+
+
+
         }
+
+
+
 
         private void PedidoAddForm_FormClosing(object sender, FormClosingEventArgs e)
         {

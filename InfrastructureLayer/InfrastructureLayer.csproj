@@ -66,6 +66,7 @@
     <Compile Include="DataAccess\Repositories\Specific\Formato\FormatoTamanhoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\FornecedorRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\TelefoneFornecedorRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\PedidoVendedora\DetalhePedidoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\PedidoVendedora\PedidoVendedoraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Produto\ProdutoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Tamanho\TamanhoRepository.cs" />

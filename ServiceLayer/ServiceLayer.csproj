@@ -59,6 +59,9 @@
     <Compile Include="Services\CidadeServices\CidadeServices.cs" />
     <Compile Include="Services\CidadeServices\ICidadeRepository.cs" />
     <Compile Include="Services\CidadeServices\ICidadeServices.cs" />
+    <Compile Include="Services\DetalhePedidoServices\DetalhePedidoSerivces.cs" />
+    <Compile Include="Services\DetalhePedidoServices\IDetalhePedidoRepository.cs" />
+    <Compile Include="Services\DetalhePedidoServices\IDetalhePedidoServices.cs" />
     <Compile Include="Services\DistribuidorServices\DistribuidorServices.cs" />
     <Compile Include="Services\DistribuidorServices\IDistribuidorRepository.cs" />
     <Compile Include="Services\DistribuidorServices\IDistribuidorServices.cs" />
