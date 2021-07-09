@@ -7,6 +7,8 @@ using DomainLayer.Models.Vendedora;
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using MCatalogos.Views.FormViews.Produtos;
@@ -53,16 +55,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private List<PedidosVendedorasModel> ListPedidos = new List<PedidosVendedorasModel>();
         private List<DetalhePedidoModel> ListItemsDetalhe = new List<DetalhePedidoModel>();
 
+        private QueryStringServices _queryString;
         private TamanhoServices _tamanhoServices;
         private DetalhePedidoSerivces _detalheServices;
         private ProdutoServices _produtoServices;
         private PedidosVendedorasServices _pedidoServices;
         private VendedoraServices _vendedoraServices;
         private RotaLetraServices _rotaLetraServices;
+        private RotaServices _rotaServices;
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaServices;
-        private RotaServices _rotaServices;
-        private QueryStringServices _queryString;
 
         private static PedidoAddForm aForm = null;
         internal static PedidoAddForm Instance(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
@@ -78,14 +80,17 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         public PedidoAddForm(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
         {
 
+            
             _queryString = new QueryStringServices(new QueryString());
+            _tamanhoServices = new TamanhoServices(new TamanhoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _detalheServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _produtoServices = new ProdutoServices(new ProdutoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _pedidoServices = new PedidosVendedorasServices(new PedidoVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _rotaServices = new RotaServices(new RotaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _campanhaServices = new CampanhaServices(new CampanhaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
-            _detalheServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             VendedoraModel = vendedoraModel;
@@ -124,6 +129,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             }
         }
+        private VendedoraModel SelecionarVendedora()
+        {
+            SelectVendedoraForm selectVendedoraForm = SelectVendedoraForm.Instance(this);
+            selectVendedoraForm.WindowState = FormWindowState.Normal;
+            selectVendedoraForm.ShowDialog();
+
+            return selectVendedoraForm.SelectedVendedora;
+
+        }
 
         private void LoadComboBoxCatalogos()
         {
@@ -160,15 +174,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
 
             }
-        }
-        private VendedoraModel SelecionarVendedora()
-        {
-            SelectVendedoraForm selectVendedoraForm = SelectVendedoraForm.Instance(this);
-            selectVendedoraForm.WindowState = FormWindowState.Normal;
-            selectVendedoraForm.ShowDialog();
-
-            return selectVendedoraForm.SelectedVendedora;
-
         }
         private void LoadComboBoxCampanhas(CatalogoModel catalogo)
         {
