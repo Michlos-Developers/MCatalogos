@@ -140,6 +140,7 @@
       <DependentUpon>SelectVendedoraForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormViews\PedidoVendedora\StatusPedido.cs" />
+    <Compile Include="Views\FormViews\PedidoVendedora\Tamanhos.cs" />
     <Compile Include="Views\FormViews\Produtos\ProdutoAddForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -360,6 +360,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbTamanho.Name = "cbTamanho";
             this.cbTamanho.Size = new System.Drawing.Size(70, 23);
             this.cbTamanho.TabIndex = 2;
+            this.cbTamanho.SelectedIndexChanged += new System.EventHandler(this.cbTamanho_SelectedIndexChanged);
             // 
             // textQtd
             // 
@@ -367,6 +368,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textQtd.Name = "textQtd";
             this.textQtd.Size = new System.Drawing.Size(40, 23);
             this.textQtd.TabIndex = 1;
+            this.textQtd.Leave += new System.EventHandler(this.textQtd_Leave);
             // 
             // textReferencia
             // 

@@ -425,7 +425,6 @@ namespace MCatalogos.Views.FormViews.Produtos
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textDescricao;
         private System.Windows.Forms.TextBox textPagina;
-        private System.Windows.Forms.TextBox textReferencia;
         private System.Windows.Forms.GroupBox panelCatalogoCampanha;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -442,5 +441,6 @@ namespace MCatalogos.Views.FormViews.Produtos
         private System.Windows.Forms.TextBox textValorGG;
         private System.Windows.Forms.TextBox textValor;
         public System.Windows.Forms.DataGridView dgvTamanhos;
+        public System.Windows.Forms.TextBox textReferencia;
     }
 }
