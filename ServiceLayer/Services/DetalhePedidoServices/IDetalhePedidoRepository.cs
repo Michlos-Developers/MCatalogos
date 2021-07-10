@@ -7,7 +7,8 @@ namespace ServiceLayer.Services.DetalhePedidoServices
 {
     public interface IDetalhePedidoRepository
     {
-        DetalhePedidoModel Add(IDetalhePedidoModel detalhePedidoModel);
+        DetalhePedidoModel AddWithTamanho(IDetalhePedidoModel detalhePedidoModel);
+        DetalhePedidoModel AddNoTamanho(IDetalhePedidoModel detalhePedidoModel);
 
         void Update(IDetalhePedidoModel detalhePedidoModel);
         void Delete(IDetalhePedidoModel detalhePedidoModel);
@@ -16,6 +17,5 @@ namespace ServiceLayer.Services.DetalhePedidoServices
         IEnumerable<IDetalhePedidoModel> GetAll();
         IEnumerable<IDetalhePedidoModel> GetAllByPedido(IPedidosVendedorasModel pedidosVendedorasModel);
         IEnumerable<IDetalhePedidoModel> GetAllByPedidoCatalogo(IPedidosVendedorasModel pedidosVendedorasModel, ICatalogoModel catalogoModel);
-
     }
 }

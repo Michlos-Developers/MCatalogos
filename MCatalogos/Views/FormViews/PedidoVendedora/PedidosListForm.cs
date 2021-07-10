@@ -489,11 +489,21 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            EditarPedido();
+        }
+
+        private void EditarPedido()
+        {
             SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
             SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
             PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this);
             pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
             pedidoAddForm.Show();
+        }
+
+        private void dgvPedidos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarPedido();
         }
     }
 }

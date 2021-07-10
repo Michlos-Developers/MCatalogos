@@ -22,9 +22,14 @@ namespace ServiceLayer.Services.DetalhePedidoServices
             _modelDataAnnotationCheck = modelDataAnnotationCheck;
         }
 
-        public DetalhePedidoModel Add(IDetalhePedidoModel detalhePedidoModel)
+        public DetalhePedidoModel AddNoTamanho(IDetalhePedidoModel detalhePedidoModel)
         {
-            return _detalhePedidoRepository.Add(detalhePedidoModel);
+            return _detalhePedidoRepository.AddNoTamanho(detalhePedidoModel);
+        }
+
+        public DetalhePedidoModel AddWithTamanho(IDetalhePedidoModel detalhePedidoModel)
+        {
+            return _detalhePedidoRepository.AddWithTamanho(detalhePedidoModel);
         }
 
         public void Delete(IDetalhePedidoModel detalhePedidoModel)

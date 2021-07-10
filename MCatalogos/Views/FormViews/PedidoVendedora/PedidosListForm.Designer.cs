@@ -218,6 +218,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvPedidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPedidos.Size = new System.Drawing.Size(790, 279);
             this.dgvPedidos.TabIndex = 4;
+            this.dgvPedidos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidos_CellDoubleClick);
             // 
             // panelCatalogo
             // 

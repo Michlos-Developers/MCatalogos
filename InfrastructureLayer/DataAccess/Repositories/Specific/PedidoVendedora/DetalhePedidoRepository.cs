@@ -27,14 +27,68 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             _connectionString = connectionString;
         }
 
-        public DetalhePedidoModel Add(IDetalhePedidoModel detalhePedidoModel)
+        public DetalhePedidoModel AddNoTamanho(IDetalhePedidoModel detalhePedidoModel)
         {
             int idReturned = 0;
             DetalhePedidoModel detalhePedidoReturned = new DetalhePedidoModel();
 
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
-            string query = "INSERT INTO DetalhesPedidosVendedora " +
+            string query = "INSERT INTO DetalhesPedidosVendedoras " +
+                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
+                           " OUTPUT INSERTED.DetalheId " +
+                           " VALUES " +
+                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Referencia, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@PedidoId", detalhePedidoModel.PedidoId);
+                        cmd.Parameters.AddWithValue("@CatalogoId", detalhePedidoModel.CatalogoId);
+                        cmd.Parameters.AddWithValue("@CampanhaId", detalhePedidoModel.CampanhaId);
+                        cmd.Parameters.AddWithValue("@ProdutoId", detalhePedidoModel.ProdutoId);
+                        cmd.Parameters.AddWithValue("@Referencia", detalhePedidoModel.Referencia);
+                        cmd.Parameters.AddWithValue("@MargemVendedora", detalhePedidoModel.MargemVendedora);
+                        cmd.Parameters.AddWithValue("@MargemDistribuidor", detalhePedidoModel.MargemDistribuidor);
+                        cmd.Parameters.AddWithValue("@ValorProduto", detalhePedidoModel.ValorProduto);
+                        cmd.Parameters.AddWithValue("@Quantidade", detalhePedidoModel.Quantidade);
+                        cmd.Parameters.AddWithValue("@ValorTotalItem", detalhePedidoModel.ValorTotalItem);
+                        cmd.Parameters.AddWithValue("@ValorLucroVendedoraItem", detalhePedidoModel.ValorLucroVendedoraItem);
+                        cmd.Parameters.AddWithValue("@ValorLucroDistribuidorItem", detalhePedidoModel.ValorLucroDistribuidorItem);
+                        cmd.Parameters.AddWithValue("@ValorPagarFornecedorItem", detalhePedidoModel.ValorPagarFornecedorItem);
+                        cmd.Parameters.AddWithValue("@Faltou", detalhePedidoModel.Faltou);
+
+                        idReturned = (int)cmd.ExecuteScalar();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Nâo foi possível adicionar item ao pedido",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                detalhePedidoReturned = GetById(idReturned);
+                return detalhePedidoReturned;
+            }
+        }
+
+        public DetalhePedidoModel AddWithTamanho(IDetalhePedidoModel detalhePedidoModel)
+        {
+            int idReturned = 0;
+            DetalhePedidoModel detalhePedidoReturned = new DetalhePedidoModel();
+
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+
+            string query = "INSERT INTO DetalhesPedidosVendedoras " +
                            " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, Tamanho, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
                            " OUTPUT INSERTED.DetalheId " +
                            " VALUES " +

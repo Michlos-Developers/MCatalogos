@@ -80,7 +80,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         public PedidoAddForm(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
         {
 
-            
+
             _queryString = new QueryStringServices(new QueryString());
             _tamanhoServices = new TamanhoServices(new TamanhoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _detalheServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
@@ -272,22 +272,24 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             column.ColumnName = "Referencia";
             tableDetalhes.Columns.Add(column);
 
+
             //COLUMN 6
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Descricao";
+            tableDetalhes.Columns.Add(column);
+
+
+            //COLUMN 7
             column = new DataColumn();
             column.DataType = Type.GetType("System.Double");
             column.ColumnName = "MargemVendedora";
             tableDetalhes.Columns.Add(column);
 
-            //COLUMN 7
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "MargemDistribuidor";
-            tableDetalhes.Columns.Add(column);
-
             //COLUMN 8
             column = new DataColumn();
             column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorProduto";
+            column.ColumnName = "MargemDistribuidor";
             tableDetalhes.Columns.Add(column);
 
             //COLUMN 9
@@ -304,29 +306,35 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             //COLUMN 11
             column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorTotalItem";
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "ValorProduto";
             tableDetalhes.Columns.Add(column);
 
             //COLUMN 12
             column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorLucroVendedoraItem";
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "ValorTotalItem";
             tableDetalhes.Columns.Add(column);
 
             //COLUMN 13
             column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorLucroDistribuidorItem";
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "ValorLucroVendedoraItem";
             tableDetalhes.Columns.Add(column);
 
             //COLUMN 14
             column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorPagarFornecedorItem";
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "ValorLucroDistribuidorItem";
             tableDetalhes.Columns.Add(column);
 
             //COLUMN 15
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "ValorPagarForencedorItem";
+            tableDetalhes.Columns.Add(column);
+
+            //COLUMN 16
             column = new DataColumn();
             column.DataType = Type.GetType("System.Boolean");
             column.ColumnName = "Faltou";
@@ -343,15 +351,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     row["ProdutoId"] = model.ProdutoId;
                     row["Catalogo"] = _catalogoServices.GetById(model.CatalogoId).Nome;
                     row["Referencia"] = model.Referencia;
+                    row["Descricao"] = _produtoServices.GetById(model.ProdutoId).Descricao;
                     row["MargemVendedora"] = model.MargemVendedora;
                     row["MargemDistribuidor"] = model.MargemDistribuidor;
-                    row["ValorProduto"] = model.ValorProduto;
+                    row["ValorProduto"] = double.Parse(model.ValorProduto.ToString()).ToString("C2");
                     row["Quantidade"] = model.Quantidade;
                     row["Tamanho"] = model.Tamanho;
-                    row["ValorTotalItem"] = model.ValorTotalItem;
-                    row["ValorLucroVendedoraItem"] = model.ValorLucroVendedoraItem;
-                    row["ValorLucroDistribuidorItem"] = model.ValorLucroDistribuidorItem;
-                    row["ValorPagarForencedorItem"] = model.ValorPagarFornecedorItem;
+                    row["ValorTotalItem"] = double.Parse(model.ValorTotalItem.ToString()).ToString("C2");
+                    row["ValorLucroVendedoraItem"] = double.Parse(model.ValorLucroVendedoraItem.ToString()).ToString("C2");
+                    row["ValorLucroDistribuidorItem"] = double.Parse(model.ValorLucroDistribuidorItem.ToString()).ToString("C2");
+                    row["ValorPagarForencedorItem"] = double.Parse(model.ValorPagarFornecedorItem.ToString()).ToString("C2");
                     row["Faltou"] = model.Faltou;
 
                     tableDetalhes.Rows.Add(row);
@@ -370,22 +379,33 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             dgvDetalhePedido.ForeColor = Color.Black;
 
-            dgvDetalhePedido.Columns[0].Visible = false;
-            dgvDetalhePedido.Columns[1].Visible = false;
-            dgvDetalhePedido.Columns[2].Visible = false;
-            dgvDetalhePedido.Columns[3].Visible = false;
-            dgvDetalhePedido.Columns[4].Visible = cbCatalogo.SelectedIndex > 0 ? false : true;
-            dgvDetalhePedido.Columns[5].HeaderText = "Ref.";
-            dgvDetalhePedido.Columns[6].Visible = false;
-            dgvDetalhePedido.Columns[7].Visible = false;
-            dgvDetalhePedido.Columns[8].HeaderText = "Vlr.Unit.";
-            dgvDetalhePedido.Columns[9].HeaderText = "Qtd.";
-            dgvDetalhePedido.Columns[10].HeaderText = "Tam.";
-            dgvDetalhePedido.Columns[11].HeaderText = "Vlr.Total";
-            dgvDetalhePedido.Columns[12].HeaderText = "Lucro Vend.";
-            dgvDetalhePedido.Columns[13].HeaderText = "Lucro Dist.";
-            dgvDetalhePedido.Columns[14].HeaderText = "Custo";
-            dgvDetalhePedido.Columns[15].Visible = false;
+            dgvDetalhePedido.Columns["DetalheId"].Visible = false;
+            dgvDetalhePedido.Columns["PedidoId"].Visible = false;
+            dgvDetalhePedido.Columns["CatalogoId"].Visible = false;
+            dgvDetalhePedido.Columns["ProdutoId"].Visible = false;
+            dgvDetalhePedido.Columns["Catalogo"].Visible = cbCatalogo.SelectedIndex > 0 ? false : true;
+            dgvDetalhePedido.Columns["Catalogo"].Width = 50;
+            dgvDetalhePedido.Columns["Referencia"].HeaderText = "Ref.";
+            dgvDetalhePedido.Columns["Referencia"].Width = 50;
+            dgvDetalhePedido.Columns["Descricao"].HeaderText = "Produto";
+            dgvDetalhePedido.Columns["Descricao"].Width = 123;
+            dgvDetalhePedido.Columns["MargemVendedora"].Visible = false;
+            dgvDetalhePedido.Columns["MargemDistribuidor"].Visible = false;
+            dgvDetalhePedido.Columns["ValorProduto"].HeaderText = "Vlr.Unit.";
+            dgvDetalhePedido.Columns["ValorProduto"].Width = 50;
+            dgvDetalhePedido.Columns["Quantidade"].HeaderText = "Qtd.";
+            dgvDetalhePedido.Columns["Quantidade"].Width = 20;
+            dgvDetalhePedido.Columns["Tamanho"].HeaderText = "Tam.";
+            dgvDetalhePedido.Columns["Tamanho"].Width = 25;
+            dgvDetalhePedido.Columns["ValorTotalItem"].HeaderText = "Vlr.Total";
+            dgvDetalhePedido.Columns["ValorTotalItem"].Width = 50;
+            dgvDetalhePedido.Columns["ValorLucroVendedoraItem"].HeaderText = "Lucro Vend.";
+            dgvDetalhePedido.Columns["ValorLucroVendedoraItem"].Width = 50;
+            dgvDetalhePedido.Columns["ValorLucroDistribuidorItem"].HeaderText = "Lucro Dist.";
+            dgvDetalhePedido.Columns["ValorLucroDistribuidorItem"].Width = 50;
+            dgvDetalhePedido.Columns["ValorPagarForencedorItem"].HeaderText = "Custo";
+            dgvDetalhePedido.Columns["ValorPagarForencedorItem"].Width = 50;
+            dgvDetalhePedido.Columns["Faltou"].Visible = false;
 
 
         }
@@ -459,7 +479,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                         }
                         else if (ProdutoToAddGrid.CampanhaId != SelectedCampanha.CampanhaId)
                         {
-                            var result =  MessageBox.Show($"Produto não pertence à campanha selecionada.\nDeseja Adicionar esse produto à campanha: \n{SelectedCampanha.Nome} ?", "Produto Fora da Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var result = MessageBox.Show($"Produto não pertence à campanha selecionada.\nDeseja Adicionar esse produto à campanha: \n{SelectedCampanha.Nome} ?", "Produto Fora da Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (result == DialogResult.Yes)
                             {//ADICIONAR O PRODUTO CADASTRADO NA CAMPANHA ATUAL
                                 ProdutoModel produto = new ProdutoModel();
@@ -480,15 +500,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Não se equeça de revisar o preço do produto e em seguida editar esse pedido.","Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Não se equeça de revisar o preço do produto e em seguida editar esse pedido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
                             else if (result == DialogResult.No)
                             {
                                 textReferencia.Focus();
                             }
-                            
-                            
+
+
                         }
 
                     }
@@ -581,6 +601,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                         if (!cbTamanho.Enabled)
                         {
                             AddProdutoInDGV(ProdutoToAddGrid, result, null);
+                            LimpaAddPanel();
                         }
                     }
 
@@ -597,9 +618,22 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             if (cbTamanho.SelectedIndex >= 0)
             {
-                AddProdutoInDGV(ProdutoToAddGrid, int.Parse(textQtd.Text), cbTamanho.Text);
-                
+                if (!string.IsNullOrEmpty(textQtd.Text))
+                {
+
+                    AddProdutoInDGV(ProdutoToAddGrid, int.Parse(textQtd.Text), cbTamanho.Text);
+                    LimpaAddPanel();
+                }
+
             }
+        }
+
+        private void LimpaAddPanel()
+        {
+            cbTamanho.SelectedIndex = -1;
+            cbTamanho.Text = string.Empty;
+            textReferencia.Text = string.Empty;
+            textQtd.Text = string.Empty;
         }
 
         private void SalvarPedido(VendedoraModel vendedora)
@@ -612,16 +646,17 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void AddProdutoInDGV(ProdutoModel produto, int quantidade, string tamanho)
         {
 
+            double valorProduto = 0;
             if (tamanho != null)
             {   //TEM TAMANHO TRATAR VALOR DO PRODUTO E ADD TAMANHO NO ITEM.
                 Tamanhos tamanhos = (Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho);
                 if (tamanhos >= Tamanhos.GG)
                 {
-                    ItemPedido.ValorProduto = produto.ValorCatalogo2 != 0 ? produto.ValorCatalogo2 : produto.ValorCatalogo;
+                    valorProduto = produto.ValorCatalogo2 != 0 ? produto.ValorCatalogo2 : produto.ValorCatalogo;
                 }
                 else
                 {
-                    ItemPedido.ValorProduto = produto.ValorCatalogo;
+                    valorProduto = produto.ValorCatalogo;
                 }
 
                 ItemPedido.Tamanho = tamanho;
@@ -630,9 +665,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
             else
             { //NÃO TEM TAMANHO PASSAR O VALOR DO PRODUTO PADRÃO E NÃO ADICIOANR TAMNAHO NO ITEM
-                ItemPedido.ValorProduto = produto.ValorCatalogo;
+                valorProduto = produto.ValorCatalogo;
             }
-
 
 
             ItemPedido.PedidoId = PedidoModel.PedidoId;
@@ -640,17 +674,35 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             ItemPedido.CampanhaId = SelectedCampanha.CampanhaId;
             ItemPedido.ProdutoId = produto.ProdutoId;
             ItemPedido.Referencia = produto.Referencia;
-            ItemPedido.MargemVendedora = produto.MargemVendedora != null ? double.Parse(produto.MargemVendedora) : SelectedCatalogo.MargemPadraoVendedora;
-            ItemPedido.MargemDistribuidor = produto.MargemDistribuidor != null ? double.Parse(produto.MargemDistribuidor) : SelectedCatalogo.MargemPadraoDistribuidor;
+            ItemPedido.MargemVendedora = string.IsNullOrEmpty(produto.MargemVendedora) ? SelectedCatalogo.MargemPadraoVendedora : double.Parse(produto.MargemVendedora);
+            ItemPedido.MargemDistribuidor = string.IsNullOrEmpty(produto.MargemDistribuidor) ? SelectedCatalogo.MargemPadraoDistribuidor : double.Parse(produto.MargemDistribuidor);
+            ItemPedido.ValorProduto = valorProduto;
             ItemPedido.Quantidade = quantidade;
             ItemPedido.ValorTotalItem = quantidade * ItemPedido.ValorProduto;
-            ItemPedido.ValorLucroVendedoraItem = ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100);
-            ItemPedido.ValorLucroDistribuidorItem = ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100);
-            ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorProduto - ItemPedido.ValorLucroDistribuidorItem;
+            ItemPedido.ValorLucroVendedoraItem = (ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade;
+            ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
+            ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
             ItemPedido.Faltou = false;
 
-            _detalheServices.Add(ItemPedido);
+
+            if (tamanho != null)
+                _detalheServices.AddWithTamanho(ItemPedido);
+            else
+                _detalheServices.AddNoTamanho(ItemPedido);
+
             LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+        }
+
+        private void cbCampanha_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbCampanha.SelectedIndex > -1)
+            {
+                SelectedCampanha = cbCampanha.SelectedItem as CampanhaModel;
+            }
+        }
+
+        private void dgvDetalhePedido_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

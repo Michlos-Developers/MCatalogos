@@ -163,6 +163,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvDetalhePedido.ShowEditingIcon = false;
             this.dgvDetalhePedido.Size = new System.Drawing.Size(872, 261);
             this.dgvDetalhePedido.TabIndex = 0;
+            this.dgvDetalhePedido.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalhePedido_CellDoubleClick);
             // 
             // mTextCpfVendedora
             // 
@@ -264,6 +265,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbCampanha.Size = new System.Drawing.Size(298, 23);
             this.cbCampanha.TabIndex = 3;
             this.cbCampanha.TabStop = false;
+            this.cbCampanha.SelectedIndexChanged += new System.EventHandler(this.cbCampanha_SelectedIndexChanged);
             // 
             // cbCatalogo
             // 

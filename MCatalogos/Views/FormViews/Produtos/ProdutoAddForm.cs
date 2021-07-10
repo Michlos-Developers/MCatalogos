@@ -245,7 +245,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             produto.Referencia = textReferencia.Text;
             produto.Descricao = textDescricao.Text;
             produto.ValorCatalogo = float.Parse(textValor.Text);
-            produto.ValorCatalogo2 = float.Parse(textValorGG.Text);
+            produto.ValorCatalogo2 = string.IsNullOrEmpty(textValorGG.Text) ? 0 : float.Parse(textValorGG.Text);
             produto.Pagina = int.Parse(textPagina.Text);
             produto.MargemVendedora = textMargemVendedora.Text;
             produto.MargemDistribuidor = textMargemDistribuidor.Text;
