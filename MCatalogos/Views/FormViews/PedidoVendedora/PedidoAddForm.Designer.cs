@@ -87,15 +87,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnEdit.ForeColor = System.Drawing.Color.White;
             this.btnEdit.Image = global::MCatalogos.Properties.Resources.IconEditProduto1;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(526, 4);
+            this.btnEdit.Location = new System.Drawing.Point(650, 4);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(99, 27);
+            this.btnEdit.Size = new System.Drawing.Size(74, 27);
             this.btnEdit.TabIndex = 2;
             this.btnEdit.TabStop = false;
             this.btnEdit.Tag = "Pedidos";
             this.btnEdit.Text = "Editar";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -106,15 +107,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnDelete.ForeColor = System.Drawing.Color.White;
             this.btnDelete.Image = global::MCatalogos.Properties.Resources.IconDelete20x20;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(639, 4);
+            this.btnDelete.Location = new System.Drawing.Point(730, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(99, 27);
+            this.btnDelete.Size = new System.Drawing.Size(74, 27);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.TabStop = false;
             this.btnDelete.Tag = "";
             this.btnDelete.Text = "Deletar";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnCancel
             // 
@@ -124,9 +126,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(785, 4);
+            this.btnCancel.Location = new System.Drawing.Point(810, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(99, 27);
+            this.btnCancel.Size = new System.Drawing.Size(74, 27);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.TabStop = false;
             this.btnCancel.Tag = "Pedidos";

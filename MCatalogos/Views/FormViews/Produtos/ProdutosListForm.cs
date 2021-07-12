@@ -333,7 +333,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         {
             try
             {
-                ProdutoAddForm produtoAddForm = new ProdutoAddForm(null, this.CatalogoModel, this.CampanhaModel);
+                ProdutoAddForm produtoAddForm = new ProdutoAddForm(null, this.CatalogoModel, this.CampanhaModel, this);
                 produtoAddForm.Text = "Adicionando Novo Produto - " + this.CatalogoModel.Nome;
                 produtoAddForm.StartPosition = FormStartPosition.CenterScreen;
                 produtoAddForm.ShowDialog();
@@ -355,7 +355,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                 this.CatalogoModel = _catalogoServices.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[8].Value.ToString()));
                 this.CampanhaModel = _campanhaService.GetById(int.Parse(this.dgvProdutos.CurrentRow.Cells[9].Value.ToString()));
 
-                ProdutoAddForm produtoEditForm = new ProdutoAddForm(this.ProdutoModel, this.CatalogoModel, this.CampanhaModel);
+                ProdutoAddForm produtoEditForm = new ProdutoAddForm(this.ProdutoModel, this.CatalogoModel, this.CampanhaModel, this);
                 produtoEditForm.Text = "Editando Produto - " + this.ProdutoModel.Referencia + " - " + this.CatalogoModel.Nome;
                 produtoEditForm.StartPosition = FormStartPosition.CenterScreen;
                 produtoEditForm.ShowDialog();
@@ -378,6 +378,11 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void dgvProdutos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             btnEdit_Click(sender, e);
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

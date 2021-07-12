@@ -189,6 +189,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.btnDelete.Text = "Deletar";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnCancel
             // 

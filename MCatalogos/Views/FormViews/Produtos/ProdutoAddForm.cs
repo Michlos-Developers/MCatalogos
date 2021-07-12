@@ -9,6 +9,8 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Formato;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho;
 
+using MCatalogos.Views.FormViews.PedidoVendedora;
+
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.FormatoTamanhoServices;
@@ -39,10 +41,11 @@ namespace MCatalogos.Views.FormViews.Produtos
         private CatalogoServices _catalogoServices;
         private TamanhoServices _tamanhoServices;
         private FormatoTamanhoServices _formatoServices;
+        private Control controlOrigem;
 
         private List<TamanhosModel> TamanhosList;
 
-        public ProdutoAddForm(ProdutoModel produto, CatalogoModel catalogo, CampanhaModel campanha)
+        public ProdutoAddForm(ProdutoModel produto, CatalogoModel catalogo, CampanhaModel campanha, Control control)
         {
 
             _queryString = new QueryStringServices(new QueryString());
@@ -56,6 +59,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             ProdutoModel = produto;
             CatalogoModel = catalogo;
             CampanhaModel = campanha;
+            controlOrigem = control;
 
 
         }
@@ -215,6 +219,11 @@ namespace MCatalogos.Views.FormViews.Produtos
 
             SaveTamanhos(ProdutoModel);
             ProdutoAddForm_Load(sender, e);
+
+            if (controlOrigem is PedidoAddForm)
+            {
+                this.Close();
+            }
 
         }
 

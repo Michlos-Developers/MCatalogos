@@ -462,69 +462,74 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void textReferencia_Leave(object sender, EventArgs e)
         {
-            if (cbCatalogo.SelectedIndex > 0)
+            if (!string.IsNullOrEmpty(textReferencia.Text))
             {
+                textReferencia.BackColor = SystemColors.Window;
+                if (ProdutoExiste(textReferencia.Text))
+                { //SE EXISTE ADICIONA VERIFICA SE TEM TAMANHO PARA DEPOIS ADI9CIONAR AO GRID.
+                    ProdutoToAddGrid = _produtoServices.GetByReference(textReferencia.Text);
 
+                    if (ProdutoToAddGrid.CatalogoId != SelectedCatalogo.CatalogoId)
+                    {
+                        MessageBox.Show("Produto não pertence ao catálogo selecionado.");
+                        textReferencia.Focus();
+                    }
+                    else if (ProdutoToAddGrid.CampanhaId != SelectedCampanha.CampanhaId)
+                    {
+                        var result = MessageBox.Show($"Produto não pertence à campanha selecionada.\nDeseja Adicionar esse produto à campanha: \n{SelectedCampanha.Nome} ?", "Produto Fora da Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {//ADICIONAR O PRODUTO CADASTRADO NA CAMPANHA ATUAL
+                            ProdutoModel produto = new ProdutoModel();
+                            produto = _produtoServices.GetByReference(textReferencia.Text);
+                            produto.CampanhaId = SelectedCampanha.CampanhaId;
+                            if (produto.MargemVendedora != null)
+                                this.ProdutoToAddGrid = _produtoServices.AddWithMargens(produto);
+                            else
+                                this.ProdutoToAddGrid = _produtoServices.AddNoMargens(produto);
 
-                if (!string.IsNullOrEmpty(textReferencia.Text))
-                {
-                    if (ProdutoExiste(textReferencia.Text))
-                    { //SE EXISTE ADICIONA VERIFICA SE TEM TAMANHO PARA DEPOIS ADI9CIONAR AO GRID.
-                        ProdutoToAddGrid = _produtoServices.GetByReference(textReferencia.Text);
-
-                        if (ProdutoToAddGrid.CatalogoId != SelectedCatalogo.CatalogoId)
+                            result = MessageBox.Show($"O Produto {this.ProdutoToAddGrid.Referencia} foi adicionado à campanha {this.SelectedCampanha}.\n Deseja revisar o preço do produto agora?", "Adicionando Produto à Campanha Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (result == DialogResult.Yes)
+                            {   // ABRIR EDIÇÃO DE PRODUTO
+                                ProdutoAddForm editaProduto = new ProdutoAddForm(ProdutoToAddGrid, SelectedCatalogo, SelectedCampanha, this);
+                                editaProduto.StartPosition = FormStartPosition.CenterScreen;
+                                editaProduto.ShowDialog();
+                                this.ProdutoToAddGrid = editaProduto.ProdutoModel;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Não se equeça de revisar o preço do produto e em seguida editar esse pedido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else if (result == DialogResult.No)
                         {
-                            MessageBox.Show("Produto não pertence ao catálogo selecionado.");
                             textReferencia.Focus();
                         }
-                        else if (ProdutoToAddGrid.CampanhaId != SelectedCampanha.CampanhaId)
-                        {
-                            var result = MessageBox.Show($"Produto não pertence à campanha selecionada.\nDeseja Adicionar esse produto à campanha: \n{SelectedCampanha.Nome} ?", "Produto Fora da Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (result == DialogResult.Yes)
-                            {//ADICIONAR O PRODUTO CADASTRADO NA CAMPANHA ATUAL
-                                ProdutoModel produto = new ProdutoModel();
-                                produto = _produtoServices.GetByReference(textReferencia.Text);
-                                produto.CampanhaId = SelectedCampanha.CampanhaId;
-                                if (produto.MargemVendedora != null)
-                                    this.ProdutoToAddGrid = _produtoServices.AddWithMargens(produto);
-                                else
-                                    this.ProdutoToAddGrid = _produtoServices.AddNoMargens(produto);
 
-                                result = MessageBox.Show($"O Produto {this.ProdutoToAddGrid.Referencia} foi adicionado à campanha {this.SelectedCampanha}.\n Deseja revisar o preço do produto agora?", "Adicionando Produto à Campanha Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                if (result == DialogResult.Yes)
-                                {   // ABRIR EDIÇÃO DE PRODUTO
-                                    ProdutoAddForm editaProduto = new ProdutoAddForm(ProdutoToAddGrid, SelectedCatalogo, SelectedCampanha);
-                                    editaProduto.StartPosition = FormStartPosition.CenterScreen;
-                                    editaProduto.ShowDialog();
-                                    this.ProdutoToAddGrid = editaProduto.ProdutoModel;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Não se equeça de revisar o preço do produto e em seguida editar esse pedido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                }
-                            }
-                            else if (result == DialogResult.No)
-                            {
-                                textReferencia.Focus();
-                            }
-
-
-                        }
 
                     }
-                    else
-                    { //adicionar produto no catalogo.
-                        ProdutoToAddGrid = AdicionarNovoProduto(textReferencia.Text);
-                    }
-
-                    ProdutoTemTamanho(ProdutoToAddGrid);
 
                 }
                 else
-                {
-                    MessageBox.Show("Preencha a referência do produto!", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    textReferencia.Focus();
+                { //adicionar produto no catalogo.
+                    ProdutoToAddGrid = AdicionarNovoProduto(textReferencia.Text);
+
                 }
+
+
+                if (ProdutoToAddGrid != null)
+                {
+
+                    ProdutoTemTamanho(ProdutoToAddGrid);
+                }
+                else
+                {
+                    LimpaAddPanel();
+                }
+
+            }
+            else
+            {
+                textReferencia.BackColor = Color.Red;
             }
         }
 
@@ -533,7 +538,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             ProdutoModel produtoAdded = new ProdutoModel();
             try
             {
-                ProdutoAddForm produtoAddForm = new ProdutoAddForm(null, SelectedCatalogo, SelectedCampanha);
+                ProdutoAddForm produtoAddForm = new ProdutoAddForm(null, SelectedCatalogo, SelectedCampanha, this);
                 produtoAddForm.Text = "Pedido - Adicionando Produto";
                 produtoAddForm.StartPosition = FormStartPosition.CenterScreen;
                 produtoAddForm.textReferencia.Text = referencia;
@@ -549,6 +554,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             return produtoAdded;
         }
+
+
 
         private bool ProdutoExiste(string referencia)
         {
@@ -577,21 +584,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 cbTamanho.Text = string.Empty;
             }
         }
-
-        private void LoadComboBoxTamanhos(List<TamanhosModel> listTamanhos)
-        {
-
-            cbTamanho.DataSource = ListTamanhos;
-            cbTamanho.DisplayMember = "Tamanho";
-            cbTamanho.SelectedItem = ListTamanhos.First();
-
-
-        }
-
-
         private void textQtd_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textQtd.Text))
+            if (string.IsNullOrEmpty(textReferencia.Text))
+            {
+                textReferencia.Focus();
+            }else if (!string.IsNullOrEmpty(textQtd.Text))
             {
 
                 if (int.TryParse(textQtd.Text, out int result))
@@ -614,6 +612,18 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
         }
 
+        private void LoadComboBoxTamanhos(List<TamanhosModel> listTamanhos)
+        {
+
+            cbTamanho.DataSource = ListTamanhos;
+            cbTamanho.DisplayMember = "Tamanho";
+            cbTamanho.SelectedIndex = -1;
+
+
+        }
+
+
+
         private void cbTamanho_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbTamanho.SelectedIndex >= 0)
@@ -634,6 +644,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             cbTamanho.Text = string.Empty;
             textReferencia.Text = string.Empty;
             textQtd.Text = string.Empty;
+            textReferencia.Focus();
         }
 
         private void SalvarPedido(VendedoraModel vendedora)
@@ -684,14 +695,88 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
             ItemPedido.Faltou = false;
 
+            DataGridViewRow rowInGrid = new DataGridViewRow();
+            rowInGrid = ProdutoJaEstaNoGrid(produto.Referencia, tamanho);
 
             if (tamanho != null)
-                _detalheServices.AddWithTamanho(ItemPedido);
+            {
+
+
+                if (rowInGrid != null)
+                { //EDITA QTD DO PRODUTO
+                    ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
+                    ItemPedido.Quantidade += quantidade;
+                    ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
+                    ItemPedido.ValorLucroVendedoraItem = (ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade;
+                    ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
+                    ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
+
+                    _detalheServices.Update(ItemPedido);
+
+                }
+                else
+                {   //NOVO
+                    _detalheServices.AddWithTamanho(ItemPedido);
+
+                }
+            }
             else
-                _detalheServices.AddNoTamanho(ItemPedido);
+            {
+                if (rowInGrid != null)
+                {
+                    ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
+                    ItemPedido.Quantidade += quantidade;
+                    ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
+                    ItemPedido.ValorLucroVendedoraItem = (ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade;
+                    ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
+                    ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
+
+                    _detalheServices.Update(ItemPedido);
+
+                }
+                else
+                {
+                    _detalheServices.AddNoTamanho(ItemPedido);
+                }
+            }
 
             LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+            LimpaAddPanel();
         }
+
+        private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, string tamanho)
+        {
+            DataGridViewRow row = null;
+
+            foreach (DataGridViewRow item in dgvDetalhePedido.Rows)
+            {
+                if (item.Cells["Referencia"].Value.ToString() == referencia)
+                {
+                    if (tamanho != null)
+                    {
+                        if (tamanho == item.Cells["Tamanho"].Value.ToString())
+                        {
+                            return item;
+
+                        }
+                        else
+                        {
+                            row = null;
+                        }
+                    }
+                    else
+                    {
+                        return item;
+                    }
+                }
+
+            }
+            return row;
+
+
+
+        }
+
 
         private void cbCampanha_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -704,6 +789,36 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void dgvDetalhePedido_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show($"Tem certeza que deseja exlcuir o item \"{dgvDetalhePedido.CurrentRow.Cells["Referencia"].Value.ToString()}\"", "Apagando Item do Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DetalhePedidoModel detalheToDelete = new DetalhePedidoModel();
+                detalheToDelete = _detalheServices.GetById(int.Parse(dgvDetalhePedido.CurrentRow.Cells[0].Value.ToString()));
+                _detalheServices.Delete(detalheToDelete);
+                LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            EditarItemPedido(dgvDetalhePedido.CurrentRow);
+        }
+
+        private void EditarItemPedido(DataGridViewRow currentRow)
+        {
+
+            DetalhePedidoModel itemPedido = _detalheServices.GetById(int.Parse(currentRow.Cells[0].Value.ToString()));
+            ItemPedidoEditForm itemPedidoEdit = new ItemPedidoEditForm(itemPedido);
+            itemPedidoEdit.Text = $"Editando Item - {itemPedido.Referencia}";
+            itemPedidoEdit.StartPosition = FormStartPosition.CenterScreen;
+            itemPedidoEdit.ShowDialog();
+            LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+            dgvDetalhePedido.CurrentRow.Selected = currentRow.Selected;
         }
     }
 }
