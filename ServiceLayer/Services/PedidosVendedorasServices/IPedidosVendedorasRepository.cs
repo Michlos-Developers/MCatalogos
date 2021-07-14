@@ -9,10 +9,7 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
     public interface IPedidosVendedorasRepository
     {
         IPedidosVendedorasModel Add(IPedidosVendedorasModel pedido);
-        void SetStatus(int status);
-        void SomarTotalPedido(IPedidosVendedorasModel pedido);
-        void SomarLucroVendedora(IPedidosVendedorasModel pedido);
-        void SomarLucroDistribuidor(IPedidosVendedorasModel pedido);
+        void AtualizaTotaisPedido(IPedidosVendedorasModel pedido);
         
         IPedidosVendedorasModel GetById(int pedidoId);
         IPedidosVendedorasModel GetByVendedoraMes(IVendedoraModel vendedora, DateTime dataMes);
@@ -24,8 +21,6 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
         IEnumerable<IPedidosVendedorasModel> GetAllByDataConferenciaIniFim(DateTime dataIni, DateTime dataFim);
         IEnumerable<IPedidosVendedorasModel> GetAllByDataDespachoIniFim(DateTime dataIni, DateTime dataFim);
         IEnumerable<IPedidosVendedorasModel> GetAllByDataEntregaIniFim(DateTime dataIni, DateTime dataFim);
-
-
-
+        void SetStatus(int status, PedidosVendedorasModel pedido);
     }
 }

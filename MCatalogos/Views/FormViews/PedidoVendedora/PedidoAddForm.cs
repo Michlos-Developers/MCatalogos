@@ -24,6 +24,7 @@ using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -160,36 +161,49 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
 
                 SelectedCatalogo = cbCatalogo.SelectedItem as CatalogoModel;
-                LoadComboBoxCampanhas(SelectedCatalogo);
+                gbAddItem.Enabled = LoadComboBoxCampanhas(SelectedCatalogo);
                 LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
-                gbAddItem.Enabled = true;
+
+
+
             }
             else
             {
-                LoadDetalhesPedido(PedidoModel, null);
-                gbAddItem.Enabled = false;
                 cbCampanha.DataSource = null;
+                gbAddItem.Enabled = false;
+                LoadDetalhesPedido(PedidoModel, null);
 
 
 
 
             }
+
         }
-        private void LoadComboBoxCampanhas(CatalogoModel catalogo)
+        private bool LoadComboBoxCampanhas(CatalogoModel catalogo)
         {
-            if (catalogo != null)
+            ListCampanhas = (List<CampanhaModel>)_campanhaServices.GetAll();
+            List<CampanhaModel> campanhasList = null;
+
+
+            campanhasList = ListCampanhas.Where(cat => cat.CatalogoId == catalogo.CatalogoId).ToList();
+            //ICollection<CampanhaModel> campanhasList = (ICollection < CampanhaModel > )ListCampanhas.Where(cat => cat.CatalogoId == catalogo.CatalogoId);
+
+            //IList<CampanhaModel> campanhasList = ListCampanhas.Where(cat => cat.CatalogoId == catalogo.CatalogoId);
+            if (campanhasList.Count != 0)
             {
 
-                ListCampanhas = (List<CampanhaModel>)_campanhaServices.GetByCatalogoModel(catalogo);
-                cbCampanha.DataSource = ListCampanhas;
+                cbCampanha.DataSource = campanhasList;
                 cbCampanha.DisplayMember = "Nome";
-                cbCampanha.SelectedItem = ListCampanhas.Last();
+                cbCampanha.SelectedItem = campanhasList.Last();
+                return true;
             }
             else
             {
+                MessageBox.Show($"Catálogo sem CAMPANHA cadastrada,\nFavor cadastrar uma nova campanha para o catálogo \n\"{cbCatalogo.Text.ToUpper()}\"");
                 cbCampanha.DataSource = null;
                 //cbCampanha.SelectedIndex = -1;
                 cbCampanha.Text = string.Empty;
+                return false;
             }
         }
 
@@ -205,6 +219,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
                 //EDITA PEDIDO
                 LoadDetalhesPedido(pedido, null); //preenche com todos os catálogos
+
             }
             else
             {
@@ -219,21 +234,70 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void LoadDetalhesPedido(PedidosVendedorasModel pedidoModel, CatalogoModel catalogoModel)
         {
+            ListItemsDetalhe = (List<DetalhePedidoModel>)_detalheServices.GetAllByPedido(pedidoModel);
+            IEnumerable<DetalhePedidoModel> itemsPedido;
 
             if (catalogoModel != null)
             {
-                //SELECIONOU O CATÁLOGO NO COMBOBOX
-                ListItemsDetalhe = (List<DetalhePedidoModel>)_detalheServices.GetAllByPedidoCatalogo(pedidoModel, catalogoModel);
+                itemsPedido = ListItemsDetalhe.Where(p => p.PedidoId == pedidoModel.PedidoId).Where(c => c.CatalogoId == catalogoModel.CatalogoId);
+                CalculaTotais(catalogoModel);
             }
             else
             {
-                ListItemsDetalhe = (List<DetalhePedidoModel>)_detalheServices.GetAllByPedido(pedidoModel);
-
+                itemsPedido = ListItemsDetalhe.Where(p => p.PedidoId == PedidoModel.PedidoId);
+                CalculaTotais(null);
             }
 
+            DataTable tableDetalhes = ModelaTableGrid();
+            DataRow row = ModelaRowTable(tableDetalhes, itemsPedido);
+
+            dgvDetalhePedido.DataSource = tableDetalhes;
+            ConfiguraDataGridView();
+
+
+
+
+        }
+
+        private DataRow ModelaRowTable(DataTable tableDetalhes, IEnumerable<DetalhePedidoModel> itemsPedido)
+        {
+            DataRow row = null;
+            if (ListItemsDetalhe.Count != 0)
+            {
+                foreach (var model in itemsPedido)
+                {
+                    row = tableDetalhes.NewRow();
+                    row["DetalheId"] = model.DetalheId;
+                    row["PedidoId"] = model.PedidoId;
+                    row["CatalogoId"] = model.CatalogoId;
+                    row["ProdutoId"] = model.ProdutoId;
+                    row["Catalogo"] = _catalogoServices.GetById(model.CatalogoId).Nome;
+                    row["Referencia"] = model.Referencia;
+                    row["Descricao"] = _produtoServices.GetById(model.ProdutoId).Descricao;
+                    row["MargemVendedora"] = model.MargemVendedora;
+                    row["MargemDistribuidor"] = model.MargemDistribuidor;
+                    row["ValorProduto"] = double.Parse(model.ValorProduto.ToString()).ToString("C2");
+                    row["Quantidade"] = model.Quantidade;
+                    row["Tamanho"] = _tamanhoServices.GetById(model.TamanhoId).Tamanho;
+                    row["ValorTotalItem"] = double.Parse(model.ValorTotalItem.ToString()).ToString("C2");
+                    row["ValorLucroVendedoraItem"] = double.Parse(model.ValorLucroVendedoraItem.ToString()).ToString("C2");
+                    row["ValorLucroDistribuidorItem"] = double.Parse(model.ValorLucroDistribuidorItem.ToString()).ToString("C2");
+                    row["ValorPagarForencedorItem"] = double.Parse(model.ValorPagarFornecedorItem.ToString()).ToString("C2");
+                    row["Faltou"] = model.Faltou;
+
+                    tableDetalhes.Rows.Add(row);
+
+                }
+
+            }
+            return row;
+        }
+
+        private DataTable ModelaTableGrid()
+        {
             DataTable tableDetalhes = new DataTable();
             DataColumn column;
-            DataRow row;
+
 
 
             //COLUMN 0
@@ -340,39 +404,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             column.ColumnName = "Faltou";
             tableDetalhes.Columns.Add(column);
 
-            if (ListItemsDetalhe.Count != 0)
-            {
-                foreach (var model in ListItemsDetalhe)
-                {
-                    row = tableDetalhes.NewRow();
-                    row["DetalheId"] = model.DetalheId;
-                    row["PedidoId"] = model.PedidoId;
-                    row["CatalogoId"] = model.CatalogoId;
-                    row["ProdutoId"] = model.ProdutoId;
-                    row["Catalogo"] = _catalogoServices.GetById(model.CatalogoId).Nome;
-                    row["Referencia"] = model.Referencia;
-                    row["Descricao"] = _produtoServices.GetById(model.ProdutoId).Descricao;
-                    row["MargemVendedora"] = model.MargemVendedora;
-                    row["MargemDistribuidor"] = model.MargemDistribuidor;
-                    row["ValorProduto"] = double.Parse(model.ValorProduto.ToString()).ToString("C2");
-                    row["Quantidade"] = model.Quantidade;
-                    row["Tamanho"] = model.Tamanho;
-                    row["ValorTotalItem"] = double.Parse(model.ValorTotalItem.ToString()).ToString("C2");
-                    row["ValorLucroVendedoraItem"] = double.Parse(model.ValorLucroVendedoraItem.ToString()).ToString("C2");
-                    row["ValorLucroDistribuidorItem"] = double.Parse(model.ValorLucroDistribuidorItem.ToString()).ToString("C2");
-                    row["ValorPagarForencedorItem"] = double.Parse(model.ValorPagarFornecedorItem.ToString()).ToString("C2");
-                    row["Faltou"] = model.Faltou;
-
-                    tableDetalhes.Rows.Add(row);
-
-                }
-            }
-
-            dgvDetalhePedido.DataSource = tableDetalhes;
-            ConfiguraDataGridView();
-
-
-
+            return tableDetalhes;
         }
 
         private void ConfiguraDataGridView()
@@ -425,6 +457,10 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 }
 
             }
+            else
+            {
+                AtualizaPedido(VendedoraModel, PedidoModel);
+            }
 
             if (Disposing)
             {
@@ -436,6 +472,19 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             //TODO: recarregar a lista de pedidos.
             base.Dispose(Disposing);
             aForm = null;
+
+        }
+
+        private void AtualizaPedido(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel)
+        {
+            pedidoModel.ValorLucroDistribuidor = ListItemsDetalhe.Sum(valor => valor.ValorLucroDistribuidorItem);
+            pedidoModel.ValorLucroVendedora = ListItemsDetalhe.Sum(valor => valor.ValorLucroVendedoraItem);
+            pedidoModel.ValorTotalPedido = ListItemsDetalhe.Sum(valor => valor.ValorTotalItem);
+            pedidoModel.QtdCatalogos = ListItemsDetalhe.Select(a => a.CatalogoId).Distinct().Count();
+            _pedidoServices.AtualizaTotaisPedido(pedidoModel);
+
+            PedidoListForm.AtualizaDGV();
+
         }
 
         private bool VendedoraTemPedidoAberto(VendedoraModel vendedora)
@@ -579,7 +628,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
             else
             {//SE NÃO TEM TAMANHO DESABILITA O COMBOBOX E LIMPA SEUS DADOS
-                cbTamanho.Items.Clear();
+                cbTamanho.DataSource = null;
                 cbTamanho.Enabled = false;
                 cbTamanho.Text = string.Empty;
             }
@@ -589,7 +638,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             if (string.IsNullOrEmpty(textReferencia.Text))
             {
                 textReferencia.Focus();
-            }else if (!string.IsNullOrEmpty(textQtd.Text))
+            }
+            else if (!string.IsNullOrEmpty(textQtd.Text))
             {
 
                 if (int.TryParse(textQtd.Text, out int result))
@@ -631,7 +681,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 if (!string.IsNullOrEmpty(textQtd.Text))
                 {
 
-                    AddProdutoInDGV(ProdutoToAddGrid, int.Parse(textQtd.Text), cbTamanho.Text);
+                    AddProdutoInDGV(ProdutoToAddGrid, int.Parse(textQtd.Text), (TamanhosModel)cbTamanho.SelectedItem);
                     LimpaAddPanel();
                 }
 
@@ -654,13 +704,13 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             PedidoModel.StatusPed = (((int)StatusPedido.Aberto));
             PedidoModel = (PedidosVendedorasModel)_pedidoServices.Add(PedidoModel);
         }
-        private void AddProdutoInDGV(ProdutoModel produto, int quantidade, string tamanho)
+        private void AddProdutoInDGV(ProdutoModel produto, int quantidade, TamanhosModel tamanho)
         {
 
             double valorProduto = 0;
             if (tamanho != null)
             {   //TEM TAMANHO TRATAR VALOR DO PRODUTO E ADD TAMANHO NO ITEM.
-                Tamanhos tamanhos = (Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho);
+                Tamanhos tamanhos = (Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho);
                 if (tamanhos >= Tamanhos.GG)
                 {
                     valorProduto = produto.ValorCatalogo2 != 0 ? produto.ValorCatalogo2 : produto.ValorCatalogo;
@@ -670,7 +720,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     valorProduto = produto.ValorCatalogo;
                 }
 
-                ItemPedido.Tamanho = tamanho;
+                ItemPedido.TamanhoId = tamanho.TamanhoId;
 
 
             }
@@ -744,7 +794,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             LimpaAddPanel();
         }
 
-        private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, string tamanho)
+        private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, TamanhosModel tamanho)
         {
             DataGridViewRow row = null;
 
@@ -754,7 +804,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 {
                     if (tamanho != null)
                     {
-                        if (tamanho == item.Cells["Tamanho"].Value.ToString())
+                        if (tamanho.Tamanho == item.Cells["Tamanho"].Value.ToString())
                         {
                             return item;
 
@@ -819,6 +869,40 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             itemPedidoEdit.ShowDialog();
             LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
             dgvDetalhePedido.CurrentRow.Selected = currentRow.Selected;
+        }
+
+        private void CalculaTotais(CatalogoModel catalogo)
+        {
+            double totalLucroVendedora = 0;
+            double totalLucroDistribuidor = 0;
+            double totalReceber = 0;
+            double totalPedido = 0;
+
+            if (catalogo != null)
+            {
+                totalLucroVendedora = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorLucroVendedoraItem);
+                totalLucroDistribuidor = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorLucroDistribuidorItem);
+                totalReceber = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
+                totalPedido = ListItemsDetalhe.Where(c=> c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorTotalItem);
+
+            }
+            else
+            {
+                totalLucroVendedora = ListItemsDetalhe.Sum(valor => valor.ValorLucroVendedoraItem);
+                totalLucroDistribuidor = ListItemsDetalhe.Sum(valor => valor.ValorLucroDistribuidorItem);
+                totalReceber = ListItemsDetalhe.Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
+                totalPedido = ListItemsDetalhe.Sum(valor => valor.ValorTotalItem);
+            }
+
+
+            textLucroVendedora.Text = totalLucroVendedora.ToString("C2");
+            textLucroDistribuidor.Text = totalLucroDistribuidor.ToString("C2");
+            textTotalReceber.Text = totalReceber.ToString("C2");
+            textTotalPedido.Text = totalPedido.ToString("C2");
+
+
+
+
         }
     }
 }

@@ -76,30 +76,21 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
             return _pedidosVendedorasRepository.GetByVendedoraMes(vendedora, dataMes);
         }
 
-        public void SetStatus(int status)
-        {
-            _pedidosVendedorasRepository.SetStatus(status);
-        }
 
-        public void SomarLucroDistribuidor(IPedidosVendedorasModel pedido)
+        public void AtualizaTotaisPedido(IPedidosVendedorasModel pedido)
         {
-            _pedidosVendedorasRepository.SomarLucroDistribuidor(pedido);
-        }
-
-        public void SomarLucroVendedora(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.SomarLucroVendedora(pedido);
-        }
-
-        public void SomarTotalPedido(IPedidosVendedorasModel pedido)
-        {
-            _pedidosVendedorasRepository.SomarTotalPedido(pedido); 
+            _pedidosVendedorasRepository.AtualizaTotaisPedido(pedido); 
         }
 
 
         public void ValidateModel(IPedidosVendedorasModel pedidosModel)
         {
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(pedidosModel);
+        }
+
+        public void SetStatus(int status, PedidosVendedorasModel pedido)
+        {
+            _pedidosVendedorasRepository.SetStatus(status, pedido);
         }
     }
 }

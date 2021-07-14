@@ -251,16 +251,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbStatus.Controls.Add(this.rbEnviado);
             this.gbStatus.Controls.Add(this.rbAberto);
             this.gbStatus.Controls.Add(this.label2);
-            this.gbStatus.Location = new System.Drawing.Point(10, 44);
+            this.gbStatus.Location = new System.Drawing.Point(10, 63);
             this.gbStatus.Name = "gbStatus";
-            this.gbStatus.Size = new System.Drawing.Size(400, 70);
+            this.gbStatus.Size = new System.Drawing.Size(400, 46);
             this.gbStatus.TabIndex = 10;
             this.gbStatus.TabStop = false;
             // 
             // rbCancelado
             // 
             this.rbCancelado.AutoSize = true;
-            this.rbCancelado.Location = new System.Drawing.Point(309, 45);
+            this.rbCancelado.Location = new System.Drawing.Point(308, 19);
             this.rbCancelado.Name = "rbCancelado";
             this.rbCancelado.Size = new System.Drawing.Size(82, 18);
             this.rbCancelado.TabIndex = 0;
@@ -271,7 +271,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbEntregue
             // 
             this.rbEntregue.AutoSize = true;
-            this.rbEntregue.Location = new System.Drawing.Point(309, 19);
+            this.rbEntregue.Location = new System.Drawing.Point(309, 51);
             this.rbEntregue.Name = "rbEntregue";
             this.rbEntregue.Size = new System.Drawing.Size(73, 18);
             this.rbEntregue.TabIndex = 0;
@@ -282,7 +282,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbDespachado
             // 
             this.rbDespachado.AutoSize = true;
-            this.rbDespachado.Location = new System.Drawing.Point(195, 43);
+            this.rbDespachado.Location = new System.Drawing.Point(195, 49);
             this.rbDespachado.Name = "rbDespachado";
             this.rbDespachado.Size = new System.Drawing.Size(93, 18);
             this.rbDespachado.TabIndex = 0;
@@ -293,7 +293,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbFinalizado
             // 
             this.rbFinalizado.AutoSize = true;
-            this.rbFinalizado.Location = new System.Drawing.Point(195, 19);
+            this.rbFinalizado.Location = new System.Drawing.Point(205, 19);
             this.rbFinalizado.Name = "rbFinalizado";
             this.rbFinalizado.Size = new System.Drawing.Size(83, 18);
             this.rbFinalizado.TabIndex = 0;
@@ -304,7 +304,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbConferido
             // 
             this.rbConferido.AutoSize = true;
-            this.rbConferido.Location = new System.Drawing.Point(96, 43);
+            this.rbConferido.Location = new System.Drawing.Point(107, 19);
             this.rbConferido.Name = "rbConferido";
             this.rbConferido.Size = new System.Drawing.Size(78, 18);
             this.rbConferido.TabIndex = 0;
@@ -315,7 +315,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbSeparado
             // 
             this.rbSeparado.AutoSize = true;
-            this.rbSeparado.Location = new System.Drawing.Point(97, 19);
+            this.rbSeparado.Location = new System.Drawing.Point(93, 49);
             this.rbSeparado.Name = "rbSeparado";
             this.rbSeparado.Size = new System.Drawing.Size(77, 18);
             this.rbSeparado.TabIndex = 0;
@@ -326,7 +326,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbEnviado
             // 
             this.rbEnviado.AutoSize = true;
-            this.rbEnviado.Location = new System.Drawing.Point(7, 43);
+            this.rbEnviado.Location = new System.Drawing.Point(7, 49);
             this.rbEnviado.Name = "rbEnviado";
             this.rbEnviado.Size = new System.Drawing.Size(68, 18);
             this.rbEnviado.TabIndex = 0;

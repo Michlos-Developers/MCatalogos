@@ -183,7 +183,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     row["CodigoColumn"] = int.Parse(model.PedidoId.ToString());
                     row["VendedoraNameColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
                     row["DataRegColumn"] = model.DataRegistro;
-                    row["QtdCatalogoColumn"] = 0; //TODO: FAZER O COUNT DE DETALHES PARA REGISTRAR ESSE VALOR;
+                    row["QtdCatalogoColumn"] = model.QtdCatalogos != null ? model.QtdCatalogos : 0;
                     row["ValorTotalColumn"] = model.ValorTotalPedido;
                     row["StatusColumn"] = GetStatusPedido(model.StatusPed);
 
@@ -485,6 +485,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(null, null, this);
             pedidoAddForm.Show();
+            ReadModels();
+            LoadDataGridView();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -504,6 +506,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void dgvPedidos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             EditarPedido();
+        }
+
+        public void AtualizaDGV()
+        {
+            ReadModels();
+            LoadDataGridView();
         }
     }
 }

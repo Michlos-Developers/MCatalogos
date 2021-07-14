@@ -14,5 +14,6 @@ namespace DomainLayer.Models.PedidosVendedoras
         double? ValorTotalPedido { get; set; }
         int VendedoraId { get; set; }
         VendedoraModel VendedoraModel { get; set; }
+        int? QtdCatalogos { get; set; }
     }
 }

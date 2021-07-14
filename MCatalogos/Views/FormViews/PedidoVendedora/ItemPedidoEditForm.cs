@@ -61,7 +61,11 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             textDescricao.Text = Produto.Descricao;
             textQtd.Text = ItemPedido.Quantidade.ToString();
             if (ListTamanhos != null)
-                cbTamanho.SelectedItem = ListTamanhos.Where(tamanho => tamanho.Tamanho == ItemPedido.Tamanho);
+            {
+                //  TODO: COLOCAR O TAMANHOID NO MODEL E NO BANCO DE DADO DO DETALHEMODEL
+                cbTamanho.SelectedValue = ListTamanhos.Where(tam => tam.TamanhoId == ItemPedido.TamanhoId);
+            }
+                //cbTamanho.SelectedItem = ListTamanhos.Where(tamanho => tamanho.Tamanho == ItemPedido.Tamanho);
 
         }
 
@@ -74,6 +78,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 cbTamanho.Enabled = true;
                 cbTamanho.DataSource = ListTamanhos;
                 cbTamanho.DisplayMember = "Tamanho";
+                cbTamanho.ValueMember = "Tamanho";
+
             }
             else
             {
@@ -93,11 +99,30 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void btnSave_Click(object sender, EventArgs e)
         {
             ItemPedido.Quantidade = int.Parse(textQtd.Text);
-            ItemPedido.Tamanho = cbTamanho.Text;
-            SaveItemPedido(ItemPedido);
+            ItemPedido.TamanhoId = ((TamanhosModel)cbTamanho.SelectedItem).TamanhoId;
+            if (int.Parse(textQtd.Text) != 0)
+                SaveItemPedido(ItemPedido);
+            else
+                DeleteItemPedido(ItemPedido);
             this.Close();
 
 
+        }
+
+        private void DeleteItemPedido(DetalhePedidoModel itemPedido)
+        {
+            try
+            {
+                var result = MessageBox.Show($"O Item de referência {itemPedido.Referencia} será apagado do pedido\nDeseja continuar com o valor \"0\"?","Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(result == DialogResult.Yes)
+                    _detalheServices.Delete(itemPedido);
+
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Não foi possível remover o item do pedido\nEntre em contato com o Suporte.\nErrorMessage: {e.Message}\nStackTrace: {e.StackTrace}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SaveItemPedido(DetalhePedidoModel itemPedido)

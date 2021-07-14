@@ -6148,6 +6148,7 @@ CREATE TABLE PedidosVendedoras(
 	ValorTotalPedido MONEY SPARSE NULL,
 	ValorLucroVendedora MONEY SPARSE NULL,
 	ValorLucroDistribuidor MONEY SPARSE NULL,
+	QtdCatalogos INT SPARSE NULL,
 	StatusPed INT NOT NULL,
 	CONSTRAINT PK_PEDIDOSVENDEDORA PRIMARY KEY NONCLUSTERED(PedidoId),
 	CONSTRAINT FK_PEDIDOSVENDEDORA_VENDEDORA FOREIGN KEY (VendedoraId) REFERENCES Vendedoras(VendedoraId)
@@ -6165,7 +6166,7 @@ CREATE TABLE DetalhesPedidosVendedoras(
 	MargemDistribuidor FLOAT NOT NULL,
 	ValorProduto MONEY NOT NULL,
 	Quantidade INT NOT NULL,
-	Tamanho VARCHAR(4) SPARSE NULL,
+	TamanhoId INT SPARSE NULL,
 	ValorTotalItem MONEY NOT NULL,
 	ValorLucroVendedoraItem MONEY NOT NULL,
 	ValorLucroDistribuidorItem MONEY NOT NULL,

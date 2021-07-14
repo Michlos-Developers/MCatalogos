@@ -89,10 +89,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
             string query = "INSERT INTO DetalhesPedidosVendedoras " +
-                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, Tamanho, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
+                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
                            " OUTPUT INSERTED.DetalheId " +
                            " VALUES " +
-                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Referencia, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @Tamanho, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
+                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Referencia, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @TamanhoId, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -111,7 +111,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Parameters.AddWithValue("@MargemDistribuidor", detalhePedidoModel.MargemDistribuidor);
                         cmd.Parameters.AddWithValue("@ValorProduto", detalhePedidoModel.ValorProduto);
                         cmd.Parameters.AddWithValue("@Quantidade", detalhePedidoModel.Quantidade);
-                        cmd.Parameters.AddWithValue("@Tamanho", detalhePedidoModel.Tamanho);
+                        cmd.Parameters.AddWithValue("@TamanhoId", detalhePedidoModel.TamanhoId);
                         cmd.Parameters.AddWithValue("@ValorTotalItem", detalhePedidoModel.ValorTotalItem);
                         cmd.Parameters.AddWithValue("@ValorLucroVendedoraItem", detalhePedidoModel.ValorLucroVendedoraItem);
                         cmd.Parameters.AddWithValue("@ValorLucroDistribuidorItem", detalhePedidoModel.ValorLucroDistribuidorItem);
@@ -195,7 +195,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
-                                model.Tamanho = reader["Tamanho"].ToString();
+                                model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
                                 model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
@@ -224,7 +224,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             List<DetalhePedidoModel> DetalheListModel = new List<DetalhePedidoModel>();
-            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, Tamanho, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
+            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
                            " FROM DetalhesPedidosVendedoras " +
                            " WHERE PedidoId = @PedidoId ";
 
@@ -254,7 +254,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
-                                model.Tamanho = reader["Tamanho"].ToString();
+                                model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
                                 model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
@@ -314,7 +314,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
-                                model.Tamanho = reader["Tamanho"].ToString();
+                                model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
                                 model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
@@ -343,7 +343,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             DetalhePedidoModel model = new DetalhePedidoModel();
-            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, Tamanho, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
+            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
                            " FROM DetalhesPedidosVendedoras " +
                            " WHERE DetalheId = @DetalheId";
 
@@ -372,7 +372,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
-                                model.Tamanho = reader["Tamanho"].ToString();
+                                model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
                                 model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
@@ -409,7 +409,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                            "MargemDistribuidor = @MargemDistribuidor, " +
                            "ValorProduto = @ValorProduto, " +
                            "Quantidade = @Quantidade, " +
-                           "Tamanho = @Tamanho, " +
+                           "TamanhoId = @TamanhoId, " +
                            "ValorTotalItem = @ValorTotalItem, " +
                            "ValorLucroVendedoraItem = @ValorLucroVendedoraItem, " +
                            "ValorLucroDistribuidorItem = @ValorLucroDistribuidorItem, " +
@@ -437,7 +437,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Parameters.AddWithValue("@MargemDistribuidor", detalhePedidoModel.MargemDistribuidor);
                         cmd.Parameters.AddWithValue("@ValorProduto", detalhePedidoModel.ValorProduto);
                         cmd.Parameters.AddWithValue("@Quantidade", detalhePedidoModel.Quantidade);
-                        cmd.Parameters.AddWithValue("@Tamanho", detalhePedidoModel.Tamanho);
+                        cmd.Parameters.AddWithValue("@TamanhoId", detalhePedidoModel.TamanhoId);
                         cmd.Parameters.AddWithValue("@ValorTotalItem", detalhePedidoModel.ValorTotalItem);
                         cmd.Parameters.AddWithValue("@ValorLucroVendedoraItem", detalhePedidoModel.ValorLucroVendedoraItem);
                         cmd.Parameters.AddWithValue("@ValorLucroDistribuidorItem", detalhePedidoModel.ValorLucroDistribuidorItem);

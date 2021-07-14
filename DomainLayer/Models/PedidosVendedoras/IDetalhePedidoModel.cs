@@ -19,11 +19,11 @@ namespace DomainLayer.Models.PedidosVendedoras
         ProdutoModel ProdutoModel { get; set; }
         int Quantidade { get; set; }
         string Referencia { get; set; }
-        string Tamanho { get; set; }
         double ValorLucroDistribuidorItem { get; set; }
         double ValorLucroVendedoraItem { get; set; }
         double ValorPagarFornecedorItem { get; set; }
         double ValorProduto { get; set; }
         double ValorTotalItem { get; set; }
+        int TamanhoId { get; set; }
     }
 }

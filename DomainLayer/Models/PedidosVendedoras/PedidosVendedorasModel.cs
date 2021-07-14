@@ -24,6 +24,7 @@ namespace DomainLayer.Models.PedidosVendedoras
         public double? ValorTotalPedido { get; set; }
         public double? ValorLucroVendedora { get; set; }
         public double? ValorLucroDistribuidor { get; set; }
+        public int? QtdCatalogos { get; set; }
 
         [Required()]
         public int StatusPed { get; set; }

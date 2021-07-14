@@ -58,12 +58,23 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbTamanho = new System.Windows.Forms.ComboBox();
             this.textQtd = new System.Windows.Forms.TextBox();
             this.textReferencia = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textLucroVendedora = new System.Windows.Forms.TextBox();
+            this.gbLucros = new System.Windows.Forms.GroupBox();
+            this.textLucroDistribuidor = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textTotalReceber = new System.Windows.Forms.TextBox();
+            this.textTotalPedido = new System.Windows.Forms.TextBox();
             this.panelCommands.SuspendLayout();
             this.panelDetalhePedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalhePedido)).BeginInit();
             this.gbVendedora.SuspendLayout();
             this.gbCatalogo.SuspendLayout();
             this.gbAddItem.SuspendLayout();
+            this.gbLucros.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -73,7 +84,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelCommands.Controls.Add(this.btnDelete);
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 431);
+            this.panelCommands.Location = new System.Drawing.Point(0, 455);
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(896, 34);
             this.panelCommands.TabIndex = 9;
@@ -142,9 +153,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDetalhePedido.Controls.Add(this.dgvDetalhePedido);
-            this.panelDetalhePedido.Location = new System.Drawing.Point(12, 158);
+            this.panelDetalhePedido.Location = new System.Drawing.Point(12, 166);
             this.panelDetalhePedido.Name = "panelDetalhePedido";
-            this.panelDetalhePedido.Size = new System.Drawing.Size(872, 261);
+            this.panelDetalhePedido.Size = new System.Drawing.Size(872, 285);
             this.panelDetalhePedido.TabIndex = 10;
             // 
             // dgvDetalhePedido
@@ -162,9 +173,11 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvDetalhePedido.Name = "dgvDetalhePedido";
             this.dgvDetalhePedido.ReadOnly = true;
             this.dgvDetalhePedido.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvDetalhePedido.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalhePedido.ShowEditingIcon = false;
-            this.dgvDetalhePedido.Size = new System.Drawing.Size(872, 261);
+            this.dgvDetalhePedido.Size = new System.Drawing.Size(872, 285);
             this.dgvDetalhePedido.TabIndex = 0;
+            this.dgvDetalhePedido.TabStop = false;
             this.dgvDetalhePedido.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalhePedido_CellDoubleClick);
             // 
             // mTextCpfVendedora
@@ -212,7 +225,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbVendedora.Controls.Add(this.textNomeVendedora);
             this.gbVendedora.Controls.Add(this.textRotaVendedora);
             this.gbVendedora.Controls.Add(this.mTextCpfVendedora);
-            this.gbVendedora.Location = new System.Drawing.Point(12, 12);
+            this.gbVendedora.Location = new System.Drawing.Point(12, 4);
             this.gbVendedora.Name = "gbVendedora";
             this.gbVendedora.Size = new System.Drawing.Size(404, 90);
             this.gbVendedora.TabIndex = 0;
@@ -253,7 +266,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbCatalogo.Controls.Add(this.label7);
             this.gbCatalogo.Controls.Add(this.label6);
             this.gbCatalogo.Controls.Add(this.label5);
-            this.gbCatalogo.Location = new System.Drawing.Point(459, 12);
+            this.gbCatalogo.Location = new System.Drawing.Point(480, 4);
             this.gbCatalogo.Name = "gbCatalogo";
             this.gbCatalogo.Size = new System.Drawing.Size(404, 90);
             this.gbCatalogo.TabIndex = 1;
@@ -271,6 +284,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // 
             // cbCatalogo
             // 
+            this.cbCatalogo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbCatalogo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCatalogo.FormattingEnabled = true;
             this.cbCatalogo.Location = new System.Drawing.Point(87, 23);
             this.cbCatalogo.Name = "cbCatalogo";
@@ -315,6 +330,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbAddItem.Controls.Add(this.cbTamanho);
             this.gbAddItem.Controls.Add(this.textQtd);
             this.gbAddItem.Controls.Add(this.textReferencia);
+            this.gbAddItem.Enabled = false;
             this.gbAddItem.Location = new System.Drawing.Point(12, 109);
             this.gbAddItem.Name = "gbAddItem";
             this.gbAddItem.Size = new System.Drawing.Size(404, 43);
@@ -382,12 +398,128 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textReferencia.TabIndex = 0;
             this.textReferencia.Leave += new System.EventHandler(this.textReferencia_Leave);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(38, 17);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(65, 15);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Vendedora";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(28, 46);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 15);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Distribuidor";
+            // 
+            // textLucroVendedora
+            // 
+            this.textLucroVendedora.BackColor = System.Drawing.Color.OrangeRed;
+            this.textLucroVendedora.ForeColor = System.Drawing.Color.White;
+            this.textLucroVendedora.Location = new System.Drawing.Point(106, 13);
+            this.textLucroVendedora.Name = "textLucroVendedora";
+            this.textLucroVendedora.Size = new System.Drawing.Size(85, 23);
+            this.textLucroVendedora.TabIndex = 1;
+            this.textLucroVendedora.TabStop = false;
+            this.textLucroVendedora.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // gbLucros
+            // 
+            this.gbLucros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbLucros.Controls.Add(this.label13);
+            this.gbLucros.Controls.Add(this.textLucroDistribuidor);
+            this.gbLucros.Controls.Add(this.textLucroVendedora);
+            this.gbLucros.Controls.Add(this.label14);
+            this.gbLucros.Controls.Add(this.label15);
+            this.gbLucros.Location = new System.Drawing.Point(480, 95);
+            this.gbLucros.Name = "gbLucros";
+            this.gbLucros.Size = new System.Drawing.Size(200, 69);
+            this.gbLucros.TabIndex = 12;
+            this.gbLucros.TabStop = false;
+            // 
+            // textLucroDistribuidor
+            // 
+            this.textLucroDistribuidor.BackColor = System.Drawing.Color.LimeGreen;
+            this.textLucroDistribuidor.ForeColor = System.Drawing.Color.White;
+            this.textLucroDistribuidor.Location = new System.Drawing.Point(106, 42);
+            this.textLucroDistribuidor.Name = "textLucroDistribuidor";
+            this.textLucroDistribuidor.Size = new System.Drawing.Size(85, 23);
+            this.textLucroDistribuidor.TabIndex = 1;
+            this.textLucroDistribuidor.TabStop = false;
+            this.textLucroDistribuidor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 1);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(100, 15);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Painel de Lucros:";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(740, 93);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(90, 15);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Total a Receber";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(703, 149);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 15);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Total Pedido:";
+            // 
+            // textTotalReceber
+            // 
+            this.textTotalReceber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTotalReceber.BackColor = System.Drawing.Color.White;
+            this.textTotalReceber.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalReceber.ForeColor = System.Drawing.Color.Black;
+            this.textTotalReceber.Location = new System.Drawing.Point(701, 106);
+            this.textTotalReceber.Name = "textTotalReceber";
+            this.textTotalReceber.Size = new System.Drawing.Size(183, 40);
+            this.textTotalReceber.TabIndex = 1;
+            this.textTotalReceber.TabStop = false;
+            this.textTotalReceber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textTotalPedido
+            // 
+            this.textTotalPedido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTotalPedido.BackColor = System.Drawing.Color.Yellow;
+            this.textTotalPedido.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalPedido.ForeColor = System.Drawing.Color.Black;
+            this.textTotalPedido.Location = new System.Drawing.Point(799, 146);
+            this.textTotalPedido.Name = "textTotalPedido";
+            this.textTotalPedido.Size = new System.Drawing.Size(85, 21);
+            this.textTotalPedido.TabIndex = 1;
+            this.textTotalPedido.TabStop = false;
+            this.textTotalPedido.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // PedidoAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
-            this.ClientSize = new System.Drawing.Size(896, 465);
+            this.ClientSize = new System.Drawing.Size(896, 489);
+            this.Controls.Add(this.textTotalPedido);
+            this.Controls.Add(this.textTotalReceber);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.gbLucros);
             this.Controls.Add(this.gbAddItem);
             this.Controls.Add(this.gbCatalogo);
             this.Controls.Add(this.gbVendedora);
@@ -410,7 +542,10 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbCatalogo.PerformLayout();
             this.gbAddItem.ResumeLayout(false);
             this.gbAddItem.PerformLayout();
+            this.gbLucros.ResumeLayout(false);
+            this.gbLucros.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -443,5 +578,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.ComboBox cbTamanho;
         private System.Windows.Forms.TextBox textQtd;
         private System.Windows.Forms.TextBox textReferencia;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textLucroVendedora;
+        private System.Windows.Forms.GroupBox gbLucros;
+        private System.Windows.Forms.TextBox textLucroDistribuidor;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textTotalReceber;
+        private System.Windows.Forms.TextBox textTotalPedido;
     }
 }

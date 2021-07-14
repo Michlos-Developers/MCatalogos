@@ -134,7 +134,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                                 model.Nome = reader["Nome"].ToString();
                                 model.DataLancamento = DateTime.Parse(reader["DataLancamento"].ToString());
                                 model.DataEncerramento = DateTime.Parse(reader["DataEncerramento"].ToString());
-                                model.Ativa = int.Parse(reader["Ativa"].ToString()) == 1 ? true : false;
+                                model.Ativa = bool.Parse(reader["Ativa"].ToString());
                                 model.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
 
                                 modelList.Add(model);
