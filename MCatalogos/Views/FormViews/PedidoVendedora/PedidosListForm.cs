@@ -25,6 +25,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 {
     public partial class PedidosListForm : Form
     {
+       
         #region PROPRIEDADES PARA MOVER A JANELA
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -483,7 +484,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(null, null, this);
+            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(null, null, this, RequestType.Add);
             pedidoAddForm.Show();
             ReadModels();
             LoadDataGridView();
@@ -498,7 +499,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
             SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
-            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this);
+            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Edit);
             pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
             pedidoAddForm.Show();
         }
@@ -512,6 +513,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             ReadModels();
             LoadDataGridView();
+        }
+
+        private void btnConferir_Click(object sender, EventArgs e)
+        {
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Confere);
+            pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
+            pedidoAddForm.Show();
         }
     }
 }

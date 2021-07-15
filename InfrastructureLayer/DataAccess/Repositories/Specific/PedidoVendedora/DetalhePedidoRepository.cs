@@ -415,7 +415,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                            "ValorLucroDistribuidorItem = @ValorLucroDistribuidorItem, " +
                            "ValorPagarFornecedorItem = @ValorPagarFornecedorItem, " +
                            "Faltou = @Faltou " +
-                           " WHERE  DetalheId = @DetalheId";
+                           "WHERE  DetalheId = @DetalheId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
 

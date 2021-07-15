@@ -38,6 +38,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 {
     public partial class PedidoAddForm : Form
     {
+
+
         PedidosListForm PedidoListForm;
         PedidosVendedorasModel PedidoModel = new PedidosVendedorasModel();
         public VendedoraModel VendedoraModel = new VendedoraModel();
@@ -66,19 +68,22 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private RotaServices _rotaServices;
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaServices;
+        private DataGridViewCheckBoxColumn Faltou;
+
+        private RequestType RType;
 
         private static PedidoAddForm aForm = null;
-        internal static PedidoAddForm Instance(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
+        internal static PedidoAddForm Instance(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm, RequestType requestType)
         {
             if (aForm == null)
             {
-                aForm = new PedidoAddForm(vendedoraModel, pedidoModel, pedidosListForm);
+                aForm = new PedidoAddForm(vendedoraModel, pedidoModel, pedidosListForm, requestType);
             }
 
             return aForm;
         }
 
-        public PedidoAddForm(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm)
+        public PedidoAddForm(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel, PedidosListForm pedidosListForm, RequestType requestType)
         {
 
 
@@ -98,6 +103,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             PedidoModel = pedidoModel;
             PedidoListForm = pedidosListForm;
             ListPedidos = (List<PedidosVendedorasModel>)_pedidoServices.GetAll();
+            RType = requestType;
 
         }
 
@@ -119,13 +125,13 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 {
                     Text = "Adicionando Novo Pedido - Vendedora: " + VendedoraModel.Nome;
                     SalvarPedido(VendedoraModel);
-                    PreencheCampos(VendedoraModel, PedidoModel);
+                    PreencheCampos(VendedoraModel, PedidoModel, RType);
 
                 }
             }
             else
             { //EDIT PEDIDO
-                PreencheCampos(VendedoraModel, PedidoModel);
+                PreencheCampos(VendedoraModel, PedidoModel, RType);
                 LoadDetalhesPedido(PedidoModel, null);
 
             }
@@ -207,7 +213,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
         }
 
-        private void PreencheCampos(VendedoraModel vendedora, PedidosVendedorasModel pedido)
+        private void PreencheCampos(VendedoraModel vendedora, PedidosVendedorasModel pedido, RequestType requestType)
         {
             rota = _rotaServices.GetByVendedoraId(vendedora.VendedoraId);
             rotaLetra = _rotaLetraServices.GetById(vendedora.RotaLetraId);
@@ -215,21 +221,20 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             textNomeVendedora.Text = vendedora.Nome;
             textRotaVendedora.Text = rotaLetra.RotaLetra + "-" + rota.Numero.ToString();
 
-            if (pedido != null)
+            if (requestType == RequestType.Edit)
             {
-                //EDITA PEDIDO
-                LoadDetalhesPedido(pedido, null); //preenche com todos os catálogos
-
+                LoadDetalhesPedido(pedido, null);
             }
-            else
+            else if (requestType == RequestType.Add)
             {
-                //NOVO PEDIDO
                 if (VendedoraTemPedidoAberto(vendedora))
                 {
                     MessageBox.Show("A Vendedora selecionada já possui um pedido em aberto\nNão é pertido que a vendedora tenha mais de um pedido em Aberto.\nEdite o pedido ou finalize-o");
                     this.Close();
                 }
+
             }
+
         }
 
         private void LoadDetalhesPedido(PedidosVendedorasModel pedidoModel, CatalogoModel catalogoModel)
@@ -285,6 +290,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     row["ValorPagarForencedorItem"] = double.Parse(model.ValorPagarFornecedorItem.ToString()).ToString("C2");
                     row["Faltou"] = model.Faltou;
 
+
                     tableDetalhes.Rows.Add(row);
 
                 }
@@ -296,148 +302,113 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private DataTable ModelaTableGrid()
         {
             DataTable tableDetalhes = new DataTable();
-            DataColumn column;
 
-
-
-            //COLUMN 0
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "DetalheId";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 1
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "PedidoId";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 2
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "CatalogoId";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 3
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "ProdutoId";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 4
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Catalogo";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 5
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Referencia";
-            tableDetalhes.Columns.Add(column);
-
-
-            //COLUMN 6
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Descricao";
-            tableDetalhes.Columns.Add(column);
-
-
-            //COLUMN 7
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "MargemVendedora";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 8
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "MargemDistribuidor";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 9
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "Quantidade";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 10
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Tamanho";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 11
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "ValorProduto";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 12
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "ValorTotalItem";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 13
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "ValorLucroVendedoraItem";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 14
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "ValorLucroDistribuidorItem";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 15
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "ValorPagarForencedorItem";
-            tableDetalhes.Columns.Add(column);
-
-            //COLUMN 16
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Boolean");
-            column.ColumnName = "Faltou";
-            tableDetalhes.Columns.Add(column);
+            tableDetalhes.Columns.Add("DetalheId", typeof(int));
+            tableDetalhes.Columns.Add("PedidoId", typeof(int));
+            tableDetalhes.Columns.Add("CatalogoId", typeof(int));
+            tableDetalhes.Columns.Add("ProdutoId", typeof(int));
+            tableDetalhes.Columns.Add("Catalogo", typeof(string));
+            tableDetalhes.Columns.Add("Referencia", typeof(string));
+            tableDetalhes.Columns.Add("Descricao", typeof(string));
+            tableDetalhes.Columns.Add("MargemVendedora", typeof(double));
+            tableDetalhes.Columns.Add("MargemDistribuidor", typeof(double));
+            tableDetalhes.Columns.Add("Quantidade", typeof(int));
+            tableDetalhes.Columns.Add("Tamanho", typeof(string));
+            tableDetalhes.Columns.Add("ValorProduto", typeof(string));
+            tableDetalhes.Columns.Add("ValorTotalItem", typeof(string));
+            tableDetalhes.Columns.Add("ValorLucroVendedoraItem", typeof(string));
+            tableDetalhes.Columns.Add("ValorLucroDistribuidorItem", typeof(string));
+            tableDetalhes.Columns.Add("ValorPagarForencedorItem", typeof(string));
+            tableDetalhes.Columns.Add("Faltou", typeof(bool));
 
             return tableDetalhes;
         }
 
         private void ConfiguraDataGridView()
         {
+            if (RType == RequestType.Confere)
+            {
+                dgvDetalhePedido.ReadOnly = false;
+                dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            }
+            else
+            {
+                dgvDetalhePedido.ReadOnly = true;
+                dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
+
+            
             dgvDetalhePedido.ForeColor = Color.Black;
+            //TODO: FAZER ALINHA FICAR VERMELHA SE FALTOU FOR TRUE;
 
             dgvDetalhePedido.Columns["DetalheId"].Visible = false;
+
             dgvDetalhePedido.Columns["PedidoId"].Visible = false;
+
             dgvDetalhePedido.Columns["CatalogoId"].Visible = false;
+
             dgvDetalhePedido.Columns["ProdutoId"].Visible = false;
+
             dgvDetalhePedido.Columns["Catalogo"].Visible = cbCatalogo.SelectedIndex > 0 ? false : true;
+            dgvDetalhePedido.Columns["Catalogo"].ReadOnly = true;
             dgvDetalhePedido.Columns["Catalogo"].Width = 50;
+
             dgvDetalhePedido.Columns["Referencia"].HeaderText = "Ref.";
             dgvDetalhePedido.Columns["Referencia"].Width = 50;
+            dgvDetalhePedido.Columns["Referencia"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["Descricao"].HeaderText = "Produto";
             dgvDetalhePedido.Columns["Descricao"].Width = 123;
+            dgvDetalhePedido.Columns["Descricao"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["MargemVendedora"].Visible = false;
+
             dgvDetalhePedido.Columns["MargemDistribuidor"].Visible = false;
+
             dgvDetalhePedido.Columns["ValorProduto"].HeaderText = "Vlr.Unit.";
             dgvDetalhePedido.Columns["ValorProduto"].Width = 50;
+            dgvDetalhePedido.Columns["ValorProduto"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["Quantidade"].HeaderText = "Qtd.";
             dgvDetalhePedido.Columns["Quantidade"].Width = 20;
+            dgvDetalhePedido.Columns["Quantidade"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["Tamanho"].HeaderText = "Tam.";
             dgvDetalhePedido.Columns["Tamanho"].Width = 25;
+            dgvDetalhePedido.Columns["Tamanho"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["ValorTotalItem"].HeaderText = "Vlr.Total";
             dgvDetalhePedido.Columns["ValorTotalItem"].Width = 50;
+            dgvDetalhePedido.Columns["ValorTotalItem"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["ValorLucroVendedoraItem"].HeaderText = "Lucro Vend.";
             dgvDetalhePedido.Columns["ValorLucroVendedoraItem"].Width = 50;
+            dgvDetalhePedido.Columns["ValorLucroVendedoraItem"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["ValorLucroDistribuidorItem"].HeaderText = "Lucro Dist.";
             dgvDetalhePedido.Columns["ValorLucroDistribuidorItem"].Width = 50;
+            dgvDetalhePedido.Columns["ValorLucroDistribuidorItem"].ReadOnly = true;
+
             dgvDetalhePedido.Columns["ValorPagarForencedorItem"].HeaderText = "Custo";
             dgvDetalhePedido.Columns["ValorPagarForencedorItem"].Width = 50;
-            dgvDetalhePedido.Columns["Faltou"].Visible = false;
+            dgvDetalhePedido.Columns["ValorPagarForencedorItem"].ReadOnly = true;
+
+            dgvDetalhePedido.Columns["Faltou"].Visible = RType == RequestType.Confere;
+            dgvDetalhePedido.Columns["Faltou"].Width = 50;
+            dgvDetalhePedido.Columns["Faltou"].ReadOnly = false;
+
+            for (int i = 0; i < dgvDetalhePedido.Rows.Count; i++)
+            {
+                bool faltou = bool.Parse(dgvDetalhePedido.Rows[i].Cells["Faltou"].Value.ToString());
+                if (faltou)
+                {
+                    dgvDetalhePedido.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                }
+            }
+
+
+
+
 
 
         }
@@ -469,7 +440,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     components.Dispose();
                 }
             }
-            //TODO: recarregar a lista de pedidos.
             base.Dispose(Disposing);
             aForm = null;
 
@@ -477,9 +447,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void AtualizaPedido(VendedoraModel vendedoraModel, PedidosVendedorasModel pedidoModel)
         {
-            pedidoModel.ValorLucroDistribuidor = ListItemsDetalhe.Sum(valor => valor.ValorLucroDistribuidorItem);
-            pedidoModel.ValorLucroVendedora = ListItemsDetalhe.Sum(valor => valor.ValorLucroVendedoraItem);
-            pedidoModel.ValorTotalPedido = ListItemsDetalhe.Sum(valor => valor.ValorTotalItem);
+            pedidoModel.ValorLucroDistribuidor = ListItemsDetalhe.Where(faltou => !faltou.Faltou).Sum(valor => valor.ValorLucroDistribuidorItem);
+            pedidoModel.ValorLucroVendedora = ListItemsDetalhe.Where(faltou => !faltou.Faltou).Sum(valor => valor.ValorLucroVendedoraItem);
+            pedidoModel.ValorTotalPedido = ListItemsDetalhe.Where(faltou => !faltou.Faltou).Sum(valor => valor.ValorTotalItem);
             pedidoModel.QtdCatalogos = ListItemsDetalhe.Select(a => a.CatalogoId).Distinct().Count();
             _pedidoServices.AtualizaTotaisPedido(pedidoModel);
 
@@ -703,7 +673,10 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             PedidoModel.VendedoraId = vendedora.VendedoraId;
             PedidoModel.StatusPed = (((int)StatusPedido.Aberto));
             PedidoModel = (PedidosVendedorasModel)_pedidoServices.Add(PedidoModel);
+
+
         }
+
         private void AddProdutoInDGV(ProdutoModel produto, int quantidade, TamanhosModel tamanho)
         {
 
@@ -880,18 +853,18 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             if (catalogo != null)
             {
-                totalLucroVendedora = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorLucroVendedoraItem);
-                totalLucroDistribuidor = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorLucroDistribuidorItem);
-                totalReceber = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
-                totalPedido = ListItemsDetalhe.Where(c=> c.CatalogoId == SelectedCatalogo.CatalogoId).Sum(valor => valor.ValorTotalItem);
+                totalLucroVendedora = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroVendedoraItem);
+                totalLucroDistribuidor = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroDistribuidorItem);
+                totalReceber = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
+                totalPedido = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem);
 
             }
             else
             {
-                totalLucroVendedora = ListItemsDetalhe.Sum(valor => valor.ValorLucroVendedoraItem);
-                totalLucroDistribuidor = ListItemsDetalhe.Sum(valor => valor.ValorLucroDistribuidorItem);
-                totalReceber = ListItemsDetalhe.Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
-                totalPedido = ListItemsDetalhe.Sum(valor => valor.ValorTotalItem);
+                totalLucroVendedora = ListItemsDetalhe.Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroVendedoraItem);
+                totalLucroDistribuidor = ListItemsDetalhe.Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroDistribuidorItem);
+                totalReceber = ListItemsDetalhe.Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
+                totalPedido = ListItemsDetalhe.Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem);
             }
 
 
@@ -903,6 +876,19 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
 
 
+        }
+
+        private void dgvDetalhePedido_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvDetalhePedido.Columns["Faltou"].Index)
+            {
+                dgvDetalhePedido.EndEdit();
+                DetalhePedidoModel itemPedido = _detalheServices.GetById(int.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                itemPedido.Faltou = bool.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells["Faltou"].Value.ToString());
+                _detalheServices.Update(itemPedido);
+                CalculaTotais(null);
+                AtualizaPedido(VendedoraModel, PedidoModel);
+            }
         }
     }
 }

@@ -63,6 +63,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.label3 = new System.Windows.Forms.Label();
             this.cbNomeVendedora = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnConferir = new System.Windows.Forms.Button();
+            this.btnFinalizar = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -108,6 +110,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // 
             // panelCommands
             // 
+            this.panelCommands.Controls.Add(this.btnConferir);
+            this.panelCommands.Controls.Add(this.btnFinalizar);
             this.panelCommands.Controls.Add(this.btnAdd);
             this.panelCommands.Controls.Add(this.btnEdit);
             this.panelCommands.Controls.Add(this.btnDelete);
@@ -131,7 +135,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(91, 27);
             this.btnAdd.TabIndex = 2;
-            this.btnAdd.Tag = "Pedidos";
+            this.btnAdd.Tag = "";
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -150,7 +154,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(91, 27);
             this.btnEdit.TabIndex = 2;
-            this.btnEdit.Tag = "Pedidos";
+            this.btnEdit.Tag = "";
             this.btnEdit.Text = "Editar";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.UseVisualStyleBackColor = false;
@@ -186,8 +190,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 2;
-            this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Tag = "";
+            this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.pictureClose_Click);
             // 
@@ -487,6 +491,39 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNomeVendedora.SelectedIndexChanged += new System.EventHandler(this.cbNomeVendedora_SelectedIndexChanged);
             this.cbNomeVendedora.Leave += new System.EventHandler(this.cbNomeVendedora_Leave);
             // 
+            // btnConferir
+            // 
+            this.btnConferir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConferir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnConferir.FlatAppearance.BorderSize = 0;
+            this.btnConferir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConferir.ForeColor = System.Drawing.Color.White;
+            this.btnConferir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConferir.Location = new System.Drawing.Point(11, 9);
+            this.btnConferir.Name = "btnConferir";
+            this.btnConferir.Size = new System.Drawing.Size(64, 27);
+            this.btnConferir.TabIndex = 2;
+            this.btnConferir.Tag = "";
+            this.btnConferir.Text = "Conferir";
+            this.btnConferir.UseVisualStyleBackColor = false;
+            this.btnConferir.Click += new System.EventHandler(this.btnConferir_Click);
+            // 
+            // btnFinalizar
+            // 
+            this.btnFinalizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnFinalizar.FlatAppearance.BorderSize = 0;
+            this.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFinalizar.ForeColor = System.Drawing.Color.White;
+            this.btnFinalizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFinalizar.Location = new System.Drawing.Point(90, 9);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(64, 27);
+            this.btnFinalizar.TabIndex = 2;
+            this.btnFinalizar.Tag = "";
+            this.btnFinalizar.Text = "Finalizar";
+            this.btnFinalizar.UseVisualStyleBackColor = false;
+            // 
             // PedidosListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -552,5 +589,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.RadioButton rbEnviado;
         private System.Windows.Forms.RadioButton rbAberto;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnConferir;
+        private System.Windows.Forms.Button btnFinalizar;
     }
 }

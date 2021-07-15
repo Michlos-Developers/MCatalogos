@@ -103,10 +103,42 @@ namespace MCatalogos.Views.FormViews.Rotas
 
             }
 
-            //TODO: MELHORAR ESSA PARTE DEIXAR OUTRO MÉTODO CRIAR AS TABLES E TRAZER PARA O LOADROTASTODATAGRID
+            DataTable tableRotas = ModelaTableGrid();
+            DataColumn column;
+            DataRow row = ModelaRowTable(tableRotas, modelList);
+
+            dgvRotas.DataSource = tableRotas;
+
+        }
+
+        private DataRow ModelaRowTable(DataTable tableRotas, List<RotaModel> modelList)
+        {
+            DataRow row = null;
+
+            if (modelList.Count != 0)
+            {
+                foreach (RotaModel model in modelList)
+                {
+
+                    row = tableRotas.NewRow();
+                    row["RotaId"] = int.Parse(model.RotaId.ToString());
+                    row["Vendedora"] = _vendedoraServices.GetById(model.VendedoraId).Nome.ToString();
+                    row["Bairro"] = _bairroServices.GetById(_vendedoraServices.GetById(model.VendedoraId).BairroId).Nome.ToString();
+                    row["Logradouro"] = _vendedoraServices.GetById(model.VendedoraId).Logradouro.ToString();
+                    row["Letra"] = _rotaLetraServices.GetById(model.RotaLetraId).RotaLetra.ToString();
+                    row["Numero"] = int.Parse(model.Numero.ToString());
+
+                    tableRotas.Rows.Add(row);
+                }
+            }
+
+            return row;
+        }
+
+        private DataTable ModelaTableGrid()
+        {
             DataTable tableRotas = new DataTable();
             DataColumn column;
-            DataRow row;
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.Int32");
@@ -138,38 +170,45 @@ namespace MCatalogos.Views.FormViews.Rotas
             column.ColumnName = "Numero";
             tableRotas.Columns.Add(column);
 
-            if (modelList.Count != 0)
-            {
-                foreach (RotaModel model in modelList)
-                {
-
-                    row = tableRotas.NewRow();
-                    row["RotaId"] = int.Parse(model.RotaId.ToString());
-                    row["Vendedora"] = _vendedoraServices.GetById(model.VendedoraId).Nome.ToString();
-                    row["Bairro"] = _bairroServices.GetById(_vendedoraServices.GetById(model.VendedoraId).BairroId).Nome.ToString();
-                    row["Logradouro"] = _vendedoraServices.GetById(model.VendedoraId).Logradouro.ToString();
-                    row["Letra"] = _rotaLetraServices.GetById(model.RotaLetraId).RotaLetra.ToString();
-                    row["Numero"] = int.Parse(model.Numero.ToString());
-
-                    tableRotas.Rows.Add(row);
-                }
-            }
-
-            dgvRotas.DataSource = tableRotas;
-
+            return tableRotas;
         }
+
         public void LoadVendedorasSemRotasToDataGrid()
         {
 
             Task<List<VendedoraModel>> vendedoraModel = GetVendedorasSemRota();
             List<VendedoraModel> modelList = vendedoraModel.Result;
+            DataTable tableVendedoras = ModelaTableVendedora();
+            DataRow row = ModelaRowVendedora(tableVendedoras, vendedoraModel, modelList);
 
+           
+            dgvVendedoraSemRota.DataSource = tableVendedoras;
 
+        }
 
-            //TODO: MELHORAR ESSA PARTE DEIXAR OUTRO MÉTODO CRIAR AS TABLES E TRAZER PARA O LOADVENDEDORASSEMROTASTODATAGRID
+        private DataRow ModelaRowVendedora(DataTable tableVendedoras, Task<List<VendedoraModel>> vendedoraModel, List<VendedoraModel> modelList)
+        {
+            DataRow row = null;
+            if (vendedoraModel.Result != null)
+            {
+                foreach (VendedoraModel model in modelList)
+                {
+                    row = tableVendedoras.NewRow();
+                    row["VendedoraId"] = int.Parse(model.VendedoraId.ToString());
+                    row["Nome"] = model.Nome;
+                    row["Letra"] = _rotaLetraServices.GetById(model.RotaLetraId).RotaLetra.ToString();
+
+                    tableVendedoras.Rows.Add(row);
+                }
+            }
+
+            return row;
+        }
+
+        private DataTable ModelaTableVendedora()
+        {
             DataTable tableVendedoras = new DataTable();
             DataColumn column;
-            DataRow row;
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.Int32");
@@ -186,22 +225,8 @@ namespace MCatalogos.Views.FormViews.Rotas
             column.ColumnName = "Letra";
             tableVendedoras.Columns.Add(column);
 
-            if (vendedoraModel.Result != null)
-            {
-                foreach (VendedoraModel model in modelList)
-                {
-                    row = tableVendedoras.NewRow();
-                    row["VendedoraId"] = int.Parse(model.VendedoraId.ToString());
-                    row["Nome"] = model.Nome;
-                    row["Letra"] = _rotaLetraServices.GetById(model.RotaLetraId).RotaLetra.ToString();
-
-                    tableVendedoras.Rows.Add(row);
-                }
-            }
-            dgvVendedoraSemRota.DataSource = tableVendedoras;
-
+            return tableVendedoras;
         }
-
 
         private void ConfiguraDataGridRotas()
         {

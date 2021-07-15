@@ -62,10 +62,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             textQtd.Text = ItemPedido.Quantidade.ToString();
             if (ListTamanhos != null)
             {
-                //  TODO: COLOCAR O TAMANHOID NO MODEL E NO BANCO DE DADO DO DETALHEMODEL
                 cbTamanho.SelectedValue = ListTamanhos.Where(tam => tam.TamanhoId == ItemPedido.TamanhoId);
             }
-                //cbTamanho.SelectedItem = ListTamanhos.Where(tamanho => tamanho.Tamanho == ItemPedido.Tamanho);
 
         }
 

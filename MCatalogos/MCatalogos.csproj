@@ -139,6 +139,7 @@
     <Compile Include="Views\FormViews\PedidoVendedora\PedidosListForm.Designer.cs">
       <DependentUpon>PedidosListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\PedidoVendedora\RequestType.cs" />
     <Compile Include="Views\FormViews\PedidoVendedora\SelectVendedoraForm.cs">
       <SubType>Form</SubType>
     </Compile>

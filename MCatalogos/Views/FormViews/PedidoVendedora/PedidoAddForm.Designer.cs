@@ -163,21 +163,18 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvDetalhePedido.AllowUserToAddRows = false;
             this.dgvDetalhePedido.AllowUserToDeleteRows = false;
             this.dgvDetalhePedido.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDetalhePedido.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.dgvDetalhePedido.BackgroundColor = System.Drawing.Color.White;
             this.dgvDetalhePedido.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDetalhePedido.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDetalhePedido.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvDetalhePedido.GridColor = System.Drawing.Color.DeepSkyBlue;
             this.dgvDetalhePedido.Location = new System.Drawing.Point(0, 0);
             this.dgvDetalhePedido.Name = "dgvDetalhePedido";
-            this.dgvDetalhePedido.ReadOnly = true;
             this.dgvDetalhePedido.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDetalhePedido.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalhePedido.ShowEditingIcon = false;
             this.dgvDetalhePedido.Size = new System.Drawing.Size(872, 285);
             this.dgvDetalhePedido.TabIndex = 0;
             this.dgvDetalhePedido.TabStop = false;
+            this.dgvDetalhePedido.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalhePedido_CellContentClick);
             this.dgvDetalhePedido.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalhePedido_CellDoubleClick);
             // 
             // mTextCpfVendedora
