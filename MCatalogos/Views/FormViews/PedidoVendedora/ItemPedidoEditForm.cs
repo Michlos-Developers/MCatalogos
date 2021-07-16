@@ -97,7 +97,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void btnSave_Click(object sender, EventArgs e)
         {
             ItemPedido.Quantidade = int.Parse(textQtd.Text);
-            ItemPedido.TamanhoId = ((TamanhosModel)cbTamanho.SelectedItem).TamanhoId;
+            ItemPedido.TamanhoId = string.IsNullOrEmpty(cbTamanho.Text) ? 0 : ((TamanhosModel)cbTamanho.SelectedItem).TamanhoId;
             if (int.Parse(textQtd.Text) != 0)
                 SaveItemPedido(ItemPedido);
             else

@@ -83,6 +83,9 @@
     <Compile Include="Services\FornecedorServices\FornecedorServices.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorRepository.cs" />
     <Compile Include="Services\FornecedorServices\IFornecedorService.cs" />
+    <Compile Include="Services\HistoricoTituloReceberServices\HistoricoTituloReceberServices.cs" />
+    <Compile Include="Services\HistoricoTituloReceberServices\IHistoricoTituloReceberRepository.cs" />
+    <Compile Include="Services\HistoricoTituloReceberServices\IHistoricoTituloReceberServices.cs" />
     <Compile Include="Services\PedidosVendedorasServices\IPedidosVendedorasRepository.cs" />
     <Compile Include="Services\PedidosVendedorasServices\IPedidosVendedorasServices.cs" />
     <Compile Include="Services\PedidosVendedorasServices\PedidosVendedorasServices.cs" />
@@ -107,6 +110,12 @@
     <Compile Include="Services\TipoTelefoneServices\ITipoTelefoneRepository.cs" />
     <Compile Include="Services\TipoTelefoneServices\ITipoTelefoneServices.cs" />
     <Compile Include="Services\TipoTelefoneServices\TipoTelefoneServices.cs" />
+    <Compile Include="Services\TipoTituloServices\ITipoTituloRepository.cs" />
+    <Compile Include="Services\TipoTituloServices\ITipoTituloServices.cs" />
+    <Compile Include="Services\TipoTituloServices\TipoTituloServices.cs" />
+    <Compile Include="Services\TitulosReceberServices\ITituloReceberRepository.cs" />
+    <Compile Include="Services\TitulosReceberServices\ITituloReceberSerivces.cs" />
+    <Compile Include="Services\TitulosReceberServices\TituloReceberServices.cs" />
     <Compile Include="Services\ValidationServices\IValidationCnpjRepository.cs" />
     <Compile Include="Services\ValidationServices\IValidationCpfRespository.cs" />
     <Compile Include="Services\ValidationServices\ValidationCnpjServices.cs" />

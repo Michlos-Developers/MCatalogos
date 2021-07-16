@@ -29,6 +29,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PedidoAddForm));
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -68,6 +69,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.label16 = new System.Windows.Forms.Label();
             this.textTotalReceber = new System.Windows.Forms.TextBox();
             this.textTotalPedido = new System.Windows.Forms.TextBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelCommands.SuspendLayout();
             this.panelDetalhePedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalhePedido)).BeginInit();
@@ -492,6 +494,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textTotalReceber.TabIndex = 1;
             this.textTotalReceber.TabStop = false;
             this.textTotalReceber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip.SetToolTip(this.textTotalReceber, "Os Totais podem variar dependendo das taxas cadastradas no Catálogo");
             // 
             // textTotalPedido
             // 
@@ -505,6 +508,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textTotalPedido.TabIndex = 1;
             this.textTotalPedido.TabStop = false;
             this.textTotalPedido.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip.SetToolTip(this.textTotalPedido, "Os Totais podem variar dependendo das taxas cadastradas no Catálogo");
             // 
             // PedidoAddForm
             // 
@@ -585,5 +589,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textTotalReceber;
         private System.Windows.Forms.TextBox textTotalPedido;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

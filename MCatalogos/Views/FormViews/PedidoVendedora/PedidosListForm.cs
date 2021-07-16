@@ -25,7 +25,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 {
     public partial class PedidosListForm : Form
     {
-       
+
         #region PROPRIEDADES PARA MOVER A JANELA
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -51,15 +51,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
-        private bool aberto = false;
-        private bool enviado = false;
-        private bool separado = false;
-        private bool conferido = false;
-        private bool despachado = false;
-        private bool entregue = false;
-        private bool cancelado = false;
-        private bool finalizado = false;
-
+        private StatusPedido status = StatusPedido.Todos;
 
         public PedidosListForm(MainView mainView)
         {
@@ -87,7 +79,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             DateTime? dataRegistroIni = ReceiveDate(dateDataInicio.Text.ToString());
             DateTime? dataRegistroFim = ReceiveDate(dateDataFim.Text.ToString());
-            
+
 
             pedidoVendedoraDGV = PedidosList;
 
@@ -102,49 +94,95 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.DataRegistro >= dataRegistroIni && pedido.DataRegistro <= dataRegistroFim);
             }
 
-            if (aberto)
+            pedidoVendedoraDGV = ConfiguraDgvByStatus(status, pedidoVendedoraDGV);
+
+            DataTable tablePedidos = ModelaDataTablePedidos();
+            DataRow row = ModelaDataRowTablePedido(tablePedidos, pedidoVendedoraDGV);
+            ConfiguraDataGridDetalhePedidos(tablePedidos);
+
+
+        }
+
+        private IEnumerable<PedidosVendedorasModel> ConfiguraDgvByStatus(StatusPedido status, IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV)
+        {
+            switch (status)
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Aberto));
+                case StatusPedido.Aberto:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Aberto));
+                    break;
+                case StatusPedido.Enviado:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Enviado));
+                    break;
+                case StatusPedido.Separado:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Separado));
+                    break;
+                case StatusPedido.Conferido:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Conferido));
+                    break;
+                case StatusPedido.Finalizado:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Finalizado));
+                    break;
+                case StatusPedido.Despachado:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Despachado));
+                    break;
+                case StatusPedido.Entregue:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Entregue));
+                    break;
+                case StatusPedido.Cancelado:
+                    pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Cancelado));
+                    break;
+                default:
+                    
+                    break;
             }
 
-            if (cancelado)
+            return pedidoVendedoraDGV;
+        }
+
+        private void ConfiguraDataGridDetalhePedidos(DataTable tablePedidos)
+        {
+            dgvPedidos.DataSource = tablePedidos;
+
+            dgvPedidos.Columns[0].HeaderText = "Código";
+            dgvPedidos.Columns[0].Width = 80;
+            dgvPedidos.Columns[1].HeaderText = "Vendedora";
+            dgvPedidos.Columns[1].Width = 346;
+            dgvPedidos.Columns[2].HeaderText = "Data Reg.";
+            dgvPedidos.Columns[3].HeaderText = "Qtd.Cat.";
+            dgvPedidos.Columns[3].Width = 60;
+            dgvPedidos.Columns[4].HeaderText = "Val. Total";
+            dgvPedidos.Columns[5].HeaderText = "Status";
+
+            dgvPedidos.ForeColor = Color.Black;
+        }
+
+        private DataRow ModelaDataRowTablePedido(DataTable tablePedidos, IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV)
+        {
+            DataRow row = null;
+            if (pedidoVendedoraDGV.Any())
             {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Cancelado));
+                foreach (PedidosVendedorasModel model in pedidoVendedoraDGV)
+                {
+                    row = tablePedidos.NewRow();
+                    row["CodigoColumn"] = int.Parse(model.PedidoId.ToString());
+                    row["VendedoraNameColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
+                    row["DataRegColumn"] = model.DataRegistro;
+                    row["QtdCatalogoColumn"] = model.QtdCatalogos != null ? model.QtdCatalogos : 0;
+                    row["ValorTotalColumn"] = model.ValorTotalPedido;
+                    row["StatusColumn"] = GetStatusPedido(model.StatusPed);
+
+                    tablePedidos.Rows.Add(row);
+
+                }
             }
 
-            if (enviado)
-            {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Enviado));
-            }
+            return row;
+        }
 
-            if (separado)
-            {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Separado));
-            }
-
-            if (conferido)
-            {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Conferido));
-            }
-
-            if (despachado)
-            {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Despachado));
-            }
-
-            if (entregue)
-            {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Entregue));
-            }
-
-            if (finalizado)
-            {
-                pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Finalizado));
-            }
-
+        private DataTable ModelaDataTablePedidos()
+        {
             DataTable tablePedidos = new DataTable();
             DataColumn column;
-            DataRow row;
 
             column = new DataColumn();
             column.DataType = Type.GetType("System.Int32");
@@ -176,44 +214,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             column.ColumnName = "StatusColumn";
             tablePedidos.Columns.Add(column);
 
-            if (pedidoVendedoraDGV.Any())
-            {
-                foreach (PedidosVendedorasModel model in pedidoVendedoraDGV)
-                {
-                    row = tablePedidos.NewRow();
-                    row["CodigoColumn"] = int.Parse(model.PedidoId.ToString());
-                    row["VendedoraNameColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
-                    row["DataRegColumn"] = model.DataRegistro;
-                    row["QtdCatalogoColumn"] = model.QtdCatalogos != null ? model.QtdCatalogos : 0;
-                    row["ValorTotalColumn"] = model.ValorTotalPedido;
-                    row["StatusColumn"] = GetStatusPedido(model.StatusPed);
-
-                    tablePedidos.Rows.Add(row);
-                    
-                }
-            }
-
-            
-            dgvPedidos.DataSource = tablePedidos;
-
-            dgvPedidos.Columns[0].HeaderText = "Código";
-            dgvPedidos.Columns[0].Width = 80;
-            dgvPedidos.Columns[1].HeaderText = "Vendedora";
-            dgvPedidos.Columns[1].Width = 346;
-            dgvPedidos.Columns[2].HeaderText = "Data Reg.";
-            dgvPedidos.Columns[3].HeaderText = "Qtd.Cat.";
-            dgvPedidos.Columns[3].Width = 60;
-            dgvPedidos.Columns[4].HeaderText = "Val. Total";
-            dgvPedidos.Columns[5].HeaderText = "Status";
-
-            dgvPedidos.ForeColor = Color.Black;
-
-
+            return tablePedidos;
         }
 
         private object GetStatusPedido(int statusPed)
         {
-            
+
             switch (statusPed)
             {
                 case 0:
@@ -256,10 +262,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             cbNomeVendedora.SelectedIndex = -1;
         }
 
-        private void pictureClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void panelTitle_MouseDown(object sender, MouseEventArgs e)
         {
@@ -325,6 +327,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             dateDataInicio.Text = dataIni.ToString();
         }
 
+
+
+        #region COMBOX EVENTS
+        private void cbNomeVendedora_Leave(object sender, EventArgs e)
+        {
+            if (cbNomeVendedora.Text == string.Empty)
+            {
+                mTextCpf.Text = string.Empty;
+            }
+        }
         private void cbNomeVendedora_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbNomeVendedora.SelectedIndex > -1)
@@ -339,26 +351,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
         }
 
-        private void cbNomeVendedora_Leave(object sender, EventArgs e)
-        {
-            if (cbNomeVendedora.Text == string.Empty)
-            {
-                mTextCpf.Text = string.Empty;
-            }
-        }
+        #endregion
 
-        private void btnClearDate_Click(object sender, EventArgs e)
-        {
-            dateDataFim.Text = string.Empty;
-            dateDataInicio.Text = string.Empty;
-        }
-
-        private void btlClearFilter_Click(object sender, EventArgs e)
-        {
-            cbNomeVendedora.SelectedIndex = -1;
-            UncheckRadiosButtons();
-            
-        }
 
         private void UncheckRadiosButtons()
         {
@@ -370,116 +364,29 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             rbConferido.Checked = false;
             rbDespachado.Checked = false;
             rbCancelado.Checked = false;
+            rbTodos.Checked = true;
         }
 
+
+        #region BUTTONS EVENTS
+        private void pictureClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void btnClearDate_Click(object sender, EventArgs e)
+        {
+            dateDataFim.Text = string.Empty;
+            dateDataInicio.Text = string.Empty;
+        }
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            cbNomeVendedora.SelectedIndex = -1;
+            UncheckRadiosButtons();
+
+        }
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void rbAberto_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbAberto.Checked)
-            {
-                aberto = true;
-            }
-            else
-            {
-                aberto = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbSeparado_CheckedChanged(object sender, EventArgs e)
-        {
-
-            if (rbSeparado.Checked)
-            {
-                separado = true;
-            }
-            else
-            {
-                separado = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbFinalizado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbFinalizado.Checked)
-            {
-                finalizado = true;
-            }
-            else
-            {
-                finalizado = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbEntregue_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbEntregue.Checked)
-            {
-                entregue = true;
-            }
-            else
-            {
-                entregue = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbEnviado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbEnviado.Checked)
-            {
-                enviado = true;
-            }
-            else
-            {
-                enviado = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbConferido_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbConferido.Checked)
-            {
-                conferido = true;
-            }
-            else
-            {
-                conferido = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbDespachado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbDespachado.Checked)
-            {
-                despachado = true;
-            }
-            else
-            {
-                despachado = false;
-            }
-            LoadDataGridView();
-        }
-
-        private void rbCancelado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbCancelado.Checked)
-            {
-                cancelado = true;
-            }
-            else
-            {
-                cancelado = false;
-            }
-            LoadDataGridView();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -494,7 +401,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             EditarPedido();
         }
+        private void btnConferir_Click(object sender, EventArgs e)
+        {
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Confere);
+            pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
+            pedidoAddForm.Show();
+        }
 
+        #endregion
         private void EditarPedido()
         {
             SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
@@ -515,13 +431,79 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             LoadDataGridView();
         }
 
-        private void btnConferir_Click(object sender, EventArgs e)
+
+        #region RADIOS BUTTONS CHECKED CHANGED
+        private void rbAberto_CheckedChanged(object sender, EventArgs e)
         {
-            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
-            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Confere);
-            pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
-            pedidoAddForm.Show();
+            if (rbAberto.Checked)
+                status = StatusPedido.Aberto;
+            LoadDataGridView();
+        }
+
+        private void rbSeparado_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (rbSeparado.Checked)
+                status = StatusPedido.Separado;
+            LoadDataGridView();
+        }
+
+        private void rbFinalizado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbFinalizado.Checked)
+                status = StatusPedido.Finalizado;
+            else
+                status = StatusPedido.Todos;
+            LoadDataGridView();
+        }
+
+        private void rbEntregue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbEntregue.Checked)
+                status = StatusPedido.Entregue;
+            LoadDataGridView();
+        }
+
+        private void rbEnviado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbEnviado.Checked)
+                status = StatusPedido.Enviado;
+            LoadDataGridView();
+        }
+
+        private void rbConferido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbConferido.Checked)
+                status = StatusPedido.Conferido;
+            LoadDataGridView();
+        }
+
+        private void rbDespachado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbDespachado.Checked)
+                status = StatusPedido.Despachado;
+            LoadDataGridView();
+        }
+
+        private void rbCancelado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbCancelado.Checked)
+                status = StatusPedido.Cancelado;
+            LoadDataGridView();
+        }
+        private void rbTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbTodos.Checked)
+            {
+                status = StatusPedido.Todos;
+            }
+            LoadDataGridView();
+        }
+        #endregion
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            //TODO: FINALIZAR PEDIDO GERANDO CONTAS A RECEBER E A PAGAR.
         }
     }
 }

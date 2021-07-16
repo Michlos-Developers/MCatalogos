@@ -33,9 +33,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             PedidosVendedorasModel pedidoVendedora = new PedidosVendedorasModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO PedidosVendedoras " +
-                           "(VendedoraId, StatusPed) " +
+                           "(VendedoraId, StatusPed, ValorTaxaPedido) " +
                            "output INSERTED.PedidoId " +
-                           "VALUES (@VendedoraId, @StatusPed)";
+                           "VALUES (@VendedoraId, @StatusPed, @ValorTaxaPedido)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -47,6 +47,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@VendedoraId", pedido.VendedoraId);
                         cmd.Parameters.AddWithValue("@StatusPed", pedido.StatusPed);
+                        cmd.Parameters.AddWithValue("@ValorTaxaPedido", pedido.ValorTaxaPedido != null ? pedido.ValorTaxaPedido : 0);
                         IdReturned = (int)cmd.ExecuteScalar();
                     }
 
@@ -71,7 +72,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
         public void SetStatus(int status, PedidosVendedorasModel pedido)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = " UPDATE PedidodosVendedoras SET " +
+            string query = " UPDATE PedidosVendedoras SET " +
                             " StatusPed = @StatusPed " +
                             " WHERE PedidoId = @PedidoId";
 
@@ -84,7 +85,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@PedidoId", pedido.PedidoId);
-                        cmd.Parameters.Add(new SqlParameter("@Status", status));
+                        cmd.Parameters.Add(new SqlParameter("@StatusPed", status));
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -128,6 +129,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -176,6 +178,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -224,6 +227,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -272,6 +276,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -320,6 +325,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -368,6 +374,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -416,6 +423,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -463,6 +471,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
 
                                 modelList.Add(model);
@@ -509,6 +518,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
                                 model.QtdCatalogos = string.IsNullOrEmpty(reader["QtdCatalogos"].ToString()) ? 0 : int.Parse(reader["QtdCatalogos"].ToString());
+                                model.ValorTaxaPedido = string.IsNullOrEmpty(reader["ValorTaxaPedido"].ToString()) ? 0 : int.Parse(reader["ValorTaxaPedido"].ToString());
                                 model.StatusPed = int.Parse(reader["StatusPed"].ToString());
                             }
                         }

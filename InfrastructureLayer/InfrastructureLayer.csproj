@@ -58,6 +58,7 @@
     <Compile Include="DataAccess\Repositories\Commons\CidadeRepository.cs" />
     <Compile Include="DataAccess\Repositories\Commons\EstadoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Commons\TipoTelefoneRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Commons\TipoTituloRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Catalogo\CampanhaRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Catalogo\CatalogoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Distribuidor\DistribuidorRepository.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="DataAccess\Repositories\Specific\PedidoVendedora\PedidoVendedoraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Produto\ProdutoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Tamanho\TamanhoRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\TituloReceber\HistoricoTituloReceberRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\TituloReceber\TituloReceberRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\EstadoCivilRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaLetraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Vendedora\RotaRepository.cs" />

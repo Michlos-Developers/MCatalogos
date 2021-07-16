@@ -3,12 +3,13 @@
     enum StatusPedido
     {
         Aberto,
-        Enviado,
-        Separado,
-        Conferido,
-        Finalizado,
-        Despachado,
-        Entregue,
-        Cancelado
+        Enviado, //BLOQUEIA INCLUSÃO/EXCLUSÃO DE ITEMS
+        Separado, //
+        Conferido, //TIRA FALTA DEFINITIVA BLOQUEIA INCLUSÃO E EXCLUSÃO DE ITENS
+        Finalizado, //GERA CONTAS A RECEBER E CONTAS A PAGAR.
+        Despachado, //
+        Entregue, //
+        Cancelado, //
+        Todos //
     }
 }

@@ -112,7 +112,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void PedidoAddForm_Load(object sender, EventArgs e)
         {
             LoadComboBoxCatalogos();
-            if (PedidoModel == null)
+            if (RType == RequestType.Add)
             { //NOVO PEDIDO
 
                 VendedoraModel = SelecionarVendedora();
@@ -129,11 +129,39 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
                 }
             }
-            else
+            else if (RType == RequestType.Edit)
             { //EDIT PEDIDO
                 PreencheCampos(VendedoraModel, PedidoModel, RType);
                 LoadDetalhesPedido(PedidoModel, null);
+                if (PedidoModel.StatusPed != ((int)StatusPedido.Aberto))
+                {
+                    StatusPedido statusAtual = (StatusPedido)PedidoModel.StatusPed;
+                    MessageBox.Show($"Pedido \"{((StatusPedido)PedidoModel.StatusPed).ToString()}\".\n Tela para simples conferência de informações\n", $"Status: {((StatusPedido)PedidoModel.StatusPed).ToString()}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    gbAddItem.Enabled = false;
+                    cbCatalogo.Enabled = false;
+                    cbCampanha.Enabled = false;
+                    btnDelete.Enabled = false;
+                    btnEdit.Enabled = false;
 
+                }
+
+            }
+            else if (RType == RequestType.Confere)
+            {
+                PedidoModel.StatusPed = (int)StatusPedido.Conferido;
+                _pedidoServices.SetStatus(PedidoModel.StatusPed, PedidoModel);
+                PreencheCampos(VendedoraModel, PedidoModel, RType);
+                LoadDetalhesPedido(PedidoModel, null);
+            }
+            else if (RType == RequestType.Finaliza)
+            {
+
+                PedidoModel.StatusPed = (int)StatusPedido.Finalizado;
+                _pedidoServices.SetStatus(PedidoModel.StatusPed, PedidoModel);
+                PreencheCampos(VendedoraModel, PedidoModel, RType);
+                LoadDetalhesPedido(PedidoModel, null);
+                dgvDetalhePedido.ReadOnly = true;
+                dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
         }
         private VendedoraModel SelecionarVendedora()
@@ -239,18 +267,23 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void LoadDetalhesPedido(PedidosVendedorasModel pedidoModel, CatalogoModel catalogoModel)
         {
-            ListItemsDetalhe = (List<DetalhePedidoModel>)_detalheServices.GetAllByPedido(pedidoModel);
-            IEnumerable<DetalhePedidoModel> itemsPedido;
+            IEnumerable<DetalhePedidoModel> itemsPedido = null;
+            if (pedidoModel != null)
+            {
+                ListItemsDetalhe = (List<DetalhePedidoModel>)_detalheServices.GetAllByPedido(pedidoModel);
 
-            if (catalogoModel != null)
-            {
-                itemsPedido = ListItemsDetalhe.Where(p => p.PedidoId == pedidoModel.PedidoId).Where(c => c.CatalogoId == catalogoModel.CatalogoId);
-                CalculaTotais(catalogoModel);
-            }
-            else
-            {
-                itemsPedido = ListItemsDetalhe.Where(p => p.PedidoId == PedidoModel.PedidoId);
-                CalculaTotais(null);
+
+
+                if (catalogoModel != null)
+                {
+                    itemsPedido = ListItemsDetalhe.Where(p => p.PedidoId == pedidoModel.PedidoId).Where(c => c.CatalogoId == catalogoModel.CatalogoId);
+                    CalculaTotais(catalogoModel);
+                }
+                else
+                {
+                    itemsPedido = ListItemsDetalhe.Where(p => p.PedidoId == PedidoModel.PedidoId);
+                    CalculaTotais(null);
+                }
             }
 
             DataTable tableDetalhes = ModelaTableGrid();
@@ -337,7 +370,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
 
-            
+
             dgvDetalhePedido.ForeColor = Color.Black;
             //TODO: FAZER ALINHA FICAR VERMELHA SE FALTOU FOR TRUE;
 
@@ -683,8 +716,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             double valorProduto = 0;
             if (tamanho != null)
             {   //TEM TAMANHO TRATAR VALOR DO PRODUTO E ADD TAMANHO NO ITEM.
-                Tamanhos tamanhos = (Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho);
-                if (tamanhos >= Tamanhos.GG)
+                //Tamanhos tamanhos = (Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho);
+                int tamanhos = ((int)(Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho));
+                if (tamanhos >= ((int)Tamanhos.GG))
                 {
                     valorProduto = produto.ValorCatalogo2 != 0 ? produto.ValorCatalogo2 : produto.ValorCatalogo;
                 }
@@ -712,8 +746,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             ItemPedido.MargemDistribuidor = string.IsNullOrEmpty(produto.MargemDistribuidor) ? SelectedCatalogo.MargemPadraoDistribuidor : double.Parse(produto.MargemDistribuidor);
             ItemPedido.ValorProduto = valorProduto;
             ItemPedido.Quantidade = quantidade;
+            ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * quantidade : 0;
             ItemPedido.ValorTotalItem = quantidade * ItemPedido.ValorProduto;
-            ItemPedido.ValorLucroVendedoraItem = (ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade;
+            ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
             ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
             ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
             ItemPedido.Faltou = false;
@@ -730,7 +765,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
                     ItemPedido.Quantidade += quantidade;
                     ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
-                    ItemPedido.ValorLucroVendedoraItem = (ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade;
+                    ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedido.Quantidade : 0;
+                    ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
                     ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
                     ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
 
@@ -750,7 +786,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
                     ItemPedido.Quantidade += quantidade;
                     ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
-                    ItemPedido.ValorLucroVendedoraItem = (ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade;
+                    ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedido.Quantidade : 0;
+                    ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
                     ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
                     ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
 
@@ -846,17 +883,36 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void CalculaTotais(CatalogoModel catalogo)
         {
+            //TODO: Valor a receber está com o valor do custo. Corrigir
             double totalLucroVendedora = 0;
             double totalLucroDistribuidor = 0;
             double totalReceber = 0;
             double totalPedido = 0;
 
+            double taxaPorProduto = 0;
+            double taxaPorPedido = 0;
+            
+
+
             if (catalogo != null)
             {
+
+                taxaPorPedido = catalogo.TaxaPedido ? catalogo.ValorTaxaPedido : 0;
+                
+                taxaPorProduto = catalogo.TaxaProduto ? catalogo.ValorTaxaProduto : 0;
                 totalLucroVendedora = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroVendedoraItem);
                 totalLucroDistribuidor = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroDistribuidorItem);
                 totalReceber = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
                 totalPedido = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem);
+                
+                taxaPorPedido = totalPedido * (taxaPorPedido / 100);
+                //taxaPorProduto = taxaPorProduto * ListItemsDetalhe.Where(t => t.CatalogoId == SelectedCatalogo.CatalogoId).Count(); JÁ FOI CALCULADO NA INCLUSÃO DO ITEM.
+                if (taxaPorPedido > 0)
+                {
+                    totalReceber += taxaPorPedido;
+                }
+
+
 
             }
             else

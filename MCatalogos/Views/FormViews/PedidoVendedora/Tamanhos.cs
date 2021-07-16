@@ -13,6 +13,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         M,
         G,
         GG,
+        XXG,
         XGG,
         XLG,
         XXGG

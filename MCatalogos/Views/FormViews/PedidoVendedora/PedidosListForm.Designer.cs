@@ -34,6 +34,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
             this.panelCommands = new System.Windows.Forms.Panel();
+            this.btnConferir = new System.Windows.Forms.Button();
+            this.btnFinalizar = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -49,6 +51,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.rbConferido = new System.Windows.Forms.RadioButton();
             this.rbSeparado = new System.Windows.Forms.RadioButton();
             this.rbEnviado = new System.Windows.Forms.RadioButton();
+            this.rbTodos = new System.Windows.Forms.RadioButton();
             this.rbAberto = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.dateDataFim = new System.Windows.Forms.MaskedTextBox();
@@ -57,14 +60,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.label5 = new System.Windows.Forms.Label();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnClearDate = new System.Windows.Forms.Button();
-            this.btlClearFilter = new System.Windows.Forms.Button();
+            this.btnClearFilter = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.mTextCpf = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbNomeVendedora = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.btnConferir = new System.Windows.Forms.Button();
-            this.btnFinalizar = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -121,6 +122,40 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(800, 45);
             this.panelCommands.TabIndex = 8;
+            // 
+            // btnConferir
+            // 
+            this.btnConferir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConferir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnConferir.FlatAppearance.BorderSize = 0;
+            this.btnConferir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConferir.ForeColor = System.Drawing.Color.White;
+            this.btnConferir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConferir.Location = new System.Drawing.Point(11, 9);
+            this.btnConferir.Name = "btnConferir";
+            this.btnConferir.Size = new System.Drawing.Size(64, 27);
+            this.btnConferir.TabIndex = 2;
+            this.btnConferir.Tag = "";
+            this.btnConferir.Text = "Conferir";
+            this.btnConferir.UseVisualStyleBackColor = false;
+            this.btnConferir.Click += new System.EventHandler(this.btnConferir_Click);
+            // 
+            // btnFinalizar
+            // 
+            this.btnFinalizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnFinalizar.FlatAppearance.BorderSize = 0;
+            this.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFinalizar.ForeColor = System.Drawing.Color.White;
+            this.btnFinalizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFinalizar.Location = new System.Drawing.Point(90, 9);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(64, 27);
+            this.btnFinalizar.TabIndex = 2;
+            this.btnFinalizar.Tag = "";
+            this.btnFinalizar.Text = "Finalizar";
+            this.btnFinalizar.UseVisualStyleBackColor = false;
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
             // btnAdd
             // 
@@ -233,7 +268,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelCatalogo.Controls.Add(this.label5);
             this.panelCatalogo.Controls.Add(this.btnFiltrar);
             this.panelCatalogo.Controls.Add(this.btnClearDate);
-            this.panelCatalogo.Controls.Add(this.btlClearFilter);
+            this.panelCatalogo.Controls.Add(this.btnClearFilter);
             this.panelCatalogo.Controls.Add(this.label4);
             this.panelCatalogo.Controls.Add(this.mTextCpf);
             this.panelCatalogo.Controls.Add(this.label3);
@@ -253,18 +288,19 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbStatus.Controls.Add(this.rbConferido);
             this.gbStatus.Controls.Add(this.rbSeparado);
             this.gbStatus.Controls.Add(this.rbEnviado);
+            this.gbStatus.Controls.Add(this.rbTodos);
             this.gbStatus.Controls.Add(this.rbAberto);
             this.gbStatus.Controls.Add(this.label2);
-            this.gbStatus.Location = new System.Drawing.Point(10, 63);
+            this.gbStatus.Location = new System.Drawing.Point(10, 64);
             this.gbStatus.Name = "gbStatus";
-            this.gbStatus.Size = new System.Drawing.Size(400, 46);
+            this.gbStatus.Size = new System.Drawing.Size(501, 50);
             this.gbStatus.TabIndex = 10;
             this.gbStatus.TabStop = false;
             // 
             // rbCancelado
             // 
             this.rbCancelado.AutoSize = true;
-            this.rbCancelado.Location = new System.Drawing.Point(308, 19);
+            this.rbCancelado.Location = new System.Drawing.Point(394, 21);
             this.rbCancelado.Name = "rbCancelado";
             this.rbCancelado.Size = new System.Drawing.Size(82, 18);
             this.rbCancelado.TabIndex = 0;
@@ -297,7 +333,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbFinalizado
             // 
             this.rbFinalizado.AutoSize = true;
-            this.rbFinalizado.Location = new System.Drawing.Point(205, 19);
+            this.rbFinalizado.Location = new System.Drawing.Point(291, 21);
             this.rbFinalizado.Name = "rbFinalizado";
             this.rbFinalizado.Size = new System.Drawing.Size(83, 18);
             this.rbFinalizado.TabIndex = 0;
@@ -308,7 +344,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // rbConferido
             // 
             this.rbConferido.AutoSize = true;
-            this.rbConferido.Location = new System.Drawing.Point(107, 19);
+            this.rbConferido.Location = new System.Drawing.Point(193, 21);
             this.rbConferido.Name = "rbConferido";
             this.rbConferido.Size = new System.Drawing.Size(78, 18);
             this.rbConferido.TabIndex = 0;
@@ -338,15 +374,26 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.rbEnviado.UseVisualStyleBackColor = true;
             this.rbEnviado.CheckedChanged += new System.EventHandler(this.rbEnviado_CheckedChanged);
             // 
+            // rbTodos
+            // 
+            this.rbTodos.AutoSize = true;
+            this.rbTodos.Checked = true;
+            this.rbTodos.Location = new System.Drawing.Point(6, 21);
+            this.rbTodos.Name = "rbTodos";
+            this.rbTodos.Size = new System.Drawing.Size(57, 18);
+            this.rbTodos.TabIndex = 0;
+            this.rbTodos.TabStop = true;
+            this.rbTodos.Text = "Todos";
+            this.rbTodos.UseVisualStyleBackColor = true;
+            this.rbTodos.CheckedChanged += new System.EventHandler(this.rbTodos_CheckedChanged);
+            // 
             // rbAberto
             // 
             this.rbAberto.AutoSize = true;
-            this.rbAberto.Checked = true;
-            this.rbAberto.Location = new System.Drawing.Point(7, 19);
+            this.rbAberto.Location = new System.Drawing.Point(93, 21);
             this.rbAberto.Name = "rbAberto";
             this.rbAberto.Size = new System.Drawing.Size(80, 18);
             this.rbAberto.TabIndex = 0;
-            this.rbAberto.TabStop = true;
             this.rbAberto.Text = "Em Aberto";
             this.rbAberto.UseVisualStyleBackColor = true;
             this.rbAberto.CheckedChanged += new System.EventHandler(this.rbAberto_CheckedChanged);
@@ -434,24 +481,24 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnClearDate.UseVisualStyleBackColor = false;
             this.btnClearDate.Click += new System.EventHandler(this.btnClearDate_Click);
             // 
-            // btlClearFilter
+            // btnClearFilter
             // 
-            this.btlClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btlClearFilter.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btlClearFilter.FlatAppearance.BorderSize = 0;
-            this.btlClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btlClearFilter.ForeColor = System.Drawing.Color.White;
-            this.btlClearFilter.Image = global::MCatalogos.Properties.Resources.IconClear;
-            this.btlClearFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btlClearFilter.Location = new System.Drawing.Point(711, 82);
-            this.btlClearFilter.Name = "btlClearFilter";
-            this.btlClearFilter.Size = new System.Drawing.Size(71, 27);
-            this.btlClearFilter.TabIndex = 2;
-            this.btlClearFilter.Tag = "Pedidos";
-            this.btlClearFilter.Text = "Limpar";
-            this.btlClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btlClearFilter.UseVisualStyleBackColor = false;
-            this.btlClearFilter.Click += new System.EventHandler(this.btlClearFilter_Click);
+            this.btnClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearFilter.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnClearFilter.FlatAppearance.BorderSize = 0;
+            this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearFilter.ForeColor = System.Drawing.Color.White;
+            this.btnClearFilter.Image = global::MCatalogos.Properties.Resources.IconClear;
+            this.btnClearFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClearFilter.Location = new System.Drawing.Point(711, 82);
+            this.btnClearFilter.Name = "btnClearFilter";
+            this.btnClearFilter.Size = new System.Drawing.Size(71, 27);
+            this.btnClearFilter.TabIndex = 2;
+            this.btnClearFilter.Tag = "Pedidos";
+            this.btnClearFilter.Text = "Limpar";
+            this.btnClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClearFilter.UseVisualStyleBackColor = false;
+            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
             // 
             // label4
             // 
@@ -490,39 +537,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNomeVendedora.TabIndex = 0;
             this.cbNomeVendedora.SelectedIndexChanged += new System.EventHandler(this.cbNomeVendedora_SelectedIndexChanged);
             this.cbNomeVendedora.Leave += new System.EventHandler(this.cbNomeVendedora_Leave);
-            // 
-            // btnConferir
-            // 
-            this.btnConferir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConferir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnConferir.FlatAppearance.BorderSize = 0;
-            this.btnConferir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConferir.ForeColor = System.Drawing.Color.White;
-            this.btnConferir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConferir.Location = new System.Drawing.Point(11, 9);
-            this.btnConferir.Name = "btnConferir";
-            this.btnConferir.Size = new System.Drawing.Size(64, 27);
-            this.btnConferir.TabIndex = 2;
-            this.btnConferir.Tag = "";
-            this.btnConferir.Text = "Conferir";
-            this.btnConferir.UseVisualStyleBackColor = false;
-            this.btnConferir.Click += new System.EventHandler(this.btnConferir_Click);
-            // 
-            // btnFinalizar
-            // 
-            this.btnFinalizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnFinalizar.FlatAppearance.BorderSize = 0;
-            this.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFinalizar.ForeColor = System.Drawing.Color.White;
-            this.btnFinalizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFinalizar.Location = new System.Drawing.Point(90, 9);
-            this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(64, 27);
-            this.btnFinalizar.TabIndex = 2;
-            this.btnFinalizar.Tag = "";
-            this.btnFinalizar.Text = "Finalizar";
-            this.btnFinalizar.UseVisualStyleBackColor = false;
             // 
             // PedidosListForm
             // 
@@ -566,7 +580,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.GroupBox panelCatalogo;
-        private System.Windows.Forms.Button btlClearFilter;
+        private System.Windows.Forms.Button btnClearFilter;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MaskedTextBox mTextCpf;
         private System.Windows.Forms.Label label3;
@@ -591,5 +605,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnConferir;
         private System.Windows.Forms.Button btnFinalizar;
+        private System.Windows.Forms.RadioButton rbTodos;
     }
 }
