@@ -250,7 +250,6 @@ namespace MCatalogos.Views.UserControls.Rotas
         private void AlteraNumeroRota(RotaModel rotalAlvo, RotaModel rotaOrigem)
         {
             //ver se a a vendedora tem não tem rota.
-            List<RotaModel> rotaList = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.rotaLetraModel.RotaLetraId);
 
             if (rotaOrigem.Numero == 0)
             {
@@ -258,6 +257,7 @@ namespace MCatalogos.Views.UserControls.Rotas
                 rotaOrigem = this.rotaNumeroModel;
             }
 
+            List<RotaModel> rotaList = (List<RotaModel>)_rotaNumeroServices.GetAllByLetraId(this.rotaLetraModel.RotaLetraId);
             try
             {
                 _rotaNumeroServices.RefatoraRotas(rotalAlvo, this.vendedoraModel.VendedoraId, rotaList, rotaOrigem);

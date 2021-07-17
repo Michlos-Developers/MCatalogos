@@ -43,14 +43,25 @@ namespace InfrastructureLayer.Validations
         {
             int segundoDigitoCalculado = 0;
             int resultMultiplicador = 0;
+            int multiplicador = 0;
+            int numeroCpf = 0;
+            int resultMTemp = 0;
+            int digitoValido = 0;
 
             for (int i = 0; i < multiplicadorSegundoDigito.Count(); i++)
             {
-                resultMultiplicador += (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorSegundoDigito[i];
+                numeroCpf = int.Parse(cpf.ToString().Substring(i, 1));
+                multiplicador = multiplicadorSegundoDigito[i];
+                resultMTemp = numeroCpf * multiplicador;
+                resultMultiplicador += resultMTemp;
             }
             segundoDigitoCalculado = ((resultMultiplicador * 10) % 11);
+            if (segundoDigitoCalculado == 10)
+                digitoValido = 0;
+            else
+                digitoValido = segundoDigitoCalculado;
 
-            return segundoDigitoCalculado;
+            return digitoValido;
 
         }
 
@@ -58,14 +69,26 @@ namespace InfrastructureLayer.Validations
         {
             int primeiroDigitoCalculado = 0;
             int resultMultiplicador = 0;
+            int multiplicador = 0;
+            int numeroCpf = 0;
+            int resultMTemp = 0;
+            int digitoValido = 0;
 
             for (int i = 0; i < multiplicadorPrimeiroDigito.Count(); i++)
             {
-                resultMultiplicador += (int.Parse(cpf.ToString().Substring(i, 1))) * multiplicadorPrimeiroDigito[i];
+
+                numeroCpf = int.Parse(cpf.ToString().Substring(i, 1));
+                multiplicador = multiplicadorPrimeiroDigito[i];
+                resultMTemp = numeroCpf * multiplicador;
+                resultMultiplicador += resultMTemp;
             }
             primeiroDigitoCalculado = ((resultMultiplicador*10) % 11);
+            if (primeiroDigitoCalculado == 10)
+                digitoValido = 0;
+            else
+                digitoValido = primeiroDigitoCalculado;
 
-            return primeiroDigitoCalculado;
+            return digitoValido;
         }
 
         private string ReplaceCpfToLong(string cpfStr)

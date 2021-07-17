@@ -372,7 +372,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
 
             dgvDetalhePedido.ForeColor = Color.Black;
-            //TODO: FAZER ALINHA FICAR VERMELHA SE FALTOU FOR TRUE;
 
             dgvDetalhePedido.Columns["DetalheId"].Visible = false;
 
