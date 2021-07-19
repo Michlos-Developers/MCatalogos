@@ -3,6 +3,7 @@ using DomainLayer.Models.Vendedora;
 
 using ServiceLayer.CommonServices;
 
+using System;
 using System.Collections.Generic;
 
 namespace ServiceLayer.Services.TitulosReceberServices
@@ -61,6 +62,16 @@ namespace ServiceLayer.Services.TitulosReceberServices
         public void ValidateModel(ITituloReceberModel tituloReceber)
         {
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(tituloReceber);
+        }
+
+        public void UpdateValor(ITituloReceberModel tituloReceber)
+        {
+            _tituloReceberRepository.UpdateValor(tituloReceber);
+        }
+
+        public ITituloReceberModel GetByPedidoId(int pedidoId)
+        {
+            return _tituloReceberRepository.GetByPedidoId(pedidoId);
         }
     }
 }

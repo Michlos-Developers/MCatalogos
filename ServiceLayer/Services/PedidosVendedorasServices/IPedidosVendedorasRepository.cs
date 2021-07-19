@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.PedidosVendedoras;
+﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Vendedora;
 
 using System;
@@ -22,5 +23,6 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
         IEnumerable<IPedidosVendedorasModel> GetAllByDataDespachoIniFim(DateTime dataIni, DateTime dataFim);
         IEnumerable<IPedidosVendedorasModel> GetAllByDataEntregaIniFim(DateTime dataIni, DateTime dataFim);
         void SetStatus(int status, PedidosVendedorasModel pedido);
+        
     }
 }

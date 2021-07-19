@@ -66,5 +66,10 @@ namespace ServiceLayer.Services.DetalhePedidoServices
         {
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(detalhePedidoModel);
         }
+
+        public IEnumerable<IDetalhePedidoModel> GetAllByCampanha(ICampanhaModel model)
+        {
+            return _detalhePedidoRepository.GetAllByCampanha(model);
+        }
     }
 }

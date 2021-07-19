@@ -1,18 +1,25 @@
-﻿using DomainLayer.Models.PedidosVendedoras;
+﻿using DomainLayer.Models.CommonModels.Enums;
+using DomainLayer.Models.PedidosVendedoras;
+using DomainLayer.Models.TitulosReceber;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
+using InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
+using ServiceLayer.Services.TipoTituloServices;
+using ServiceLayer.Services.TitulosReceberServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -39,15 +46,21 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         MainView MainView;
         private List<PedidosVendedorasModel> PedidosList = new List<PedidosVendedorasModel>();
         private List<VendedoraModel> VendedorasList = new List<VendedoraModel>();
+        private List<TituloReceberModel> TitulosReceberList = new List<TituloReceberModel>();
+        private List<TipoTituloModel> TiposTitulosList = new List<TipoTituloModel>();
+
 
         private VendedoraModel VendedoraFilter = new VendedoraModel();
         private PedidosVendedorasModel SelectedPedido = new PedidosVendedorasModel();
         private VendedoraModel SelectedVendedora = new VendedoraModel();
+        private TipoTituloModel TipoTituloModel = new TipoTituloModel();
 
 
         private QueryStringServices _queryString;
         private PedidosVendedorasServices _pedidosServices;
         private VendedoraServices _vendedoraServices;
+        private TituloReceberServices _tituloReceberServices;
+        private TipoTituloServices _tipoTituloServices;
 
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
@@ -58,6 +71,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             _queryString = new QueryStringServices(new QueryString());
             _pedidosServices = new PedidosVendedorasServices(new PedidoVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tituloReceberServices = new TituloReceberServices(new TituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tipoTituloServices = new TipoTituloServices(new TipoTituloRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             MainView = mainView;
@@ -132,7 +147,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     pedidoVendedoraDGV = pedidoVendedoraDGV.Where(pedido => pedido.StatusPed == ((int)StatusPedido.Cancelado));
                     break;
                 default:
-                    
+
                     break;
             }
 
@@ -304,13 +319,10 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void ReadModels()
         {
-            List<VendedoraModel> listVendedoras = new List<VendedoraModel>();
-            listVendedoras = (List<VendedoraModel>)_vendedoraServices.GetAll();
-            VendedorasList = listVendedoras;
-
-            List<PedidosVendedorasModel> listPedidos = new List<PedidosVendedorasModel>();
-            listPedidos = (List<PedidosVendedorasModel>)_pedidosServices.GetAll();
-            PedidosList = listPedidos;
+            VendedorasList = (List<VendedoraModel>)_vendedoraServices.GetAll();
+            PedidosList = (List<PedidosVendedorasModel>)_pedidosServices.GetAll();
+            TitulosReceberList = (List<TituloReceberModel>)_tituloReceberServices.GetAll();
+            TiposTitulosList = (List<TipoTituloModel>)_tipoTituloServices.GetAll();
 
         }
 
@@ -354,18 +366,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         #endregion
 
 
-        private void UncheckRadiosButtons()
-        {
-            rbAberto.Checked = false;
-            rbSeparado.Checked = false;
-            rbFinalizado.Checked = false;
-            rbEntregue.Checked = false;
-            rbEnviado.Checked = false;
-            rbConferido.Checked = false;
-            rbDespachado.Checked = false;
-            rbCancelado.Checked = false;
-            rbTodos.Checked = true;
-        }
 
 
         #region BUTTONS EVENTS
@@ -382,6 +382,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             cbNomeVendedora.SelectedIndex = -1;
             UncheckRadiosButtons();
+            AtualizaDGV();
 
         }
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -391,38 +392,168 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(null, null, this, RequestType.Add);
-            pedidoAddForm.Show();
-            ReadModels();
-            LoadDataGridView();
+
+            EditarPedido(RequestType.Add);
+            AtualizaDGV();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            EditarPedido();
+            EditarPedido(RequestType.Edit);
+            AtualizaDGV();
         }
         private void btnConferir_Click(object sender, EventArgs e)
         {
-            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
-            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Confere);
-            pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
-            pedidoAddForm.Show();
+
+            EditarPedido(RequestType.Confere);
+            AtualizaDGV();
+        }
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            EditarPedido(RequestType.Finaliza);
+            AtualizaDGV();
+
         }
 
         #endregion
-        private void EditarPedido()
+        private void EditarPedido(RequestType requestType)
         {
-            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
-            PedidoAddForm pedidoAddForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Edit);
-            pedidoAddForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
-            pedidoAddForm.Show();
+            PedidoAddForm pedidoForm = null;
+            if (requestType == RequestType.Add)
+            {
+                pedidoForm = PedidoAddForm.Instance(null, null, this, RequestType.Add);
+            }
+            else if (requestType == RequestType.Edit)
+            {
+                SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+                SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+                pedidoForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Edit);
+                pedidoForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
+
+            }
+            else if (requestType == RequestType.Confere)
+            {
+                SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+                SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+                if (SelectedPedido.StatusPed != ((int)StatusPedido.Finalizado))
+                {
+                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Confere);
+                    pedidoForm.Text = $"Conferindo Pedido - Vendedora: {SelectedVendedora.Nome}";
+                }
+                else
+                {
+                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Edit);
+                    pedidoForm.Text = $"Conferindo pedido - Vendedora: {SelectedVendedora.Nome}";
+                }
+
+            }
+            else if (requestType == RequestType.Finaliza)
+            {
+                try
+                {
+
+                    SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+                    _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), SelectedPedido);
+
+                    MessageBox.Show($"Pedido Finalizado.");
+
+                    //TODO: GERAR CONTAS A PAGAR.
+                }
+                catch (Exception e)
+                {
+
+                    MessageBox.Show("Não foi possível finalizar o pedido.\nMessage: " + e.Message);
+                }
+
+                if (TemContasReceber(SelectedPedido))
+                {
+                    AtualizaContaReceber(SelectedPedido);
+                }
+                else
+                {
+                    GeraContasReceber(SelectedPedido);
+                }
+            }
+
+            if (requestType != RequestType.Finaliza)
+                pedidoForm.Show();
+
+        }
+
+        private void GeraContasReceber(PedidosVendedorasModel selectedPedido)
+        {
+            TituloReceberModel tituloVendedora = new TituloReceberModel();
+            //TODO: Configurar o tipo de título em configurações
+            TipoTituloModel = _tipoTituloServices.GetById(1);
+            //TODO: Configurar a data de vencimento conforme configurações do sistema.
+            DateTime dataVencimento = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 10);
+
+            //GERAR CONTAS CONTAS A RECEBER.
+            tituloVendedora.VendedoraId = selectedPedido.VendedoraId;
+            tituloVendedora.PedidoId = selectedPedido.PedidoId;
+            tituloVendedora.TipoTituloId = TipoTituloModel.TipoId;
+            tituloVendedora.ValorTitulo = (double)(selectedPedido.ValorTotalPedido - selectedPedido.ValorLucroVendedora);
+            tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
+            tituloVendedora.DataEmissao = DateTime.Now;
+            tituloVendedora.DataRegistro = DateTime.Now;
+            tituloVendedora.DataVencimento = dataVencimento;
+            tituloVendedora.ValorDesconto = 0;
+            tituloVendedora.ValorLiquidado = 0;
+            tituloVendedora.QtdParcelas = 1;
+            tituloVendedora.Liquidado = false;
+            tituloVendedora.Cancelado = false;
+            tituloVendedora.Protestado = false;
+            tituloVendedora.Parcelado = false;
+
+            try
+            {
+                _tituloReceberServices.Add(tituloVendedora);
+                MessageBox.Show($"Foi gerado um título a receber no valor de R$ {SelectedPedido.ValorTotalPedido - SelectedPedido.ValorLucroVendedora}");
+
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show("Não foi possível registrar constas a receber.\nMessage: " + e.Message);
+            }
+        }
+
+        private void AtualizaContaReceber(PedidosVendedorasModel selectedPedido)
+        {
+            //ATUALIZA CONTAS A RECEBER
+            TituloReceberModel tituloVendedora = new TituloReceberModel();
+            tituloVendedora = (TituloReceberModel)_tituloReceberServices.GetByPedidoId(tituloVendedora.PedidoId);
+            tituloVendedora.ValorTitulo = (double)(selectedPedido.ValorTotalPedido - selectedPedido.ValorLucroVendedora);
+            tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
+            _tituloReceberServices.UpdateValor(tituloVendedora);
+        }
+
+        private bool TemContasReceber(PedidosVendedorasModel selectedPedido)
+        {
+
+            if (TitulosReceberList.Count != 0)
+            {
+                //VERIFICAR SE A VENDEDORA JÁ TEM UM CONTAS A RECEBER DESSE PEDIDO
+                if (TitulosReceberList.Where(tit => tit.PedidoId == selectedPedido.PedidoId).Any())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void dgvPedidos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarPedido();
+            EditarPedido(RequestType.Edit);
+            AtualizaDGV();
         }
 
         public void AtualizaDGV()
@@ -433,6 +564,18 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
 
         #region RADIOS BUTTONS CHECKED CHANGED
+        private void UncheckRadiosButtons()
+        {
+            rbAberto.Checked = false;
+            rbSeparado.Checked = false;
+            rbFinalizado.Checked = false;
+            rbEntregue.Checked = false;
+            rbEnviado.Checked = false;
+            rbConferido.Checked = false;
+            rbDespachado.Checked = false;
+            rbCancelado.Checked = false;
+            rbTodos.Checked = true;
+        }
         private void rbAberto_CheckedChanged(object sender, EventArgs e)
         {
             if (rbAberto.Checked)
@@ -501,9 +644,44 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         }
         #endregion
 
-        private void btnFinalizar_Click(object sender, EventArgs e)
+        private void dgvPedidos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            //TODO: FINALIZAR PEDIDO GERANDO CONTAS A RECEBER E A PAGAR.
+            if (e.ColumnIndex == 5 && e.RowIndex != dgvPedidos.NewRowIndex)
+            {
+                if (dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Aberto")
+                {
+                    dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.LimeGreen;
+                    dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.White;
+
+                }
+                else if (dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Conferido")
+                {
+                    dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Yellow;
+                    dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Blue;
+
+                }
+                else if (dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Finalizado")
+                {
+                    dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.IndianRed;
+                    dgvPedidos.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.White;
+
+                }
+            }
+        }
+
+        private void dgvPedidos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.F7)
+            {
+                SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+                SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+                var result = MessageBox.Show($"Tem certeza que deseja \"REABRIR\" o pedido da vendedora \"{SelectedVendedora.Nome}\"??", "Reabertura de Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    _pedidosServices.SetStatus(((int)StatusPedido.Aberto), SelectedPedido);
+                }
+            }
+            AtualizaDGV();
         }
     }
 }

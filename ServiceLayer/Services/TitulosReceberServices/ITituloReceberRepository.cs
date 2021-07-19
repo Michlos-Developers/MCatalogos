@@ -22,5 +22,7 @@ namespace ServiceLayer.Services.TitulosReceberServices
         IEnumerable<ITituloReceberModel> GetAllByVendedora(IVendedoraModel vendedoraModel);
         
         ITituloReceberModel GetById(int id);
+        void UpdateValor(ITituloReceberModel tituloVendedora);
+        ITituloReceberModel GetByPedidoId(int pedidoId);
     }
 }

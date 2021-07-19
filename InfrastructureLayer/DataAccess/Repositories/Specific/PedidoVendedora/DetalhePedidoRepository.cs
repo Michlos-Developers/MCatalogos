@@ -220,6 +220,64 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             }
         }
 
+        public IEnumerable<IDetalhePedidoModel> GetAllByCampanha(ICampanhaModel model)
+        {
+            List<DetalhePedidoModel> detalhes = new List<DetalhePedidoModel>();
+
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query =  " SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, " +
+                            " MargemDistribuidor, ValorProduto, Quantidade FROM DetalhesPedidosVendedoras " +
+                            " WHERE CampanhaId = @CampanhaId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@CampanhaId", model.CampanhaId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                DetalhePedidoModel detalheModel = new DetalhePedidoModel();
+                                detalheModel.DetalheId = int.Parse(reader["DetalheId"].ToString());
+                                detalheModel.PedidoId = int.Parse(reader["PedidoId"].ToString());
+                                detalheModel.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
+                                detalheModel.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
+                                detalheModel.Referencia = reader["Referencia"].ToString();
+                                detalheModel.MargemVendedora = double.Parse(reader["MargemVendedora"].ToString());
+                                detalheModel.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
+                                detalheModel.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
+                                detalheModel.Quantidade = int.Parse(reader["Quantidade"].ToString());
+
+                                detalhes.Add(detalheModel);
+
+
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar lista de Detalhes de Pedidos pela Campanha Selecionada",
+                        e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return detalhes;
+
+
+        }
+
         public IEnumerable<IDetalhePedidoModel> GetAllByPedido(IPedidosVendedorasModel pedidosVendedorasModel)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();

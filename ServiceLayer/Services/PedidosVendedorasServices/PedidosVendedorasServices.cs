@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.PedidosVendedoras;
+﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Vendedora;
 
 using ServiceLayer.CommonServices;
@@ -92,5 +93,6 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
         {
             _pedidosVendedorasRepository.SetStatus(status, pedido);
         }
+
     }
 }

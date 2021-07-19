@@ -24,6 +24,17 @@ namespace MCatalogos.Views.FormViews.Catalogos
 {
     public partial class CatalogosListForm : Form
     {
+        enum StatusCatalogo
+        {
+            Ativo,
+            Inativo,
+            Todos
+        }
+        enum ModeRequestForm
+        {
+            Add,
+            Edit
+        }
         #region PROPRIEDADES PARA MOVER A JANELA
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -37,9 +48,15 @@ namespace MCatalogos.Views.FormViews.Catalogos
         QueryStringServices _queryString;
         MainView MainView;
 
+        private List<CatalogoModel> ListCatalogos = new List<CatalogoModel>();
+
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaServices;
         private FornecedorServices _fornecedorServices;
+
+        private IEnumerable<CatalogoModel> catalogosDGV;
+
+        private StatusCatalogo status = StatusCatalogo.Ativo;
 
 
         //Instancia a janela como um objeto para não abrir mais de uma janela da mesma instância.
@@ -72,25 +89,45 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         //OWN METHODS
         //CÓDIGO / NOME DO CATÁLOGO/ FORNECEDOR (NOME FANTASIA)  / CAMPANHA ATUAL /ATIVO
-        //TODO: CRIAR CHECKBOX PARA MOSTRAR INATIVOS
 
         public void LoadCatalogosToDataGridView()
         {
-            List<CatalogoModel> modelList = null;
+            catalogosDGV = ListCatalogos;
 
-            try
+            catalogosDGV = ConfiguraDGVByStatus(status, catalogosDGV);
+
+            DataTable tableCatalogos = ModelaDataTableCatalogos();
+            DataRow row = ModelaDataRowTableCatalogos(tableCatalogos, catalogosDGV);
+
+            ConfiguraDataGridView(tableCatalogos);
+
+        }
+
+        private DataRow ModelaDataRowTableCatalogos(DataTable tableCatalogos, IEnumerable<CatalogoModel> catalogosDGV)
+        {
+            DataRow row = null;
+            if (catalogosDGV.Any())
             {
-                modelList = (List<CatalogoModel>)_catalogoServices.GetAll();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Não foi possível trazer a lista de Catálogos.\nMessage: {e.Message}", "Error Access List");
+                foreach (CatalogoModel model in catalogosDGV)
+                {
+                    row = tableCatalogos.NewRow();
+                    row["CatalogoId"] = int.Parse(model.CatalogoId.ToString());
+                    row["Nome"] = model.Nome.ToString();
+                    row["Fornecedor"] = _fornecedorServices.GetById(model.FornecedorId).NomeFantasia.ToString();
+                    row["Status"] = model.Ativo ? "Ativo" : "Inativo";
+
+                    tableCatalogos.Rows.Add(row);
+
+                }
             }
 
-            //MODELANDO DATA GRID VIEW
+            return row;
+        }
+
+        private DataTable ModelaDataTableCatalogos()
+        {
             DataTable tableCatalogos = new DataTable();
             DataColumn column;
-            DataRow row;
 
             //1ª COLUNA = CatalogoId
             column = new DataColumn();
@@ -115,29 +152,31 @@ namespace MCatalogos.Views.FormViews.Catalogos
             column.ColumnName = "Status";
             tableCatalogos.Columns.Add(column);
 
-            //TODO: 4ª COLUNA = CAMPANHAATUAL
-
-            if (modelList.Count != 0)
-            {
-                foreach (CatalogoModel model in modelList)
-                {
-                    row = tableCatalogos.NewRow();
-                    row["CatalogoId"] = int.Parse(model.CatalogoId.ToString());
-                    row["Nome"] = model.Nome.ToString();
-                    row["Fornecedor"] = _fornecedorServices.GetById(model.FornecedorId).NomeFantasia.ToString();
-                    row["Status"] = model.Ativo ? "Ativo" : "Inativo";
-
-                    tableCatalogos.Rows.Add(row);
-
-                }
-            }
-            dgvCatalogos.DataSource = tableCatalogos;
-            ConfiguraDataGridView();
-
+            return tableCatalogos;
         }
 
-        private void ConfiguraDataGridView()
+        private IEnumerable<CatalogoModel> ConfiguraDGVByStatus(StatusCatalogo status, IEnumerable<CatalogoModel> catalogosDGV)
         {
+            switch (status)
+            {
+                case StatusCatalogo.Ativo:
+                    catalogosDGV = catalogosDGV.Where(stat => stat.Ativo);
+                    break;
+                case StatusCatalogo.Inativo:
+                    catalogosDGV = catalogosDGV.Where(stat => stat.Ativo == false);
+                    break;
+                default:
+                    break;
+
+            }
+
+            return catalogosDGV;
+        }
+
+        private void ConfiguraDataGridView(DataTable tableCatalogos)
+        {
+            dgvCatalogos.DataSource = tableCatalogos;
+
             dgvCatalogos.Columns["CatalogoId"].Width = 50;
             dgvCatalogos.Columns["CatalogoId"].HeaderText = "Código";
             dgvCatalogos.Columns["Nome"].Width = 200;
@@ -168,7 +207,13 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         private void CatalogosListForm_Load(object sender, EventArgs e)
         {
+            LoadListCatalogos();
             LoadCatalogosToDataGridView();
+        }
+
+        private void LoadListCatalogos()
+        {
+            ListCatalogos = (List<CatalogoModel>)_catalogoServices.GetAll();
         }
 
         private void CatalogosListForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -202,17 +247,18 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CatalogoForm catalogoForm = new CatalogoForm(this);
-            catalogoForm.ShowDialog();
+            AbrirEdicaoCatalogo(ModeRequestForm.Add);
+            LoadListCatalogos();
+            LoadCatalogosToDataGridView();
+
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            CatalogoForm catalogoForm = new CatalogoForm(this);
-            catalogoForm.catalogoId = int.Parse(this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
-            catalogoForm.fornecedorId = _catalogoServices.GetById(int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString())).FornecedorId;
-            catalogoForm.textCatalogoId.Text = this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString();
-            catalogoForm.ShowDialog();
+            AbrirEdicaoCatalogo(ModeRequestForm.Edit);
+            LoadListCatalogos();
+            LoadCatalogosToDataGridView();
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -240,6 +286,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     {
                         MessageBox.Show($"Não foi possível apagar o registro do Catálogo.\nErrorMessage: \n{ex.Message}", "Error");
                     }
+                    LoadListCatalogos();
                     LoadCatalogosToDataGridView();
                 }
             }
@@ -247,11 +294,31 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         private void dgvCatalogos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            AbrirEdicaoCatalogo(ModeRequestForm.Edit);
+            LoadListCatalogos();
+            LoadCatalogosToDataGridView();
+
+        }
+
+        private void AbrirEdicaoCatalogo(ModeRequestForm modeRequest)
+        {
             CatalogoForm catalogoForm = new CatalogoForm(this);
-            catalogoForm.catalogoId = int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
-            catalogoForm.fornecedorId = _catalogoServices.GetById(int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString())).FornecedorId;
-            catalogoForm.textCatalogoId.Text = dgvCatalogos.CurrentRow.Cells[0].Value.ToString();
+            if (modeRequest == ModeRequestForm.Edit)
+            {
+                catalogoForm.catalogoId = int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
+                catalogoForm.fornecedorId = _catalogoServices.GetById(int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString())).FornecedorId;
+                catalogoForm.textCatalogoId.Text = dgvCatalogos.CurrentRow.Cells[0].Value.ToString();
+            }
             catalogoForm.ShowDialog();
+        }
+
+        private void chkExibeInativos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkExibeInativos.Checked)
+                status = StatusCatalogo.Todos;
+            else
+                status = StatusCatalogo.Ativo;
+            LoadCatalogosToDataGridView();
         }
     }
 }

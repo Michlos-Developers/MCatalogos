@@ -112,6 +112,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void PedidoAddForm_Load(object sender, EventArgs e)
         {
             LoadComboBoxCatalogos();
+
             if (RType == RequestType.Add)
             { //NOVO PEDIDO
 
@@ -133,25 +134,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             { //EDIT PEDIDO
                 PreencheCampos(VendedoraModel, PedidoModel, RType);
                 LoadDetalhesPedido(PedidoModel, null);
-                if (PedidoModel.StatusPed != ((int)StatusPedido.Aberto))
-                {
-                    StatusPedido statusAtual = (StatusPedido)PedidoModel.StatusPed;
-                    MessageBox.Show($"Pedido \"{((StatusPedido)PedidoModel.StatusPed).ToString()}\".\n Tela para simples conferência de informações\n", $"Status: {((StatusPedido)PedidoModel.StatusPed).ToString()}", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    gbAddItem.Enabled = false;
-                    cbCatalogo.Enabled = false;
-                    cbCampanha.Enabled = false;
-                    btnDelete.Enabled = false;
-                    btnEdit.Enabled = false;
-
-                }
+                VerificaStatusAtual(PedidoModel);
+                
 
             }
             else if (RType == RequestType.Confere)
             {
                 PedidoModel.StatusPed = (int)StatusPedido.Conferido;
                 _pedidoServices.SetStatus(PedidoModel.StatusPed, PedidoModel);
-                PreencheCampos(VendedoraModel, PedidoModel, RType);
-                LoadDetalhesPedido(PedidoModel, null);
+                VerificaStatusAtual(PedidoModel);
             }
             else if (RType == RequestType.Finaliza)
             {
@@ -164,6 +155,37 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
         }
+
+        private void VerificaStatusAtual(PedidosVendedorasModel pedidoModel)
+        {
+            StatusPedido statusAtual = (StatusPedido)pedidoModel.StatusPed;
+            if (pedidoModel.StatusPed == ((int)StatusPedido.Finalizado))
+            {
+                
+                MessageBox.Show($"Pedido \"{((StatusPedido)statusAtual).ToString()}\".\n Tela para simples conferência de informações\n", $"Status: {((StatusPedido)statusAtual).ToString()}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                gbAddItem.Enabled = false;
+                cbCatalogo.Enabled = false;
+                cbCampanha.Enabled = false;
+                btnDelete.Enabled = false;
+                btnEdit.Enabled = false;
+                dgvDetalhePedido.ReadOnly = true;
+                dgvDetalhePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            }
+            else if (pedidoModel.StatusPed == ((int)StatusPedido.Conferido))
+            {
+                MessageBox.Show($"Pedido \"{((StatusPedido)statusAtual).ToString()}\".\n Você só é permitido editar as faltas.", $"Status: {((StatusPedido)statusAtual).ToString()}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                gbAddItem.Enabled = false;
+                cbCatalogo.Enabled = false;
+                cbCampanha.Enabled = false;
+                btnDelete.Enabled = false;
+                btnEdit.Enabled = false;
+                PreencheCampos(VendedoraModel, pedidoModel, RequestType.Confere);
+                LoadDetalhesPedido(pedidoModel, null);
+                
+            }
+        }
+
         private VendedoraModel SelecionarVendedora()
         {
             SelectVendedoraForm selectVendedoraForm = SelectVendedoraForm.Instance(this);
@@ -882,7 +904,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void CalculaTotais(CatalogoModel catalogo)
         {
-            //TODO: Valor a receber está com o valor do custo. Corrigir
             double totalLucroVendedora = 0;
             double totalLucroDistribuidor = 0;
             double totalReceber = 0;

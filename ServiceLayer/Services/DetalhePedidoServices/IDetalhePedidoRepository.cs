@@ -17,5 +17,6 @@ namespace ServiceLayer.Services.DetalhePedidoServices
         IEnumerable<IDetalhePedidoModel> GetAll();
         IEnumerable<IDetalhePedidoModel> GetAllByPedido(IPedidosVendedorasModel pedidosVendedorasModel);
         IEnumerable<IDetalhePedidoModel> GetAllByPedidoCatalogo(IPedidosVendedorasModel pedidosVendedorasModel, ICatalogoModel catalogoModel);
+        IEnumerable<IDetalhePedidoModel> GetAllByCampanha(ICampanhaModel model);
     }
 }

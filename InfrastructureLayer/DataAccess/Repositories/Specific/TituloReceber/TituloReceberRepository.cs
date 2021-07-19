@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +109,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                     connection.Close();
                 }
 
-                tituloReceber = GetById(idReturned);
+                tituloReceber.TituloId = idReturned;
                 return tituloReceber;
                 
             }
@@ -159,7 +160,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
-                        cmd.Parameters.AddWithValue("@TituloId", tituloReceber.TituloId);
+                        cmd.Parameters.Add(new SqlParameter("@TituloId", id));
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -214,26 +215,31 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            TituloReceberModel model = new TituloReceberModel();
+                            while (reader.Read())
+                            {
 
-                            model.TituloId = int.Parse(reader["TituloId"].ToString());
-                            model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
-                            model.PedidoId = int.Parse(reader["PedidoId"].ToString());
-                            model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
-                            model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
-                            model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
-                            model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
-                            model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                            model.DataVencimento = DateTime.Parse(reader["DataVemcimento"].ToString());
-                            model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
-                            model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
-                            model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                            model.Liquidado = bool.Parse(reader["Liquidado"].ToString());
-                            model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
-                            model.Protestado = bool.Parse(reader["Protestado"].ToString());
-                            model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
 
-                            modelList.Add(model);
+                                TituloReceberModel model = new TituloReceberModel();
+
+                                model.TituloId = int.Parse(reader["TituloId"].ToString());
+                                model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                model.PedidoId = int.Parse(reader["PedidoId"].ToString());
+                                model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                                model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
+                                model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
+                                model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
+                                model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
+                                model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
+                                model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
+                                model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
+                                model.Liquidado = bool.Parse(reader["Liquidado"].ToString());
+                                model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
+                                model.Protestado = bool.Parse(reader["Protestado"].ToString());
+                                model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
+
+                                modelList.Add(model);
+                            }
                         }
 
                     }
@@ -371,6 +377,94 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                     connection.Close();
                 }
             }
+        }
+
+        public void UpdateValor(ITituloReceberModel tituloVendedora)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "UPDATE TitulosReceber SET ValorTitulo = @ValorTitulo, ValorParcela = @ValorParcela WHERE TituloId = TituloId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@ValorTitulo", tituloVendedora.ValorTitulo);
+                        cmd.Parameters.AddWithValue("@ValorParcela", tituloVendedora.ValorParcela);
+                        cmd.Parameters.AddWithValue("@TituloId", tituloVendedora.TituloId);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível atualiar os valores do título a receber", e.HelpLink, e.ErrorCode, e.StackTrace);
+
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public ITituloReceberModel GetByPedidoId(int pedidoId)
+        {
+            TituloReceberModel model = new TituloReceberModel();
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = " SELECT * FROM TitulosReceber WHERE PedidoId = @PedidoId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.Add(new SqlParameter("@PedidoId", pedidoId));
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                model.TituloId = int.Parse(reader["TituloId"].ToString());
+                                model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                model.PedidoId = int.Parse(reader["PedidoId"].ToString());
+                                model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                                model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
+                                model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
+                                model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
+                                model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
+                                model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
+                                model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
+                                model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
+                                model.Liquidado = bool.Parse(reader["Liquidado"].ToString());
+                                model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
+                                model.Protestado = bool.Parse(reader["Protestado"].ToString());
+                                model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar o título pelo Pedido Id", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return model;
+            }
+
         }
     }
 }

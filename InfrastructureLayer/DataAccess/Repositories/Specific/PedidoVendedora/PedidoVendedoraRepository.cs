@@ -1,5 +1,6 @@
 ﻿using CommonComponents;
 
+using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Vendedora;
 
@@ -627,7 +628,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                 }
             }
         }
-
 
     }
 }

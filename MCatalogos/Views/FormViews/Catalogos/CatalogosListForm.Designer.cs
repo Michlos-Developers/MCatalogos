@@ -39,6 +39,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContentDGV = new System.Windows.Forms.Panel();
             this.dgvCatalogos = new System.Windows.Forms.DataGridView();
+            this.chkExibeInativos = new System.Windows.Forms.CheckBox();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -168,6 +169,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // panelContentDGV
             // 
             this.panelContentDGV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContentDGV.Controls.Add(this.chkExibeInativos);
             this.panelContentDGV.Controls.Add(this.dgvCatalogos);
             this.panelContentDGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContentDGV.Location = new System.Drawing.Point(0, 30);
@@ -187,7 +189,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.dgvCatalogos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvCatalogos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCatalogos.GridColor = System.Drawing.Color.DeepSkyBlue;
-            this.dgvCatalogos.Location = new System.Drawing.Point(12, 6);
+            this.dgvCatalogos.Location = new System.Drawing.Point(12, 40);
             this.dgvCatalogos.Name = "dgvCatalogos";
             this.dgvCatalogos.ReadOnly = true;
             this.dgvCatalogos.RowHeadersVisible = false;
@@ -196,11 +198,23 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.dgvCatalogos.ShowCellErrors = false;
             this.dgvCatalogos.ShowEditingIcon = false;
             this.dgvCatalogos.ShowRowErrors = false;
-            this.dgvCatalogos.Size = new System.Drawing.Size(776, 398);
+            this.dgvCatalogos.Size = new System.Drawing.Size(776, 364);
             this.dgvCatalogos.TabIndex = 0;
             this.dgvCatalogos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellClick);
             this.dgvCatalogos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellDoubleClick);
             this.dgvCatalogos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCatalogos_CellFormatting);
+            // 
+            // chkExibeInativos
+            // 
+            this.chkExibeInativos.AutoSize = true;
+            this.chkExibeInativos.ForeColor = System.Drawing.Color.White;
+            this.chkExibeInativos.Location = new System.Drawing.Point(686, 16);
+            this.chkExibeInativos.Name = "chkExibeInativos";
+            this.chkExibeInativos.Size = new System.Drawing.Size(102, 18);
+            this.chkExibeInativos.TabIndex = 1;
+            this.chkExibeInativos.Text = "Exibir Inativos";
+            this.chkExibeInativos.UseVisualStyleBackColor = true;
+            this.chkExibeInativos.CheckedChanged += new System.EventHandler(this.chkExibeInativos_CheckedChanged);
             // 
             // CatalogosListForm
             // 
@@ -224,6 +238,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
             this.panelCommands.ResumeLayout(false);
             this.panelContentDGV.ResumeLayout(false);
+            this.panelContentDGV.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogos)).EndInit();
             this.ResumeLayout(false);
 
@@ -241,5 +256,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panelContentDGV;
         public System.Windows.Forms.DataGridView dgvCatalogos;
+        private System.Windows.Forms.CheckBox chkExibeInativos;
     }
 }

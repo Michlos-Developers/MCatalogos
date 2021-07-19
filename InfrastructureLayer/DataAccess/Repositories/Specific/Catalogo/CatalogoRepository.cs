@@ -345,8 +345,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                            "VariacaoDeValor = @VariacaoDeValor, " +
                            "TamanhoValorVariavel = @TamanhoValorVariavel, " +
                            "NumeracaoValorVariavel = @NumeracaoValorVariavel, " +
-                           "FornecedorId = @FornecedorId " +
-                           "ImportaProudtos = @ImportaProdutos" +
+                           "FornecedorId = @FornecedorId, " +
+                           "ImportaProdutos = @ImportaProdutos " +
                            "WHERE CatalogoId = @CatalogoId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))

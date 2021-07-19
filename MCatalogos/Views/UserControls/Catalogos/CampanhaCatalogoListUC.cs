@@ -1,12 +1,16 @@
 ﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.PedidosVendedoras;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 
 using MCatalogos.Views.FormViews.Catalogos;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.PedidosVendedorasServices;
 
 using System;
 using System.Collections.Generic;
@@ -28,6 +32,9 @@ namespace MCatalogos.Views.UserControls.Catalogos
 
         private CampanhaServices _campanhaServices;
         private CatalogoServices _catalogoServices;
+        private PedidosVendedorasServices _pedidoServices;
+        private DetalhePedidoSerivces _detalhePedido;
+
         public int catalogoId = 0;
         public int? idCampanhaDgv = null;
         public int campanhaId = 0;
@@ -36,6 +43,9 @@ namespace MCatalogos.Views.UserControls.Catalogos
             _queryString = new QueryStringServices(new QueryString());
             _campanhaServices = new CampanhaServices(new CampanhaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _pedidoServices = new PedidosVendedorasServices(new PedidoVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _detalhePedido = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+
 
 
             InitializeComponent();
@@ -195,15 +205,22 @@ namespace MCatalogos.Views.UserControls.Catalogos
         private void btnDelete_Click(object sender, EventArgs e)
         {
             CampanhaModel model = _campanhaServices.GetById(int.Parse(dgvCampanhas.CurrentRow.Cells[0].Value.ToString()));
+            List<DetalhePedidoModel> detalhesPedidosNaCampanha = new List<DetalhePedidoModel>();
+            detalhesPedidosNaCampanha = (List<DetalhePedidoModel>)_detalhePedido.GetAllByCampanha(model);
 
-            var result = MessageBox.Show($"Você está prestes a APAGAR a Campanha inteira do Catálogo Selecionado. " +
+           var result = MessageBox.Show($"Você está prestes a APAGAR a Campanha inteira do Catálogo Selecionado. " +
                 $"Tem certeza disso?", "Exclusão de Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                //TODO: Checar se tem pedido na campanha antes de apagar. Se tiver pedido não apaga apenas desativa.
+                
                 try
                 {
+                    if (detalhesPedidosNaCampanha.Any())
+                    {
+                        throw new Exception("Essa campanha possui pedidos cadastrados e não pode ser apagada. Por favor desabilite-a" );
+                    }
+
                     _campanhaServices.Delete(model);
                 }
                 catch (Exception ex)

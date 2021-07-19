@@ -6201,6 +6201,7 @@ CREATE TABLE TitulosReceber(
 	PedidoId INT NOT NULL,
 	TipoTituloId INT NOT NULL,
 	ValorTitulo MONEY NOT NULL,
+	ValorParcela MONEY NOT NULL,
 	DataEmissao DATETIME NOT NULL,
 	DataRegistro DATETIME DEFAULT GETDATE(),
 	DataVencimento DATETIME NOT NULL,
