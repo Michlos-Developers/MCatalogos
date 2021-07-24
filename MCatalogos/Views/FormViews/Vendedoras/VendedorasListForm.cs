@@ -42,7 +42,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
-        private int? id = null;
+        private int indexDGV = 0;
         private static VendedorasListForm aForm = null;
         public static VendedorasListForm Instance(MainView mainView)
         {
@@ -81,26 +81,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 MessageBox.Show($"Não foi possível trazer a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List");
             }
 
-            DataTable tableVendedoras = new DataTable();
-            DataColumn column;
+            DataTable tableVendedoras = ModelaDataTable();
+            ModelaRowTable(tableVendedoras, modelList);
+
+            dgvVendedoras.DataSource = tableVendedoras;
+            ConfiguraDataGridView();
+        }
+
+        private void ModelaRowTable(DataTable tableVendedoras, List<VendedoraModel> modelList)
+        {
             DataRow row;
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "VendedoraId";
-            tableVendedoras.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Nome";
-            tableVendedoras.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Cpf";
-            column.Caption = "CPF";
-            tableVendedoras.Columns.Add(column);
-
+           
             if (modelList.Count != 0)
             {
                 foreach (VendedoraModel model in modelList)
@@ -114,9 +105,20 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 }
             }
 
-            dgvVendedoras.DataSource = tableVendedoras;
-            ConfiguraDataGridView();
+            
         }
+
+        private DataTable ModelaDataTable()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("VendedoraId", typeof(int));
+            table.Columns.Add("Nome", typeof(string));
+            table.Columns.Add("Cpf", typeof(string));
+
+            return table;
+            
+        }
+
         public void ConfiguraDataGridView()
         {
             dgvVendedoras.Columns[0].HeaderText = "Código";
@@ -127,6 +129,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             dgvVendedoras.Columns[2].HeaderText = "CPF";
             dgvVendedoras.Columns[2].Width = 108;
+
+            if (indexDGV != 0)
+            {
+                dgvVendedoras.Rows[0].Selected = false;
+                dgvVendedoras.Rows[indexDGV].Selected = true;
+            }
 
         }
 
@@ -181,8 +189,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         }
         private void dgvVendedoras_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            id = e.RowIndex;
-            //VendedoraModel vm = dgvVendedoras.Columns["VendedoraId"].Selected();
+            if (dgvVendedoras.CurrentRow != null)
+            {
+                indexDGV = dgvVendedoras.CurrentRow.Index;
+            }
         }
         private void dgvVendedoras_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -248,6 +258,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+
     }
 
 }

@@ -65,6 +65,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
         private StatusPedido status = StatusPedido.Todos;
+        private int indexDGV = 0;
 
         public PedidosListForm(MainView mainView)
         {
@@ -196,40 +197,17 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private DataTable ModelaDataTablePedidos()
         {
-            DataTable tablePedidos = new DataTable();
-            DataColumn column;
+            DataTable table = new DataTable();
 
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "CodigoColumn";
-            tablePedidos.Columns.Add(column);
+            
+            table.Columns.Add("CodigoColumn", typeof(int));
+            table.Columns.Add("VendedoraNomeColumn", typeof(string));
+            table.Columns.Add("DataRegColumn", typeof(DateTime));
+            table.Columns.Add("QtdCatalogoColumn", typeof(int));
+            table.Columns.Add("ValorTotalColumn", typeof(string));
+            table.Columns.Add("StatusColumn", typeof(string));
 
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "VendedoraNameColumn";
-            tablePedidos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.DateTime");
-            column.ColumnName = "DataRegColumn";
-            tablePedidos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "QtdCatalogoColumn";
-            tablePedidos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorTotalColumn";
-            tablePedidos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "StatusColumn";
-            tablePedidos.Columns.Add(column);
-
-            return tablePedidos;
+            return table;
         }
 
         private object GetStatusPedido(int statusPed)
@@ -416,16 +394,30 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
             if (rbTodos.Checked)
             { //SÓ LIBERA A OPÇÃO DE FINALIZAR TODOS SE ESTIVEREM TODOS LISTADOS
-                
+
                 var result = MessageBox.Show("Deseja finalizar todos os pedidos?", $"Finalizando Pedido - Vendedora: {dgvPedidos.CurrentRow.Cells[1].Value.ToString()}", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                     FinalizaTodosPedidos(dgvPedidos);
                 else
-                    EditarPedido(SelectedPedido, RequestType.Finaliza);
+                {
+                    try
+                    {
+
+                        EditarPedido(SelectedPedido, RequestType.Finaliza);
+                        MessageBox.Show($"Pedido {SelectedPedido.PedidoId} Finalizado com sucesso");
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                }
             }
             else
             {
                 EditarPedido(SelectedPedido, RequestType.Finaliza);
+                MessageBox.Show($"Pedido {SelectedPedido.PedidoId} Finalizado com sucesso");
             }
 
             AtualizaDGV();
@@ -435,20 +427,30 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void FinalizaTodosPedidos(DataGridView dgvPedidos)
         {
             List<PedidosVendedorasModel> ListaPedidos = new List<PedidosVendedorasModel>();
-            foreach (string[] item in dgvPedidos.Rows)
+            foreach (DataGridViewRow row in dgvPedidos.Rows)
             {//percorre DGV e coloca cada id na lista de pedidos.
                 PedidosVendedorasModel model = new PedidosVendedorasModel();
-                model = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(item[0].ToString()));
+                model = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(row.Cells[0].Value.ToString()));
                 ListaPedidos.Add(model);
             }
 
-            foreach (var pedido in ListaPedidos)
-            {//finaliza a lista de pedidos
-                if (pedido.StatusPed != ((int)StatusPedido.Cancelado))
-                {
-                    EditarPedido(pedido, RequestType.Finaliza);
+            try
+            {
+                foreach (var pedido in ListaPedidos)
+                {//finaliza a lista de pedidos
+                    if (pedido.StatusPed != ((int)StatusPedido.Cancelado))
+                    {
+                        EditarPedido(pedido, RequestType.Finaliza);
+                    }
                 }
+
+                MessageBox.Show($"Foram finalizados todos os pedidos.");
             }
+            catch (Exception e)
+            {
+                throw new Exception("Não foi possível finalizar todos os pedidos.\nMessageError: " + e.Message, e.InnerException);
+            }
+
         }
 
 
@@ -470,7 +472,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
             else if (requestType == RequestType.Confere)
             {
-                pedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
                 SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
                 if (pedido.StatusPed != ((int)StatusPedido.Finalizado))
                 {
@@ -489,17 +490,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 try
                 {
 
-                    pedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
                     _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
-
-                    MessageBox.Show($"Pedido Finalizado.");
 
                     //TODO: GERAR CONTAS A PAGAR.
                 }
                 catch (Exception e)
                 {
 
-                    MessageBox.Show("Não foi possível finalizar o pedido.\nMessage: " + e.Message);
+                    MessageBox.Show($"Não foi possível finalizar o pedido. {pedido.PedidoId} \nMessage: {e.Message}");
                 }
 
                 if (TemContasReceber(pedido))
@@ -517,7 +515,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         }
 
-        private void GeraContasReceber(PedidosVendedorasModel selectedPedido)
+        private void GeraContasReceber(PedidosVendedorasModel pedido)
         {
             TituloReceberModel tituloVendedora = new TituloReceberModel();
             //TODO: Configurar o tipo de título em configurações
@@ -526,10 +524,10 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             DateTime dataVencimento = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 10);
 
             //GERAR CONTAS CONTAS A RECEBER.
-            tituloVendedora.VendedoraId = selectedPedido.VendedoraId;
-            tituloVendedora.PedidoId = selectedPedido.PedidoId;
+            tituloVendedora.VendedoraId = pedido.VendedoraId;
+            tituloVendedora.PedidoId = pedido.PedidoId;
             tituloVendedora.TipoTituloId = TipoTituloModel.TipoId;
-            tituloVendedora.ValorTitulo = (double)(selectedPedido.ValorTotalPedido - selectedPedido.ValorLucroVendedora);
+            tituloVendedora.ValorTitulo = (double)(pedido.ValorTotalPedido - pedido.ValorLucroVendedora);
             tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
             tituloVendedora.DataEmissao = DateTime.Now;
             tituloVendedora.DataRegistro = DateTime.Now;
@@ -555,12 +553,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
         }
 
-        private void AtualizaContaReceber(PedidosVendedorasModel selectedPedido)
+        private void AtualizaContaReceber(PedidosVendedorasModel pedido)
         {
             //ATUALIZA CONTAS A RECEBER
             TituloReceberModel tituloVendedora = new TituloReceberModel();
-            tituloVendedora = (TituloReceberModel)_tituloReceberServices.GetByPedidoId(tituloVendedora.PedidoId);
-            tituloVendedora.ValorTitulo = (double)(selectedPedido.ValorTotalPedido - selectedPedido.ValorLucroVendedora);
+            tituloVendedora = (TituloReceberModel)_tituloReceberServices.GetByPedidoId(pedido.PedidoId);
+            tituloVendedora.ValorTitulo = (double)(pedido.ValorTotalPedido - pedido.ValorLucroVendedora);
             tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
             _tituloReceberServices.UpdateValor(tituloVendedora);
         }
@@ -598,6 +596,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             ReadModels();
             LoadDataGridView();
+            dgvPedidos.Rows[0].Selected = false;
+            dgvPedidos.Rows[indexDGV].Selected = true;
         }
 
 
@@ -709,7 +709,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void dgvPedidos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.F7)
+            if (e.KeyCode == Keys.F7)
             {
                 SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
                 SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
@@ -720,6 +720,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 }
             }
             AtualizaDGV();
+        }
+
+        private void dgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvPedidos.CurrentRow != null)
+            {
+                indexDGV = dgvPedidos.CurrentRow.Index;
+            }
         }
     }
 }

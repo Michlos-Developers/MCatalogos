@@ -130,6 +130,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.dgvVendedoras.ShowRowErrors = false;
             this.dgvVendedoras.Size = new System.Drawing.Size(776, 398);
             this.dgvVendedoras.TabIndex = 0;
+            this.dgvVendedoras.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellClick);
             this.dgvVendedoras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellDoubleClick);
             this.dgvVendedoras.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvVendedoras_CellFormatting);
             // 

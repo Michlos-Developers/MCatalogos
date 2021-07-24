@@ -382,7 +382,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
         public void UpdateValor(ITituloReceberModel tituloVendedora)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "UPDATE TitulosReceber SET ValorTitulo = @ValorTitulo, ValorParcela = @ValorParcela WHERE TituloId = TituloId";
+            string query = "UPDATE TitulosReceber SET ValorTitulo = @ValorTitulo, ValorParcela = @ValorParcela WHERE TituloId = @TituloId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

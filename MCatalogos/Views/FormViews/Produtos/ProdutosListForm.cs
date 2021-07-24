@@ -53,6 +53,8 @@ namespace MCatalogos.Views.FormViews.Produtos
         private CampanhaModel CampanhaModel;
         private ProdutoModel ProdutoModel;
 
+        private int indexDGV = 0;
+
         public ProdutosListForm(MainView mainView)
         {
             _queryString = new QueryStringServices(new QueryString());
@@ -168,72 +170,29 @@ namespace MCatalogos.Views.FormViews.Produtos
 
             }
 
-            DataTable tableProdutos = new DataTable();
-            DataColumn column;
-            DataRow row;
+            DataTable tableProdutos = ModelaTableGrid();
+            DataRow row = ModelaRowTable(tableProdutos, produtoModelList);
+            dgvProdutos.DataSource = tableProdutos;
+            ConfiguraDataGridView();
 
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "ProdutoId";
-            tableProdutos.Columns.Add(column);
+        }
 
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Catalogo";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Referencia";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Descricao";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Double");
-            column.ColumnName = "ValorCatalogo";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "Pagina";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "MargemVendedora";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "MargemDistribuidor";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "CatalogoId";
-            tableProdutos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "CampanhaId";
-            tableProdutos.Columns.Add(column);
-
-            if (this.produtoModelList.Count != 0)
+        private DataRow ModelaRowTable(DataTable tableProdutos, List<ProdutoModel> listaProdutos)
+        {
+            DataRow row = null;
+            if (listaProdutos.Count != 0)
             {
-                foreach (var model in this.produtoModelList)
+                foreach (var model in listaProdutos)
                 {
                     row = tableProdutos.NewRow();
                     row["ProdutoId"] = model.ProdutoId;
                     row["Catalogo"] = _catalogoServices.GetById(model.CatalogoId).Nome;
                     row["Referencia"] = model.Referencia.ToString();
                     row["Descricao"] = model.Descricao.ToString();
-                    row["ValorCatalogo"] = double.Parse(model.ValorCatalogo.ToString());
-                    row["MargemVendedora"] = model.MargemVendedora.ToString();
-                    row["MargemDistribuidor"] = model.MargemDistribuidor.ToString();
+                    row["ValorCatalogo"] = double.Parse(model.ValorCatalogo.ToString()).ToString("C2");
+                    row["Pagina"] = int.Parse(model.Pagina.ToString());
+                    row["MargemVendedora"] = string.IsNullOrEmpty(model.MargemVendedora.ToString()) ? "" : double.Parse(model.MargemVendedora.ToString()).ToString("C2");
+                    row["MargemDistribuidor"] = string.IsNullOrEmpty(model.MargemDistribuidor.ToString()) ? "" : double.Parse(model.MargemDistribuidor.ToString()).ToString("C2");
                     row["CatalogoId"] = model.CatalogoId;
                     row["CampanhaId"] = model.CampanhaId;
 
@@ -241,10 +200,26 @@ namespace MCatalogos.Views.FormViews.Produtos
 
                 }
             }
+            return row;
+        }
 
-            dgvProdutos.DataSource = tableProdutos;
-            ConfiguraDataGridView();
+        private DataTable ModelaTableGrid()
+        {
+            DataTable table = new DataTable();
+            
 
+            table.Columns.Add("ProdutoId", typeof(int));
+            table.Columns.Add("Catalogo", typeof(string));
+            table.Columns.Add("Referencia", typeof(string));
+            table.Columns.Add("Descricao", typeof(string));
+            table.Columns.Add("ValorCatalogo", typeof(string));
+            table.Columns.Add("Pagina", typeof(int));
+            table.Columns.Add("MargemVendedora", typeof(string));
+            table.Columns.Add("MargemDistribuidor", typeof(string));
+            table.Columns.Add("CatalogoId", typeof(int));
+            table.Columns.Add("CampanhaId", typeof(int));
+
+            return table;
         }
 
         private void cbCatalogo_SelectedIndexChanged(object sender, EventArgs e)
@@ -309,6 +284,13 @@ namespace MCatalogos.Views.FormViews.Produtos
                 dgvProdutos.Columns[3].Width = 305;
 
             }
+
+            if (indexDGV != 0)
+            {
+                dgvProdutos.Rows[0].Selected = false;
+                dgvProdutos.Rows[indexDGV].Selected = true;
+            }
+
 
 
         }
@@ -383,6 +365,15 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void btnDelete_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvProdutos.CurrentRow != null)
+            {
+                indexDGV = dgvProdutos.CurrentRow.Index;
+
+            }
         }
     }
 }

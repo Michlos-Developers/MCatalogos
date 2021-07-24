@@ -26,13 +26,13 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-        
+
         #endregion
 
 
         QueryStringServices _queryString;
         MainView MainView;
-        
+
         //Instância de MainView. Evita que mais de uma janela seja aberta.
         private static FornecedoresListForm aForm = null;
         public static FornecedoresListForm Instance(MainView mainView)
@@ -50,7 +50,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         private FornecedorServices _fornecedorServices;
         private TelefoneFornecedorServices _telefoneFornecedorServices;
-        private int? id = null;
+        private int indexDGV = 0;
 
         public FornecedoresListForm(MainView mainView)
         {
@@ -76,6 +76,12 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
             dgvFornecedores.Columns[3].HeaderText = "CNPJ";
             dgvFornecedores.Columns[3].Width = 213;
+
+            if (indexDGV != 0)
+            {
+                dgvFornecedores.Rows[0].Selected = false;
+                dgvFornecedores.Rows[indexDGV].Selected = true;
+            }
 
         }
 
@@ -113,32 +119,16 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 MessageBox.Show($"Não foi possível trazer a lista de fornecedores.\nMessage: {ex.Message}", "Error Acess List");
             }
 
-            DataTable tableFornecedores = new DataTable();
-            DataColumn column;
+            DataTable tableFornecedores = ModelaTableGrid();
+            ModelaRowTable(tableFornecedores, modelList);
+
+            dgvFornecedores.DataSource = tableFornecedores;
+            ConfigraDataGridView();
+        }
+
+        private void ModelaRowTable(DataTable tableFornecedores, List<FornecedorModel> modelList)
+        {
             DataRow row;
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "FornecedorId";
-            tableFornecedores.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "RazaoSocial";
-            column.Caption = "Razão Social";
-            tableFornecedores.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "NomeFantasia";
-            column.Caption = "Nome Fantasia";
-            tableFornecedores.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Cnpj";
-            column.Caption = "CNPJ";
-            tableFornecedores.Columns.Add(column);
 
             if (modelList.Count != 0)
             {
@@ -154,13 +144,27 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 }
             }
 
-            dgvFornecedores.DataSource = tableFornecedores;
-            ConfigraDataGridView();
+        }
+
+        private DataTable ModelaTableGrid()
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("FornecedorId", typeof(int));
+            table.Columns.Add("RazaoSocial", typeof(string));
+            table.Columns.Add("NomeFantasia", typeof(string));
+            table.Columns.Add("Cnpj", typeof(string));
+
+            return table;
+
         }
 
         private void dgvFornecedores_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            id = e.RowIndex;
+            if (dgvFornecedores.CurrentRow != null)
+            {
+                indexDGV = e.RowIndex;
+            }
         }
 
         private void dgvFornecedores_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

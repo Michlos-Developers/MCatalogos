@@ -62,6 +62,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
         //Instancia a janela como um objeto para não abrir mais de uma janela da mesma instância.
         private static CatalogosListForm aForm = null;
         public int catalogoId = 0;
+        private int indexDGV = 0;
 
         public static CatalogosListForm Instance(MainView mainView)
         {
@@ -75,7 +76,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             }
             return aForm;
         }
-        
+
         public CatalogosListForm(MainView mainView)
         {
             _queryString = new QueryStringServices(new QueryString());
@@ -97,13 +98,13 @@ namespace MCatalogos.Views.FormViews.Catalogos
             catalogosDGV = ConfiguraDGVByStatus(status, catalogosDGV);
 
             DataTable tableCatalogos = ModelaDataTableCatalogos();
-            DataRow row = ModelaDataRowTableCatalogos(tableCatalogos, catalogosDGV);
+            ModelaDataRowTableCatalogos(tableCatalogos, catalogosDGV);
 
             ConfiguraDataGridView(tableCatalogos);
 
         }
 
-        private DataRow ModelaDataRowTableCatalogos(DataTable tableCatalogos, IEnumerable<CatalogoModel> catalogosDGV)
+        private void ModelaDataRowTableCatalogos(DataTable tableCatalogos, IEnumerable<CatalogoModel> catalogosDGV)
         {
             DataRow row = null;
             if (catalogosDGV.Any())
@@ -121,38 +122,19 @@ namespace MCatalogos.Views.FormViews.Catalogos
                 }
             }
 
-            return row;
         }
 
         private DataTable ModelaDataTableCatalogos()
         {
-            DataTable tableCatalogos = new DataTable();
-            DataColumn column;
+            DataTable table = new DataTable();
 
-            //1ª COLUNA = CatalogoId
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.Int32");
-            column.ColumnName = "CatalogoId";
-            tableCatalogos.Columns.Add(column);
+            table.Columns.Add("CatalogoId", typeof(int));
+            table.Columns.Add("Nome", typeof(string));
+            table.Columns.Add("Fornecedor", typeof(string));
+            table.Columns.Add("Status", typeof(string));
 
-            //2ª COLUNA = Nome Catálogo
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Nome";
-            tableCatalogos.Columns.Add(column);
 
-            //3ª COLUNA = Fornecedor (Nome Fantasia)
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Fornecedor";
-            tableCatalogos.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Status";
-            tableCatalogos.Columns.Add(column);
-
-            return tableCatalogos;
+            return table;
         }
 
         private IEnumerable<CatalogoModel> ConfiguraDGVByStatus(StatusCatalogo status, IEnumerable<CatalogoModel> catalogosDGV)
@@ -184,6 +166,12 @@ namespace MCatalogos.Views.FormViews.Catalogos
             dgvCatalogos.Columns["Fornecedor"].Width = 422;
             dgvCatalogos.Columns["Status"].Width = 50;
 
+            if (indexDGV != 0)
+            {
+                dgvCatalogos.Rows[0].Selected = false;
+                dgvCatalogos.Rows[indexDGV].Selected = true;
+            }
+
 
         }
 
@@ -202,7 +190,11 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         private void dgvCatalogos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            catalogoId = e.RowIndex;
+            if (dgvCatalogos.CurrentRow != null)
+            {
+
+                indexDGV = e.RowIndex;
+            }
         }
 
         private void CatalogosListForm_Load(object sender, EventArgs e)
