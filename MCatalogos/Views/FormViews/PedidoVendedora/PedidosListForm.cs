@@ -393,30 +393,68 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            EditarPedido(RequestType.Add);
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            EditarPedido(SelectedPedido, RequestType.Add);
             AtualizaDGV();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            EditarPedido(RequestType.Edit);
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            EditarPedido(SelectedPedido, RequestType.Edit);
             AtualizaDGV();
         }
         private void btnConferir_Click(object sender, EventArgs e)
         {
 
-            EditarPedido(RequestType.Confere);
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            EditarPedido(SelectedPedido, RequestType.Confere);
             AtualizaDGV();
         }
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
-            EditarPedido(RequestType.Finaliza);
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            if (rbTodos.Checked)
+            { //SÓ LIBERA A OPÇÃO DE FINALIZAR TODOS SE ESTIVEREM TODOS LISTADOS
+                
+                var result = MessageBox.Show("Deseja finalizar todos os pedidos?", $"Finalizando Pedido - Vendedora: {dgvPedidos.CurrentRow.Cells[1].Value.ToString()}", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                    FinalizaTodosPedidos(dgvPedidos);
+                else
+                    EditarPedido(SelectedPedido, RequestType.Finaliza);
+            }
+            else
+            {
+                EditarPedido(SelectedPedido, RequestType.Finaliza);
+            }
+
             AtualizaDGV();
 
         }
 
+        private void FinalizaTodosPedidos(DataGridView dgvPedidos)
+        {
+            List<PedidosVendedorasModel> ListaPedidos = new List<PedidosVendedorasModel>();
+            foreach (string[] item in dgvPedidos.Rows)
+            {//percorre DGV e coloca cada id na lista de pedidos.
+                PedidosVendedorasModel model = new PedidosVendedorasModel();
+                model = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(item[0].ToString()));
+                ListaPedidos.Add(model);
+            }
+
+            foreach (var pedido in ListaPedidos)
+            {//finaliza a lista de pedidos
+                if (pedido.StatusPed != ((int)StatusPedido.Cancelado))
+                {
+                    EditarPedido(pedido, RequestType.Finaliza);
+                }
+            }
+        }
+
+
+
         #endregion
-        private void EditarPedido(RequestType requestType)
+        private void EditarPedido(PedidosVendedorasModel pedido, RequestType requestType)
         {
             PedidoAddForm pedidoForm = null;
             if (requestType == RequestType.Add)
@@ -425,24 +463,23 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             }
             else if (requestType == RequestType.Edit)
             {
-                SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-                SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
-                pedidoForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Edit);
+                SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
+                pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, RequestType.Edit);
                 pedidoForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
 
             }
             else if (requestType == RequestType.Confere)
             {
-                SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-                SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
-                if (SelectedPedido.StatusPed != ((int)StatusPedido.Finalizado))
+                pedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+                SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
+                if (pedido.StatusPed != ((int)StatusPedido.Finalizado))
                 {
-                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Confere);
+                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, RequestType.Confere);
                     pedidoForm.Text = $"Conferindo Pedido - Vendedora: {SelectedVendedora.Nome}";
                 }
                 else
                 {
-                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, SelectedPedido, this, RequestType.Edit);
+                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, RequestType.Edit);
                     pedidoForm.Text = $"Conferindo pedido - Vendedora: {SelectedVendedora.Nome}";
                 }
 
@@ -452,8 +489,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 try
                 {
 
-                    SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-                    _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), SelectedPedido);
+                    pedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+                    _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
 
                     MessageBox.Show($"Pedido Finalizado.");
 
@@ -465,13 +502,13 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     MessageBox.Show("Não foi possível finalizar o pedido.\nMessage: " + e.Message);
                 }
 
-                if (TemContasReceber(SelectedPedido))
+                if (TemContasReceber(pedido))
                 {
-                    AtualizaContaReceber(SelectedPedido);
+                    AtualizaContaReceber(pedido);
                 }
                 else
                 {
-                    GeraContasReceber(SelectedPedido);
+                    GeraContasReceber(pedido);
                 }
             }
 
@@ -552,7 +589,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void dgvPedidos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarPedido(RequestType.Edit);
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            EditarPedido(SelectedPedido, RequestType.Edit);
             AtualizaDGV();
         }
 
