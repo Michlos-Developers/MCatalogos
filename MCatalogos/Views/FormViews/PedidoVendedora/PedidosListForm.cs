@@ -189,7 +189,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 {
                     row = tablePedidos.NewRow();
                     row["CodigoColumn"] = int.Parse(model.PedidoId.ToString());
-                    row["VendedoraNameColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
+                    row["VendedoraNomeColumn"] = _vendedoraServices.GetById(model.VendedoraId).Nome;
                     row["DataRegColumn"] = model.DataRegistro;
                     row["QtdCatalogoColumn"] = model.QtdCatalogos != null ? model.QtdCatalogos : 0;
                     row["ValorTotalColumn"] = model.ValorTotalPedido;
@@ -533,6 +533,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             titulo = (TituloReceberModel)_tituloReceberServices.GetByPedidoId(pedido.PedidoId);
             
             HistoricoTituloReceberModel historico = new HistoricoTituloReceberModel();
+            historico.TituloId = titulo.TituloId;
             historico.DataRegistro = DateTime.Parse(DateTime.Now.ToString());
             historico.ValorRegistrado = titulo.ValorTitulo;
             if (tipoHistorico == PedidoReceberHistorico.Novo)
