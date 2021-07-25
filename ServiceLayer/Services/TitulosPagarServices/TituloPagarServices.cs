@@ -3,12 +3,7 @@ using DomainLayer.Models.TitulosPagar;
 
 using ServiceLayer.CommonServices;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Services.TitulosPagarServices
 {
@@ -28,9 +23,9 @@ namespace ServiceLayer.Services.TitulosPagarServices
             return _tituloPagarRepository.Add(tituloPagar);
         }
 
-        public void AdicionarValorAdicional(double valorAdicional, ITituloPagarModel tituloPagar)
+        public void AddValorAdicional(double valorAdicional, ITituloPagarModel tituloPagar)
         {
-            _tituloPagarRepository.AdicionarValorAdicional(valorAdicional, tituloPagar);
+            _tituloPagarRepository.AddValorAdicional(valorAdicional, tituloPagar);
         }
 
         public IEnumerable<TituloPagarModel> GetAll()
@@ -53,7 +48,7 @@ namespace ServiceLayer.Services.TitulosPagarServices
             _tituloPagarRepository.Liquidar(tituloPagar);
         }
 
-        public void SetStatusTitulo(StatusTitulosModel.StatusTitulo status, ITituloPagarModel tituloPagar)
+        public void SetStatusTitulo(StatusTitulo status, ITituloPagarModel tituloPagar)
         {
             _tituloPagarRepository.SetStatusTitulo(status, tituloPagar);
         }

@@ -6231,21 +6231,24 @@ CREATE TABLE HistoricosTitulosReceber(
 )
 GO
 
+--DROP TABLE StatusTitulos
 CREATE TABLE StatusTitulos(
-	StatusId INT IDENTITY(1,1),
-	Descricao VARCHAR(50)
+	StatusId INT IDENTITY(1,1) NOT NULL,
+	Descricao VARCHAR(50) NOT NULL,
+	StatusEnum INT NOT NULL,
 	CONSTRAINT PK_STATUSTITULO PRIMARY KEY NONCLUSTERED(StatusId)
 )
 GO
 
 INSERT INTO StatusTitulos VALUES
-	('Aberto'),
-	('Liquidado'),
-	('Vencido'),
-	('Cancelado'),
-	('Protestado')
+	('Aberto', 1),
+	('Liquidado', 2),
+	('Vencido', 3),
+	('Cancelado', 4),
+	('Protestado', 5)
 GO
 
+--DROP TABLE TitulosPagar
 CREATE TABLE TitulosPagar(
 	TituloId INT IDENTITY(1,1),
 	FornecedorId INT NOT NULL,
@@ -6265,6 +6268,7 @@ CREATE TABLE TitulosPagar(
 )
 GO
 
+--DROP TABLE ParcelasTitulosPagar
 CREATE TABLE ParcelasTitulosPagar(
 	ParcelaId INT IDENTITY (1,1),
 	TituloPagarId INT NOT NULL,

@@ -6,9 +6,9 @@ namespace ServiceLayer.CommonServices
 {
     public interface IStatusTitulosRepository
     {
-        IEnumerable<IStatusTitulosModel> GetAll();
-        StatusTitulosModel GetByStatus(string status);
-        StatusTitulosModel GetById(int statusId);
-        StatusTitulosModel.StatusTitulo GetByStatusEnum(StatusTitulosModel.StatusTitulo status);
+        IEnumerable<StatusTituloModel> GetAll();
+        StatusTituloModel GetByStatus(string status);
+        StatusTituloModel GetById(int statusId);
+        StatusTituloModel GetByStatusEnum(StatusTitulo status);
     }
 }

@@ -2,6 +2,7 @@
 using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
 using MCatalogos.Views.FormViews.Estoque;
+using MCatalogos.Views.FormViews.Financeiro;
 using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.FormViews.PedidoVendedora;
 using MCatalogos.Views.FormViews.Produtos;
@@ -237,6 +238,16 @@ namespace MCatalogos
             ProdutosListForm produtosForm = ProdutosListForm.Instance(this);
             produtosForm.MdiParent = this;
             produtosForm.Show();
+        }
+
+        private void btnFinanceiro_Click(object sender, EventArgs e)
+        {
+            SetUnselectedButtons();
+            SetSelectedButton(btnFinanceiro);
+
+            FinanceiroForm financeiroForm = FinanceiroForm.Instance(this);
+            financeiroForm.MdiParent = this;
+            financeiroForm.Show();
         }
     }
 }

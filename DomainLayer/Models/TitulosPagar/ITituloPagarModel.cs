@@ -14,7 +14,7 @@ namespace DomainLayer.Models.TitulosPagar
         FornecedorModel FornecedorModel { get; set; }
         bool Parcelado { get; set; }
         int QtdParcelas { get; set; }
-        StatusTitulosModel StatusTitulo { get; set; }
+        StatusTitulo StatusTitulo { get; set; }
         int TituloId { get; set; }
         double ValorAdicional { get; set; }
         double ValorPago { get; set; }

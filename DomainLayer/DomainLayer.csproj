@@ -67,10 +67,11 @@
     <Compile Include="Models\CommonModels\Address\ICidadeModel.cs" />
     <Compile Include="Models\CommonModels\Address\IEstadoModel.cs" />
     <Compile Include="Models\CommonModels\Enums\AlfabetoRotas.cs" />
-    <Compile Include="Models\CommonModels\Enums\IStatusTitulosModel.cs" />
+    <Compile Include="Models\CommonModels\Enums\IStatusTituloModel.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTituloModel.cs" />
-    <Compile Include="Models\CommonModels\Enums\StatusTitulosModel.cs" />
+    <Compile Include="Models\CommonModels\Enums\StatusTitulo.cs" />
+    <Compile Include="Models\CommonModels\Enums\StatusTituloModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTituloModel.cs" />
     <Compile Include="Models\Distribuidor\DistribuidorModel.cs" />

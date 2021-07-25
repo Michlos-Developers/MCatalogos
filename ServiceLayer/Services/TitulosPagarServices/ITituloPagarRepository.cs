@@ -9,8 +9,8 @@ namespace ServiceLayer.Services.TitulosPagarServices
     {
         TituloPagarModel Add(ITituloPagarModel tituloPagar);
         void Liquidar(ITituloPagarModel tituloPagar);
-        void AdicionarValorAdicional(double valorAdicional, ITituloPagarModel tituloPagar);
-        void SetStatusTitulo(StatusTitulosModel.StatusTitulo status, ITituloPagarModel tituloPagar);
+        void AddValorAdicional(double valorAdicional, ITituloPagarModel tituloPagar);
+        void SetStatusTitulo(StatusTitulo status, ITituloPagarModel tituloPagar);
 
 
         IEnumerable<TituloPagarModel> GetAll();

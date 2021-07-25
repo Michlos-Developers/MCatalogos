@@ -213,6 +213,26 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconContasPagar35x35 {
+            get {
+                object obj = ResourceManager.GetObject("IconContasPagar35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconContasReceber35x35 {
+            get {
+                object obj = ResourceManager.GetObject("IconContasReceber35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconDelete20x20 {
             get {
                 object obj = ResourceManager.GetObject("IconDelete20x20", resourceCulture);
@@ -326,6 +346,16 @@ namespace MCatalogos.Properties {
         internal static System.Drawing.Bitmap IconFinanceiro35x35 {
             get {
                 object obj = ResourceManager.GetObject("IconFinanceiro35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconFluxoCaixa35x35 {
+            get {
+                object obj = ResourceManager.GetObject("IconFluxoCaixa35x35", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

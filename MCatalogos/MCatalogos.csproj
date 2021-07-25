@@ -109,6 +109,18 @@
     <Compile Include="Views\FormViews\Estoque\EstoqueListForm.Designer.cs">
       <DependentUpon>EstoqueListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Financeiro\ContasPagar\ContasPagarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Financeiro\ContasPagar\ContasPagarForm.Designer.cs">
+      <DependentUpon>ContasPagarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormViews\Financeiro\FinanceiroForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Financeiro\FinanceiroForm.Designer.cs">
+      <DependentUpon>FinanceiroForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Fornecedores\FornecedoresListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Estoque\EstoqueListForm.resx">
       <DependentUpon>EstoqueListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Financeiro\FinanceiroForm.resx">
+      <DependentUpon>FinanceiroForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Fornecedores\FornecedoresListForm.resx">
       <DependentUpon>FornecedoresListForm.cs</DependentUpon>
@@ -499,6 +514,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IconEditProduto1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconContasPagar35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconContasReceber35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconFluxoCaixa35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\FormViews\Financeiro\ContasReceber\" />
+    <Folder Include="Views\FormViews\Financeiro\FluxoCaixa\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,6 +4,7 @@ using DomainLayer.Models.CommonModels.Enums;
 
 using ServiceLayer.CommonServices;
 
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -23,11 +24,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
             _connectionString = connectionString;
         }
 
-        public IEnumerable<IStatusTitulosModel> GetAll()
+        public IEnumerable<StatusTituloModel> GetAll()
         {
-            List<StatusTitulosModel> modelList = new List<StatusTitulosModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT * FROM StatusTitulos";
+
+            List<StatusTituloModel> ListStatus = new List<StatusTituloModel>();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -38,19 +41,20 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                         {
                             while (reader.Read())
                             {
-                                StatusTitulosModel model = new StatusTitulosModel();
+                                StatusTituloModel status = new StatusTituloModel();
+                                status.StatusId = int.Parse(reader["StatusId"].ToString());
+                                status.Descricao = reader["Descricao"].ToString();
+                                status.Status = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusEnum"].ToString());
 
-                                model.StatusId = int.Parse(reader["StatusId"].ToString());
-                                model.Descricao = reader["Descricao"].ToString();
-
-                                modelList.Add(model);
+                                ListStatus.Add(status);
                             }
                         }
                     }
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Status de Peididos", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar lista de Status", e.HelpLink, e.ErrorCode, e.StackTrace);
+
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -58,15 +62,17 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     connection.Close();
                 }
             }
+            return ListStatus;
 
-            return modelList;
         }
 
-        public StatusTitulosModel GetById(int statusId)
+        public StatusTituloModel GetById(int statusId)
         {
-            StatusTitulosModel model = new StatusTitulosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT * FROM StatusTitulos WHERE StatusId = @StatusId";
+
+            StatusTituloModel statusModel = new StatusTituloModel();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -80,8 +86,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                         {
                             while (reader.Read())
                             {
-                                model.StatusId = int.Parse(reader["StatusId"].ToString());
-                                model.Descricao = reader["Descricao"].ToString();
+                                statusModel.StatusId = int.Parse(reader["StatusId"].ToString());
+                                statusModel.Descricao = reader["Descricao"].ToString();
+                                statusModel.Status = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusEnum"].ToString());
 
                             }
                         }
@@ -89,7 +96,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar Status pelo Id", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar lista de Status", e.HelpLink, e.ErrorCode, e.StackTrace);
+
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -97,15 +105,16 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     connection.Close();
                 }
             }
-
-            return model;
+            return statusModel;
         }
 
-        public StatusTitulosModel GetByStatus(string status)
+        public StatusTituloModel GetByStatus(string status)
         {
-            StatusTitulosModel model = new StatusTitulosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT * FROM StatusTitulos WHERE Descricao = @Descricao";
+
+            StatusTituloModel statusModel = new StatusTituloModel();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -119,8 +128,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                         {
                             while (reader.Read())
                             {
-                                model.StatusId = int.Parse(reader["StatusId"].ToString());
-                                model.Descricao = reader["Descricao"].ToString();
+                                statusModel.StatusId = int.Parse(reader["StatusId"].ToString());
+                                statusModel.Descricao = reader["Descricao"].ToString();
+                                statusModel.Status = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusEnum"].ToString());
 
                             }
                         }
@@ -128,7 +138,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar Status pela Descricao.", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar lista de Status", e.HelpLink, e.ErrorCode, e.StackTrace);
+
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -136,15 +147,16 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     connection.Close();
                 }
             }
-
-            return model;
+            return statusModel;
         }
 
-        public StatusTitulosModel GetByStatusEnum(StatusTitulosModel.StatusTitulo status)
+        public StatusTituloModel GetByStatusEnum(StatusTitulo status)
         {
-            StatusTitulosModel model = new StatusTitulosModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "SELECT * FROM StatusTitulos WHERE Descricao = @Descricao";
+            string query = "SELECT * FROM StatusTitulos WHERE StatusEnum = @StatusEnum";
+
+            StatusTituloModel statusModel = new StatusTituloModel();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -152,16 +164,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
-                        //TODO: VER COMO VAI SER UTILIZANDO O ENUM DO MODEL
-                        //QUERO O VALOR DADO PARA O ENUM E NÃO O INT DELE
-                        cmd.Parameters.Add(new SqlParameter("@Descricao", status.ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@StatusEnum", status));
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                model.StatusId = int.Parse(reader["StatusId"].ToString());
-                                model.Descricao = reader["Descricao"].ToString();
+                                statusModel.StatusId = int.Parse(reader["StatusId"].ToString());
+                                statusModel.Descricao = reader["Descricao"].ToString();
+                                statusModel.Status = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusEnum"].ToString());
 
                             }
                         }
@@ -169,7 +180,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar Status pela Descricao.", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar lista de Status", e.HelpLink, e.ErrorCode, e.StackTrace);
+
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -177,8 +189,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
                     connection.Close();
                 }
             }
-
-            return model;
+            return statusModel;
         }
     }
 }

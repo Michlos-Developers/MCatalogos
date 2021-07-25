@@ -166,7 +166,6 @@ namespace MCatalogos
             // btnFinanceiro
             // 
             this.btnFinanceiro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnFinanceiro.Enabled = false;
             this.btnFinanceiro.FlatAppearance.BorderSize = 0;
             this.btnFinanceiro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFinanceiro.ForeColor = System.Drawing.Color.White;
@@ -180,6 +179,7 @@ namespace MCatalogos
             this.btnFinanceiro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTipMain.SetToolTip(this.btnFinanceiro, "Financeiro");
             this.btnFinanceiro.UseVisualStyleBackColor = false;
+            this.btnFinanceiro.Click += new System.EventHandler(this.btnFinanceiro_Click);
             // 
             // btnCatalogos
             // 

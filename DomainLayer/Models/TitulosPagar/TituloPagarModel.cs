@@ -36,7 +36,7 @@ namespace DomainLayer.Models.TitulosPagar
         public string CodigoBarras { get; set; }
 
         [Required()]
-        public StatusTitulosModel StatusTitulo { get; set; }
+        public StatusTitulo StatusTitulo { get; set; }
 
 
     }

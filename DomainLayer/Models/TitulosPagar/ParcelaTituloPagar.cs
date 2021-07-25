@@ -34,7 +34,7 @@ namespace DomainLayer.Models.TitulosPagar
         public double ValorPago { get; set; }
 
         [Required()]
-        public StatusTitulosModel StatusParcela { get; set; }
+        public StatusTitulo StatusParcela { get; set; }
 
 
     }

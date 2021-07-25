@@ -17,22 +17,22 @@ namespace ServiceLayer.CommonServices
             _statusTitulosRepository = statusTitulosRepository;
         }
 
-        public IEnumerable<IStatusTitulosModel> GetAll()
+        public IEnumerable<StatusTituloModel> GetAll()
         {
             return _statusTitulosRepository.GetAll();
         }
 
-        public StatusTitulosModel GetById(int statusId)
+        public StatusTituloModel GetById(int statusId)
         {
             return _statusTitulosRepository.GetById(statusId);
         }
 
-        public StatusTitulosModel GetByStatus(string status)
+        public StatusTituloModel GetByStatus(string status)
         {
             return _statusTitulosRepository.GetByStatus(status);
         }
 
-        public StatusTitulosModel.StatusTitulo GetByStatusEnum(StatusTitulosModel.StatusTitulo status)
+        public StatusTituloModel GetByStatusEnum(StatusTitulo status)
         {
             return _statusTitulosRepository.GetByStatusEnum(status);
         }
