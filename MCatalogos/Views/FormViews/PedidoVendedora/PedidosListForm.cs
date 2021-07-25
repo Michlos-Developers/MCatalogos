@@ -10,6 +10,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using ServiceLayer.CommonServices;
+using ServiceLayer.Services.HistoricoTituloReceberServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
 using ServiceLayer.Services.TipoTituloServices;
 using ServiceLayer.Services.TitulosReceberServices;
@@ -32,6 +33,11 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 {
     public partial class PedidosListForm : Form
     {
+        enum PedidoReceberHistorico
+        {
+            Novo,
+            Update
+        }
 
         #region PROPRIEDADES PARA MOVER A JANELA
 
@@ -61,6 +67,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private VendedoraServices _vendedoraServices;
         private TituloReceberServices _tituloReceberServices;
         private TipoTituloServices _tipoTituloServices;
+        private HistoricoTituloReceberServices _historicoTituloReceberServices;
 
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
@@ -74,6 +81,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _tituloReceberServices = new TituloReceberServices(new TituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _tipoTituloServices = new TipoTituloServices(new TipoTituloRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _historicoTituloReceberServices = new HistoricoTituloReceberServices(new HistoricoTituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             MainView = mainView;
@@ -492,6 +500,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
                     _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
 
+
                     //TODO: GERAR CONTAS A PAGAR.
                 }
                 catch (Exception e)
@@ -503,15 +512,41 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 if (TemContasReceber(pedido))
                 {
                     AtualizaContaReceber(pedido);
+                    GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
                 }
                 else
                 {
                     GeraContasReceber(pedido);
+                    GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
                 }
             }
 
             if (requestType != RequestType.Finaliza)
                 pedidoForm.Show();
+            
+
+        }
+
+        private void GeraHistoricoContasReceber(PedidosVendedorasModel pedido, PedidoReceberHistorico tipoHistorico)
+        {
+            TituloReceberModel titulo = new TituloReceberModel();
+            titulo = (TituloReceberModel)_tituloReceberServices.GetByPedidoId(pedido.PedidoId);
+            
+            HistoricoTituloReceberModel historico = new HistoricoTituloReceberModel();
+            historico.DataRegistro = DateTime.Parse(DateTime.Now.ToString());
+            historico.ValorRegistrado = titulo.ValorTitulo;
+            if (tipoHistorico == PedidoReceberHistorico.Novo)
+            {
+
+                historico.Descricao = "Registro do título a receber\nGerado autmaticamente pelo sistemaa.";
+            }
+            else
+            {
+                historico.Descricao = "Atualização de título a receber\nGerado atuamaticamente pelo sistema.";
+
+            }
+
+            _historicoTituloReceberServices.Add(historico);
 
         }
 
@@ -561,6 +596,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             tituloVendedora.ValorTitulo = (double)(pedido.ValorTotalPedido - pedido.ValorLucroVendedora);
             tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
             _tituloReceberServices.UpdateValor(tituloVendedora);
+            
         }
 
         private bool TemContasReceber(PedidosVendedorasModel selectedPedido)
