@@ -67,8 +67,10 @@
     <Compile Include="Models\CommonModels\Address\ICidadeModel.cs" />
     <Compile Include="Models\CommonModels\Address\IEstadoModel.cs" />
     <Compile Include="Models\CommonModels\Enums\AlfabetoRotas.cs" />
+    <Compile Include="Models\CommonModels\Enums\IStatusTitulosModel.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\ITipoTituloModel.cs" />
+    <Compile Include="Models\CommonModels\Enums\StatusTitulosModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTelefoneModel.cs" />
     <Compile Include="Models\CommonModels\Enums\TipoTituloModel.cs" />
     <Compile Include="Models\Distribuidor\DistribuidorModel.cs" />
@@ -91,6 +93,10 @@
     <Compile Include="Models\Tamanho\ITamanhosModel.cs" />
     <Compile Include="Models\Produtos\ProdutoModel.cs" />
     <Compile Include="Models\Tamanho\TamanhosModel.cs" />
+    <Compile Include="Models\TitulosPagar\IParcelaTituloPagar.cs" />
+    <Compile Include="Models\TitulosPagar\ITituloPagarModel.cs" />
+    <Compile Include="Models\TitulosPagar\ParcelaTituloPagar.cs" />
+    <Compile Include="Models\TitulosPagar\TituloPagarModel.cs" />
     <Compile Include="Models\TitulosReceber\HistoricoTituloReceberModel.cs" />
     <Compile Include="Models\TitulosReceber\IHistoricoTituloReceberModel.cs" />
     <Compile Include="Models\TitulosReceber\ITituloReceberModel.cs" />

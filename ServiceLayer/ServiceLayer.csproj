@@ -44,8 +44,10 @@
   <ItemGroup>
     <Compile Include="CommonServices\IModelDataAnnotationCheck.cs" />
     <Compile Include="CommonServices\IQueryStringRepository.cs" />
+    <Compile Include="CommonServices\IStatusTitulosRepository.cs" />
     <Compile Include="CommonServices\ModelDataAnnotationCheck.cs" />
     <Compile Include="CommonServices\QueryStringServices.cs" />
+    <Compile Include="CommonServices\StatusTitulosServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BairroServices\BairroServices.cs" />
     <Compile Include="Services\BairroServices\IBairroRepository.cs" />
@@ -113,6 +115,9 @@
     <Compile Include="Services\TipoTituloServices\ITipoTituloRepository.cs" />
     <Compile Include="Services\TipoTituloServices\ITipoTituloServices.cs" />
     <Compile Include="Services\TipoTituloServices\TipoTituloServices.cs" />
+    <Compile Include="Services\TitulosPagarServices\ITituloPagarRepository.cs" />
+    <Compile Include="Services\TitulosPagarServices\ITituloPagarServices.cs" />
+    <Compile Include="Services\TitulosPagarServices\TituloPagarServices.cs" />
     <Compile Include="Services\TitulosReceberServices\ITituloReceberRepository.cs" />
     <Compile Include="Services\TitulosReceberServices\ITituloReceberSerivces.cs" />
     <Compile Include="Services\TitulosReceberServices\TituloReceberServices.cs" />
