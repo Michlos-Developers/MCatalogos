@@ -1,4 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using DomainLayer.Models.TitulosPagar;
+
+using MCatalogos.Views.FormViews.Financeiro.ContasPagar;
+
+using ServiceLayer.CommonServices;
+using ServiceLayer.Services.TitulosPagarServices;
+
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Financeiro
@@ -12,14 +20,33 @@ namespace MCatalogos.Views.FormViews.Financeiro
 
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
 
         #endregion
 
-        private static FinanceiroForm aForm = null;
+        enum RequestType
+        {
+        
+            Edit
+        }
 
         private MainView MainView;
+        private QueryStringServices _queryString;
+        private StatusTitulosServices _statusTitulos;
+        private TituloPagarServices _tituloPagarServices;
+
+
+        private TituloPagarModel TituloPagarModel = new TituloPagarModel();
+        private List<TituloPagarModel> TitulosList = new List<TituloPagarModel>();
+
         
         
+
+        private static FinanceiroForm aForm = null;
         internal static FinanceiroForm Instance(MainView mainView)
         {
             if (aForm == null)
@@ -32,23 +59,22 @@ namespace MCatalogos.Views.FormViews.Financeiro
             }
             return aForm;
         }
-
         public FinanceiroForm(MainView mainView)
         {
             InitializeComponent();
             this.MainView = mainView;
         }
 
-
-        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
+        private void OpenFormContasPagar()
         {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
+            ContasPagarForm contasPagarForm = ContasPagarForm.Instance(this);
+            contasPagarForm.Show();
+            
         }
 
         private void btnContasPagar_Click(object sender, System.EventArgs e)
         {
-
+            OpenFormContasPagar();
         }
 
         private void btnContasReceber_Click(object sender, System.EventArgs e)
