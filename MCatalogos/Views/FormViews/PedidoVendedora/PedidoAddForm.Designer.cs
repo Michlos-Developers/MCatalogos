@@ -155,9 +155,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDetalhePedido.Controls.Add(this.dgvDetalhePedido);
-            this.panelDetalhePedido.Location = new System.Drawing.Point(12, 166);
+            this.panelDetalhePedido.Location = new System.Drawing.Point(12, 170);
             this.panelDetalhePedido.Name = "panelDetalhePedido";
-            this.panelDetalhePedido.Size = new System.Drawing.Size(872, 285);
+            this.panelDetalhePedido.Size = new System.Drawing.Size(872, 272);
             this.panelDetalhePedido.TabIndex = 10;
             // 
             // dgvDetalhePedido
@@ -173,7 +173,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dgvDetalhePedido.Name = "dgvDetalhePedido";
             this.dgvDetalhePedido.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvDetalhePedido.ShowEditingIcon = false;
-            this.dgvDetalhePedido.Size = new System.Drawing.Size(872, 285);
+            this.dgvDetalhePedido.Size = new System.Drawing.Size(872, 272);
             this.dgvDetalhePedido.TabIndex = 0;
             this.dgvDetalhePedido.TabStop = false;
             this.dgvDetalhePedido.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalhePedido_CellContentClick);
@@ -332,14 +332,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbAddItem.Enabled = false;
             this.gbAddItem.Location = new System.Drawing.Point(12, 109);
             this.gbAddItem.Name = "gbAddItem";
-            this.gbAddItem.Size = new System.Drawing.Size(404, 43);
+            this.gbAddItem.Size = new System.Drawing.Size(404, 57);
             this.gbAddItem.TabIndex = 2;
             this.gbAddItem.TabStop = false;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(249, 19);
+            this.label11.Location = new System.Drawing.Point(249, 25);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 15);
             this.label11.TabIndex = 2;
@@ -348,7 +348,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(156, 19);
+            this.label10.Location = new System.Drawing.Point(156, 25);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(33, 15);
             this.label10.TabIndex = 2;
@@ -357,7 +357,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 19);
+            this.label9.Location = new System.Drawing.Point(6, 25);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 15);
             this.label9.TabIndex = 2;
@@ -375,7 +375,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // cbTamanho
             // 
             this.cbTamanho.FormattingEnabled = true;
-            this.cbTamanho.Location = new System.Drawing.Point(286, 15);
+            this.cbTamanho.Location = new System.Drawing.Point(286, 21);
             this.cbTamanho.Name = "cbTamanho";
             this.cbTamanho.Size = new System.Drawing.Size(70, 23);
             this.cbTamanho.TabIndex = 2;
@@ -383,7 +383,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // 
             // textQtd
             // 
-            this.textQtd.Location = new System.Drawing.Point(191, 15);
+            this.textQtd.Location = new System.Drawing.Point(191, 21);
             this.textQtd.Name = "textQtd";
             this.textQtd.Size = new System.Drawing.Size(40, 23);
             this.textQtd.TabIndex = 1;
@@ -391,7 +391,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // 
             // textReferencia
             // 
-            this.textReferencia.Location = new System.Drawing.Point(35, 15);
+            this.textReferencia.Location = new System.Drawing.Point(35, 21);
             this.textReferencia.Name = "textReferencia";
             this.textReferencia.Size = new System.Drawing.Size(109, 23);
             this.textReferencia.TabIndex = 0;
@@ -436,7 +436,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.gbLucros.Controls.Add(this.label15);
             this.gbLucros.Location = new System.Drawing.Point(480, 95);
             this.gbLucros.Name = "gbLucros";
-            this.gbLucros.Size = new System.Drawing.Size(200, 69);
+            this.gbLucros.Size = new System.Drawing.Size(200, 72);
             this.gbLucros.TabIndex = 12;
             this.gbLucros.TabStop = false;
             // 
@@ -476,7 +476,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
             this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(703, 149);
+            this.label16.Location = new System.Drawing.Point(703, 150);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(78, 15);
             this.label16.TabIndex = 0;
@@ -502,7 +502,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textTotalPedido.BackColor = System.Drawing.Color.Yellow;
             this.textTotalPedido.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textTotalPedido.ForeColor = System.Drawing.Color.Black;
-            this.textTotalPedido.Location = new System.Drawing.Point(799, 146);
+            this.textTotalPedido.Location = new System.Drawing.Point(799, 147);
             this.textTotalPedido.Name = "textTotalPedido";
             this.textTotalPedido.Size = new System.Drawing.Size(85, 21);
             this.textTotalPedido.TabIndex = 1;

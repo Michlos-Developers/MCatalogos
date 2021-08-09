@@ -79,6 +79,10 @@
     <Compile Include="Services\EstoqueServices\IEstoqueService.cs" />
     <Compile Include="Services\EstoqueServices\IHistoricoEstoqueRepository.cs" />
     <Compile Include="Services\EstoqueServices\IHistorioEstoqueService.cs" />
+    <Compile Include="Services\FinanceiroServices\CaixaServices\ICaixaRepository.cs" />
+    <Compile Include="Services\FinanceiroServices\CaixaServices\ICaixaSerivces.cs" />
+    <Compile Include="Services\FinanceiroServices\ITipoMovimentacaoRepository.cs" />
+    <Compile Include="Services\FinanceiroServices\TipoMovimentacaoServices.cs" />
     <Compile Include="Services\FormatoTamanhoServices\FormatoTamanhoServices.cs" />
     <Compile Include="Services\FormatoTamanhoServices\IFormatoTamanhoRepository.cs" />
     <Compile Include="Services\FormatoTamanhoServices\IFormatoTamanhoServices.cs" />

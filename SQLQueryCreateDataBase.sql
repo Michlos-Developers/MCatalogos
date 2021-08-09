@@ -6284,3 +6284,35 @@ CREATE TABLE ParcelasTitulosPagar(
 	CONSTRAINT FK_PARCELATITPAGAR_STATUS FOREIGN KEY (StatusTituloId) REFERENCES StatusTitulos(StatusId)
 )
 GO
+
+
+CREATE TABLE TipoMovimentacao(
+	TipoId INT IDENTITY (1,1) NOT NULL,
+	TipoMovimentacao VARCHAR(50) NOT NULL,
+	TipoEnum INT NOT NULL,
+	CONSTRAINT PK_TIPOMOVIMENTACAO PRIMARY KEY NONCLUSTERED(TipoId)
+)
+GO
+
+INSERT INTO TipoMovimentacao VALUES
+	('ContasPagar', 1),
+	('Provisionamento', 2),
+	('ContasReceber', 3),
+	('Devolucao', 4),
+	('Retirada', 5),
+	('DepositoBancario', 6),
+	('SaqueBancario', 7)
+GO
+
+CREATE TABLE Caixa(
+	CaixaId INT IDENTITY (1,1) NOT NULL,
+	DataRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+	SaldoAnterior MONEY NOT NULL,
+	SaldoAtual MONEY NOT NULL,
+	TipoMovimentacaoId INT NOT NULL,
+	OrigemId INT SPARSE NULL,
+	DestinoId INT SPARSE NULL,
+	CONSTRAINT PK_CAIXA PRIMARY KEY NONCLUSTERED (CaixaId),
+	CONSTRAINT FK_CAIXA_TIPOMOVIMENTACAO FOREIGN KEY (TipoMovimentacaoId) REFERENCES TipoMovimentacao(TipoId)
+)
+GO

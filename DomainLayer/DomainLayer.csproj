@@ -80,6 +80,11 @@
     <Compile Include="Models\Estoques\HistoricoEstoqueModel.cs" />
     <Compile Include="Models\Estoques\IEstoqueModel.cs" />
     <Compile Include="Models\Estoques\IHistoricoEstoqueModel.cs" />
+    <Compile Include="Models\Financeiro\Caixa\CaixaModel.cs" />
+    <Compile Include="Models\Financeiro\Caixa\Enums\ITipoMovimentacaoModel.cs" />
+    <Compile Include="Models\Financeiro\Caixa\Enums\TipoMovimentacao.cs" />
+    <Compile Include="Models\Financeiro\Caixa\Enums\TipoMovimentacaoModel.cs" />
+    <Compile Include="Models\Financeiro\Caixa\ICaixaModel.cs" />
     <Compile Include="Models\Formatos\IFormatosTamanhosModel.cs" />
     <Compile Include="Models\Fornecedores\FornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\IFornecedorModel.cs" />
@@ -125,7 +130,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Financeiro\Banco\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

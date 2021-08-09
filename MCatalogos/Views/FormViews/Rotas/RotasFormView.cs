@@ -104,7 +104,7 @@ namespace MCatalogos.Views.FormViews.Rotas
             }
 
             DataTable tableRotas = ModelaTableGrid();
-            DataColumn column;
+            //DataColumn column;
             DataRow row = ModelaRowTable(tableRotas, modelList);
 
             dgvRotas.DataSource = tableRotas;
@@ -176,8 +176,8 @@ namespace MCatalogos.Views.FormViews.Rotas
         public void LoadVendedorasSemRotasToDataGrid()
         {
 
-            Task<List<VendedoraModel>> vendedoraModel = GetVendedorasSemRota();
-            List<VendedoraModel> modelList = vendedoraModel.Result;
+            List<VendedoraModel> vendedoraModel = GetVendedorasSemRota();
+            List<VendedoraModel> modelList = vendedoraModel;
             DataTable tableVendedoras = ModelaTableVendedora();
             DataRow row = ModelaRowVendedora(tableVendedoras, vendedoraModel, modelList);
 
@@ -186,10 +186,10 @@ namespace MCatalogos.Views.FormViews.Rotas
 
         }
 
-        private DataRow ModelaRowVendedora(DataTable tableVendedoras, Task<List<VendedoraModel>> vendedoraModel, List<VendedoraModel> modelList)
+        private DataRow ModelaRowVendedora(DataTable tableVendedoras, List<VendedoraModel> vendedoraModel, List<VendedoraModel> modelList)
         {
             DataRow row = null;
-            if (vendedoraModel.Result != null)
+            if (vendedoraModel != null)
             {
                 foreach (VendedoraModel model in modelList)
                 {
@@ -262,7 +262,7 @@ namespace MCatalogos.Views.FormViews.Rotas
         }
 
 
-        private async Task<List<VendedoraModel>> GetVendedorasSemRota()
+        private List<VendedoraModel> GetVendedorasSemRota()
         {
             List<RotaModel> rotaList = (List<RotaModel>)_rotaServices.GetAll();
             List<VendedoraModel> vendedoraList = (List<VendedoraModel>)_vendedoraServices.GetAll();

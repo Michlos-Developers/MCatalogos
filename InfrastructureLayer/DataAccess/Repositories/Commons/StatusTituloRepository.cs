@@ -35,6 +35,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
             {
                 try
                 {
+                    connection.Open();
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -77,6 +78,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
             {
                 try
                 {
+                    connection.Open();
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
@@ -119,6 +121,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
             {
                 try
                 {
+                    connection.Open();
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
@@ -161,6 +164,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Commons
             {
                 try
                 {
+                    connection.Open();
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
