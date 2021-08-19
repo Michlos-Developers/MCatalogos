@@ -81,7 +81,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloPagar
         public void AddValorAdicional(double valorAdicional, ITituloPagarModel tituloPagar)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = " UPDATE TitulosPagar " +
+            string query = "UPDATE TitulosPagar " +
                             " SET ValorAdicional = @ValorAdicional " +
                             " WHERE TituloId = @TituloId ";
 

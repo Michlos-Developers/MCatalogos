@@ -15,6 +15,6 @@ namespace ServiceLayer.Services.FinanceiroServices.CaixaServices
         CaixaModel GetLast();
         IEnumerable<CaixaModel> GetAll();
         IEnumerable<CaixaModel> GetAllByMonthAndYear(int month, int year);
-
+        void CancelaRegistro(ICaixaModel caixa);
     }
 }

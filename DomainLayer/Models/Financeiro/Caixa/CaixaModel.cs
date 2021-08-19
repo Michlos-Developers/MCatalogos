@@ -23,6 +23,7 @@ namespace DomainLayer.Models.Financeiro.Caixa
 
         public int OrigemId { get; set; }
         public int DestinoId { get; set; }
+        public bool Cancelado { get; set; }
 
     }
 }

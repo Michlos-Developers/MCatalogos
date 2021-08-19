@@ -85,6 +85,8 @@
     <Compile Include="Models\Financeiro\Caixa\Enums\TipoMovimentacao.cs" />
     <Compile Include="Models\Financeiro\Caixa\Enums\TipoMovimentacaoModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\ICaixaModel.cs" />
+    <Compile Include="Models\Financeiro\Retirada\IRetiradaCaixaModel.cs" />
+    <Compile Include="Models\Financeiro\Retirada\RetiradaCaixaModel.cs" />
     <Compile Include="Models\Formatos\IFormatosTamanhosModel.cs" />
     <Compile Include="Models\Fornecedores\FornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\IFornecedorModel.cs" />

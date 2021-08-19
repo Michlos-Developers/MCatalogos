@@ -7,11 +7,7 @@ using ServiceLayer.Services.FinanceiroServices.CaixaServices;
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Caixa
 {
@@ -118,6 +114,38 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Caixa
             return returnedModel;
 
 
+        }
+
+        public void CancelaRegistro(ICaixaModel caixa)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = "UPDATE Caixa SET" +
+                            "Cancelado = @Cancelado" +
+                            "WHERE CaixaId = @CaixaId ";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@CaixaId", caixa.CaixaId);
+                        cmd.Parameters.Add(new SqlParameter("@Cancelado", true));
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível Cancelar registro no Caixa", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
 
         #endregion
@@ -272,6 +300,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Caixa
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT TOP 1 CaixaId, DataRegistro, SaldoAnterior, SaldoAtual, TipoMovimentacaoId, ValorRegistro, OrigemId, DestinoId " +
                            " FROM Caixa " +
+                           " WHERE CANCELADO = 0 " +
                            " ORDER BY CaixaId DESC";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))

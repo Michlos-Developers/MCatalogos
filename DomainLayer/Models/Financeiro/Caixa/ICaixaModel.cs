@@ -14,5 +14,6 @@ namespace DomainLayer.Models.Financeiro.Caixa
         double SaldoAtual { get; set; }
         TipoMovimentacao TipoMovimentacao { get; set; }
         double ValorRegistro { get; set; }
+        bool Cancelado { get; set; }
     }
 }
