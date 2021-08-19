@@ -17,7 +17,10 @@ namespace DomainLayer.Models.Financeiro.Caixa
         public double SaldoAtual { get; set; }
         [Required()]
         public TipoMovimentacao TipoMovimentacao { get; set; }
-        
+
+        [Required()]
+        public double ValorRegistro { get; set; }
+
         public int OrigemId { get; set; }
         public int DestinoId { get; set; }
 

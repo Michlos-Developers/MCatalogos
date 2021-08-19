@@ -12,7 +12,7 @@ namespace ServiceLayer.Services.FinanceiroServices.CaixaServices
         CaixaModel GetById(int caixaId);
 
         double GetSaldo(); //Praticamente o last
-        CaixaModel GetLast(ICaixaModel caixa);
+        CaixaModel GetLast();
         IEnumerable<CaixaModel> GetAll();
         IEnumerable<CaixaModel> GetAllByMonthAndYear(int month, int year);
 

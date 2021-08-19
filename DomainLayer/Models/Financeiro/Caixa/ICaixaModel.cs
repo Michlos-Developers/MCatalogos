@@ -13,5 +13,6 @@ namespace DomainLayer.Models.Financeiro.Caixa
         double SaldoAnterior { get; set; }
         double SaldoAtual { get; set; }
         TipoMovimentacao TipoMovimentacao { get; set; }
+        double ValorRegistro { get; set; }
     }
 }
