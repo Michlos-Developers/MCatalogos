@@ -65,8 +65,10 @@
     <Compile Include="DataAccess\Repositories\Specific\Distribuidor\DistribuidorRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Estoque\EstoqueRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Estoque\HistoricoEstoqueRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Financeiro\Banco\BancoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Caixa\CaixaRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Caixa\Enums\TipoMovimentacaoRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Financeiro\Provisionamento\ProvisionamentoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\RetiradaCaixa\RetiradaCaixaRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Formato\FormatoTamanhoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\FornecedorRepository.cs" />
@@ -106,9 +108,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccess\Repositories\Specific\Financeiro\Banco\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
