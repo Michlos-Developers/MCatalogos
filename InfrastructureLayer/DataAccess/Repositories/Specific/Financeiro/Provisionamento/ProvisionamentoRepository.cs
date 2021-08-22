@@ -120,7 +120,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Provis
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@ProvisionamentoId", provisionamento.ProvisionamentoId);
-                        cmd.Parameters.AddWithValue("@Cancelado", true);
+                        cmd.Parameters.AddWithValue("@Cancelado", provisionamento.Cancelado);
 
                         cmd.ExecuteNonQuery();
                     }

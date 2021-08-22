@@ -81,7 +81,9 @@
     <Compile Include="Models\Estoques\IEstoqueModel.cs" />
     <Compile Include="Models\Estoques\IHistoricoEstoqueModel.cs" />
     <Compile Include="Models\Financeiro\Banco\BancoModel.cs" />
+    <Compile Include="Models\Financeiro\Banco\DepositoModel.cs" />
     <Compile Include="Models\Financeiro\Banco\IBancoModel.cs" />
+    <Compile Include="Models\Financeiro\Banco\IDepositoModel.cs" />
     <Compile Include="Models\Financeiro\Banco\ISaqueModel.cs" />
     <Compile Include="Models\Financeiro\Banco\SaqueModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\CaixaModel.cs" />
