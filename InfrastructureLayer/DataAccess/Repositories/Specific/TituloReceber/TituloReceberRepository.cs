@@ -1,5 +1,6 @@
 ﻿using CommonComponents;
 
+using DomainLayer.Models.CommonModels.Enums;
 using DomainLayer.Models.TitulosReceber;
 using DomainLayer.Models.Vendedora;
 
@@ -8,11 +9,7 @@ using ServiceLayer.Services.TitulosReceberServices;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Configuration;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
 {
@@ -66,10 +63,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
             int idReturned;
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO TitulosReceber " +
-                            " (VendedoraId, PedidoId, TipoTituloId, ValorTitulo, DataEmissao, DataVencimento, ValorDesconto, ValorLiquidado, QtdParcelas, ValorParcela, Liquidado, Cancelado, Protestado, Parcelado) " +
+                            " (VendedoraId, PedidoId, TipoTituloId, StatusTituloId, ValorTitulo, ValorParcela, DataEmissao, DataVencimento, ValorDesconto, ValorLiquidado, QtdParcelas, Parcelado) " +
                             " OUTPUT INSERTED.TituloId " +
                             " VALUES " +
-                            " (@VendedoraId, @PedidoId, @TipoTituloId, @ValorTitulo, @DataEmissao, @DataVencimento, @ValorDesconto, @ValorLiquidado, @QtdParcelas, @ValorParcela, @Liquidado, @Cancelado, @Protestado, @Parcelado) ";
+                            " (@VendedoraId, @PedidoId, @TipoTituloId, @StatusTituloId, @ValorTitulo, @ValorParcela, @DataEmissao, @DataVencimento, @ValorDesconto, @ValorLiquidado, @QtdParcelas, @Parcelado) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -82,6 +79,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                         cmd.Parameters.AddWithValue("@VendedoraId", tituloReceber.VendedoraId);
                         cmd.Parameters.AddWithValue("@PedidoId", tituloReceber.PedidoId);
                         cmd.Parameters.AddWithValue("@TipoTituloId", tituloReceber.TipoTituloId);
+                        cmd.Parameters.AddWithValue("@StatusTituloId", tituloReceber.StatusTitulo);
                         cmd.Parameters.AddWithValue("@ValorTitulo", tituloReceber.ValorTitulo);
                         cmd.Parameters.AddWithValue("@DataEmissao", tituloReceber.DataEmissao);
                         cmd.Parameters.AddWithValue("@DataVencimento", tituloReceber.DataVencimento);
@@ -89,9 +87,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                         cmd.Parameters.AddWithValue("@ValorLiquidado", tituloReceber.ValorLiquidado);
                         cmd.Parameters.AddWithValue("@QtdParcelas", tituloReceber.QtdParcelas);
                         cmd.Parameters.AddWithValue("@ValorParcela", tituloReceber.ValorParcela);
-                        cmd.Parameters.AddWithValue("@Liquidado", tituloReceber.Liquidado);
-                        cmd.Parameters.AddWithValue("@Cancelado", tituloReceber.Cancelado);
-                        cmd.Parameters.AddWithValue("@Protestado", tituloReceber.Protestado);
                         cmd.Parameters.AddWithValue("@Parcelado", tituloReceber.Parcelado);
 
 
@@ -118,7 +113,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
         public void Cancelar(ITituloReceberModel tituloReceber)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "UPDATE TitulosReceber SET Calcelado = @Cancelado WHERE TituloId = @TituloId";
+            string query = "UPDATE TitulosReceber SET StatusTituloId = @StatusTituloId WHERE TituloId = @TituloId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -127,7 +122,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Prepare();
-                        cmd.Parameters.AddWithValue("@Cancelado", tituloReceber.Cancelado);
+                        cmd.Parameters.AddWithValue("@CanceladoId", tituloReceber.StatusTitulo);
                         cmd.Parameters.AddWithValue("@TituloId", tituloReceber.TituloId);
 
                         cmd.ExecuteNonQuery();
@@ -168,6 +163,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                             tituloReceber.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                             tituloReceber.PedidoId = int.Parse(reader["PedidoId"].ToString());
                             tituloReceber.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                            tituloReceber.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
                             tituloReceber.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
                             tituloReceber.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
                             tituloReceber.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
@@ -176,9 +172,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                             tituloReceber.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
                             tituloReceber.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
                             tituloReceber.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                            tituloReceber.Liquidado = bool.Parse(reader["Liquidado"].ToString());
-                            tituloReceber.Cancelado = bool.Parse(reader["Cancelado"].ToString());
-                            tituloReceber.Protestado = bool.Parse(reader["Protestado"].ToString());
                             tituloReceber.Parcelado = bool.Parse(reader["Parcelado"].ToString());
 
                         }
@@ -224,6 +217,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                                 model.TituloId = int.Parse(reader["TituloId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
+                                model.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
                                 model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
                                 model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
                                 model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
@@ -233,9 +227,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                                 model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
                                 model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
                                 model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                                model.Liquidado = bool.Parse(reader["Liquidado"].ToString());
-                                model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
-                                model.Protestado = bool.Parse(reader["Protestado"].ToString());
                                 model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
 
                                 modelList.Add(model);
@@ -283,6 +274,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                             model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                             model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                             model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                            model.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
                             model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
                             model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
                             model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
@@ -291,9 +283,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                             model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
                             model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
                             model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                            model.Liquidado = bool.Parse(reader["Liquidado"].ToString());
-                            model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
-                            model.Protestado = bool.Parse(reader["Protestado"].ToString());
                             model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
 
                             modelList.Add(model);
@@ -319,7 +308,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
         public void LiquidarTitulo(ITituloReceberModel tituloReceber)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "UPDATE TitulosReceber SET ValorLiquidado = @ValorLiquidado, Liquidado = @Liquidado WHERE TituloId = @TituloId";
+            string query = "UPDATE TitulosReceber SET ValorLiquidado = @ValorLiquidado, StatusTituloId = @StatusTituloId WHERE TituloId = @TituloId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -330,7 +319,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@TituloId", tituloReceber.TituloId);
                         cmd.Parameters.AddWithValue("@ValorLiquidado", tituloReceber.ValorLiquidado);
-                        cmd.Parameters.AddWithValue("@Liquidado", tituloReceber.Liquidado);
+                        cmd.Parameters.AddWithValue("@StatusTituloId", tituloReceber.StatusTitulo);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -351,7 +340,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
         public void Protestar(ITituloReceberModel tituloReceber)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "UPDATE TitulosReceber SET Protestado = @Protestado WHERE TituloId = @TituloId";
+            string query = "UPDATE TitulosReceber SET StatusTituloId = @StatusTituloId WHERE TituloId = @TituloId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -361,7 +350,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@TituloId", tituloReceber.TituloId);
-                        cmd.Parameters.AddWithValue("@Protestado", tituloReceber.Protestado);
+                        cmd.Parameters.AddWithValue("@StatusTituloId", tituloReceber.StatusTitulo);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -436,6 +425,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                                model.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
                                 model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
                                 model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
                                 model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
@@ -444,9 +434,6 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                                 model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
                                 model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
                                 model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                                model.Liquidado = bool.Parse(reader["Liquidado"].ToString());
-                                model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
-                                model.Protestado = bool.Parse(reader["Protestado"].ToString());
                                 model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
                             }
                         }

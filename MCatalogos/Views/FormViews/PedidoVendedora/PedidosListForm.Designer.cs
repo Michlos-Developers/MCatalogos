@@ -418,6 +418,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dateDataFim.Size = new System.Drawing.Size(75, 22);
             this.dateDataFim.TabIndex = 9;
             this.dateDataFim.ValidatingType = typeof(System.DateTime);
+            this.dateDataFim.Enter += new System.EventHandler(this.dateDataFim_Enter);
+            this.dateDataFim.Leave += new System.EventHandler(this.dateDataFim_Leave);
             // 
             // dateDataInicio
             // 
@@ -427,6 +429,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.dateDataInicio.Size = new System.Drawing.Size(76, 22);
             this.dateDataInicio.TabIndex = 8;
             this.dateDataInicio.ValidatingType = typeof(System.DateTime);
+            this.dateDataInicio.Enter += new System.EventHandler(this.dateDataInicio_Enter);
+            this.dateDataInicio.Leave += new System.EventHandler(this.dateDataInicio_Leave);
             // 
             // label1
             // 
@@ -519,6 +523,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.mTextCpf.Name = "mTextCpf";
             this.mTextCpf.Size = new System.Drawing.Size(92, 22);
             this.mTextCpf.TabIndex = 3;
+            this.mTextCpf.Enter += new System.EventHandler(this.mTextCpf_Enter);
+            this.mTextCpf.Leave += new System.EventHandler(this.mTextCpf_Leave);
             // 
             // label3
             // 
@@ -539,6 +545,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNomeVendedora.Size = new System.Drawing.Size(250, 22);
             this.cbNomeVendedora.TabIndex = 0;
             this.cbNomeVendedora.SelectedIndexChanged += new System.EventHandler(this.cbNomeVendedora_SelectedIndexChanged);
+            this.cbNomeVendedora.Enter += new System.EventHandler(this.cbNomeVendedora_Enter);
             this.cbNomeVendedora.Leave += new System.EventHandler(this.cbNomeVendedora_Leave);
             // 
             // PedidosListForm

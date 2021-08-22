@@ -53,16 +53,10 @@ namespace DomainLayer.Models.TitulosReceber
         public int QtdParcelas { get; set; }
 
         [Required()]
-        public bool Liquidado { get; set; }
-
-        [Required()]
-        public bool Cancelado { get; set; }
-
-        [Required()]
-        public bool Protestado { get; set; }
-
-        [Required()]
         public bool Parcelado { get; set; }
+
+        [Required()]
+        public StatusTitulo StatusTitulo { get; set; }
 
 
 

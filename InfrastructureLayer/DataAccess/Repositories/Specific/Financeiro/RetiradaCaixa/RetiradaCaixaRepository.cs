@@ -46,7 +46,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Retira
                         cmd.Parameters.AddWithValue("@Justificativa", retiradaCaixa.Justificativa);
                         cmd.Parameters.AddWithValue("@Autor", retiradaCaixa.Autor);
                         cmd.Parameters.AddWithValue("@TipoMovimentacaoId", retiradaCaixa.TipoMovimentacao);
-                        cmd.Parameters.AddWithValue("@CaixaId", retiradaCaixa.Caixa.CaixaId);
+                        cmd.Parameters.AddWithValue("@CaixaId", retiradaCaixa.CaixaId);
 
                         idReturned = (int)cmd.ExecuteScalar();
 

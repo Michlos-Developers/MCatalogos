@@ -18,15 +18,10 @@ using ServiceLayer.Services.VendedoraServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.PedidoVendedora
@@ -52,14 +47,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         MainView MainView;
         private List<PedidosVendedorasModel> PedidosList = new List<PedidosVendedorasModel>();
         private List<VendedoraModel> VendedorasList = new List<VendedoraModel>();
-        private List<TituloReceberModel> TitulosReceberList = new List<TituloReceberModel>();
         private List<TipoTituloModel> TiposTitulosList = new List<TipoTituloModel>();
+        private List<TituloReceberModel> TitulosReceberList = new List<TituloReceberModel>();
 
 
         private VendedoraModel VendedoraFilter = new VendedoraModel();
         private PedidosVendedorasModel SelectedPedido = new PedidosVendedorasModel();
         private VendedoraModel SelectedVendedora = new VendedoraModel();
         private TipoTituloModel TipoTituloModel = new TipoTituloModel();
+        private TituloReceberModel TituloReceberModel = new TituloReceberModel();
 
 
         private QueryStringServices _queryString;
@@ -325,7 +321,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             dateDataInicio.Text = dataIni.ToString();
         }
 
-
+        
 
         #region COMBOX EVENTS
         private void cbNomeVendedora_Leave(object sender, EventArgs e)
@@ -334,6 +330,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
                 mTextCpf.Text = string.Empty;
             }
+            SetBgColorUnfocused(cbNomeVendedora);
         }
         private void cbNomeVendedora_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -363,6 +360,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             dateDataFim.Text = string.Empty;
             dateDataInicio.Text = string.Empty;
+            dateDataInicio.Focus();
         }
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
@@ -373,7 +371,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         }
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-
+            LoadDataGridView();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -464,6 +462,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
 
         #endregion
+        
         private void EditarPedido(PedidosVendedorasModel pedido, RequestType requestType)
         {
             PedidoAddForm pedidoForm = null;
@@ -500,8 +499,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
                     _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
 
-
-                    //TODO: GERAR CONTAS A PAGAR.
                 }
                 catch (Exception e)
                 {
@@ -766,5 +763,51 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 indexDGV = dgvPedidos.CurrentRow.Index;
             }
         }
+
+
+        #region SET BG COLOR CONTROLS
+        private void SetBgColorFocused(Control control)
+        {
+            control.BackColor = SystemColors.GradientActiveCaption;
+        }
+        private void SetBgColorUnfocused(Control control)
+        {
+            control.BackColor = SystemColors.Window;
+        }
+        private void dateDataInicio_Enter(object sender, EventArgs e)
+        {
+            SetBgColorFocused(dateDataInicio);
+        }
+
+        private void dateDataFim_Enter(object sender, EventArgs e)
+        {
+            SetBgColorFocused(dateDataFim);
+        }
+
+        private void mTextCpf_Enter(object sender, EventArgs e)
+        {
+            SetBgColorFocused(mTextCpf);
+        }
+
+        private void cbNomeVendedora_Enter(object sender, EventArgs e)
+        {
+            SetBgColorFocused(cbNomeVendedora);
+        }
+
+        private void dateDataInicio_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(dateDataInicio);
+        }
+
+        private void dateDataFim_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(dateDataFim);
+        }
+
+        private void mTextCpf_Leave(object sender, EventArgs e)
+        {
+            SetBgColorUnfocused(mTextCpf);
+        }
+        #endregion
     }
 }

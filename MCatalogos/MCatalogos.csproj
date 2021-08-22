@@ -115,6 +115,12 @@
     <Compile Include="Views\FormViews\Financeiro\ContasPagar\ContasPagarForm.Designer.cs">
       <DependentUpon>ContasPagarForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Financeiro\ContasReceber\ContasReceberForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Financeiro\ContasReceber\ContasReceberForm.Designer.cs">
+      <DependentUpon>ContasReceberForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Financeiro\FinanceiroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -528,7 +534,6 @@
     <None Include="Resources\IconFluxoCaixa35x35.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\FormViews\Financeiro\ContasReceber\" />
     <Folder Include="Views\FormViews\Financeiro\FluxoCaixa\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

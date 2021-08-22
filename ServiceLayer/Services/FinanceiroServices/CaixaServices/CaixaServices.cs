@@ -26,6 +26,11 @@ namespace ServiceLayer.Services.FinanceiroServices.CaixaServices
             return _caixaRepository.AddValue(caixa);
         }
 
+        public void CancelaRegistro(ICaixaModel caixa)
+        {
+            _caixaRepository.CancelaRegistro(caixa);
+        }
+
         public IEnumerable<CaixaModel> GetAll()
         {
             return _caixaRepository.GetAll();
