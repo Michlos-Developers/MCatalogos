@@ -82,6 +82,9 @@
     <Compile Include="Services\FinanceiroServices\BancoServices\BancoServices.cs" />
     <Compile Include="Services\FinanceiroServices\BancoServices\IBancoRepository.cs" />
     <Compile Include="Services\FinanceiroServices\BancoServices\IBancoServices.cs" />
+    <Compile Include="Services\FinanceiroServices\BancoServices\SaqueServices\ISaqueRepository.cs" />
+    <Compile Include="Services\FinanceiroServices\BancoServices\SaqueServices\ISaqueServices.cs" />
+    <Compile Include="Services\FinanceiroServices\BancoServices\SaqueServices\SaqueServices.cs" />
     <Compile Include="Services\FinanceiroServices\CaixaServices\CaixaServices.cs" />
     <Compile Include="Services\FinanceiroServices\CaixaServices\ICaixaRepository.cs" />
     <Compile Include="Services\FinanceiroServices\CaixaServices\ICaixaSerivces.cs" />
