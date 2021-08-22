@@ -87,6 +87,8 @@
     <Compile Include="Models\Financeiro\Banco\ISaqueModel.cs" />
     <Compile Include="Models\Financeiro\Banco\SaqueModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\CaixaModel.cs" />
+    <Compile Include="Models\Financeiro\Caixa\ContasPagar\ContasPagarModel.cs" />
+    <Compile Include="Models\Financeiro\Caixa\ContasPagar\IContasPagarModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\ContasReceber\ContasReceberModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\ContasReceber\IContasReceberModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\Enums\ITipoMovimentacaoModel.cs" />
