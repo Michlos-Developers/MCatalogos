@@ -421,6 +421,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textLucroVendedora.ForeColor = System.Drawing.Color.White;
             this.textLucroVendedora.Location = new System.Drawing.Point(106, 13);
             this.textLucroVendedora.Name = "textLucroVendedora";
+            this.textLucroVendedora.ReadOnly = true;
             this.textLucroVendedora.Size = new System.Drawing.Size(85, 23);
             this.textLucroVendedora.TabIndex = 1;
             this.textLucroVendedora.TabStop = false;
@@ -446,6 +447,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textLucroDistribuidor.ForeColor = System.Drawing.Color.White;
             this.textLucroDistribuidor.Location = new System.Drawing.Point(106, 42);
             this.textLucroDistribuidor.Name = "textLucroDistribuidor";
+            this.textLucroDistribuidor.ReadOnly = true;
             this.textLucroDistribuidor.Size = new System.Drawing.Size(85, 23);
             this.textLucroDistribuidor.TabIndex = 1;
             this.textLucroDistribuidor.TabStop = false;
@@ -490,6 +492,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textTotalReceber.ForeColor = System.Drawing.Color.Black;
             this.textTotalReceber.Location = new System.Drawing.Point(701, 106);
             this.textTotalReceber.Name = "textTotalReceber";
+            this.textTotalReceber.ReadOnly = true;
             this.textTotalReceber.Size = new System.Drawing.Size(183, 40);
             this.textTotalReceber.TabIndex = 1;
             this.textTotalReceber.TabStop = false;
@@ -504,6 +507,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textTotalPedido.ForeColor = System.Drawing.Color.Black;
             this.textTotalPedido.Location = new System.Drawing.Point(799, 147);
             this.textTotalPedido.Name = "textTotalPedido";
+            this.textTotalPedido.ReadOnly = true;
             this.textTotalPedido.Size = new System.Drawing.Size(85, 21);
             this.textTotalPedido.TabIndex = 1;
             this.textTotalPedido.TabStop = false;

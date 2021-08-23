@@ -31,6 +31,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         {
             this.components = new System.ComponentModel.Container();
             this.toolTipFornecedorForm = new System.Windows.Forms.ToolTip(this.components);
+            this.btnAddBairro = new System.Windows.Forms.Button();
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -76,7 +77,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.textFornecedorId = new System.Windows.Forms.TextBox();
             this.LblCodigo = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnAddBairro = new System.Windows.Forms.Button();
             this.panelCommands.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -86,6 +86,25 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.groupBoxCatalogos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnAddBairro
+            // 
+            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBairro.Enabled = false;
+            this.btnAddBairro.FlatAppearance.BorderSize = 0;
+            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
+            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
+            this.btnAddBairro.Location = new System.Drawing.Point(312, 104);
+            this.btnAddBairro.Name = "btnAddBairro";
+            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
+            this.btnAddBairro.TabIndex = 24;
+            this.btnAddBairro.TabStop = false;
+            this.btnAddBairro.Tag = "";
+            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTipFornecedorForm.SetToolTip(this.btnAddBairro, "Adicionar Bairro");
+            this.btnAddBairro.UseVisualStyleBackColor = false;
+            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
             // 
             // panelCommands
             // 
@@ -300,6 +319,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // cbBairro
             // 
+            this.cbBairro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbBairro.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbBairro.FormattingEnabled = true;
             this.cbBairro.Location = new System.Drawing.Point(335, 105);
             this.cbBairro.Name = "cbBairro";
@@ -322,6 +343,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // cbCidade
             // 
+            this.cbCidade.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbCidade.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCidade.FormattingEnabled = true;
             this.cbCidade.Location = new System.Drawing.Point(96, 105);
             this.cbCidade.Name = "cbCidade";
@@ -364,6 +387,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             // cbUf
             // 
+            this.cbUf.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbUf.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbUf.FormattingEnabled = true;
             this.cbUf.Items.AddRange(new object[] {
             "-"});
@@ -579,25 +604,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // btnAddBairro
-            // 
-            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddBairro.Enabled = false;
-            this.btnAddBairro.FlatAppearance.BorderSize = 0;
-            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
-            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
-            this.btnAddBairro.Location = new System.Drawing.Point(312, 104);
-            this.btnAddBairro.Name = "btnAddBairro";
-            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
-            this.btnAddBairro.TabIndex = 24;
-            this.btnAddBairro.TabStop = false;
-            this.btnAddBairro.Tag = "";
-            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTipFornecedorForm.SetToolTip(this.btnAddBairro, "Adicionar Bairro");
-            this.btnAddBairro.UseVisualStyleBackColor = false;
-            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
             // 
             // FornecedorForm
             // 

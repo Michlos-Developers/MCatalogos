@@ -5946,7 +5946,7 @@ GO
 
 INSERT INTO EstadosCivis
 VALUES
-	('Solreito'),
+	('Solteiro'),
 	('Casado'),
 	('Separado'),
 	('Divorciado'),
@@ -6011,16 +6011,16 @@ CREATE TABLE Catalogos(
 	Nome						VARCHAR(200) NOT NULL,
 	MargemPadraoVendedora		FLOAT NOT NULL,
 	MargemPadraoDistribuidor	FLOAT NOT NULL,
-	Ativo						BIT NOT NULL DEFAULT (1),
+	Ativo						BIT DEFAULT (1),
 	FornecedorId				INT NOT NULL,
-	TaxaProduto					BIT NOT NULL DEFAULT(0),
-	ValorTaxaProduto			FLOAT NOT NULL DEFAULT(0.0),
-	TaxaPedido					BIT NOT NULL DEFAULT(0),
-	ValorTaxaPedido				FLOAT NOT NULL DEFAULT(0.0),
-	VariacaoDeValor				BIT NOT NULL DEFAULT(0),
+	TaxaProduto					BIT DEFAULT(0),
+	ValorTaxaProduto			FLOAT DEFAULT(0.0),
+	TaxaPedido					BIT DEFAULT(0),
+	ValorTaxaPedido				FLOAT DEFAULT(0.0),
+	VariacaoDeValor				BIT DEFAULT(0),
 	TamanhoValorVariavel		VARCHAR(10) SPARSE NULL,
 	NumeracaoValorVariavel		VARCHAR(10) SPARSE NULL,
-	ImportaProdutos				BIT NOT NULL DEFAULT(0),
+	ImportaProdutos				BIT DEFAULT(0),
 	CONSTRAINT PK_CATALOGOS PRIMARY KEY NONCLUSTERED (CatalogoId),
 	CONSTRAINT FK_CATALOGO_FORNECEDOR FOREIGN KEY (FornecedorId) REFERENCES Fornecedores(FornecedorId)
 )

@@ -1,10 +1,12 @@
 ﻿using DomainLayer.Models.TitulosPagar;
 
 using MCatalogos.Views.FormViews.Financeiro.ContasPagar;
+using MCatalogos.Views.FormViews.Financeiro.ContasReceber;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.TitulosPagarServices;
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -79,7 +81,13 @@ namespace MCatalogos.Views.FormViews.Financeiro
 
         private void btnContasReceber_Click(object sender, System.EventArgs e)
         {
+            OpenFormContasReceber();
+        }
 
+        private void OpenFormContasReceber()
+        {
+            ContasReceberForm contasReceberForm = ContasReceberForm.Instance(this);
+            contasReceberForm.Show();
         }
 
         private void btnCaixa_Click(object sender, System.EventArgs e)

@@ -203,7 +203,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             DataTable table = new DataTable();
 
-            
+
             table.Columns.Add("CodigoColumn", typeof(int));
             table.Columns.Add("VendedoraNomeColumn", typeof(string));
             table.Columns.Add("DataRegColumn", typeof(DateTime));
@@ -321,7 +321,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             dateDataInicio.Text = dataIni.ToString();
         }
 
-        
+
 
         #region COMBOX EVENTS
         private void cbNomeVendedora_Leave(object sender, EventArgs e)
@@ -377,8 +377,9 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-            EditarPedido(SelectedPedido, RequestType.Add);
+            //SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            //EditarPedido(SelectedPedido, RequestType.Add);
+            EditarPedido(null, RequestType.Add);
             AtualizaDGV();
         }
 
@@ -462,7 +463,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
 
         #endregion
-        
+
         private void EditarPedido(PedidosVendedorasModel pedido, RequestType requestType)
         {
             PedidoAddForm pedidoForm = null;
@@ -520,7 +521,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             if (requestType != RequestType.Finaliza)
                 pedidoForm.Show();
-            
+
 
         }
 
@@ -528,7 +529,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             TituloReceberModel titulo = new TituloReceberModel();
             titulo = (TituloReceberModel)_tituloReceberServices.GetByPedidoId(pedido.PedidoId);
-            
+
             HistoricoTituloReceberModel historico = new HistoricoTituloReceberModel();
             historico.TituloId = titulo.TituloId;
             historico.DataRegistro = DateTime.Parse(DateTime.Now.ToString());
@@ -560,6 +561,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             tituloVendedora.VendedoraId = pedido.VendedoraId;
             tituloVendedora.PedidoId = pedido.PedidoId;
             tituloVendedora.TipoTituloId = TipoTituloModel.TipoId;
+            tituloVendedora.StatusTitulo = StatusTitulo.Aberto;
             tituloVendedora.ValorTitulo = (double)(pedido.ValorTotalPedido - pedido.ValorLucroVendedora);
             tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
             tituloVendedora.DataEmissao = DateTime.Now;
@@ -568,9 +570,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             tituloVendedora.ValorDesconto = 0;
             tituloVendedora.ValorLiquidado = 0;
             tituloVendedora.QtdParcelas = 1;
-            tituloVendedora.Liquidado = false;
-            tituloVendedora.Cancelado = false;
-            tituloVendedora.Protestado = false;
             tituloVendedora.Parcelado = false;
 
             try
@@ -594,7 +593,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             tituloVendedora.ValorTitulo = (double)(pedido.ValorTotalPedido - pedido.ValorLucroVendedora);
             tituloVendedora.ValorParcela = tituloVendedora.ValorTitulo;
             _tituloReceberServices.UpdateValor(tituloVendedora);
-            
+
         }
 
         private bool TemContasReceber(PedidosVendedorasModel selectedPedido)
@@ -630,8 +629,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             ReadModels();
             LoadDataGridView();
-            dgvPedidos.Rows[0].Selected = false;
-            dgvPedidos.Rows[indexDGV].Selected = true;
+            if (dgvPedidos.Rows.Count != 0)
+            {
+                dgvPedidos.Rows[0].Selected = false;
+                dgvPedidos.Rows[indexDGV].Selected = true;
+            }
+
         }
 
 

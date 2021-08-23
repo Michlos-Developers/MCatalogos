@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace MCatalogos.Views.FormViews.Produtos
 {
@@ -42,6 +43,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         private TamanhoServices _tamanhoServices;
         private FormatoTamanhoServices _formatoServices;
         private Control controlOrigem;
+        bool isClosing = false;
 
         private List<TamanhosModel> TamanhosList;
 
@@ -77,8 +79,19 @@ namespace MCatalogos.Views.FormViews.Produtos
             else
             {
                 PreencheCampos(null, TamanhosList);
-                cbFormatoTamanho.SelectedIndex = -1;
+                
             }
+
+            if (!CatalogoModel.VariacaoDeValor)
+            {
+                textValorGG.Enabled = false;
+            }
+            else
+            {
+                textValorGG.Enabled = true;
+            }
+
+            
 
 
         }
@@ -91,7 +104,16 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void CarregaListaTamanhosProduto(ProdutoModel produtoModel)
         {
             TamanhosList = (List<TamanhosModel>)_tamanhoServices.GetByProdutoModel(produtoModel);
-            TamanhosModel = TamanhosList.Count != 0 ? TamanhosList[0] : null;
+
+            if (TamanhosList.Count != 0)
+            {
+                TamanhosModel = TamanhosList[0];
+            }
+            else
+            {
+                TamanhosModel = null;
+                cbFormatoTamanho.SelectedIndex = -1;
+            }
 
         }
 
@@ -207,23 +229,28 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ProdutoModel != null)//EDIT FOR UPDATE
+            if (ValidateChildren(ValidationConstraints.Enabled))
             {
-                UpdateProduto(ProdutoModel);
+                if (ProdutoModel != null)//EDIT FOR UPDATE
+                {
+                    UpdateProduto(ProdutoModel);
 
-            }
-            else
-            {
-                InsertProduto();
+                }
+                else
+                {
+                    InsertProduto();
+                }
+
+                SaveTamanhos(ProdutoModel);
+                ProdutoAddForm_Load(sender, e);
+
+                if (controlOrigem is PedidoAddForm)
+                {
+                    this.Close();
+                }
             }
 
-            SaveTamanhos(ProdutoModel);
-            ProdutoAddForm_Load(sender, e);
 
-            if (controlOrigem is PedidoAddForm)
-            {
-                this.Close();
-            }
 
         }
 
@@ -360,7 +387,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                     }
                     else
                     {
-                        this.TamanhosModel =  _tamanhoServices.Add(model);
+                        this.TamanhosModel = _tamanhoServices.Add(model);
                         this.TamanhosList.Add(this.TamanhosModel);
                     }
                 }
@@ -581,6 +608,55 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private bool ValidaCampo(Control control)
+        {
+            bool eventArgs = false;
+            if (!this.isClosing)
+            {
+                if (string.IsNullOrEmpty(control.Text.Trim()))
+                {
+                    eventArgs = true;
+                    control.BackColor = Color.Red;
+                    errorProvider.SetError(control, "Campo Obrigatório!");
+
+                }
+                else
+                {
+                    eventArgs = false;
+                    errorProvider.SetError(control, null);
+                }
+            }
+            return eventArgs;
+        }
+
+        private void textReferencia_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textReferencia);
+        }
+
+        private void textDescricao_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textDescricao);
+        }
+
+        private void textValor_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textValor);
+        }
+
+        private void textValorGG_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (textValorGG.Enabled)
+            {
+                e.Cancel = ValidaCampo(textValor);
+            }
+        }
+
+        private void textPagina_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textPagina);
         }
     }
 }

@@ -300,6 +300,9 @@
     <EmbeddedResource Include="Views\FormViews\Financeiro\ContasPagar\ContasPagarForm.resx">
       <DependentUpon>ContasPagarForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Financeiro\ContasReceber\ContasReceberForm.resx">
+      <DependentUpon>ContasReceberForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Financeiro\FinanceiroForm.resx">
       <DependentUpon>FinanceiroForm.cs</DependentUpon>
     </EmbeddedResource>

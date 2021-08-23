@@ -29,6 +29,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProdutoAddForm));
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
@@ -59,12 +60,14 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.label1 = new System.Windows.Forms.Label();
             this.textCampanha = new System.Windows.Forms.TextBox();
             this.textCatalogo = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBoxTamanhos.SuspendLayout();
             this.panelTamanhosUC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTamanhos)).BeginInit();
             this.panelCatalogoCampanha.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -275,6 +278,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textDescricao.TabIndex = 1;
             this.textDescricao.Enter += new System.EventHandler(this.textDescricao_Enter);
             this.textDescricao.Leave += new System.EventHandler(this.textDescricao_Leave);
+            this.textDescricao.Validating += new System.ComponentModel.CancelEventHandler(this.textDescricao_Validating);
             // 
             // textMargemDistribuidor
             // 
@@ -302,6 +306,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textPagina.TabIndex = 4;
             this.textPagina.Enter += new System.EventHandler(this.textPagina_Enter);
             this.textPagina.Leave += new System.EventHandler(this.textPagina_Leave);
+            this.textPagina.Validating += new System.ComponentModel.CancelEventHandler(this.textPagina_Validating);
             // 
             // textValorGG
             // 
@@ -312,6 +317,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textValorGG.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textValorGG.Enter += new System.EventHandler(this.textValorGG_Enter);
             this.textValorGG.Leave += new System.EventHandler(this.textValorGG_Leave);
+            this.textValorGG.Validating += new System.ComponentModel.CancelEventHandler(this.textValorGG_Validating);
             // 
             // textValor
             // 
@@ -322,6 +328,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textValor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textValor.Enter += new System.EventHandler(this.textValor_Enter);
             this.textValor.Leave += new System.EventHandler(this.textValor_Leave);
+            this.textValor.Validating += new System.ComponentModel.CancelEventHandler(this.textValor_Validating);
             // 
             // textReferencia
             // 
@@ -332,6 +339,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textReferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textReferencia.Enter += new System.EventHandler(this.textReferencia_Enter);
             this.textReferencia.Leave += new System.EventHandler(this.textReferencia_Leave);
+            this.textReferencia.Validating += new System.ComponentModel.CancelEventHandler(this.textReferencia_Validating);
             // 
             // panelCatalogoCampanha
             // 
@@ -381,6 +389,10 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textCatalogo.TabIndex = 0;
             this.textCatalogo.TabStop = false;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // ProdutoAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -407,6 +419,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             ((System.ComponentModel.ISupportInitialize)(this.dgvTamanhos)).EndInit();
             this.panelCatalogoCampanha.ResumeLayout(false);
             this.panelCatalogoCampanha.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -442,5 +455,6 @@ namespace MCatalogos.Views.FormViews.Produtos
         private System.Windows.Forms.TextBox textValor;
         public System.Windows.Forms.DataGridView dgvTamanhos;
         public System.Windows.Forms.TextBox textReferencia;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

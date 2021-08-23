@@ -57,11 +57,13 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbMesComercial = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.panelDGV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasPagar)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -199,20 +201,15 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContainer.Controls.Add(this.groupBox2);
             this.panelContainer.Controls.Add(this.panelDGV);
             this.panelContainer.Controls.Add(this.groupBox1);
             this.panelContainer.Controls.Add(this.textTotalVencidos);
             this.panelContainer.Controls.Add(this.textTotalPagoMes);
             this.panelContainer.Controls.Add(this.textTotalAberto);
-            this.panelContainer.Controls.Add(this.textAprovisionado);
-            this.panelContainer.Controls.Add(this.label3);
             this.panelContainer.Controls.Add(this.label6);
-            this.panelContainer.Controls.Add(this.textValorCaixa);
             this.panelContainer.Controls.Add(this.label5);
-            this.panelContainer.Controls.Add(this.label2);
             this.panelContainer.Controls.Add(this.label4);
-            this.panelContainer.Controls.Add(this.label1);
-            this.panelContainer.Controls.Add(this.cbMesComercial);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
@@ -226,9 +223,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDGV.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelDGV.Controls.Add(this.dgvContasPagar);
-            this.panelDGV.Location = new System.Drawing.Point(12, 115);
+            this.panelDGV.Location = new System.Drawing.Point(12, 112);
             this.panelDGV.Name = "panelDGV";
-            this.panelDGV.Size = new System.Drawing.Size(909, 346);
+            this.panelDGV.Size = new System.Drawing.Size(909, 349);
             this.panelDGV.TabIndex = 5;
             // 
             // dgvContasPagar
@@ -243,26 +240,26 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             this.dgvContasPagar.Name = "dgvContasPagar";
             this.dgvContasPagar.ReadOnly = true;
             this.dgvContasPagar.RowHeadersVisible = false;
-            this.dgvContasPagar.Size = new System.Drawing.Size(909, 346);
+            this.dgvContasPagar.Size = new System.Drawing.Size(909, 349);
             this.dgvContasPagar.TabIndex = 0;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.rbLiquidado);
             this.groupBox1.Controls.Add(this.rbVencido);
             this.groupBox1.Controls.Add(this.rbAberto);
-            this.groupBox1.Location = new System.Drawing.Point(564, 72);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.cbMesComercial);
+            this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(357, 37);
+            this.groupBox1.Size = new System.Drawing.Size(282, 102);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
             // rbLiquidado
             // 
-            this.rbLiquidado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbLiquidado.AutoSize = true;
-            this.rbLiquidado.Location = new System.Drawing.Point(256, 12);
+            this.rbLiquidado.Location = new System.Drawing.Point(186, 78);
             this.rbLiquidado.Name = "rbLiquidado";
             this.rbLiquidado.Size = new System.Drawing.Size(86, 19);
             this.rbLiquidado.TabIndex = 0;
@@ -273,9 +270,8 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // 
             // rbVencido
             // 
-            this.rbVencido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbVencido.AutoSize = true;
-            this.rbVencido.Location = new System.Drawing.Point(136, 12);
+            this.rbVencido.Location = new System.Drawing.Point(186, 47);
             this.rbVencido.Name = "rbVencido";
             this.rbVencido.Size = new System.Drawing.Size(74, 19);
             this.rbVencido.TabIndex = 0;
@@ -286,9 +282,8 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // 
             // rbAberto
             // 
-            this.rbAberto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbAberto.AutoSize = true;
-            this.rbAberto.Location = new System.Drawing.Point(16, 12);
+            this.rbAberto.Location = new System.Drawing.Point(186, 16);
             this.rbAberto.Name = "rbAberto";
             this.rbAberto.Size = new System.Drawing.Size(80, 19);
             this.rbAberto.TabIndex = 0;
@@ -300,12 +295,13 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // textTotalVencidos
             // 
             this.textTotalVencidos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textTotalVencidos.BackColor = System.Drawing.Color.Red;
-            this.textTotalVencidos.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalVencidos.BackColor = System.Drawing.Color.Tomato;
+            this.textTotalVencidos.Font = new System.Drawing.Font("Calibri", 14.25F);
             this.textTotalVencidos.ForeColor = System.Drawing.Color.Black;
-            this.textTotalVencidos.Location = new System.Drawing.Point(738, 26);
+            this.textTotalVencidos.Location = new System.Drawing.Point(738, 74);
             this.textTotalVencidos.Name = "textTotalVencidos";
-            this.textTotalVencidos.Size = new System.Drawing.Size(183, 40);
+            this.textTotalVencidos.ReadOnly = true;
+            this.textTotalVencidos.Size = new System.Drawing.Size(183, 31);
             this.textTotalVencidos.TabIndex = 3;
             this.textTotalVencidos.TabStop = false;
             this.textTotalVencidos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -313,12 +309,13 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // textTotalPagoMes
             // 
             this.textTotalPagoMes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textTotalPagoMes.BackColor = System.Drawing.Color.MediumOrchid;
-            this.textTotalPagoMes.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalPagoMes.BackColor = System.Drawing.Color.LimeGreen;
+            this.textTotalPagoMes.Font = new System.Drawing.Font("Calibri", 14.25F);
             this.textTotalPagoMes.ForeColor = System.Drawing.Color.Black;
             this.textTotalPagoMes.Location = new System.Drawing.Point(549, 26);
             this.textTotalPagoMes.Name = "textTotalPagoMes";
-            this.textTotalPagoMes.Size = new System.Drawing.Size(183, 40);
+            this.textTotalPagoMes.ReadOnly = true;
+            this.textTotalPagoMes.Size = new System.Drawing.Size(183, 31);
             this.textTotalPagoMes.TabIndex = 3;
             this.textTotalPagoMes.TabStop = false;
             this.textTotalPagoMes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -327,11 +324,12 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // 
             this.textTotalAberto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textTotalAberto.BackColor = System.Drawing.Color.RoyalBlue;
-            this.textTotalAberto.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalAberto.Font = new System.Drawing.Font("Calibri", 14.25F);
             this.textTotalAberto.ForeColor = System.Drawing.Color.Black;
-            this.textTotalAberto.Location = new System.Drawing.Point(360, 26);
+            this.textTotalAberto.Location = new System.Drawing.Point(738, 26);
             this.textTotalAberto.Name = "textTotalAberto";
-            this.textTotalAberto.Size = new System.Drawing.Size(183, 40);
+            this.textTotalAberto.ReadOnly = true;
+            this.textTotalAberto.Size = new System.Drawing.Size(183, 31);
             this.textTotalAberto.TabIndex = 3;
             this.textTotalAberto.TabStop = false;
             this.textTotalAberto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -339,15 +337,16 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // textAprovisionado
             // 
             this.textAprovisionado.BackColor = System.Drawing.Color.LimeGreen;
-            this.textAprovisionado.Location = new System.Drawing.Point(127, 74);
+            this.textAprovisionado.Location = new System.Drawing.Point(6, 74);
             this.textAprovisionado.Name = "textAprovisionado";
+            this.textAprovisionado.ReadOnly = true;
             this.textAprovisionado.Size = new System.Drawing.Size(100, 23);
             this.textAprovisionado.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(127, 56);
+            this.label3.Location = new System.Drawing.Point(6, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 15);
             this.label3.TabIndex = 1;
@@ -357,7 +356,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(738, 9);
+            this.label6.Location = new System.Drawing.Point(738, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(129, 15);
             this.label6.TabIndex = 1;
@@ -366,8 +365,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // textValorCaixa
             // 
             this.textValorCaixa.BackColor = System.Drawing.Color.Gold;
-            this.textValorCaixa.Location = new System.Drawing.Point(12, 74);
+            this.textValorCaixa.Location = new System.Drawing.Point(6, 28);
             this.textValorCaixa.Name = "textValorCaixa";
+            this.textValorCaixa.ReadOnly = true;
             this.textValorCaixa.Size = new System.Drawing.Size(100, 23);
             this.textValorCaixa.TabIndex = 2;
             // 
@@ -384,7 +384,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 56);
+            this.label2.Location = new System.Drawing.Point(6, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 1;
@@ -394,7 +394,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(360, 9);
+            this.label4.Location = new System.Drawing.Point(738, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 15);
             this.label4.TabIndex = 1;
@@ -403,7 +403,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(6, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 15);
             this.label1.TabIndex = 1;
@@ -414,11 +414,24 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             this.cbMesComercial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbMesComercial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbMesComercial.FormattingEnabled = true;
-            this.cbMesComercial.Location = new System.Drawing.Point(12, 26);
+            this.cbMesComercial.Location = new System.Drawing.Point(6, 27);
             this.cbMesComercial.Name = "cbMesComercial";
             this.cbMesComercial.Size = new System.Drawing.Size(121, 23);
             this.cbMesComercial.TabIndex = 0;
             this.cbMesComercial.SelectedIndexChanged += new System.EventHandler(this.cbMesComercial_SelectedIndexChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox2.Controls.Add(this.textValorCaixa);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.textAprovisionado);
+            this.groupBox2.Location = new System.Drawing.Point(384, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(118, 102);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
             // 
             // ContasPagarForm
             // 
@@ -433,6 +446,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             this.Name = "ContasPagarForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Controle de Contas a Pagar";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ContasPagarForm_FormClosing);
             this.Load += new System.EventHandler(this.ContasPagarForm_Load);
             this.panelCommands.ResumeLayout(false);
@@ -442,6 +456,8 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasPagar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -475,5 +491,6 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasPagar
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView dgvContasPagar;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

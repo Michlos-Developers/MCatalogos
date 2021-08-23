@@ -65,6 +65,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             CarregaListaVendedoras();
             PopulaComboBoxVendedora();
+            mTextCpf.Focus();
         }
 
         private void mTextCpf_Leave(object sender, EventArgs e)
@@ -79,8 +80,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void SelecionaVendedoraCpf(string cpf)
         {
-            SelectedVendedora = ListVendedoras.Where(v => v.Cpf == cpf) as VendedoraModel;
-            if (SelectedVendedora != null & SelectedVendedora.VendedoraId != 0)
+            SelectedVendedora = ListVendedoras.Where(v => v.Cpf == cpf).FirstOrDefault<VendedoraModel>();
+            if (SelectedVendedora != null)
             {
                 cbNome.SelectedItem = SelectedVendedora;
             }
@@ -138,6 +139,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             base.Dispose(Disposing);
             aForm = null;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            SelectedVendedora = null;
+            this.Close();
         }
     }
 }

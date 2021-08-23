@@ -116,8 +116,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             if (RType == RequestType.Add)
             { //NOVO PEDIDO
 
-                VendedoraModel = SelecionarVendedora();
-                if (VendedoraTemPedidoAberto(VendedoraModel))
+                VendedoraModel = SelecionarVendedora() != null ? SelecionarVendedora() : null;
+                if (VendedoraModel == null)
+                {
+                    this.Close();
+                }
+                else if (VendedoraTemPedidoAberto(VendedoraModel))
                 {
                     MessageBox.Show("A Vendedora selecionada já possui um pedido em aberto\nNão é pertido que a vendedora tenha mais de um pedido em Aberto.\nEdite o pedido ou finalize-o");
                     this.Close();
@@ -135,7 +139,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 PreencheCampos(VendedoraModel, PedidoModel, RType);
                 LoadDetalhesPedido(PedidoModel, null);
                 VerificaStatusAtual(PedidoModel);
-                
+
 
             }
             else if (RType == RequestType.Confere)
@@ -161,7 +165,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             StatusPedido statusAtual = (StatusPedido)pedidoModel.StatusPed;
             if (pedidoModel.StatusPed == ((int)StatusPedido.Finalizado))
             {
-                
+
                 MessageBox.Show($"Pedido \"{((StatusPedido)statusAtual).ToString()}\".\n Tela para simples conferência de informações\n", $"Status: {((StatusPedido)statusAtual).ToString()}", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 gbAddItem.Enabled = false;
                 cbCatalogo.Enabled = false;
@@ -182,7 +186,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 btnEdit.Enabled = false;
                 PreencheCampos(VendedoraModel, pedidoModel, RequestType.Confere);
                 LoadDetalhesPedido(pedidoModel, null);
-                
+
             }
         }
 
@@ -723,10 +727,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void SalvarPedido(VendedoraModel vendedora)
         {
-            PedidoModel = new PedidosVendedorasModel();
-            PedidoModel.VendedoraId = vendedora.VendedoraId;
-            PedidoModel.StatusPed = (((int)StatusPedido.Aberto));
-            PedidoModel = (PedidosVendedorasModel)_pedidoServices.Add(PedidoModel);
+            if (vendedora != null)
+            {
+                PedidoModel = new PedidosVendedorasModel();
+                PedidoModel.VendedoraId = vendedora.VendedoraId;
+                PedidoModel.StatusPed = (((int)StatusPedido.Aberto));
+                PedidoModel = (PedidosVendedorasModel)_pedidoServices.Add(PedidoModel);
+
+            }
 
 
         }
@@ -911,20 +919,20 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             double taxaPorProduto = 0;
             double taxaPorPedido = 0;
-            
+
 
 
             if (catalogo != null)
             {
 
                 taxaPorPedido = catalogo.TaxaPedido ? catalogo.ValorTaxaPedido : 0;
-                
+
                 taxaPorProduto = catalogo.TaxaProduto ? catalogo.ValorTaxaProduto : 0;
                 totalLucroVendedora = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroVendedoraItem);
                 totalLucroDistribuidor = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorLucroDistribuidorItem);
                 totalReceber = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem) - totalLucroVendedora;
                 totalPedido = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem);
-                
+
                 taxaPorPedido = totalPedido * (taxaPorPedido / 100);
                 //taxaPorProduto = taxaPorProduto * ListItemsDetalhe.Where(t => t.CatalogoId == SelectedCatalogo.CatalogoId).Count(); JÁ FOI CALCULADO NA INCLUSÃO DO ITEM.
                 if (taxaPorPedido > 0)

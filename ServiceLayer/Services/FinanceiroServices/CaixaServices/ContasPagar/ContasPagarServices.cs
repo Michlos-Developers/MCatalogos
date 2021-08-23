@@ -13,8 +13,15 @@ namespace ServiceLayer.Services.FinanceiroServices.CaixaServices.ContasPagar
 {
     public class ContasPagarServices : IContasPagarRepository, IContasPagarServices
     {
-        private IContasPagarRepository _contasPagarRepository;
-        private IModelDataAnnotationCheck _modelDataAnnotationCheck;
+        private readonly IContasPagarRepository _contasPagarRepository;
+        private readonly IModelDataAnnotationCheck _modelDataAnnotationCheck;
+
+        public ContasPagarServices(IContasPagarRepository contasPagarRepository, IModelDataAnnotationCheck modelDataAnnotationCheck)
+        {
+            _contasPagarRepository = contasPagarRepository;
+            _modelDataAnnotationCheck = modelDataAnnotationCheck;
+        }
+
         public ContasPagarModel Add(IContasPagarModel contasPagar)
         {
             return _contasPagarRepository.Add(contasPagar);

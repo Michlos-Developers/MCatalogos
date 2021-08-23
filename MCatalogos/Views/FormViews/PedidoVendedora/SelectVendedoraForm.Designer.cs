@@ -31,13 +31,13 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectVendedoraForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
-            this.mTextCpf = new System.Windows.Forms.MaskedTextBox();
-            this.cbNome = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbNome = new System.Windows.Forms.ComboBox();
+            this.mTextCpf = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.SuspendLayout();
@@ -50,23 +50,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panel1.Location = new System.Drawing.Point(0, 119);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(331, 41);
-            this.panel1.TabIndex = 0;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(228, 6);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(91, 29);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
-            this.btnCancel.UseVisualStyleBackColor = false;
+            this.panel1.TabIndex = 1;
             // 
             // btnOk
             // 
@@ -80,10 +64,29 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(91, 29);
             this.btnOk.TabIndex = 3;
+            this.btnOk.TabStop = false;
             this.btnOk.Tag = "Pedidos";
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(228, 6);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(91, 29);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.TabStop = false;
+            this.btnCancel.Tag = "Pedidos";
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // panelContainer
             // 
@@ -96,16 +99,26 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Size = new System.Drawing.Size(331, 119);
-            this.panelContainer.TabIndex = 1;
+            this.panelContainer.TabIndex = 0;
+            this.panelContainer.TabStop = true;
             // 
-            // mTextCpf
+            // label2
             // 
-            this.mTextCpf.Location = new System.Drawing.Point(73, 30);
-            this.mTextCpf.Mask = "999,999,999-00";
-            this.mTextCpf.Name = "mTextCpf";
-            this.mTextCpf.Size = new System.Drawing.Size(90, 22);
-            this.mTextCpf.TabIndex = 0;
-            this.mTextCpf.Leave += new System.EventHandler(this.mTextCpf_Leave);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(32, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 14);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Nome:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(46, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 14);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "CPF:";
             // 
             // cbNome
             // 
@@ -118,23 +131,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNome.TabIndex = 1;
             this.cbNome.SelectedIndexChanged += new System.EventHandler(this.cbNome_SelectedIndexChanged);
             // 
-            // label1
+            // mTextCpf
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 14);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "CPF:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 14);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Nome:";
+            this.mTextCpf.Location = new System.Drawing.Point(73, 30);
+            this.mTextCpf.Mask = "999,999,999-00";
+            this.mTextCpf.Name = "mTextCpf";
+            this.mTextCpf.Size = new System.Drawing.Size(90, 22);
+            this.mTextCpf.TabIndex = 0;
+            this.mTextCpf.Leave += new System.EventHandler(this.mTextCpf_Leave);
             // 
             // SelectVendedoraForm
             // 

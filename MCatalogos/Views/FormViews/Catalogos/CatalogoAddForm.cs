@@ -270,6 +270,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
         {
             this.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             PreencheCamposForUpdate();
+            cbStatus.Text = "Ativo";
+
         }
 
         private void checkBoxTaxaProduto_CheckStateChanged(object sender, EventArgs e)

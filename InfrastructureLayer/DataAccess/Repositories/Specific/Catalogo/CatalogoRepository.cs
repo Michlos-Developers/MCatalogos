@@ -48,10 +48,23 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
             int idReturned = 0;
             CatalogoModel model = new CatalogoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = "INSERT INTO Catalogos " +
-                           "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, VariacaoDeValor, TamanhoValorVariavel, NumeracaoValorVariavel, FornecedorId, ImportaProdutos) " +
-                           "output INSERTED.CatalogoId " +
-                           "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @VariacaoDeValor, @TamanhoValorVariavel, @NumeracaoValorVariavel, @FornecedorId, @ImportaProdutos) ";
+            string query = null;
+
+            if (catalogoModel.VariacaoDeValor)
+            {
+                query = "INSERT INTO Catalogos " +
+                        "(Nome, MargemPadraoVendedora, MargemPadraoDistribuidor, Ativo, TaxaProduto, ValorTaxaProduto, TaxaPedido, ValorTaxaPedido, VariacaoDeValor, TamanhoValorVariavel, NumeracaoValorVariavel, FornecedorId, ImportaProdutos) " +
+                        "output INSERTED.CatalogoId " +
+                        "VALUES (@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido, @VariacaoDeValor, @TamanhoValorVariavel, @NumeracaoValorVariavel, @FornecedorId, @ImportaProdutos) ";
+            }
+            else
+            {
+                query = "INSERT INTO Catalogos " +
+                        "(Nome,  MargemPadraoVendedora,  MargemPadraoDistribuidor,  Ativo,  FornecedorId, TaxaProduto,  ValorTaxaProduto,  TaxaPedido,  ValorTaxaPedido,  ImportaProdutos) " +
+                        "output INSERTED.CatalogoId " +
+                        "VALUES " +
+                        "(@Nome, @MargemPadraoVendedora, @MargemPadraoDistribuidor, @Ativo, @FornecedorId, @TaxaProduto, @ValorTaxaProduto, @TaxaPedido, @ValorTaxaPedido,  @ImportaProdutos) ";
+            }
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -71,11 +84,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         cmd.Parameters.AddWithValue("@ValorTaxaProduto", catalogoModel.ValorTaxaProduto);
                         cmd.Parameters.AddWithValue("@TaxaPedido", catalogoModel.TaxaPedido);
                         cmd.Parameters.AddWithValue("@ValorTaxaPedido", catalogoModel.ValorTaxaPedido);
-                        cmd.Parameters.AddWithValue("@VariacaoDeValor", catalogoModel.VariacaoDeValor);
-                        cmd.Parameters.AddWithValue("@TamanhoValorVariavel", catalogoModel.TamanhoValorVariavel);
-                        cmd.Parameters.AddWithValue("@NumeracaoValorVariavel", catalogoModel.NumeracaoValorVariavel);
                         cmd.Parameters.AddWithValue("@FornecedorId", catalogoModel.FornecedorId);
                         cmd.Parameters.AddWithValue("@ImportaProdutos", catalogoModel.ImportaProdutos);
+
+                        if (catalogoModel.VariacaoDeValor)
+                        {
+                            cmd.Parameters.AddWithValue("@VariacaoDeValor", catalogoModel.VariacaoDeValor);
+                            cmd.Parameters.AddWithValue("@TamanhoValorVariavel", catalogoModel.TamanhoValorVariavel);
+                            cmd.Parameters.AddWithValue("@NumeracaoValorVariavel", catalogoModel.NumeracaoValorVariavel);
+                        }
 
                         try
                         {
@@ -83,7 +100,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                         }
                         catch (SqlException e)
                         {
-                            dataAccessStatus.setValues("Error", false, e.Message, "Falha ao executar o comando Add para Catálogo", e.HelpLink,
+                            dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível Adicionar um Novo Catálogo", e.HelpLink,
                                 e.ErrorCode, e.StackTrace);
                             throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                         }
@@ -197,7 +214,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                 {
                     dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível gerar a lista de Catálogos do DataBase", e.HelpLink,
                         e.ErrorCode, e.StackTrace);
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus) ;
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
                 {
