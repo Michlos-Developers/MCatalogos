@@ -36,30 +36,30 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbMes = new System.Windows.Forms.ComboBox();
-            this.textTotalAberto = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textTotalVencido = new System.Windows.Forms.TextBox();
-            this.gbFiltros = new System.Windows.Forms.GroupBox();
-            this.mTextCpf = new System.Windows.Forms.MaskedTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnFiltrar = new System.Windows.Forms.Button();
-            this.btnClearFilter = new System.Windows.Forms.Button();
-            this.pnlDGV = new System.Windows.Forms.Panel();
-            this.dgvTitulosReceber = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbProtestado = new System.Windows.Forms.RadioButton();
             this.rbLiquidado = new System.Windows.Forms.RadioButton();
             this.rbVencido = new System.Windows.Forms.RadioButton();
             this.rbAberto = new System.Windows.Forms.RadioButton();
-            this.rbProtestado = new System.Windows.Forms.RadioButton();
+            this.pnlDGV = new System.Windows.Forms.Panel();
+            this.dgvTitulosReceber = new System.Windows.Forms.DataGridView();
+            this.gbFiltros = new System.Windows.Forms.GroupBox();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnClearFilter = new System.Windows.Forms.Button();
+            this.mTextCpf = new System.Windows.Forms.MaskedTextBox();
+            this.cbMes = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textTotalVencido = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textTotalAberto = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
-            this.gbFiltros.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.pnlDGV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTitulosReceber)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.gbFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCommands
@@ -152,137 +152,59 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.panelContainer.Size = new System.Drawing.Size(933, 474);
             this.panelContainer.TabIndex = 14;
             // 
-            // label1
+            // groupBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Mês:";
+            this.groupBox1.Controls.Add(this.rbProtestado);
+            this.groupBox1.Controls.Add(this.rbLiquidado);
+            this.groupBox1.Controls.Add(this.rbVencido);
+            this.groupBox1.Controls.Add(this.rbAberto);
+            this.groupBox1.Location = new System.Drawing.Point(357, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(114, 106);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
             // 
-            // cbMes
+            // rbProtestado
             // 
-            this.cbMes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbMes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbMes.FormattingEnabled = true;
-            this.cbMes.Location = new System.Drawing.Point(11, 33);
-            this.cbMes.Name = "cbMes";
-            this.cbMes.Size = new System.Drawing.Size(121, 23);
-            this.cbMes.TabIndex = 2;
+            this.rbProtestado.AutoSize = true;
+            this.rbProtestado.Location = new System.Drawing.Point(11, 78);
+            this.rbProtestado.Name = "rbProtestado";
+            this.rbProtestado.Size = new System.Drawing.Size(91, 19);
+            this.rbProtestado.TabIndex = 0;
+            this.rbProtestado.Text = "Protestados";
+            this.rbProtestado.UseVisualStyleBackColor = true;
             // 
-            // textTotalAberto
+            // rbLiquidado
             // 
-            this.textTotalAberto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textTotalAberto.BackColor = System.Drawing.Color.Gold;
-            this.textTotalAberto.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTotalAberto.ForeColor = System.Drawing.Color.Black;
-            this.textTotalAberto.Location = new System.Drawing.Point(738, 28);
-            this.textTotalAberto.Name = "textTotalAberto";
-            this.textTotalAberto.ReadOnly = true;
-            this.textTotalAberto.Size = new System.Drawing.Size(183, 31);
-            this.textTotalAberto.TabIndex = 5;
-            this.textTotalAberto.TabStop = false;
-            this.textTotalAberto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.rbLiquidado.AutoSize = true;
+            this.rbLiquidado.Location = new System.Drawing.Point(11, 56);
+            this.rbLiquidado.Name = "rbLiquidado";
+            this.rbLiquidado.Size = new System.Drawing.Size(86, 19);
+            this.rbLiquidado.TabIndex = 0;
+            this.rbLiquidado.Text = "Liquidados";
+            this.rbLiquidado.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // rbVencido
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(738, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 15);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Total em Aberto:";
+            this.rbVencido.AutoSize = true;
+            this.rbVencido.Location = new System.Drawing.Point(11, 34);
+            this.rbVencido.Name = "rbVencido";
+            this.rbVencido.Size = new System.Drawing.Size(74, 19);
+            this.rbVencido.TabIndex = 0;
+            this.rbVencido.Text = "Vencidos";
+            this.rbVencido.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // rbAberto
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(738, 69);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Total Vencido:";
-            // 
-            // textTotalVencido
-            // 
-            this.textTotalVencido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textTotalVencido.BackColor = System.Drawing.Color.Tomato;
-            this.textTotalVencido.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTotalVencido.ForeColor = System.Drawing.Color.Black;
-            this.textTotalVencido.Location = new System.Drawing.Point(738, 87);
-            this.textTotalVencido.Name = "textTotalVencido";
-            this.textTotalVencido.ReadOnly = true;
-            this.textTotalVencido.Size = new System.Drawing.Size(183, 31);
-            this.textTotalVencido.TabIndex = 5;
-            this.textTotalVencido.TabStop = false;
-            this.textTotalVencido.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // gbFiltros
-            // 
-            this.gbFiltros.Controls.Add(this.btnFiltrar);
-            this.gbFiltros.Controls.Add(this.btnClearFilter);
-            this.gbFiltros.Controls.Add(this.mTextCpf);
-            this.gbFiltros.Controls.Add(this.cbMes);
-            this.gbFiltros.Controls.Add(this.label5);
-            this.gbFiltros.Controls.Add(this.label1);
-            this.gbFiltros.Location = new System.Drawing.Point(9, 11);
-            this.gbFiltros.Name = "gbFiltros";
-            this.gbFiltros.Size = new System.Drawing.Size(342, 107);
-            this.gbFiltros.TabIndex = 6;
-            this.gbFiltros.TabStop = false;
-            // 
-            // mTextCpf
-            // 
-            this.mTextCpf.Location = new System.Drawing.Point(225, 33);
-            this.mTextCpf.Mask = "000,000,000-99";
-            this.mTextCpf.Name = "mTextCpf";
-            this.mTextCpf.Size = new System.Drawing.Size(106, 23);
-            this.mTextCpf.TabIndex = 4;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(225, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 15);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "CPF:";
-            // 
-            // btnFiltrar
-            // 
-            this.btnFiltrar.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnFiltrar.FlatAppearance.BorderSize = 0;
-            this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFiltrar.ForeColor = System.Drawing.Color.White;
-            this.btnFiltrar.Image = global::MCatalogos.Properties.Resources.IconFilter20x20;
-            this.btnFiltrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFiltrar.Location = new System.Drawing.Point(183, 70);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(71, 27);
-            this.btnFiltrar.TabIndex = 5;
-            this.btnFiltrar.Tag = "Pedidos";
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFiltrar.UseVisualStyleBackColor = false;
-            // 
-            // btnClearFilter
-            // 
-            this.btnClearFilter.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnClearFilter.FlatAppearance.BorderSize = 0;
-            this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearFilter.ForeColor = System.Drawing.Color.White;
-            this.btnClearFilter.Image = global::MCatalogos.Properties.Resources.IconClear;
-            this.btnClearFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClearFilter.Location = new System.Drawing.Point(260, 70);
-            this.btnClearFilter.Name = "btnClearFilter";
-            this.btnClearFilter.Size = new System.Drawing.Size(71, 27);
-            this.btnClearFilter.TabIndex = 6;
-            this.btnClearFilter.Tag = "Pedidos";
-            this.btnClearFilter.Text = "Limpar";
-            this.btnClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClearFilter.UseVisualStyleBackColor = false;
+            this.rbAberto.AutoSize = true;
+            this.rbAberto.Checked = true;
+            this.rbAberto.Location = new System.Drawing.Point(11, 12);
+            this.rbAberto.Name = "rbAberto";
+            this.rbAberto.Size = new System.Drawing.Size(80, 19);
+            this.rbAberto.TabIndex = 0;
+            this.rbAberto.TabStop = true;
+            this.rbAberto.Text = "Em Aberto";
+            this.rbAberto.UseVisualStyleBackColor = true;
             // 
             // pnlDGV
             // 
@@ -308,61 +230,139 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.dgvTitulosReceber.Size = new System.Drawing.Size(916, 334);
             this.dgvTitulosReceber.TabIndex = 0;
             // 
-            // groupBox1
+            // gbFiltros
             // 
-            this.groupBox1.Controls.Add(this.rbProtestado);
-            this.groupBox1.Controls.Add(this.rbLiquidado);
-            this.groupBox1.Controls.Add(this.rbVencido);
-            this.groupBox1.Controls.Add(this.rbAberto);
-            this.groupBox1.Location = new System.Drawing.Point(357, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(114, 106);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
+            this.gbFiltros.Controls.Add(this.btnFiltrar);
+            this.gbFiltros.Controls.Add(this.btnClearFilter);
+            this.gbFiltros.Controls.Add(this.mTextCpf);
+            this.gbFiltros.Controls.Add(this.cbMes);
+            this.gbFiltros.Controls.Add(this.label5);
+            this.gbFiltros.Controls.Add(this.label1);
+            this.gbFiltros.Location = new System.Drawing.Point(9, 11);
+            this.gbFiltros.Name = "gbFiltros";
+            this.gbFiltros.Size = new System.Drawing.Size(342, 107);
+            this.gbFiltros.TabIndex = 6;
+            this.gbFiltros.TabStop = false;
             // 
-            // rbLiquidado
+            // btnFiltrar
             // 
-            this.rbLiquidado.AutoSize = true;
-            this.rbLiquidado.Location = new System.Drawing.Point(11, 56);
-            this.rbLiquidado.Name = "rbLiquidado";
-            this.rbLiquidado.Size = new System.Drawing.Size(86, 19);
-            this.rbLiquidado.TabIndex = 0;
-            this.rbLiquidado.TabStop = true;
-            this.rbLiquidado.Text = "Liquidados";
-            this.rbLiquidado.UseVisualStyleBackColor = true;
+            this.btnFiltrar.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnFiltrar.FlatAppearance.BorderSize = 0;
+            this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFiltrar.ForeColor = System.Drawing.Color.White;
+            this.btnFiltrar.Image = global::MCatalogos.Properties.Resources.IconFilter20x20;
+            this.btnFiltrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFiltrar.Location = new System.Drawing.Point(183, 70);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(71, 27);
+            this.btnFiltrar.TabIndex = 5;
+            this.btnFiltrar.Tag = "Pedidos";
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFiltrar.UseVisualStyleBackColor = false;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
-            // rbVencido
+            // btnClearFilter
             // 
-            this.rbVencido.AutoSize = true;
-            this.rbVencido.Location = new System.Drawing.Point(11, 34);
-            this.rbVencido.Name = "rbVencido";
-            this.rbVencido.Size = new System.Drawing.Size(74, 19);
-            this.rbVencido.TabIndex = 0;
-            this.rbVencido.TabStop = true;
-            this.rbVencido.Text = "Vencidos";
-            this.rbVencido.UseVisualStyleBackColor = true;
+            this.btnClearFilter.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnClearFilter.FlatAppearance.BorderSize = 0;
+            this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearFilter.ForeColor = System.Drawing.Color.White;
+            this.btnClearFilter.Image = global::MCatalogos.Properties.Resources.IconClear;
+            this.btnClearFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClearFilter.Location = new System.Drawing.Point(260, 70);
+            this.btnClearFilter.Name = "btnClearFilter";
+            this.btnClearFilter.Size = new System.Drawing.Size(71, 27);
+            this.btnClearFilter.TabIndex = 6;
+            this.btnClearFilter.Tag = "Pedidos";
+            this.btnClearFilter.Text = "Limpar";
+            this.btnClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClearFilter.UseVisualStyleBackColor = false;
+            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
             // 
-            // rbAberto
+            // mTextCpf
             // 
-            this.rbAberto.AutoSize = true;
-            this.rbAberto.Location = new System.Drawing.Point(11, 12);
-            this.rbAberto.Name = "rbAberto";
-            this.rbAberto.Size = new System.Drawing.Size(80, 19);
-            this.rbAberto.TabIndex = 0;
-            this.rbAberto.TabStop = true;
-            this.rbAberto.Text = "Em Aberto";
-            this.rbAberto.UseVisualStyleBackColor = true;
+            this.mTextCpf.Location = new System.Drawing.Point(225, 33);
+            this.mTextCpf.Mask = "000,000,000-99";
+            this.mTextCpf.Name = "mTextCpf";
+            this.mTextCpf.Size = new System.Drawing.Size(106, 23);
+            this.mTextCpf.TabIndex = 4;
             // 
-            // rbProtestado
+            // cbMes
             // 
-            this.rbProtestado.AutoSize = true;
-            this.rbProtestado.Location = new System.Drawing.Point(11, 78);
-            this.rbProtestado.Name = "rbProtestado";
-            this.rbProtestado.Size = new System.Drawing.Size(91, 19);
-            this.rbProtestado.TabIndex = 0;
-            this.rbProtestado.TabStop = true;
-            this.rbProtestado.Text = "Protestados";
-            this.rbProtestado.UseVisualStyleBackColor = true;
+            this.cbMes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbMes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbMes.FormattingEnabled = true;
+            this.cbMes.Location = new System.Drawing.Point(11, 33);
+            this.cbMes.Name = "cbMes";
+            this.cbMes.Size = new System.Drawing.Size(121, 23);
+            this.cbMes.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(225, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 15);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "CPF:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Mês:";
+            // 
+            // textTotalVencido
+            // 
+            this.textTotalVencido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTotalVencido.BackColor = System.Drawing.Color.Tomato;
+            this.textTotalVencido.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalVencido.ForeColor = System.Drawing.Color.Black;
+            this.textTotalVencido.Location = new System.Drawing.Point(738, 87);
+            this.textTotalVencido.Name = "textTotalVencido";
+            this.textTotalVencido.ReadOnly = true;
+            this.textTotalVencido.Size = new System.Drawing.Size(183, 31);
+            this.textTotalVencido.TabIndex = 5;
+            this.textTotalVencido.TabStop = false;
+            this.textTotalVencido.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(738, 69);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Total Vencido:";
+            // 
+            // textTotalAberto
+            // 
+            this.textTotalAberto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTotalAberto.BackColor = System.Drawing.Color.Gold;
+            this.textTotalAberto.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalAberto.ForeColor = System.Drawing.Color.Black;
+            this.textTotalAberto.Location = new System.Drawing.Point(738, 28);
+            this.textTotalAberto.Name = "textTotalAberto";
+            this.textTotalAberto.ReadOnly = true;
+            this.textTotalAberto.Size = new System.Drawing.Size(183, 31);
+            this.textTotalAberto.TabIndex = 5;
+            this.textTotalAberto.TabStop = false;
+            this.textTotalAberto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(738, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 15);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Total em Aberto:";
             // 
             // ContasReceberForm
             // 
@@ -382,12 +382,12 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.panelCommands.ResumeLayout(false);
             this.panelContainer.ResumeLayout(false);
             this.panelContainer.PerformLayout();
-            this.gbFiltros.ResumeLayout(false);
-            this.gbFiltros.PerformLayout();
-            this.pnlDGV.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTitulosReceber)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.pnlDGV.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTitulosReceber)).EndInit();
+            this.gbFiltros.ResumeLayout(false);
+            this.gbFiltros.PerformLayout();
             this.ResumeLayout(false);
 
         }

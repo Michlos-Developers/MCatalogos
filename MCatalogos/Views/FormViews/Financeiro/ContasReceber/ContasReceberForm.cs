@@ -87,9 +87,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
         }
         private void ContasReceberForm_Load(object sender, EventArgs e)
         {
+            ReadModelsList();
             LoadComboBoxMonths();
             LoadContasReceberDGV();
-            ReadModelsList();
         }
 
 
@@ -110,14 +110,18 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             titulosReceberDGV = ListTitulos;
             titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataRegistro.Month == currentMonth);
             titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
+
+            LoadTableTitulos();
             
-            
-            DataTable tableTitulos = ModelaDataTableTitulos();
-            ModelaDataRowTableTitulos(tableTitulos, titulosReceberDGV);
-            ConfiguraDataGridTitulos(tableTitulos);
 
         }
 
+        private void LoadTableTitulos()
+        {
+            DataTable tableTitulos = ModelaDataTableTitulos();
+            ModelaDataRowTableTitulos(tableTitulos, titulosReceberDGV);
+            ConfiguraDataGridTitulos(tableTitulos);
+        }
 
         private DataTable ModelaDataTableTitulos()
         {
@@ -197,5 +201,32 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             return titulosReceberDGV;
         }
 
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            string cpf = mTextCpf.Text.Replace(".", "");
+            cpf = cpf.Replace("-", "");
+            cpf = cpf.Replace(" ", "");
+
+            if (cbMes.SelectedIndex > 0)
+            {
+
+                titulosReceberDGV = ListTitulos;
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataRegistro.Month == cbMes.SelectedIndex +1);
+                titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
+            }
+
+            if (!string.IsNullOrEmpty(cpf))
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(vendTit => vendTit.VendedoraId == _vendedoraServices.GetByCpf(cpf).VendedoraId);
+            }
+
+            LoadTableTitulos();
+
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            ContasReceberForm_Load(sender, e);
+        }
     }
 }
