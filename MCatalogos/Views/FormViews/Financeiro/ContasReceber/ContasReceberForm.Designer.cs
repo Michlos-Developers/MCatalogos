@@ -173,6 +173,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.rbProtestado.TabIndex = 0;
             this.rbProtestado.Text = "Protestados";
             this.rbProtestado.UseVisualStyleBackColor = true;
+            this.rbProtestado.CheckedChanged += new System.EventHandler(this.rbProtestado_CheckedChanged);
             // 
             // rbLiquidado
             // 
@@ -183,6 +184,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.rbLiquidado.TabIndex = 0;
             this.rbLiquidado.Text = "Liquidados";
             this.rbLiquidado.UseVisualStyleBackColor = true;
+            this.rbLiquidado.CheckedChanged += new System.EventHandler(this.rbLiquidado_CheckedChanged);
             // 
             // rbVencido
             // 
@@ -193,6 +195,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.rbVencido.TabIndex = 0;
             this.rbVencido.Text = "Vencidos";
             this.rbVencido.UseVisualStyleBackColor = true;
+            this.rbVencido.CheckedChanged += new System.EventHandler(this.rbVencido_CheckedChanged);
             // 
             // rbAberto
             // 
@@ -205,6 +208,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.rbAberto.TabStop = true;
             this.rbAberto.Text = "Em Aberto";
             this.rbAberto.UseVisualStyleBackColor = true;
+            this.rbAberto.CheckedChanged += new System.EventHandler(this.rbAberto_CheckedChanged);
             // 
             // pnlDGV
             // 
@@ -312,9 +316,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(11, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 15);
+            this.label1.Size = new System.Drawing.Size(99, 15);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Mês:";
+            this.label1.Text = "Mês Vencimento:";
             // 
             // textTotalVencido
             // 

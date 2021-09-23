@@ -83,13 +83,13 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
 
             InitializeComponent();
             FinanceiroForm = financeiroForm;
-            
+
         }
         private void ContasReceberForm_Load(object sender, EventArgs e)
         {
             ReadModelsList();
             LoadComboBoxMonths();
-            LoadContasReceberDGV();
+            LoadContasReceberDGV(StatusTitulo.Aberto, null, null); //lê todos os títulos abertos de todo o sistema ignorando o mês
         }
 
 
@@ -104,22 +104,40 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             cbMes.SelectedItem = DateTimeFormatInfo.CurrentInfo.GetMonthName(DateTime.Now.Month).ToUpper();
         }
 
-        private void LoadContasReceberDGV()
+        private void LoadContasReceberDGV(StatusTitulo status, int? currentMonth, string cpf)
         {
-            int currentMonth = DateTime.ParseExact(cbMes.SelectedValue.ToString(), "MMMM", CultureInfo.CurrentCulture).Month;
             titulosReceberDGV = ListTitulos;
-            titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataRegistro.Month == currentMonth);
-            titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
+            VendedoraModel vendedora = null;
 
-            LoadTableTitulos();
-            
+            //E-- TENHO OS DOIS
+            if (currentMonth != null & !string.IsNullOrEmpty(cpf))
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == currentMonth + 1);
+                vendedora = _vendedoraServices.GetByCpf(cpf);
+                titulosReceberDGV = titulosReceberDGV.Where(vendedoraid => vendedoraid.VendedoraId == vendedora.VendedoraId);
+            }
+            else if (currentMonth != null)
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == currentMonth + 1);
+
+            }
+            else if (!string.IsNullOrEmpty(cpf))
+            {
+                vendedora = _vendedoraServices.GetByCpf(cpf);
+                titulosReceberDGV = titulosReceberDGV.Where(vendedoraid => vendedoraid.VendedoraId == vendedora.VendedoraId);
+            }
+
+            titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
+            LoadTableTitulos(vendedora);
+
 
         }
 
-        private void LoadTableTitulos()
+        private void LoadTableTitulos(VendedoraModel vendedora)
         {
+
             DataTable tableTitulos = ModelaDataTableTitulos();
-            ModelaDataRowTableTitulos(tableTitulos, titulosReceberDGV);
+            ModelaDataRowTableTitulos(tableTitulos, titulosReceberDGV, vendedora);
             ConfiguraDataGridTitulos(tableTitulos);
         }
 
@@ -136,19 +154,21 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
 
             return table;
         }
-        private void ModelaDataRowTableTitulos(DataTable tableTitulos, IEnumerable<TituloReceberModel> titulosReceberDGV)
+        private void ModelaDataRowTableTitulos(DataTable tableTitulos, IEnumerable<TituloReceberModel> titulosReceberDGV, VendedoraModel vendedora)
         {
             DataRow row = null;
             if (titulosReceberDGV.Any())
             {
                 foreach (TituloReceberModel model in titulosReceberDGV)
                 {
-                    VendedoraModel vendeddora = new VendedoraModel();
-                    vendeddora = _vendedoraServices.GetById(model.VendedoraId);
+                    if (vendedora == null)
+                    {
+                        vendedora = _vendedoraServices.GetById(model.VendedoraId);
+                    }
                     row = tableTitulos.NewRow();
                     row["CodigoTituloColumn"] = int.Parse(model.TituloId.ToString());
-                    row["NomeVendedoraTituloColumn"] = vendeddora.Nome;
-                    row["CpfVendedoraTituloColumn"] = vendeddora.Cpf;
+                    row["NomeVendedoraTituloColumn"] = vendedora.Nome;
+                    row["CpfVendedoraTituloColumn"] = vendedora.Cpf;
                     row["DataVencimentoTituloColumn"] = model.DataVencimento;
                     row["ValorTituloColumn"] = model.ValorTitulo;
                     row["StatusTituloColumn"] = model.StatusTitulo;
@@ -206,27 +226,79 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             string cpf = mTextCpf.Text.Replace(".", "");
             cpf = cpf.Replace("-", "");
             cpf = cpf.Replace(" ", "");
+            LoadContasReceberDGV(StatusTitulo.Aberto, cbMes.SelectedIndex, cpf);
+            //if (cbMes.SelectedIndex > 0)
+            //{
+            //    //TODO: Fazer um loadTitulos com os parametros de mes e do radiobutton selecionado.
+            //    //titulosReceberDGV = ListTitulos;
+            //    //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataRegistro.Month == cbMes.SelectedIndex + 1);
+            //    //titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
+            //    LoadContasReceberDGV(StatusTitulo.Aberto, cbMes.SelectedIndex + 1, null);
+            //}
 
-            if (cbMes.SelectedIndex > 0)
-            {
+            //if (!string.IsNullOrEmpty(cpf))
+            //{
+            //    //titulosReceberDGV = titulosReceberDGV.Where(vendTit => vendTit.VendedoraId == _vendedoraServices.GetByCpf(cpf).VendedoraId);
+            //    LoadContasReceberDGV(StatusTitulo.Aberto, null, cpf);
+            //}
 
-                titulosReceberDGV = ListTitulos;
-                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataRegistro.Month == cbMes.SelectedIndex +1);
-                titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
-            }
-
-            if (!string.IsNullOrEmpty(cpf))
-            {
-                titulosReceberDGV = titulosReceberDGV.Where(vendTit => vendTit.VendedoraId == _vendedoraServices.GetByCpf(cpf).VendedoraId);
-            }
-
-            LoadTableTitulos();
+            //LoadTableTitulos();
 
         }
 
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
+
             ContasReceberForm_Load(sender, e);
+            UncheckRadioButtons();
+        }
+
+        private void UncheckRadioButtons()
+        {
+            rbAberto.Checked = true;
+            rbVencido.Checked = false;
+            rbLiquidado.Checked = false;
+            rbProtestado.Checked = false;
+
+        }
+        private void rbAberto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbAberto.Checked)
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Aberto);
+                LoadTableTitulos(null);
+            }
+        }
+
+        private void rbVencido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbVencido.Checked)
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Vencido);
+                LoadTableTitulos(null);
+            }
+        }
+
+        private void rbLiquidado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbLiquidado.Checked)
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Liquidado);
+                LoadTableTitulos(null);
+            }
+        }
+
+        private void rbProtestado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbProtestado.Checked)
+            {
+                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Protestado);
+                LoadTableTitulos(null);
+            }
         }
     }
 }

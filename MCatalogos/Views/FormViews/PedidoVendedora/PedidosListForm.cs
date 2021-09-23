@@ -409,16 +409,21 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 {
                     try
                     {
-
+                        if (SelectedPedido.StatusPed == (int)StatusPedido.Finalizado)
+                        {
+                            throw new InvalidOperationException("já se encontra finalizado");
+                        }
                         EditarPedido(SelectedPedido, RequestType.Finaliza);
                         MessageBox.Show($"Pedido {SelectedPedido.PedidoId} Finalizado com sucesso");
                     }
-                    catch (Exception)
+                    catch (InvalidOperationException eInvalid)
                     {
-
-                        throw;
+                        MessageBox.Show($"O Pedido {SelectedPedido.PedidoId} {eInvalid.Message}");
                     }
-
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Não foi possível continuar o processo\n" + "Error Message:" + ex.Message + "\nStackTrace: " + ex.StackTrace);
+                    }
                 }
             }
             else
@@ -498,8 +503,18 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 try
                 {
 
-                    _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
 
+                    _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
+                    if (TemContasReceber(pedido))
+                    {
+                        AtualizaContaReceber(pedido);
+                        GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
+                    }
+                    else
+                    {
+                        GeraContasReceber(pedido);
+                        GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -507,16 +522,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     MessageBox.Show($"Não foi possível finalizar o pedido. {pedido.PedidoId} \nMessage: {e.Message}");
                 }
 
-                if (TemContasReceber(pedido))
-                {
-                    AtualizaContaReceber(pedido);
-                    GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
-                }
-                else
-                {
-                    GeraContasReceber(pedido);
-                    GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
-                }
+
             }
 
             if (requestType != RequestType.Finaliza)
