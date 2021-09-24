@@ -251,6 +251,8 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
 
             ContasReceberForm_Load(sender, e);
             UncheckRadioButtons();
+            cbMes.SelectedIndex = -1;
+            LoadContasReceberDGV(StatusTitulo.Aberto, null, null);
         }
 
         private void UncheckRadioButtons()
@@ -265,8 +267,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
         {
             if (rbAberto.Checked)
             {
-                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Aberto);
+                LoadContasReceberDGV(StatusTitulo.Aberto, cbMes.SelectedIndex, null);
+                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Aberto);
                 LoadTableTitulos(null);
             }
         }
@@ -275,8 +278,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
         {
             if (rbVencido.Checked)
             {
-                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Vencido);
+                LoadContasReceberDGV(StatusTitulo.Vencido, cbMes.SelectedIndex, null);
+                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Vencido);
                 LoadTableTitulos(null);
             }
         }
@@ -285,8 +289,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
         {
             if (rbLiquidado.Checked)
             {
-                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Liquidado);
+                LoadContasReceberDGV(StatusTitulo.Liquidado, cbMes.SelectedIndex, null);
+                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Liquidado);
                 LoadTableTitulos(null);
             }
         }
@@ -295,8 +300,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
         {
             if (rbProtestado.Checked)
             {
-                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Protestado);
+                LoadContasReceberDGV(StatusTitulo.Protestado, cbMes.SelectedIndex, null);
+                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
+                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Protestado);
                 LoadTableTitulos(null);
             }
         }
