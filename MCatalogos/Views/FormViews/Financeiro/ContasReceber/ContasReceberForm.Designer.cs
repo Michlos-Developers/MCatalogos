@@ -324,14 +324,15 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             // 
             this.textTotalVencido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textTotalVencido.BackColor = System.Drawing.Color.Tomato;
-            this.textTotalVencido.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTotalVencido.ForeColor = System.Drawing.Color.Black;
+            this.textTotalVencido.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalVencido.ForeColor = System.Drawing.Color.Maroon;
             this.textTotalVencido.Location = new System.Drawing.Point(738, 87);
             this.textTotalVencido.Name = "textTotalVencido";
             this.textTotalVencido.ReadOnly = true;
             this.textTotalVencido.Size = new System.Drawing.Size(183, 31);
             this.textTotalVencido.TabIndex = 5;
             this.textTotalVencido.TabStop = false;
+            this.textTotalVencido.Text = "00,00";
             this.textTotalVencido.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
@@ -348,14 +349,15 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             // 
             this.textTotalAberto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textTotalAberto.BackColor = System.Drawing.Color.Gold;
-            this.textTotalAberto.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTotalAberto.ForeColor = System.Drawing.Color.Black;
+            this.textTotalAberto.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalAberto.ForeColor = System.Drawing.Color.RoyalBlue;
             this.textTotalAberto.Location = new System.Drawing.Point(738, 28);
             this.textTotalAberto.Name = "textTotalAberto";
             this.textTotalAberto.ReadOnly = true;
             this.textTotalAberto.Size = new System.Drawing.Size(183, 31);
             this.textTotalAberto.TabIndex = 5;
             this.textTotalAberto.TabStop = false;
+            this.textTotalAberto.Text = "00,00";
             this.textTotalAberto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4

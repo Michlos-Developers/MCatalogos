@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -90,8 +91,18 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             ReadModelsList();
             LoadComboBoxMonths();
             LoadContasReceberDGV(StatusTitulo.Aberto, null, null); //lê todos os títulos abertos de todo o sistema ignorando o mês
+            LoadTotaisForm();
         }
 
+        private void LoadTotaisForm()
+        {
+            List<TituloReceberModel> TotaisTitulosReceber = ListTitulos;
+            double valorTotalAberto = TotaisTitulosReceber.Sum(total => total.ValorTitulo);
+            double valorTotalVencido = TotaisTitulosReceber.Where(dataVenc => dataVenc.DataVencimento < DateTime.Now).Sum(totalVencido => totalVencido.ValorTitulo);
+
+            textTotalAberto.Text = string.Format("{0:C}", valorTotalAberto);
+            textTotalVencido.Text = string.Format("{0:C}", valorTotalVencido);
+        }
 
         private void LoadComboBoxMonths()
         {
@@ -118,16 +129,25 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             }
             else if (currentMonth != null)
             {
-                titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == currentMonth + 1);
-
+                if (currentMonth != -1)
+                {
+                    if (currentMonth != 12)
+                    {
+                        titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == currentMonth + 1);
+                    }
+                }
             }
             else if (!string.IsNullOrEmpty(cpf))
             {
                 vendedora = _vendedoraServices.GetByCpf(cpf);
                 titulosReceberDGV = titulosReceberDGV.Where(vendedoraid => vendedoraid.VendedoraId == vendedora.VendedoraId);
             }
+            else
+            {
+                titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
 
-            titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
+            }
+
             LoadTableTitulos(vendedora);
 
 
@@ -252,7 +272,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             ContasReceberForm_Load(sender, e);
             UncheckRadioButtons();
             cbMes.SelectedIndex = -1;
-            LoadContasReceberDGV(StatusTitulo.Aberto, null, null);
+            //LoadContasReceberDGV(StatusTitulo.Aberto, null, null);
         }
 
         private void UncheckRadioButtons()
