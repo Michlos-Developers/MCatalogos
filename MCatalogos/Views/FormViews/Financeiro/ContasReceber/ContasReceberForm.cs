@@ -3,8 +3,11 @@ using DomainLayer.Models.TitulosReceber;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro;
 using InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
+
+using MCatalogos.Views.FormViews.PedidoVendedora;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.TitulosReceberServices;
@@ -137,17 +140,14 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
                     }
                 }
             }
-            else if (!string.IsNullOrEmpty(cpf))
+            
+            if (!string.IsNullOrEmpty(cpf))
             {
                 vendedora = _vendedoraServices.GetByCpf(cpf);
                 titulosReceberDGV = titulosReceberDGV.Where(vendedoraid => vendedoraid.VendedoraId == vendedora.VendedoraId);
             }
-            else
-            {
-                titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
-
-            }
-
+           
+            titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
             LoadTableTitulos(vendedora);
 
 
@@ -247,22 +247,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             cpf = cpf.Replace("-", "");
             cpf = cpf.Replace(" ", "");
             LoadContasReceberDGV(StatusTitulo.Aberto, cbMes.SelectedIndex, cpf);
-            //if (cbMes.SelectedIndex > 0)
-            //{
-            //    //TODO: Fazer um loadTitulos com os parametros de mes e do radiobutton selecionado.
-            //    //titulosReceberDGV = ListTitulos;
-            //    //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataRegistro.Month == cbMes.SelectedIndex + 1);
-            //    //titulosReceberDGV = ConfiguraDGVByStatus(status, titulosReceberDGV);
-            //    LoadContasReceberDGV(StatusTitulo.Aberto, cbMes.SelectedIndex + 1, null);
-            //}
-
-            //if (!string.IsNullOrEmpty(cpf))
-            //{
-            //    //titulosReceberDGV = titulosReceberDGV.Where(vendTit => vendTit.VendedoraId == _vendedoraServices.GetByCpf(cpf).VendedoraId);
-            //    LoadContasReceberDGV(StatusTitulo.Aberto, null, cpf);
-            //}
-
-            //LoadTableTitulos();
+           
 
         }
 
@@ -272,7 +257,6 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             ContasReceberForm_Load(sender, e);
             UncheckRadioButtons();
             cbMes.SelectedIndex = -1;
-            //LoadContasReceberDGV(StatusTitulo.Aberto, null, null);
         }
 
         private void UncheckRadioButtons()
@@ -288,8 +272,6 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             if (rbAberto.Checked)
             {
                 LoadContasReceberDGV(StatusTitulo.Aberto, cbMes.SelectedIndex, null);
-                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Aberto);
                 LoadTableTitulos(null);
             }
         }
@@ -299,8 +281,6 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             if (rbVencido.Checked)
             {
                 LoadContasReceberDGV(StatusTitulo.Vencido, cbMes.SelectedIndex, null);
-                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Vencido);
                 LoadTableTitulos(null);
             }
         }
@@ -310,8 +290,6 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             if (rbLiquidado.Checked)
             {
                 LoadContasReceberDGV(StatusTitulo.Liquidado, cbMes.SelectedIndex, null);
-                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Liquidado);
                 LoadTableTitulos(null);
             }
         }
@@ -321,9 +299,57 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             if (rbProtestado.Checked)
             {
                 LoadContasReceberDGV(StatusTitulo.Protestado, cbMes.SelectedIndex, null);
-                //titulosReceberDGV = titulosReceberDGV.Where(mes => mes.DataVencimento.Month == cbMes.SelectedIndex + 1);
-                //titulosReceberDGV = titulosReceberDGV.Where(status => status.StatusTitulo == StatusTitulo.Protestado);
                 LoadTableTitulos(null);
+            }
+        }
+
+        private void btnReceber_Click(object sender, EventArgs e)
+        {
+            //SELECIONAR O TÍTULO
+            RequestType request = new RequestType();
+            SelectedTitulo = (TituloReceberModel)_tituloReceberServices.GetById(int.Parse(dgvTitulosReceber.CurrentRow.Cells[0].Value.ToString()));
+            //int tamanhos = ((int)(Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho));
+            //AddProdutoInDGV(ProdutoToAddGrid, result, null);
+            var result = MessageBox.Show("Liquidar valor total?", "Liquidação de Título", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                request = RequestType.Liquidar;
+            }
+            else if (result == DialogResult.No)
+            {
+                request = RequestType.Abater;
+            }
+            else
+            {
+                return;
+            }
+
+            RecberTitulo(SelectedTitulo, request);
+
+        }
+
+        private void RecberTitulo(TituloReceberModel selectedTitulo, RequestType request)
+        {
+            try
+            {
+                if (request.Equals(RequestType.Liquidar))
+                {
+                    _tituloReceberServices.LiquidarTitulo(selectedTitulo);
+                    MessageBox.Show("Título Liquidado com Sucesso!");
+                }
+                else if (request.Equals(RequestType.Abater))
+                {
+                    //TODO: GERAR TELA P/ INFORMAR VALORES E DESTINO. (TELA DE LANÇAMENTO)
+                    //TODO: GERAR HISTÓRICO
+                    LancamentoFinanceiroForm lancamentoFinanceiroForm = LancamentoFinanceiroForm.Instance(this);
+                    ValorReceberForm valorReceberForm = ValorReceberForm.Instance(this);
+                    double valorAbater = valorReceberForm.valorAbater;
+                    _tituloReceberServices.AbaterValor(selectedTitulo, valorAbater);
+                }
+            }
+            catch (Exception e)
+            {
+
             }
         }
     }

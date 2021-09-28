@@ -104,6 +104,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.btnReceber.Tag = "";
             this.btnReceber.Text = "Receber";
             this.btnReceber.UseVisualStyleBackColor = false;
+            this.btnReceber.Click += new System.EventHandler(this.btnReceber_Click);
             // 
             // btnCancelar
             // 

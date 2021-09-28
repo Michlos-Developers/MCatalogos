@@ -95,6 +95,9 @@
     <Compile Include="Models\Financeiro\Caixa\Enums\TipoMovimentacao.cs" />
     <Compile Include="Models\Financeiro\Caixa\Enums\TipoMovimentacaoModel.cs" />
     <Compile Include="Models\Financeiro\Caixa\ICaixaModel.cs" />
+    <Compile Include="Models\Financeiro\Lancamentos\ILancamentoDestinoModel.cs" />
+    <Compile Include="Models\Financeiro\Lancamentos\LancamentoDestino.cs" />
+    <Compile Include="Models\Financeiro\Lancamentos\LancamentoDestinoModel.cs" />
     <Compile Include="Models\Financeiro\Provisionamento\IProvisionamentoModel.cs" />
     <Compile Include="Models\Financeiro\Provisionamento\ProvisionamentoModel.cs" />
     <Compile Include="Models\Financeiro\Retirada\IRetiradaCaixaModel.cs" />
