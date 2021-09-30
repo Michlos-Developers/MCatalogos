@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.Financeiro.Lancamentos;
+﻿using DomainLayer.Models.Financeiro.Caixa.Enums;
+using DomainLayer.Models.Financeiro.Lancamentos;
 
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
         #endregion
 
         LancamentoDestino Destino;
+        TipoMovimentacao TipoMovimentacao;
 
         //TODO: PREENCHER COMBOBOX DE DESTINO COM CAIXA/BANCO.
         //TODO: VER A POSSIBILIDADE DE USAR O TIPO DE LANÇAMENTO PARA FAZER O LANÇAMENTO UM FORM GENÉRICO 
@@ -51,6 +53,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
         {
             InitializeComponent();
             LoadComboBoxDestino();
+            LoadComboBoxTipoMovimentacao();
             LoadComboBoxConta();
         }
 
@@ -74,11 +77,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
                 cbConta.TabStop = false;
             }
         }
+        private void LoadComboBoxTipoMovimentacao()
+        {
+            cbTipoLancamento.Items.AddRange(Enum.GetNames(typeof(TipoMovimentacao)));
+        }
         private void LoadComboBoxConta()
         {
             if (Destino == LancamentoDestino.BANCO)
             {
-               
+                //TODO: Ler as contas registradas no sistema.
             }
         }
     }

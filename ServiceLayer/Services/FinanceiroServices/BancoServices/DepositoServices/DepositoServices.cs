@@ -36,9 +36,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.DepositoService
             return _depositoRepository.GetAll();
         }
 
-        public IEnumerable<DepositoModel> GetAllByBanco(BancoModel banco)
+        public IEnumerable<DepositoModel> GetAllByConta(ContaModel conta)
         {
-            return _depositoRepository.GetAllByBanco(banco);
+            return _depositoRepository.GetAllByConta(conta);
         }
 
         public IEnumerable<DepositoModel> GetAllByData(DateTime data)
@@ -46,9 +46,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.DepositoService
             return _depositoRepository.GetAllByData(data);
         }
 
-        public IEnumerable<DepositoModel> GetAllByDataAndBanco(DateTime data, BancoModel banco)
+        public IEnumerable<DepositoModel> GetAllByDataAndConta(DateTime data, ContaModel conta)
         {
-            return _depositoRepository.GetAllByDataAndBanco(data, banco);
+            return _depositoRepository.GetAllByDataAndConta(data, conta);
         }
 
         public IEnumerable<DepositoModel> GetAllByMonthAndYear(int month, int year)
@@ -56,9 +56,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.DepositoService
             return _depositoRepository.GetAllByMonthAndYear(month, year);
         }
 
-        public IEnumerable<DepositoModel> GetAllByMonthYearBanco(int month, int year, BancoModel banco)
+        public IEnumerable<DepositoModel> GetAllByMonthYearConta(int month, int year, ContaModel conta)
         {
-            return _depositoRepository.GetAllByMonthYearBanco(month, year, banco);
+            return _depositoRepository.GetAllByMonthYearConta(month, year, conta);
         }
 
         public DepositoModel GetById(int depositoId)

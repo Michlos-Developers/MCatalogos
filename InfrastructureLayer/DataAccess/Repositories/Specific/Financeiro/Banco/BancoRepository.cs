@@ -44,12 +44,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@NumeroBanco", banco.NumeroBanco);
                         cmd.Parameters.AddWithValue("@NomeBanco", banco.NomeBanco);
-                        cmd.Parameters.AddWithValue("@NumeroConta", banco.NumeroConta);
-                        cmd.Parameters.AddWithValue("@DvNumeroConta", banco.DvNumeroConta);
-                        cmd.Parameters.AddWithValue("@NumeroAgencia", banco.NumeroAgencia);
-                        cmd.Parameters.AddWithValue("@DvNumeroAgencia", banco.DvNumeroAgencia);
-                        cmd.Parameters.AddWithValue("@SaldoAnterior", banco.SaldoAnterior);
-                        cmd.Parameters.AddWithValue("@SaldoAtual", banco.SaldoAtual);
+
 
                         idReturned = (int)cmd.ExecuteScalar();
                     }
@@ -71,59 +66,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
         }
 
-        public BancoModel AtualizaSaldo(IBancoModel banco, double valorRegistro, TipoMovimentacao tipoMovimentacao)
-        {
-
-            DataAccessStatus dataAccessStatus = new DataAccessStatus();
-            string query = " UPDATE Bancos SET" +
-                           " SaldoAnterior = @SaldoAnterior," +
-                           " SaldoAtual = @SaldoAtual" +
-                           " WHERE BancoId = @BancoId";
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Prepare();
-                        cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
-                        cmd.Parameters.AddWithValue("@SaldoAnterior", banco.SaldoAtual); //TRANSFERE O SALDO ATUAL PARA O SALDO ANTERIOR
-                        if (tipoMovimentacao == TipoMovimentacao.DepositoBancario)
-                        {
-                            //SOMA VALOR AO SALDO ATUAL
-                            cmd.Parameters.Add(new SqlParameter("@SaldoAtual", banco.SaldoAtual + valorRegistro));
-
-                        }
-                        else
-                        {
-                            //SUBTRAI VALOR DO SALDO ATUAL
-                            cmd.Parameters.Add(new SqlParameter("@SaldoAtual", banco.SaldoAtual - valorRegistro));
-
-                        }
-                        cmd.ExecuteNonQuery();
-
-                    }
-                }
-                catch (SqlException e)
-                {
-                    dataAccessStatus.setValues("Error", false, e.Message, $"Não foi possível Atualizar o Saldo Bancário do Banco {banco.NomeBanco} da Conta {banco.NumeroConta}-{banco.DvNumeroConta}.", e.HelpLink, e.ErrorCode, e.StackTrace);
-                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-
-                banco = GetById(banco.BancoId);
-
-                return banco as BancoModel;
-            }
-
-
-
-
-        }
+       
         public void RemoveBanco(IBancoModel banco)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
@@ -146,7 +89,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, $"Não foi possível Remover o Banco {banco.NomeBanco} da Conta {banco.NumeroConta}-{banco.DvNumeroConta} do Sistema.", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, $"Não foi possível Remover o Banco {banco.NomeBanco} do Sistema.", e.HelpLink, e.ErrorCode, e.StackTrace);
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -183,13 +126,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                             model.BancoId = int.Parse(reader["BancoId"].ToString());
                             model.NumeroBanco = int.Parse(reader["NumeroBanco"].ToString());
                             model.NomeBanco = reader["NomeBanco"].ToString();
-                            model.NumeroConta = reader["NumeroConta"].ToString();
-                            model.DvNumeroConta = reader["DvNumeroConta"].ToString();
-                            model.NumeroAgencia = reader["NumeroAgencia"].ToString();
-                            model.DvNumeroAgencia = string.IsNullOrEmpty(reader["DvNumeroAgencia"].ToString()) ? "-" : reader["DvNumeroAgencia"].ToString();
-                            model.SaldoAnterior = double.Parse(reader["SaldoAnterior"].ToString());
-                            model.SaldoAtual = double.Parse(reader["SaldoAtual"].ToString());
-                            model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
+                           
 
                             modelList.Add(model);
 
@@ -235,14 +172,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                             model.BancoId = int.Parse(reader["BancoId"].ToString());
                             model.NumeroBanco = int.Parse(reader["NumeroBanco"].ToString());
                             model.NomeBanco = reader["NomeBanco"].ToString();
-                            model.NumeroConta = reader["NumeroConta"].ToString();
-                            model.DvNumeroConta = reader["DvNumeroConta"].ToString();
-                            model.NumeroAgencia = reader["NumeroAgencia"].ToString();
-                            model.DvNumeroAgencia = string.IsNullOrEmpty(reader["DvNumeroAgencia"].ToString()) ? "-" : reader["DvNumeroAgencia"].ToString();
-                            model.SaldoAnterior = double.Parse(reader["SaldoAnterior"].ToString());
-                            model.SaldoAtual = double.Parse(reader["SaldoAtual"].ToString());
-                            model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
-
+                            
 
                         }
 

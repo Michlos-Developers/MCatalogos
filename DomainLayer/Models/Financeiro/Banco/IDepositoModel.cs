@@ -7,9 +7,9 @@ namespace DomainLayer.Models.Financeiro.Banco
 {
     public interface IDepositoModel
     {
-        int BancoId { get; set; }
-        BancoModel BancoModel { get; set; }
         bool Cancelado { get; set; }
+        int ContaId { get; set; }
+        ContaModel ContaModel { get; set; }
         DateTime DataRegistro { get; set; }
         int DepositoId { get; set; }
         int ProvisionamentoId { get; set; }

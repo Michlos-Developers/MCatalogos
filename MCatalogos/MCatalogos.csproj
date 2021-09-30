@@ -548,7 +548,11 @@
     <None Include="Resources\IconFluxoCaixa35x35.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\FormViews\Financeiro\Bancos\" />
     <Folder Include="Views\FormViews\Financeiro\FluxoCaixa\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconBanco35x35.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

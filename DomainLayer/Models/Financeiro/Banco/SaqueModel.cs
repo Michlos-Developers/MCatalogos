@@ -15,9 +15,9 @@ namespace DomainLayer.Models.Financeiro.Banco
         public DateTime DataRegistro { get; set; }
 
         [Required()]
-        [ForeignKey("BancoModel")]
-        public int BancoId { get; set; }
-        public virtual BancoModel BancoModel { get; set; }
+        [ForeignKey("ContaModel")]
+        public int ContaId { get; set; }
+        public virtual ContaModel ContaModel { get; set; }
 
         [Required()]
         [ForeignKey("ProvisionamentoModel")]

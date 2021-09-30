@@ -23,10 +23,6 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices
             return _bancoRepository.AddBanco(banco);
         }
 
-        public BancoModel AtualizaSaldo(IBancoModel banco, double valorRegistro, TipoMovimentacao tipoMovimentacao)
-        {
-            return _bancoRepository.AtualizaSaldo(banco, valorRegistro, tipoMovimentacao);
-        }
 
         public IEnumerable<BancoModel> GetAll()
         {

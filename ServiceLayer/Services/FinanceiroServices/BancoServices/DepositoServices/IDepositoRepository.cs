@@ -15,9 +15,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.DepositoService
         IEnumerable<DepositoModel> GetAll();
         IEnumerable<DepositoModel> GetAllByMonthAndYear(int month, int year);
         IEnumerable<DepositoModel> GetAllByData(DateTime data);
-        IEnumerable<DepositoModel> GetAllByBanco(BancoModel banco);
-        IEnumerable<DepositoModel> GetAllByDataAndBanco(DateTime data, BancoModel banco);
-        IEnumerable<DepositoModel> GetAllByMonthYearBanco(int month, int year, BancoModel banco);
+        IEnumerable<DepositoModel> GetAllByConta(ContaModel conta);
+        IEnumerable<DepositoModel> GetAllByDataAndConta(DateTime data, ContaModel conta);
+        IEnumerable<DepositoModel> GetAllByMonthYearConta(int month, int year, ContaModel conta);
 
     }
 }

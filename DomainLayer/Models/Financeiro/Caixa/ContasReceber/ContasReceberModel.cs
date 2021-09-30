@@ -15,7 +15,7 @@ namespace DomainLayer.Models.Financeiro.Caixa.ContasReceber
         [Required()]
         [ForeignKey("CaixaModel")]
         public int CaixaId { get; set; }
-        public CaixaModel CaixaModel { get; set; }
+        public virtual CaixaModel CaixaModel { get; set; }
 
         [Required()]
         [ForeignKey("TituloReceberModel")]

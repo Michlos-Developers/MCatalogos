@@ -1,13 +1,9 @@
 ﻿using DomainLayer.Models.Financeiro.Banco;
-using DomainLayer.Models.Financeiro.Retirada;
 
 using ServiceLayer.CommonServices;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Services.FinanceiroServices.BancoServices.SaqueServices
 {
@@ -37,9 +33,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.SaqueServices
             return _saqueRepository.GetAll();
         }
 
-        public IEnumerable<SaqueModel> GetAllByBanco(BancoModel banco)
+        public IEnumerable<SaqueModel> GetAllByConta(ContaModel conta)
         {
-            return _saqueRepository.GetAllByBanco(banco);
+            return _saqueRepository.GetAllByConta(conta);
         }
 
         public IEnumerable<SaqueModel> GetAllByData(DateTime data)
@@ -47,9 +43,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.SaqueServices
             return _saqueRepository.GetAllByData(data);
         }
 
-        public IEnumerable<SaqueModel> GetAllByDataAndBanco(DateTime data, BancoModel banco)
+        public IEnumerable<SaqueModel> GetAllByDataAndConta(DateTime data, ContaModel conta)
         {
-            return _saqueRepository.GetAllByDataAndBanco(data, banco);
+            return _saqueRepository.GetAllByDataAndConta(data, conta);
         }
 
         public IEnumerable<SaqueModel> GetAllByMonthAndYear(int month, int year)
@@ -57,9 +53,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.SaqueServices
             return _saqueRepository.GetAllByMonthAndYear(month, year);
         }
 
-        public IEnumerable<SaqueModel> GetAllByMonthYearBanco(int month, int year, BancoModel banco)
+        public IEnumerable<SaqueModel> GetAllByMonthYearConta(int month, int year, ContaModel conta)
         {
-            return _saqueRepository.GetAllByMonthYearBanco(month, year, banco);
+            return _saqueRepository.GetAllByMonthYearConta(month, year, conta);
         }
 
         public SaqueModel GetById(int saqueId)

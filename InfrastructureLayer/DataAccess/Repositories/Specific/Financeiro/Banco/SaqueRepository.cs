@@ -6,12 +6,8 @@ using DomainLayer.Models.Financeiro.Caixa.Enums;
 using ServiceLayer.Services.FinanceiroServices.BancoServices.SaqueServices;
 
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 {
@@ -33,10 +29,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             int idReturned = 0;
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO Saques " +
-                           " (BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque)" +
+                           " (ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque)" +
                            " OUTPUT INSERTED.SaqueId" +
                            " VALUES" +
-                           " (@BancoId, @TipoMovimentacaoId, @ProvisionamentoId, @ValorSaque) ";
+                           " (@ContaId, @TipoMovimentacaoId, @ProvisionamentoId, @ValorSaque) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -47,7 +43,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                     {
                         cmd.Prepare();
 
-                        cmd.Parameters.AddWithValue("@BancoId", saqueModel.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", saqueModel.ContaId);
                         cmd.Parameters.AddWithValue("@TipoMovimentacaoId", saqueModel.TipoMovimentacao);
                         cmd.Parameters.AddWithValue("@ProvisionamentoId", saqueModel.ProvisionamentoId);
                         cmd.Parameters.AddWithValue("@ValorSaque", saqueModel.ValorSaque);
@@ -111,7 +107,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             List<SaqueModel> modelList = new List<SaqueModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -130,7 +126,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());
@@ -157,14 +153,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
         }
 
-        public IEnumerable<SaqueModel> GetAllByBanco(BancoModel banco)
+        public IEnumerable<SaqueModel> GetAllByConta(ContaModel conta)
         {
             List<SaqueModel> modelList = new List<SaqueModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques " +
-                           " WHERE BancoId = @BancoId";
+                           " WHERE ContaId = @ContaId";
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -177,7 +173,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                     {
                         cmd.Prepare();
 
-                        cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", conta.ContaId);
 
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -188,7 +184,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());
@@ -219,7 +215,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             List<SaqueModel> modelList = new List<SaqueModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques " +
                            " WHERE DataRegistro = @DataRegistro";
 
@@ -245,7 +241,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());
@@ -271,17 +267,17 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             }
         }
 
-        public IEnumerable<SaqueModel> GetAllByDataAndBanco(DateTime data, BancoModel banco)
+        public IEnumerable<SaqueModel> GetAllByDataAndConta(DateTime data, ContaModel conta)
         {
             List<SaqueModel> modelList = new List<SaqueModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques " +
                            " WHERE " +
                            " DataRegistro = @DataRegistro " +
                            " AND " +
-                           " BancoId = @BancoId";
+                           " ContaId = @ContaId";
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -294,7 +290,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                     {
                         cmd.Prepare();
 
-                        cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", conta.ContaId);
                         cmd.Parameters.Add(new SqlParameter("@DataRegistro", data));
 
 
@@ -306,7 +302,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());
@@ -337,7 +333,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             List<SaqueModel> modelList = new List<SaqueModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques " +
                            " WHERE " +
                            " MONTH(DataRegistro) = @Month " +
@@ -367,7 +363,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());
@@ -393,19 +389,19 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             }
         }
 
-        public IEnumerable<SaqueModel> GetAllByMonthYearBanco(int month, int year, BancoModel banco)
+        public IEnumerable<SaqueModel> GetAllByMonthYearConta(int month, int year, ContaModel conta)
         {
             List<SaqueModel> modelList = new List<SaqueModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques " +
                            " WHERE " +
                            " MONTH(DataRegistro) = @Month " +
                            " AND " +
                            " YEAR(DataRegistro) = @Year " +
                            " AND " +
-                           " BancoId = @BancoId";
+                           " ContaId = @ContaId";
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -420,7 +416,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                         cmd.Parameters.Add(new SqlParameter("@Month", month));
                         cmd.Parameters.Add(new SqlParameter("@Year", year));
-                        cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", conta.ContaId);
 
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -431,7 +427,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());
@@ -462,7 +458,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             SaqueModel model = new SaqueModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " SaqueId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
+                           " SaqueId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorSaque, Cancelado" +
                            " FROM Saques " +
                            " WHERE " +
                            " SaqueId = @SaqueId";
@@ -489,7 +485,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.SaqueId = int.Parse(reader["SaqueId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.ProvisionamentoId = int.Parse(reader["TipoMovimentacaoId"].ToString());
                                 model.ValorSaque = double.Parse(reader["ValorSaque"].ToString());

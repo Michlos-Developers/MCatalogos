@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
+namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.conta
 {
     public class DepositoRepository : IDepositoRepository
     {
@@ -31,10 +31,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             int idReturned = 0;
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " INSERT INTO Depositos " +
-                           " (BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito)" +
+                           " (ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito)" +
                            " OUTPUT INSERTED.DepositoId" +
                            " VALUES" +
-                           " (@BancoId, @TipoMovimentacaoId, @ProvisionamentoId, @ValorDeposito)";
+                           " (@ContaId, @TipoMovimentacaoId, @ProvisionamentoId, @ValorDeposito)";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -44,7 +44,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                     {
                         cmd.Prepare();
 
-                        cmd.Parameters.AddWithValue("@BancoId", deposito.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", deposito.ContaId);
                         cmd.Parameters.AddWithValue("@TipoMovimentacaoId", deposito.TipoMovimentacao);
                         cmd.Parameters.AddWithValue("@ProvisionamentoId", deposito.ProvisionamentoId);
                         cmd.Parameters.AddWithValue("@ValorDeposito", deposito.ValorDeposito);
@@ -113,7 +113,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             List<DepositoModel> modelList = new List<DepositoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos ";
 
 
@@ -132,7 +132,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -157,14 +157,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             }
         }
 
-        public IEnumerable<DepositoModel> GetAllByBanco(BancoModel banco)
+        public IEnumerable<DepositoModel> GetAllByConta(ContaModel conta)
         {
             List<DepositoModel> modelList = new List<DepositoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos " +
-                           " WHERE BancoId = @BancoId";
+                           " WHERE ContaId = @ContaId";
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -176,7 +176,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                     {
                         cmd.Prepare();
 
-                        cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", conta.ContaId);
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -186,7 +186,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -198,7 +198,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Depósitos Bancários pelo Banco", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Depósitos Bancários pelo conta", e.HelpLink, e.ErrorCode, e.StackTrace);
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -216,7 +216,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             List<DepositoModel> modelList = new List<DepositoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos " +
                            " WHERE DataRegistro = @DataRegistro";
 
@@ -240,7 +240,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -265,12 +265,12 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             }
         }
 
-        public IEnumerable<DepositoModel> GetAllByDataAndBanco(DateTime data, BancoModel banco)
+        public IEnumerable<DepositoModel> GetAllByDataAndConta(DateTime data, ContaModel conta)
         {
             List<DepositoModel> modelList = new List<DepositoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos " +
                            " WHERE DataRegistro = @DataRegistro";
 
@@ -294,7 +294,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -324,7 +324,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             List<DepositoModel> modelList = new List<DepositoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos " +
                            " WHERE " +
                            " MONTH(DataRegistro) = @Month " +
@@ -352,7 +352,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -377,19 +377,19 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             }
         }
 
-        public IEnumerable<DepositoModel> GetAllByMonthYearBanco(int month, int year, BancoModel banco)
+        public IEnumerable<DepositoModel> GetAllByMonthYearConta(int month, int year, ContaModel conta)
         {
             List<DepositoModel> modelList = new List<DepositoModel>();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos " +
                            " WHERE " +
                            " MONTH(DataRegistro) = @Month " +
                            " AND " +
                            " YEAR(DataRegistro) = @Year " +
                            " AND " +
-                           " BancoId = @BancoId";
+                           " ContaId = @ContaId";
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -403,7 +403,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                         cmd.Parameters.Add(new SqlParameter("@Month", month));
                         cmd.Parameters.Add(new SqlParameter("@Year", year));
-                        cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
+                        cmd.Parameters.AddWithValue("@ContaId", conta.ContaId);
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -413,7 +413,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -425,7 +425,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Depósitos Bancários por Mes e Ano do Banco Especificado", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Depósitos Bancários por Mes e Ano do conta Especificado", e.HelpLink, e.ErrorCode, e.StackTrace);
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally
@@ -438,12 +438,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
             }
         }
 
+
         public DepositoModel GetById(int depositoId)
         {
             DepositoModel model = new DepositoModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = " SELECT " +
-                           " DepositoId, DataRegistro, BancoId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
+                           " DepositoId, DataRegistro, ContaId, TipoMovimentacaoId, ProvisionamentoId, ValorDeposito, Cancelado" +
                            " FROM Depositos " +
                            " WHERE " +
                            " DepositoId = @DepositoId ";
@@ -467,7 +468,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
                                 model.DepositoId = int.Parse(reader["DepositoId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.ContaId = int.Parse(reader["ContaId"].ToString());
                                 model.TipoMovimentacao = (TipoMovimentacao)Enum.Parse(typeof(TipoMovimentacao), reader["TipoMovimentacaoId"].ToString());
                                 model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
 
@@ -478,7 +479,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                 }
                 catch (SqlException e)
                 {
-                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Depósitos Bancários por Mes e Ano do Banco Especificado", e.HelpLink, e.ErrorCode, e.StackTrace);
+                    dataAccessStatus.setValues("Error", false, e.Message, "Não foi possível recuperar a lista de Depósitos Bancários por Mes e Ano do conta Especificado", e.HelpLink, e.ErrorCode, e.StackTrace);
                     throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                 }
                 finally

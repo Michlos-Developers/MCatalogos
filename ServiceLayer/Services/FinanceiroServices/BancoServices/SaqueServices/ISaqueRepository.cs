@@ -13,9 +13,9 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices.SaqueServices
         IEnumerable<SaqueModel> GetAll();
         IEnumerable<SaqueModel> GetAllByMonthAndYear(int month, int year);
         IEnumerable<SaqueModel> GetAllByData(DateTime data);
-        IEnumerable<SaqueModel> GetAllByBanco(BancoModel banco);
-        IEnumerable<SaqueModel> GetAllByDataAndBanco(DateTime data, BancoModel banco);
-        IEnumerable<SaqueModel> GetAllByMonthYearBanco(int month, int year, BancoModel banco);
+        IEnumerable<SaqueModel> GetAllByConta(ContaModel conta);
+        IEnumerable<SaqueModel> GetAllByDataAndConta(DateTime data, ContaModel conta);
+        IEnumerable<SaqueModel> GetAllByMonthYearConta(int month, int year, ContaModel conta);
         
     }
 }

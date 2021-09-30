@@ -9,7 +9,7 @@ namespace ServiceLayer.Services.FinanceiroServices.BancoServices
     {
         BancoModel AddBanco(IBancoModel banco);
         void RemoveBanco(IBancoModel banco);
-        BancoModel AtualizaSaldo(IBancoModel banco, double valorRegistro, TipoMovimentacao tipoMovimentacao);
+        
 
         IEnumerable<BancoModel> GetAll();
         BancoModel GetById(int bancoId);
