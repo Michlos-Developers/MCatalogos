@@ -82,7 +82,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                     {
                         cmd.Prepare();
                         cmd.Parameters.AddWithValue("@BancoId", banco.BancoId);
-                        cmd.Parameters.Add(new SqlParameter("@Cancelado", false)); //TRANSFERE O SALDO ATUAL PARA O SALDO ANTERIOR
+                        cmd.Parameters.Add(new SqlParameter("@Cancelado", true)); //TRANSFERE O SALDO ATUAL PARA O SALDO ANTERIOR
                         cmd.ExecuteNonQuery();
 
                     }

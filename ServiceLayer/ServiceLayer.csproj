@@ -80,6 +80,9 @@
     <Compile Include="Services\EstoqueServices\IHistoricoEstoqueRepository.cs" />
     <Compile Include="Services\EstoqueServices\IHistorioEstoqueService.cs" />
     <Compile Include="Services\FinanceiroServices\BancoServices\BancoServices.cs" />
+    <Compile Include="Services\FinanceiroServices\BancoServices\ContaServices\ContaServices.cs" />
+    <Compile Include="Services\FinanceiroServices\BancoServices\ContaServices\IContaRepository.cs" />
+    <Compile Include="Services\FinanceiroServices\BancoServices\ContaServices\IContaServices.cs" />
     <Compile Include="Services\FinanceiroServices\BancoServices\DepositoServices\DepositoServices.cs" />
     <Compile Include="Services\FinanceiroServices\BancoServices\DepositoServices\IDepositoRepository.cs" />
     <Compile Include="Services\FinanceiroServices\BancoServices\DepositoServices\IDepositoServices.cs" />

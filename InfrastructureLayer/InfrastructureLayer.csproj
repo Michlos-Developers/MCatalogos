@@ -68,6 +68,7 @@
     <Compile Include="DataAccess\Repositories\Specific\Estoque\EstoqueRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Estoque\HistoricoEstoqueRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Banco\BancoRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Financeiro\Banco\ContaRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Banco\DepositoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Banco\SaqueRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Caixa\CaixaRepository.cs" />
