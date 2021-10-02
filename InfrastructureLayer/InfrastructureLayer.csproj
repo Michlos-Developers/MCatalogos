@@ -75,17 +75,12 @@
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Caixa\ContasPagarRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Caixa\ContasReceberRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Caixa\Enums\TipoMovimentacaoRepository.cs" />
-    <Compile Include="DataAccess\Repositories\Specific\Financeiro\LancamentoFinanceiroForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataAccess\Repositories\Specific\Financeiro\LancamentoFinanceiroForm.Designer.cs">
-      <DependentUpon>LancamentoFinanceiroForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\Provisionamento\ProvisionamentoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Financeiro\RetiradaCaixa\RetiradaCaixaRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Formato\FormatoTamanhoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\FornecedorRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Fornecedor\TelefoneFornecedorRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Specific\Modulos\ModulosRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\PedidoVendedora\DetalhePedidoRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\PedidoVendedora\PedidoVendedoraRepository.cs" />
     <Compile Include="DataAccess\Repositories\Specific\Produto\ProdutoRepository.cs" />
@@ -120,11 +115,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Repositories\Specific\Financeiro\LancamentoFinanceiroForm.resx">
-      <DependentUpon>LancamentoFinanceiroForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

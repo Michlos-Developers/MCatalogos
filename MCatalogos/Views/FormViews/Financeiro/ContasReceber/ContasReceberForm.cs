@@ -341,15 +341,15 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
                 {
                     //TODO: GERAR TELA P/ INFORMAR VALORES E DESTINO. (TELA DE LANÇAMENTO)
                     //TODO: GERAR HISTÓRICO
-                    LancamentoFinanceiroForm lancamentoFinanceiroForm = LancamentoFinanceiroForm.Instance(this);
+                    //LancamentosForm lancamentosForm = LancamentosForm
                     ValorReceberForm valorReceberForm = ValorReceberForm.Instance(this);
                     double valorAbater = valorReceberForm.valorAbater;
                     _tituloReceberServices.AbaterValor(selectedTitulo, valorAbater);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
+                throw new Exception();
             }
         }
     }

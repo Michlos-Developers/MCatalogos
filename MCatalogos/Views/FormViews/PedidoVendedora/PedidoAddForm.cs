@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.CommonModels.Enums;
 using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Produtos;
 using DomainLayer.Models.Tamanho;

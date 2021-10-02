@@ -1,4 +1,5 @@
 ﻿using MCatalogos.Commons;
+using MCatalogos.Tests;
 using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
 using MCatalogos.Views.FormViews.Estoque;
@@ -248,6 +249,12 @@ namespace MCatalogos
             FinanceiroForm financeiroForm = FinanceiroForm.Instance(this);
             financeiroForm.MdiParent = this;
             financeiroForm.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TestButtsonMenuDB testButtsonMenuDB = new TestButtsonMenuDB();
+            testButtsonMenuDB.Show();
         }
     }
 }

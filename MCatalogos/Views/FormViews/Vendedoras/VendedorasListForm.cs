@@ -78,7 +78,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Não foi possível trazer a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List");
+                MessageBox.Show($"Não foi possível recuperar a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List");
             }
 
             DataTable tableVendedoras = ModelaDataTable();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DomainLayer.Models.CommonModels.Enums;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,10 +30,26 @@ namespace MCatalogos.Views.FormViews.Financeiro.Bancos
 
         #endregion
 
-        public BancoAddForm()
+        private RequestType RequestType;
+        
+        public BancoAddForm(RequestType requestType)
         {
             InitializeComponent();
+
+            RequestType = requestType;
+            
         }
 
+        private void BancoAddForm_Load(object sender, EventArgs e)
+        {
+            if (RequestType == RequestType.Add)
+            {
+                //new bank
+            }
+            else if (RequestType == RequestType.Edit)
+            {
+                //load bank and acoutns
+            }
+        }
     }
 }

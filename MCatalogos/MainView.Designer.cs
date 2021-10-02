@@ -47,6 +47,7 @@ namespace MCatalogos
             this.pictureMenuMobile = new System.Windows.Forms.PictureBox();
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).BeginInit();
             this.panelSecondaryMenu.SuspendLayout();
@@ -266,6 +267,7 @@ namespace MCatalogos
             // 
             // panelSecondaryMenu
             // 
+            this.panelSecondaryMenu.Controls.Add(this.button1);
             this.panelSecondaryMenu.Controls.Add(this.pictureMenuMobile);
             this.panelSecondaryMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSecondaryMenu.Location = new System.Drawing.Point(168, 0);
@@ -303,6 +305,16 @@ namespace MCatalogos
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(308, 11);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainView
             // 
@@ -347,6 +359,7 @@ namespace MCatalogos
         private System.Windows.Forms.Button btnConfiguracoes;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnProdutos;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿
-namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
+namespace MCatalogos.Views.FormViews.Financeiro
 {
-    partial class LancamentoFinanceiroForm
+    partial class LancamentosForm
     {
         /// <summary>
         /// Required designer variable.
@@ -44,13 +44,13 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbConta = new System.Windows.Forms.ComboBox();
+            this.cbTipoLancamento = new System.Windows.Forms.ComboBox();
             this.cbDestino = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textValorAbater = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cbTipoLancamento = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,10 +63,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.ForeColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(0, 293);
+            this.panel1.Location = new System.Drawing.Point(0, 294);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(399, 41);
-            this.panel1.TabIndex = 5;
+            this.panel1.Size = new System.Drawing.Size(396, 41);
+            this.panel1.TabIndex = 6;
             // 
             // btnOk
             // 
@@ -76,7 +76,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.ForeColor = System.Drawing.Color.White;
             this.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOk.Location = new System.Drawing.Point(199, 6);
+            this.btnOk.Location = new System.Drawing.Point(196, 6);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(91, 29);
             this.btnOk.TabIndex = 3;
@@ -93,7 +93,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(296, 6);
+            this.btnCancel.Location = new System.Drawing.Point(293, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 29);
             this.btnCancel.TabIndex = 3;
@@ -111,8 +111,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.panelContainer.ForeColor = System.Drawing.Color.White;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(399, 334);
-            this.panelContainer.TabIndex = 4;
+            this.panelContainer.Size = new System.Drawing.Size(396, 294);
+            this.panelContainer.TabIndex = 7;
             this.panelContainer.TabStop = true;
             // 
             // groupBox2
@@ -228,6 +228,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.cbConta.Size = new System.Drawing.Size(247, 21);
             this.cbConta.TabIndex = 4;
             // 
+            // cbTipoLancamento
+            // 
+            this.cbTipoLancamento.FormattingEnabled = true;
+            this.cbTipoLancamento.Location = new System.Drawing.Point(97, 55);
+            this.cbTipoLancamento.Name = "cbTipoLancamento";
+            this.cbTipoLancamento.Size = new System.Drawing.Size(142, 21);
+            this.cbTipoLancamento.TabIndex = 4;
+            // 
             // cbDestino
             // 
             this.cbDestino.FormattingEnabled = true;
@@ -245,6 +253,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 2;
             this.label5.Text = "Conta:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(1, 59);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(93, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Tipo Lançamento:";
             // 
             // label1
             // 
@@ -271,33 +288,15 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
             this.textValorAbater.Size = new System.Drawing.Size(100, 20);
             this.textValorAbater.TabIndex = 3;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1, 59);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(93, 13);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Tipo Lançamento:";
-            // 
-            // cbTipoLancamento
-            // 
-            this.cbTipoLancamento.FormattingEnabled = true;
-            this.cbTipoLancamento.Location = new System.Drawing.Point(97, 55);
-            this.cbTipoLancamento.Name = "cbTipoLancamento";
-            this.cbTipoLancamento.Size = new System.Drawing.Size(142, 21);
-            this.cbTipoLancamento.TabIndex = 4;
-            this.cbTipoLancamento.SelectedIndexChanged += new System.EventHandler(this.cbDestino_SelectedIndexChanged);
-            // 
-            // LancamentoFinanceiroForm
+            // LancamentosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(399, 334);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(396, 335);
             this.Controls.Add(this.panelContainer);
-            this.Name = "LancamentoFinanceiroForm";
-            this.Text = "Lançamento Financeiro";
+            this.Controls.Add(this.panel1);
+            this.Name = "LancamentosForm";
+            this.Text = "LancamentosForm";
             this.panel1.ResumeLayout(false);
             this.panelContainer.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -314,23 +313,23 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panelContainer;
-        private System.Windows.Forms.TextBox textCodigoTitulo;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textValorAbater;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cbDestino;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textOrigem;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textCodigoTitulo;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textOrigem;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cbConta;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbTipoLancamento;
+        private System.Windows.Forms.ComboBox cbDestino;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textValorAbater;
     }
 }

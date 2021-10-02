@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models.Financeiro.Banco;
+﻿using DomainLayer.Models.CommonModels.Enums;
+using DomainLayer.Models.Financeiro.Banco;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco;
@@ -9,13 +10,10 @@ using ServiceLayer.Services.FinanceiroServices.BancoServices.ContaServices;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Financeiro.Bancos
@@ -37,6 +35,9 @@ namespace MCatalogos.Views.FormViews.Financeiro.Bancos
         }
 
         #endregion
+
+
+        private RequestType RequestType;
 
         private List<BancoModel> BancosList = new List<BancoModel>();
         private List<ContaModel> ContasList = new List<ContaModel>();
@@ -140,7 +141,15 @@ namespace MCatalogos.Views.FormViews.Financeiro.Bancos
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            BancoAddForm bancoAddForm = new BancoAddForm(RequestType.Add);
+            bancoAddForm.Show();
+        }
 
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            //TODO: ADICIONAR O CÓDIGO DO BANCO SELECIONADO NA DATAGRID
+            BancoAddForm bancoAddForm = new BancoAddForm(RequestType.Edit);
+            bancoAddForm.Show();
         }
     }
 }

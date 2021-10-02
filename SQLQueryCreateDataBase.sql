@@ -23,6 +23,29 @@ GO
 USE MCatalogoDB
 GO
 
+CREATE TABLE Modulos(
+	ModuloId		INT IDENTITY(1,1),
+	Nome			VARCHAR(200) NOT NULL,
+	Ativo			BIT NOT NULL DEFAULT(0),
+	DataAtivacao	DATETIME NOT NULL
+	CONSTRAINT PK_MODULOS PRIMARY KEY NONCLUSTERED(ModuloId)
+)
+GO
+--SEEDING MODULOS
+INSERT INTO Modulos VALUES
+('Pedidos', 1, GETDATE()),
+('Vendedoras', 1, GETDATE()),
+('Fornecedores', 1, GETDATE()),
+('Catalogos', 1, GETDATE()),
+('Produtos', 1, GETDATE()),
+('Financeiro', 1, GETDATE()),
+('Estoque', 1, GETDATE()),
+('Rotas', 1, GETDATE()),
+('Relatorios', 1, GETDATE()),
+('Configuracoes', 1, GETDATE())
+GO
+
+
 CREATE TABLE Estados(
 	EstadoId		INT				IDENTITY(1,1),
 	Nome			VARCHAR(300)	NOT NULL,
