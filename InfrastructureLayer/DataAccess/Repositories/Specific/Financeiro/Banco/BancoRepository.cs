@@ -66,7 +66,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
 
         }
 
-       
+
         public void RemoveBanco(IBancoModel banco)
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
@@ -123,10 +123,14 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                         {
                             BancoModel model = new BancoModel();
 
-                            model.BancoId = int.Parse(reader["BancoId"].ToString());
-                            model.NumeroBanco = int.Parse(reader["NumeroBanco"].ToString());
-                            model.NomeBanco = reader["NomeBanco"].ToString();
-                           
+                            while (reader.Read())
+                            {
+                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.NumeroBanco = int.Parse(reader["NumeroBanco"].ToString());
+                                model.NomeBanco = reader["NomeBanco"].ToString();
+
+                            }
+
 
                             modelList.Add(model);
 
@@ -172,7 +176,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                             model.BancoId = int.Parse(reader["BancoId"].ToString());
                             model.NumeroBanco = int.Parse(reader["NumeroBanco"].ToString());
                             model.NomeBanco = reader["NomeBanco"].ToString();
-                            
+
 
                         }
 

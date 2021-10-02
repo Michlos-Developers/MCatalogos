@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models.TitulosPagar;
 
+using MCatalogos.Views.FormViews.Financeiro.Bancos;
 using MCatalogos.Views.FormViews.Financeiro.ContasPagar;
 using MCatalogos.Views.FormViews.Financeiro.ContasReceber;
 
@@ -92,7 +93,8 @@ namespace MCatalogos.Views.FormViews.Financeiro
 
         private void btnCaixa_Click(object sender, System.EventArgs e)
         {
-            //TODO: FAZER FORMULÁRIO DE CADASTRO DE BANCO E CONTAS
+            BancosListForm bancosListForm = new BancosListForm();
+            bancosListForm.Show();
         }
 
         private void pictureClose_Click(object sender, System.EventArgs e)

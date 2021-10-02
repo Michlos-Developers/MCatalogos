@@ -127,14 +127,18 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Banco
                         {
                             ContaModel model = new ContaModel();
 
-                            model.BancoId = int.Parse(reader["BancoId"].ToString());
-                            model.NumeroConta = reader["NumeroConta"].ToString();
-                            model.DvNumeroConta = reader["DvNumeroConta"].ToString();
-                            model.NumeroAgencia = reader["NumeroAgencia"].ToString();
-                            model.DvNumeroAgencia = reader["DvNumeroAgencia"].ToString();
-                            model.SaldoAnterior = double.Parse(reader["SaldoAnterior"].ToString());
-                            model.SaldoAtual = double.Parse(reader["SaldoAtual"].ToString());
-                            model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
+                            while (reader.Read())
+                            {
+                                model.BancoId = int.Parse(reader["BancoId"].ToString());
+                                model.NumeroConta = reader["NumeroConta"].ToString();
+                                model.DvNumeroConta = reader["DvNumeroConta"].ToString();
+                                model.NumeroAgencia = reader["NumeroAgencia"].ToString();
+                                model.DvNumeroAgencia = reader["DvNumeroAgencia"].ToString();
+                                model.SaldoAnterior = double.Parse(reader["SaldoAnterior"].ToString());
+                                model.SaldoAtual = double.Parse(reader["SaldoAtual"].ToString());
+                                model.Cancelado = bool.Parse(reader["Cancelado"].ToString());
+
+                            }
 
                             modelList.Add(model);
                         }
