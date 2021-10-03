@@ -6044,6 +6044,7 @@ CREATE TABLE Catalogos(
 	TamanhoValorVariavel		VARCHAR(10) SPARSE NULL,
 	NumeracaoValorVariavel		VARCHAR(10) SPARSE NULL,
 	ImportaProdutos				BIT DEFAULT(0),
+	SeparaMercadoria			BIT DEFAULT (0),
 	CONSTRAINT PK_CATALOGOS PRIMARY KEY NONCLUSTERED (CatalogoId),
 	CONSTRAINT FK_CATALOGO_FORNECEDOR FOREIGN KEY (FornecedorId) REFERENCES Fornecedores(FornecedorId)
 )
