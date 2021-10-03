@@ -46,6 +46,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAddBairro = new System.Windows.Forms.Button();
             this.cbBairro = new System.Windows.Forms.ComboBox();
             this.cbCidade = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -71,7 +72,6 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.textNomeFantasia = new System.Windows.Forms.TextBox();
             this.formError = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.btnAddBairro = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -166,6 +166,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.label8);
             this.panelContainer.Controls.Add(this.label7);
             this.panelContainer.Controls.Add(this.label6);
@@ -284,6 +285,24 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.groupBox1.Size = new System.Drawing.Size(583, 114);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
+            // 
+            // btnAddBairro
+            // 
+            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBairro.Enabled = false;
+            this.btnAddBairro.FlatAppearance.BorderSize = 0;
+            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
+            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
+            this.btnAddBairro.Location = new System.Drawing.Point(409, 76);
+            this.btnAddBairro.Name = "btnAddBairro";
+            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
+            this.btnAddBairro.TabIndex = 25;
+            this.btnAddBairro.TabStop = false;
+            this.btnAddBairro.Tag = "";
+            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddBairro.UseVisualStyleBackColor = false;
+            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
             // 
             // cbBairro
             // 
@@ -514,24 +533,6 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // formError
             // 
             this.formError.ContainerControl = this;
-            // 
-            // btnAddBairro
-            // 
-            this.btnAddBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddBairro.Enabled = false;
-            this.btnAddBairro.FlatAppearance.BorderSize = 0;
-            this.btnAddBairro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddBairro.ForeColor = System.Drawing.Color.White;
-            this.btnAddBairro.Image = global::MCatalogos.Properties.Resources.IconAdd20x20;
-            this.btnAddBairro.Location = new System.Drawing.Point(409, 76);
-            this.btnAddBairro.Name = "btnAddBairro";
-            this.btnAddBairro.Size = new System.Drawing.Size(22, 22);
-            this.btnAddBairro.TabIndex = 25;
-            this.btnAddBairro.TabStop = false;
-            this.btnAddBairro.Tag = "";
-            this.btnAddBairro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddBairro.UseVisualStyleBackColor = false;
-            this.btnAddBairro.Click += new System.EventHandler(this.btnAddBairro_Click);
             // 
             // DistribuidorForm
             // 

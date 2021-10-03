@@ -233,6 +233,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.dgvPedidos);
             this.panelContainer.Controls.Add(this.panelCatalogo);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;

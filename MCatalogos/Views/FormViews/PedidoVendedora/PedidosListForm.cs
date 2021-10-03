@@ -291,7 +291,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 }
             }
 
-            MainView.SetUnselectedButtons();
+            //MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
 

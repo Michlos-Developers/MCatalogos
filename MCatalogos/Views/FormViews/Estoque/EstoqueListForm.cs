@@ -61,7 +61,7 @@ namespace MCatalogos.Views.FormViews.Estoque
                 }
             }
 
-            this.MainView.SetUnselectedButtons();
+            //this.MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
             

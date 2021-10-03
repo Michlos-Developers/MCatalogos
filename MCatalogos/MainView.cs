@@ -1,5 +1,9 @@
-﻿using MCatalogos.Commons;
-using MCatalogos.Tests;
+﻿using DomainLayer.Models.Modulos;
+
+using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Modulos;
+
+using MCatalogos.Commons;
 using MCatalogos.Views.FormViews.Catalogos;
 using MCatalogos.Views.FormViews.Configuracoes;
 using MCatalogos.Views.FormViews.Estoque;
@@ -10,8 +14,12 @@ using MCatalogos.Views.FormViews.Produtos;
 using MCatalogos.Views.FormViews.Rotas;
 using MCatalogos.Views.FormViews.Vendedoras;
 
+using ServiceLayer.CommonServices;
+using ServiceLayer.Services.ModulosServices;
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MCatalogos
@@ -19,6 +27,11 @@ namespace MCatalogos
     public partial class MainView : Form
     {
         private MainView _obj;
+        private ButtonHelper buttonHelper = new ButtonHelper();
+        List<Button> btnCollection = new List<Button>();
+
+        private QueryStringServices _queryString;
+        private ModulosSerivces _modulosSerivces;
 
 
         public MainView Instance
@@ -34,66 +47,11 @@ namespace MCatalogos
 
         }
 
-
-
-        public Button ButtonVendedoras
-        {
-            get { return btnVendedoras; }
-            set { btnVendedoras = value; }
-        }
-
-        public Button ButtonPedidos
-        {
-            get { return btnPedidos; }
-            set { btnPedidos = value; }
-        }
-
-        public Button ButtonFornecedores
-        {
-            get { return btnFornecedores; }
-            set { btnFornecedores = value; }
-        }
-
-        public Button ButtonCatalogos
-        {
-            get { return btnCatalogos; }
-            set { btnCatalogos = value; }
-        }
-
-        public Button ButtonFinanceiro
-        {
-            get { return btnFinanceiro; }
-            set { btnFinanceiro = value; }
-        }
-
-        public Button ButtonEstoque
-        {
-            get { return btnEstoque; }
-            set { btnEstoque = value; }
-        }
-
-        public Button ButtonRotas
-        {
-            get { return btnRotas; }
-            set { btnRotas = value; }
-        }
-        public Button ButtonConfiguracoes
-        {
-            get { return btnConfiguracoes; }
-            set { btnConfiguracoes = value; }
-        }
-
-        public Button ButtonProdutos
-        {
-            get { return btnProdutos; }
-            set { btnProdutos = value; }
-        }
-
-
-
-
         public MainView()
         {
+            _queryString = new QueryStringServices(new QueryString());
+            _modulosSerivces = new ModulosSerivces(new ModulosRepository(_queryString.GetQueryApp()));
+
             IsMdiContainer = true;
             InitializeComponent();
         }
@@ -124,137 +82,104 @@ namespace MCatalogos
 
         private void MainView_Load(object sender, EventArgs e)
         {
-            SetUnselectedButtons();
+            
             _obj = this;
+
+            GenerateButtons();
+            
            
         }
 
-        public void SetUnselectedButtons()
+        private void GenerateButtons()
         {
-            List<Button> buttons = new List<Button>();
-            buttons.Add(ButtonVendedoras);
-            buttons.Add(ButtonPedidos);
-            buttons.Add(ButtonFornecedores);
-            buttons.Add(ButtonCatalogos);
-            buttons.Add(ButtonFinanceiro);
-            buttons.Add(ButtonEstoque);
-            buttons.Add(ButtonRotas);
-            buttons.Add(ButtonConfiguracoes);
-            buttons.Add(ButtonProdutos);
+            IEnumerable<ModulosModel> modelList = null;
+            try
+            {
+                modelList = (IEnumerable<ModulosModel>)_modulosSerivces.GetAll();
+                modelList = modelList.Where(m => m.Ativo == true).OrderByDescending(c => c.ModuloId);
+                foreach (var modulo in modelList)
+                {
+                    Button button = new Button();
+                    button = buttonHelper.GenerateButtons(modulo.Nome, modulo.ModuloId);
+                    button.Click += new EventHandler(OnClickButtonMenu);
+                    btnCollection.Add(button);
+                    panelButtons.Controls.Add(button);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Não foi possível recuperar a lista de módulos do sistema.");
+                throw new Exception(e.Message, e.InnerException);
+            }
 
-            ButtonHelper bh = new ButtonHelper();
-            bh.SetUnselectedButtons(buttons);
-        }
-
-        private void SetSelectedButton(Button button)
-        {
-            ButtonHelper bh = new ButtonHelper();
-            bh.SetSelectedButton(button);
-
-        }
-
-        private void btnVendedoras_Click(object sender, EventArgs e)
-        {
-
-            SetUnselectedButtons();
-            SetSelectedButton(btnVendedoras);
-
-            VendedorasListForm formVendedorasList = VendedorasListForm.Instance(this);
-            formVendedorasList.Text = "Cadastro de Vendedoras";
-            formVendedorasList.WindowState = FormWindowState.Normal;
-            formVendedorasList.MdiParent = this;
-            formVendedorasList.Show();
-        }
-
-        private void btnFornecedores_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnFornecedores);
-            FornecedoresListForm formFornecedoresList = FornecedoresListForm.Instance(this);
-            formFornecedoresList.WindowState = FormWindowState.Normal;
-            formFornecedoresList.MdiParent = this;
-            formFornecedoresList.Show();
 
         }
 
-        private void btnPedidos_Click(object sender, EventArgs e)
+        private void OnClickButtonMenu(object sender, EventArgs e)
         {
-            SetUnselectedButtons();
-            SetSelectedButton(btnPedidos);
+            buttonHelper.SetUnselectedButtons(btnCollection);
+            Button clickedButton = sender as Button;
+            buttonHelper.SetSelectedButton(clickedButton);
 
-            PedidosListForm formPedidosList = PedidosListForm.Instance(this);
-            formPedidosList.WindowState = FormWindowState.Normal;
-            formPedidosList.MdiParent = this;
-            formPedidosList.Show();
-        }
+            switch (int.Parse(clickedButton.Tag.ToString()))
+            {
+                case 1:
+                    PedidosListForm pedididoListForm = PedidosListForm.Instance(this);
+                    pedididoListForm.WindowState = FormWindowState.Normal;
+                    pedididoListForm.MdiParent = this;
+                    pedididoListForm.Show();
+                    break;
+                case 2:
+                    VendedorasListForm vendedorasListForm = VendedorasListForm.Instance(this);
+                    vendedorasListForm.Text = "Cadastro de Vendedoras";
+                    vendedorasListForm.WindowState = FormWindowState.Normal;
+                    vendedorasListForm.MdiParent = this;
+                    vendedorasListForm.Show();
+                    break;
+                case 3:
+                    FornecedoresListForm fornecedoresListForm = FornecedoresListForm.Instance(this);
+                    fornecedoresListForm.WindowState = FormWindowState.Normal;
+                    fornecedoresListForm.MdiParent = this;
+                    fornecedoresListForm.Show();
+                    break;
+                case 4:
+                    CatalogosListForm catalogosListForm = CatalogosListForm.Instance(this);
+                    catalogosListForm.WindowState = FormWindowState.Normal;
+                    catalogosListForm.MdiParent = this;
+                    catalogosListForm.Show();
+                    break;
+                case 5:
+                    ProdutosListForm produtosListForm = ProdutosListForm.Instance(this);
+                    produtosListForm.MdiParent = this;
+                    produtosListForm.Show();
+                    break;
+                case 6:
+                    FinanceiroForm financeiroForm = FinanceiroForm.Instance(this);
+                    financeiroForm.MdiParent = this;
+                    financeiroForm.Show();
+                    break;
+                case 7:
+                    EstoqueListForm estoqueListForm = EstoqueListForm.Instance(this);
+                    estoqueListForm.MdiParent = this;
+                    estoqueListForm.Show();
+                    break;
+                case 8:
+                    RotasFormView rotasFormView = RotasFormView.Instance(this);
+                    rotasFormView.MdiParent = this;
+                    rotasFormView.Show();
+                    break;
+                case 9:
+                    //TODO: montar formulário de relatórios
+                    MessageBox.Show("Relatórios");
+                    break;
+                case 10:
+                    ConfiguracoesForm configuracoesForm = ConfiguracoesForm.Instance(this);
+                    configuracoesForm.WindowState = FormWindowState.Normal;
+                    configuracoesForm.MdiParent = this;
+                    configuracoesForm.Show();
+                    break;
+            }
 
-        private void btnCatalogos_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnCatalogos);
-
-            CatalogosListForm formCatalogosList = CatalogosListForm.Instance(this);
-            formCatalogosList.WindowState = FormWindowState.Normal;
-            formCatalogosList.MdiParent = this;
-            formCatalogosList.Show();
-        }
-
-        private void btnConfiguracoes_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnConfiguracoes);
-
-            ConfiguracoesForm configuracoesForm = ConfiguracoesForm.Instance(this);
-            configuracoesForm.WindowState = FormWindowState.Normal;
-            configuracoesForm.MdiParent = this;
-            configuracoesForm.Show();
-        }
-
-        private void btnRotas_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnRotas);
-
-            RotasFormView rotasForm = RotasFormView.Instance(this);
-            rotasForm.MdiParent = this;
-            rotasForm.Show();
-            
-        }
-
-        private void btnEstoque_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnEstoque);
-
-            EstoqueListForm estoqueForm = EstoqueListForm.Instance(this);
-            estoqueForm.MdiParent = this;
-            estoqueForm.Show();
-        }
-
-        private void btnProdutos_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnProdutos);
-
-            ProdutosListForm produtosForm = ProdutosListForm.Instance(this);
-            produtosForm.MdiParent = this;
-            produtosForm.Show();
-        }
-
-        private void btnFinanceiro_Click(object sender, EventArgs e)
-        {
-            SetUnselectedButtons();
-            SetSelectedButton(btnFinanceiro);
-
-            FinanceiroForm financeiroForm = FinanceiroForm.Instance(this);
-            financeiroForm.MdiParent = this;
-            financeiroForm.Show();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TestButtsonMenuDB testButtsonMenuDB = new TestButtsonMenuDB();
-            testButtsonMenuDB.Show();
         }
     }
 }

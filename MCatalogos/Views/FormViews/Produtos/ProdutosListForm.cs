@@ -102,7 +102,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                 }
             }
 
-            this.MainView.SetUnselectedButtons();
+            //this.MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
         }

@@ -52,6 +52,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // panelListView
             // 
             this.panelListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelListView.Controls.Add(this.panelTitle);
             this.panelListView.Controls.Add(this.panelContentGridView);
             this.panelListView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -68,7 +69,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(0, 0);
             this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(800, 30);
+            this.panelTitle.Size = new System.Drawing.Size(798, 30);
             this.panelTitle.TabIndex = 2;
             this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseDown);
             // 
@@ -101,7 +102,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContentGridView.Controls.Add(this.dgvVendedoras);
             this.panelContentGridView.Location = new System.Drawing.Point(12, 36);
             this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(776, 398);
+            this.panelContentGridView.Size = new System.Drawing.Size(774, 396);
             this.panelContentGridView.TabIndex = 1;
             // 
             // dgvVendedoras
@@ -128,7 +129,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.dgvVendedoras.ShowCellErrors = false;
             this.dgvVendedoras.ShowEditingIcon = false;
             this.dgvVendedoras.ShowRowErrors = false;
-            this.dgvVendedoras.Size = new System.Drawing.Size(776, 398);
+            this.dgvVendedoras.Size = new System.Drawing.Size(774, 396);
             this.dgvVendedoras.TabIndex = 0;
             this.dgvVendedoras.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellClick);
             this.dgvVendedoras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellDoubleClick);

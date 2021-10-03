@@ -170,6 +170,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // panelListView
             // 
             this.panelListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelListView.Controls.Add(this.panelContentGridView);
             this.panelListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelListView.Location = new System.Drawing.Point(0, 30);
@@ -185,7 +186,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.panelContentGridView.Controls.Add(this.dgvFornecedores);
             this.panelContentGridView.Location = new System.Drawing.Point(5, 6);
             this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(790, 398);
+            this.panelContentGridView.Size = new System.Drawing.Size(788, 396);
             this.panelContentGridView.TabIndex = 1;
             // 
             // dgvFornecedores
@@ -211,7 +212,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.dgvFornecedores.ShowCellErrors = false;
             this.dgvFornecedores.ShowEditingIcon = false;
             this.dgvFornecedores.ShowRowErrors = false;
-            this.dgvFornecedores.Size = new System.Drawing.Size(790, 398);
+            this.dgvFornecedores.Size = new System.Drawing.Size(788, 396);
             this.dgvFornecedores.TabIndex = 0;
             this.dgvFornecedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFornecedores_CellClick);
             this.dgvFornecedores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFornecedores_CellDoubleClick);

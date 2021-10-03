@@ -39,6 +39,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         QueryStringServices _queryString;
         MainView MainView;
+        //Control Control;
 
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
@@ -242,7 +243,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     components.Dispose();
                 }
             }
-            this.MainView.SetUnselectedButtons();
+            //this.MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
         }

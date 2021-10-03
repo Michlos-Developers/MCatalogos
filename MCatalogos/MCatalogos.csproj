@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commons\BtnClass.cs" />
     <Compile Include="Commons\ButtonHelper.cs" />
     <Compile Include="Commons\TextBoxHelper.cs" />
     <Compile Include="MainView.cs">
@@ -63,12 +62,6 @@
     <Compile Include="Presenters\UserControls\VendedoraListPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\TestButtsonMenuDB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Tests\TestButtsonMenuDB.Designer.cs">
-      <DependentUpon>TestButtsonMenuDB.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\FormViews\Bairros\BairroAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,9 +300,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Tests\TestButtsonMenuDB.resx">
-      <DependentUpon>TestButtsonMenuDB.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Bairros\BairroAddForm.resx">
       <DependentUpon>BairroAddForm.cs</DependentUpon>
     </EmbeddedResource>

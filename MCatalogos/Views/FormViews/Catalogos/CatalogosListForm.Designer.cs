@@ -38,8 +38,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContentDGV = new System.Windows.Forms.Panel();
-            this.dgvCatalogos = new System.Windows.Forms.DataGridView();
             this.chkExibeInativos = new System.Windows.Forms.CheckBox();
+            this.dgvCatalogos = new System.Windows.Forms.DataGridView();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -169,6 +169,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             // panelContentDGV
             // 
             this.panelContentDGV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContentDGV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContentDGV.Controls.Add(this.chkExibeInativos);
             this.panelContentDGV.Controls.Add(this.dgvCatalogos);
             this.panelContentDGV.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -176,6 +177,18 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.panelContentDGV.Name = "panelContentDGV";
             this.panelContentDGV.Size = new System.Drawing.Size(800, 410);
             this.panelContentDGV.TabIndex = 5;
+            // 
+            // chkExibeInativos
+            // 
+            this.chkExibeInativos.AutoSize = true;
+            this.chkExibeInativos.ForeColor = System.Drawing.Color.White;
+            this.chkExibeInativos.Location = new System.Drawing.Point(686, 16);
+            this.chkExibeInativos.Name = "chkExibeInativos";
+            this.chkExibeInativos.Size = new System.Drawing.Size(102, 18);
+            this.chkExibeInativos.TabIndex = 1;
+            this.chkExibeInativos.Text = "Exibir Inativos";
+            this.chkExibeInativos.UseVisualStyleBackColor = true;
+            this.chkExibeInativos.CheckedChanged += new System.EventHandler(this.chkExibeInativos_CheckedChanged);
             // 
             // dgvCatalogos
             // 
@@ -203,18 +216,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.dgvCatalogos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellClick);
             this.dgvCatalogos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCatalogos_CellDoubleClick);
             this.dgvCatalogos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCatalogos_CellFormatting);
-            // 
-            // chkExibeInativos
-            // 
-            this.chkExibeInativos.AutoSize = true;
-            this.chkExibeInativos.ForeColor = System.Drawing.Color.White;
-            this.chkExibeInativos.Location = new System.Drawing.Point(686, 16);
-            this.chkExibeInativos.Name = "chkExibeInativos";
-            this.chkExibeInativos.Size = new System.Drawing.Size(102, 18);
-            this.chkExibeInativos.TabIndex = 1;
-            this.chkExibeInativos.Text = "Exibir Inativos";
-            this.chkExibeInativos.UseVisualStyleBackColor = true;
-            this.chkExibeInativos.CheckedChanged += new System.EventHandler(this.chkExibeInativos_CheckedChanged);
             // 
             // CatalogosListForm
             // 

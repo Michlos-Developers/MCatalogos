@@ -193,6 +193,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContent.Controls.Add(this.groupBoxContatos);
             this.panelContent.Controls.Add(this.groupBoxEndereco);
             this.panelContent.Controls.Add(this.groupBoxCatalogos);
@@ -534,7 +535,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // mTextInscricaoEstadual
             // 
             this.mTextInscricaoEstadual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mTextInscricaoEstadual.Location = new System.Drawing.Point(662, 37);
+            this.mTextInscricaoEstadual.Location = new System.Drawing.Point(660, 37);
             this.mTextInscricaoEstadual.Name = "mTextInscricaoEstadual";
             this.mTextInscricaoEstadual.Size = new System.Drawing.Size(118, 22);
             this.mTextInscricaoEstadual.TabIndex = 1;
@@ -545,7 +546,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(546, 40);
+            this.label9.Location = new System.Drawing.Point(544, 40);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(110, 14);
             this.label9.TabIndex = 20;
@@ -554,7 +555,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // mTextCnpj
             // 
             this.mTextCnpj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mTextCnpj.Location = new System.Drawing.Point(662, 8);
+            this.mTextCnpj.Location = new System.Drawing.Point(660, 8);
             this.mTextCnpj.Mask = "00,000,000/0000-99";
             this.mTextCnpj.Name = "mTextCnpj";
             this.mTextCnpj.Size = new System.Drawing.Size(118, 22);
@@ -567,7 +568,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(628, 12);
+            this.label12.Location = new System.Drawing.Point(626, 12);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(33, 14);
             this.label12.TabIndex = 20;

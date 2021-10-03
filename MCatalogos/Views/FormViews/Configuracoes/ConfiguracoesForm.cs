@@ -70,7 +70,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
                     components.Dispose();
                 }
             }
-            this.MainView.SetUnselectedButtons();
+            //this.MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
         }

@@ -112,7 +112,7 @@ namespace MCatalogos.Views.FormViews.Financeiro
                 }
             }
 
-            MainView.SetUnselectedButtons();
+            //MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
         }

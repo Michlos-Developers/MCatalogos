@@ -39,9 +39,9 @@ namespace MCatalogos.Views.FormViews.Financeiro
             this.panelContasReceber = new System.Windows.Forms.Panel();
             this.panelContasPagar = new System.Windows.Forms.Panel();
             this.btnContasPagar = new System.Windows.Forms.Button();
+            this.btnBancos = new System.Windows.Forms.Button();
             this.btnCaixa = new System.Windows.Forms.Button();
             this.btnContasReceber = new System.Windows.Forms.Button();
-            this.btnBancos = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelContainer.SuspendLayout();
@@ -85,6 +85,7 @@ namespace MCatalogos.Views.FormViews.Financeiro
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.panelCommands);
             this.panelContainer.Controls.Add(this.panelContasReceber);
             this.panelContainer.Controls.Add(this.panelContasPagar);
@@ -103,9 +104,9 @@ namespace MCatalogos.Views.FormViews.Financeiro
             this.panelCommands.BackColor = System.Drawing.SystemColors.Control;
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 455);
+            this.panelCommands.Location = new System.Drawing.Point(0, 453);
             this.panelCommands.Name = "panelCommands";
-            this.panelCommands.Size = new System.Drawing.Size(800, 45);
+            this.panelCommands.Size = new System.Drawing.Size(798, 45);
             this.panelCommands.TabIndex = 11;
             // 
             // btnCancel
@@ -116,7 +117,7 @@ namespace MCatalogos.Views.FormViews.Financeiro
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(704, 9);
+            this.btnCancel.Location = new System.Drawing.Point(702, 9);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 2;
@@ -154,6 +155,21 @@ namespace MCatalogos.Views.FormViews.Financeiro
             this.btnContasPagar.UseVisualStyleBackColor = true;
             this.btnContasPagar.Click += new System.EventHandler(this.btnContasPagar_Click);
             // 
+            // btnBancos
+            // 
+            this.btnBancos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBancos.FlatAppearance.BorderSize = 0;
+            this.btnBancos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBancos.Image = global::MCatalogos.Properties.Resources.IconBanco35x35;
+            this.btnBancos.Location = new System.Drawing.Point(49, 29);
+            this.btnBancos.Name = "btnBancos";
+            this.btnBancos.Size = new System.Drawing.Size(120, 75);
+            this.btnBancos.TabIndex = 9;
+            this.btnBancos.Text = "Bancos";
+            this.btnBancos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnBancos.UseVisualStyleBackColor = true;
+            this.btnBancos.Click += new System.EventHandler(this.btnCaixa_Click);
+            // 
             // btnCaixa
             // 
             this.btnCaixa.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -183,21 +199,6 @@ namespace MCatalogos.Views.FormViews.Financeiro
             this.btnContasReceber.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnContasReceber.UseVisualStyleBackColor = true;
             this.btnContasReceber.Click += new System.EventHandler(this.btnContasReceber_Click);
-            // 
-            // btnBancos
-            // 
-            this.btnBancos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBancos.FlatAppearance.BorderSize = 0;
-            this.btnBancos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBancos.Image = global::MCatalogos.Properties.Resources.IconBanco35x35;
-            this.btnBancos.Location = new System.Drawing.Point(49, 29);
-            this.btnBancos.Name = "btnBancos";
-            this.btnBancos.Size = new System.Drawing.Size(120, 75);
-            this.btnBancos.TabIndex = 9;
-            this.btnBancos.Text = "Bancos";
-            this.btnBancos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnBancos.UseVisualStyleBackColor = true;
-            this.btnBancos.Click += new System.EventHandler(this.btnCaixa_Click);
             // 
             // FinanceiroForm
             // 

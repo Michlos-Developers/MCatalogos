@@ -347,7 +347,7 @@ namespace MCatalogos.Views.FormViews.Rotas
                     components.Dispose();
                 }
             }
-            this.MainView.SetUnselectedButtons();
+            //this.MainView.SetUnselectedButtons();
             base.Dispose(Disposing);
             aForm = null;
         }

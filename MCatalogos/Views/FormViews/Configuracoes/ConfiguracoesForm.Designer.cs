@@ -88,6 +88,7 @@ namespace MCatalogos.Views.FormViews.Configuracoes
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContent.Controls.Add(this.groupBox1);
             this.panelContent.Controls.Add(this.groupTarefas);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;

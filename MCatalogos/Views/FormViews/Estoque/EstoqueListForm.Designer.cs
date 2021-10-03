@@ -172,6 +172,7 @@ namespace MCatalogos.Views.FormViews.Estoque
             // panelCotainer
             // 
             this.panelCotainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelCotainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCotainer.Controls.Add(this.dgvEstoque);
             this.panelCotainer.Controls.Add(this.panelOptions);
             this.panelCotainer.Dock = System.Windows.Forms.DockStyle.Fill;

@@ -123,6 +123,7 @@ namespace MCatalogos.Views.FormViews.Rotas
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.panelListSemRotas);
             this.panelContainer.Controls.Add(this.gboxEditRotas);
             this.panelContainer.Controls.Add(this.panelListRotas);

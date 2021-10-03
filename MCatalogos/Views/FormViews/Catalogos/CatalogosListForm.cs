@@ -4,6 +4,8 @@ using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
 
+using MCatalogos.Commons;
+
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.FornecedorServices;
@@ -35,6 +37,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
             Add,
             Edit
         }
+
+
         #region PROPRIEDADES PARA MOVER A JANELA
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -57,6 +61,8 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private IEnumerable<CatalogoModel> catalogosDGV;
 
         private StatusCatalogo status = StatusCatalogo.Ativo;
+
+        private ButtonHelper buttonHelper = new ButtonHelper();
 
 
         //Instancia a janela como um objeto para não abrir mais de uma janela da mesma instância.
@@ -217,7 +223,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     components.Dispose();
                 }
             }
-            this.MainView.SetUnselectedButtons();
+            
             base.Dispose(Disposing);
             aForm = null;
         }
