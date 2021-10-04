@@ -97,6 +97,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@CidadeId", vendedoraModel.CidadeId);
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
                     cmd.Parameters.AddWithValue("@RotaLetraId", vendedoraModel.RotaLetraId);
+                    cmd.Parameters.AddWithValue("@Ativa", vendedoraModel.Ativa);
 
 
 
@@ -160,7 +161,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     "SET Nome = @Nome, Cpf = @Cpf, Rg = @Rg, RgEmissor = @RgEmissor, DataNascimento = @DataNascimento, " +
                     " Email = @Email, NomePai = @NomePai, NomeMae = @NomeMae, NomeConjuge = @NomeConjuge, Logradouro = @Logradouro, " +
                     " Numero = @Numero, Complemento = @Complemento, Cep = @Cep, UfRgId = @UfRgId, EstadoCivilId = @EstadoCivilId, " +
-                    " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId, RotaLetraId = @RotaLetraId" +
+                    " EstadoId = @EstadoId, CidadeId = @CidadeId, BairroId = @BairroId, RotaLetraId = @RotaLetraId, Ativa = @Ativa" +
                     " WHERE VendedoraId = @VendedoraId";
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
@@ -201,6 +202,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                     cmd.Parameters.AddWithValue("@CidadeId", vendedoraModel.CidadeId);
                     cmd.Parameters.AddWithValue("@BairroId", vendedoraModel.BairroId);
                     cmd.Parameters.AddWithValue("@RotaLetraId", vendedoraModel.RotaLetraId);
+                    cmd.Parameters.AddWithValue("@Ativa", vendedoraModel.Ativa);
                     try
                     {
                         result = cmd.ExecuteNonQuery();
@@ -395,6 +397,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
                                 vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                vendedoraModel.Ativa = bool.Parse(reader["Ativa"].ToString());
 
                             }
                         }
@@ -471,6 +474,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 model.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 model.BairroId = Int32.Parse(reader["BairroId"].ToString());
                                 model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                model.Ativa = bool.Parse(reader["Ativa"].ToString());
                             }
                         }
                     }

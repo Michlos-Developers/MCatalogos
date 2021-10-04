@@ -116,7 +116,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
                 BairroId = bairroId,
-                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId
+                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId,
+                Ativa = true
 
             };
 
@@ -185,7 +186,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
                 BairroId = bairroId,
-                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId
+                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId,
+                Ativa = chkBoxDesativada.Checked ? false : true                                                 
 
             };
 
@@ -324,6 +326,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     comboBoxBairro.Text = (bm = _bairroServices.GetById(vm.BairroId)).Nome;
                     comboBoxRotaLetra.Text = (rlm = _rotaLetraServices.GetById(vm.RotaLetraId)).RotaLetra.ToString();
                     comboBoxRotaNumero.Text = (rm = _rotaServices.GetByVendedoraId(vm.VendedoraId)).Numero.ToString();
+                    chkBoxDesativada.Checked = vm.Ativa ? false : true;
                 }
 
             }

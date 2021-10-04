@@ -99,6 +99,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chkBoxDesativada = new System.Windows.Forms.CheckBox();
             this.panelContent.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -114,6 +115,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
             this.panelContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelContent.Controls.Add(this.chkBoxDesativada);
             this.panelContent.Controls.Add(this.textDataNascimento);
             this.panelContent.Controls.Add(this.panelTitle);
             this.panelContent.Controls.Add(this.comboBoxRotaNumero);
@@ -903,6 +905,16 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // chkBoxDesativada
+            // 
+            this.chkBoxDesativada.AutoSize = true;
+            this.chkBoxDesativada.Location = new System.Drawing.Point(187, 46);
+            this.chkBoxDesativada.Name = "chkBoxDesativada";
+            this.chkBoxDesativada.Size = new System.Drawing.Size(87, 18);
+            this.chkBoxDesativada.TabIndex = 39;
+            this.chkBoxDesativada.Text = "Desativada";
+            this.chkBoxDesativada.UseVisualStyleBackColor = true;
+            // 
             // VendedoraForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1010,5 +1022,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         public System.Windows.Forms.Label titleFicha;
         private System.Windows.Forms.Button btnAddBairro;
         private System.Windows.Forms.MaskedTextBox textDataNascimento;
+        private System.Windows.Forms.CheckBox chkBoxDesativada;
     }
 }

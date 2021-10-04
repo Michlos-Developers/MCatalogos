@@ -63,7 +63,7 @@ namespace DomainLayer.Models.Vendedora
         [StringLength(9)]
         public string Cep { get; set; }
 
-
+        public bool Ativa { get; set; }
 
 
         #region FOREIGNKEYS

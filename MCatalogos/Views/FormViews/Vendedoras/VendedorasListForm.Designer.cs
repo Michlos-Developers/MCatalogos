@@ -41,6 +41,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkExibeInativos = new System.Windows.Forms.CheckBox();
             this.panelListView.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -53,6 +54,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.panelListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
             this.panelListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelListView.Controls.Add(this.chkExibeInativos);
             this.panelListView.Controls.Add(this.panelTitle);
             this.panelListView.Controls.Add(this.panelContentGridView);
             this.panelListView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -100,9 +102,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContentGridView.Controls.Add(this.dgvVendedoras);
-            this.panelContentGridView.Location = new System.Drawing.Point(12, 36);
+            this.panelContentGridView.Location = new System.Drawing.Point(12, 70);
             this.panelContentGridView.Name = "panelContentGridView";
-            this.panelContentGridView.Size = new System.Drawing.Size(774, 396);
+            this.panelContentGridView.Size = new System.Drawing.Size(774, 362);
             this.panelContentGridView.TabIndex = 1;
             // 
             // dgvVendedoras
@@ -129,7 +131,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.dgvVendedoras.ShowCellErrors = false;
             this.dgvVendedoras.ShowEditingIcon = false;
             this.dgvVendedoras.ShowRowErrors = false;
-            this.dgvVendedoras.Size = new System.Drawing.Size(774, 396);
+            this.dgvVendedoras.Size = new System.Drawing.Size(774, 362);
             this.dgvVendedoras.TabIndex = 0;
             this.dgvVendedoras.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellClick);
             this.dgvVendedoras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedoras_CellDoubleClick);
@@ -221,6 +223,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // chkExibeInativos
+            // 
+            this.chkExibeInativos.AutoSize = true;
+            this.chkExibeInativos.ForeColor = System.Drawing.Color.White;
+            this.chkExibeInativos.Location = new System.Drawing.Point(684, 46);
+            this.chkExibeInativos.Name = "chkExibeInativos";
+            this.chkExibeInativos.Size = new System.Drawing.Size(102, 18);
+            this.chkExibeInativos.TabIndex = 3;
+            this.chkExibeInativos.Text = "Exibir Inativas";
+            this.chkExibeInativos.UseVisualStyleBackColor = true;
+            // 
             // VendedorasListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -239,6 +252,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VendedorasListForm_FormClosing);
             this.Load += new System.EventHandler(this.VendedorasListForm_Load);
             this.panelListView.ResumeLayout(false);
+            this.panelListView.PerformLayout();
             this.panelTitle.ResumeLayout(false);
             this.panelTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).EndInit();
@@ -262,5 +276,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.PictureBox pictureClose;
+        private System.Windows.Forms.CheckBox chkExibeInativos;
     }
 }

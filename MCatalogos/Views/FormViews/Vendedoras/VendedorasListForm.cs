@@ -41,6 +41,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         #endregion
 
+        private enum StatusVendedora
+        {
+            Ativada,
+            Desativada,
+            Todas
+        }
+
 
         QueryStringServices _queryString;
         MainView MainView;

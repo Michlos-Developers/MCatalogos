@@ -34,5 +34,6 @@ namespace DomainLayer.Models.Vendedora
         int RotaLetraId { get; set; }
         RotaLetraModel RotaLetra { get; set; }
         int VendedoraId { get; set; }
+        bool Ativa { get; set; }
     }
 }
