@@ -1,12 +1,17 @@
-﻿using DomainLayer.Models.Vendedora;
+﻿using CommonComponents;
+
+using DomainLayer.Models.TitulosReceber;
+using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using MCatalogos.Commons;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.TelefoneVendedoraServices;
+using ServiceLayer.Services.TitulosReceberServices;
 using ServiceLayer.Services.VendedoraServices;
 
 using System;
@@ -43,6 +48,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
+        private TituloReceberServices _tituloReceberServices;
+
         private int indexDGV = 0;
         private static VendedorasListForm aForm = null;
         public static VendedorasListForm Instance(MainView mainView)
@@ -62,6 +69,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             _queryString = new QueryStringServices(new QueryString());
             _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _telefoneVendedoraServices = new TelefoneVendedoraServices(new TelefoneVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tituloReceberServices = new TituloReceberServices(new TituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
 
             InitializeComponent();
@@ -211,11 +219,19 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             if (result == DialogResult.Yes)
             {
                 VendedoraModel model = new VendedoraModel();
+                IEnumerable<TituloReceberModel> titulosReceber;
+
                 model = _vendedoraServices.GetById(int.Parse(dgvVendedoras.CurrentRow.Cells[0].Value.ToString()));
+                titulosReceber = (List<TituloReceberModel>)_tituloReceberServices.GetAllByVendedora(model);
 
                 List<TelefoneVendedoraModel> telefonesList = (List<TelefoneVendedoraModel>)_telefoneVendedoraServices.GetByVendedoraId(model.VendedoraId);
                 try
                 {
+
+                    if (titulosReceber.Any())
+                    {
+                        throw new DataAccessException();
+                    }
                     if (telefonesList.Count > 0)
                     {
                         foreach (TelefoneVendedoraModel telModel in telefonesList)
@@ -227,10 +243,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     MessageBox.Show($"Vendedora {model.Nome} apagada com sucesso.");
 
                 }
+                catch (DataAccessException)
+                {
+                    MessageBox.Show("Não foi possível apagar o registro da vendedora.\nEla possui um registro em Contas a Receber\nAo invés de excluir altere o STATUS da Vendedora.");
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Falha ao tentar apagar a vendedora\nErrorMessage: \n{ex.Message}", "Error");
                 }
+                
                 this.VendedorasListForm_Load(sender, e);
             }
         }

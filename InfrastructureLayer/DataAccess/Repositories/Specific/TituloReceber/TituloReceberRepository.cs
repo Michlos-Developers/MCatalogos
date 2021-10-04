@@ -106,7 +106,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
 
                 tituloReceber.TituloId = idReturned;
                 return tituloReceber;
-                
+
             }
         }
 
@@ -268,24 +268,30 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            TituloReceberModel model = new TituloReceberModel();
 
-                            model.TituloId = int.Parse(reader["TituloId"].ToString());
-                            model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
-                            model.PedidoId = int.Parse(reader["PedidoId"].ToString());
-                            model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
-                            model.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
-                            model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
-                            model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
-                            model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
-                            model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                            model.DataVencimento = DateTime.Parse(reader["DataVemcimento"].ToString());
-                            model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
-                            model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
-                            model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                            model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
 
-                            modelList.Add(model);
+                            while (reader.Read())
+                            {
+                                TituloReceberModel model = new TituloReceberModel();
+                                model.TituloId = int.Parse(reader["TituloId"].ToString());
+                                model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                model.PedidoId = int.Parse(reader["PedidoId"].ToString());
+                                model.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                                model.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
+                                model.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
+                                model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
+                                model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
+                                model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVeNcimento"].ToString());
+                                model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
+                                model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
+                                model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
+                                model.Parcelado = bool.Parse(reader["Parcelado"].ToString());
+                                modelList.Add(model);
+                            }
+
+
+
                         }
 
                     }
