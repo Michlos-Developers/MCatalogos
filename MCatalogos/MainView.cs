@@ -29,9 +29,13 @@ namespace MCatalogos
         private MainView _obj;
         private ButtonHelper buttonHelper = new ButtonHelper();
         List<Button> btnCollection = new List<Button>();
+        IEnumerable<ModulosModel> modulosModelList;
+        IEnumerable<ModuloCommandModel> commandsModelList;
+
 
         private QueryStringServices _queryString;
         private ModulosSerivces _modulosSerivces;
+        private ModuloCommandServices _commandServices;
 
 
         public MainView Instance
@@ -51,6 +55,8 @@ namespace MCatalogos
         {
             _queryString = new QueryStringServices(new QueryString());
             _modulosSerivces = new ModulosSerivces(new ModulosRepository(_queryString.GetQueryApp()));
+            _commandServices = new ModuloCommandServices(new ModuloCommandRepository(_queryString.GetQueryApp()));
+
 
             IsMdiContainer = true;
             InitializeComponent();
@@ -92,12 +98,11 @@ namespace MCatalogos
 
         private void GenerateButtons()
         {
-            IEnumerable<ModulosModel> modelList = null;
             try
             {
-                modelList = (IEnumerable<ModulosModel>)_modulosSerivces.GetAll();
-                modelList = modelList.Where(m => m.Ativo == true).OrderByDescending(c => c.ModuloId);
-                foreach (var modulo in modelList)
+                modulosModelList = (IEnumerable<ModulosModel>)_modulosSerivces.GetAll();
+                modulosModelList = modulosModelList.Where(m => m.Ativo == true).OrderByDescending(c => c.ModuloId);
+                foreach (var modulo in modulosModelList)
                 {
                     Button button = new Button();
                     button = buttonHelper.GenerateButtons(modulo.Nome, modulo.ModuloId);
@@ -120,6 +125,10 @@ namespace MCatalogos
             buttonHelper.SetUnselectedButtons(btnCollection);
             Button clickedButton = sender as Button;
             buttonHelper.SetSelectedButton(clickedButton);
+
+            
+            
+            
 
             switch (int.Parse(clickedButton.Tag.ToString()))
             {

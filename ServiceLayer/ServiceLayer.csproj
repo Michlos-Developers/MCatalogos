@@ -117,7 +117,9 @@
     <Compile Include="Services\HistoricoTituloReceberServices\HistoricoTituloReceberServices.cs" />
     <Compile Include="Services\HistoricoTituloReceberServices\IHistoricoTituloReceberRepository.cs" />
     <Compile Include="Services\HistoricoTituloReceberServices\IHistoricoTituloReceberServices.cs" />
+    <Compile Include="Services\ModulosServices\IModuloCommandRepository.cs" />
     <Compile Include="Services\ModulosServices\IModulosRepository.cs" />
+    <Compile Include="Services\ModulosServices\ModuloCommandServices.cs" />
     <Compile Include="Services\ModulosServices\ModulosSerivces.cs" />
     <Compile Include="Services\PedidosVendedorasServices\IPedidosVendedorasRepository.cs" />
     <Compile Include="Services\PedidosVendedorasServices\IPedidosVendedorasServices.cs" />

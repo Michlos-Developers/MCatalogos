@@ -111,7 +111,9 @@
     <Compile Include="Models\Fornecedores\ITelefoneFornecedorModel.cs" />
     <Compile Include="Models\Fornecedores\TelefoneFornecedorModel.cs" />
     <Compile Include="Models\Formatos\FormatosTamanhosModel.cs" />
+    <Compile Include="Models\Modulos\IModuloCommandModel.cs" />
     <Compile Include="Models\Modulos\IModulosModel.cs" />
+    <Compile Include="Models\Modulos\ModuloCommandModel.cs" />
     <Compile Include="Models\Modulos\ModulosModel.cs" />
     <Compile Include="Models\PedidosVendedoras\IDetalhePedidoModel.cs" />
     <Compile Include="Models\PedidosVendedoras\IPedidosVendedorasModel.cs" />

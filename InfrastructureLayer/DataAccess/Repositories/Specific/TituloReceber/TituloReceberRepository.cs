@@ -282,7 +282,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
                                 model.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
                                 model.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                                model.DataVencimento = DateTime.Parse(reader["DataVeNcimento"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
                                 model.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
                                 model.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
