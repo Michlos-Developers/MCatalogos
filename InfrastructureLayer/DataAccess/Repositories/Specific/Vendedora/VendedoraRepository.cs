@@ -333,6 +333,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
                                 vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                vendedoraModel.Ativa = bool.Parse(reader["Ativa"].ToString());
 
                                 vendedoraModelsList.Add(vendedoraModel);
                             }

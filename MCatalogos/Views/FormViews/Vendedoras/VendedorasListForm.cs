@@ -41,7 +41,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         #endregion
 
-        private enum StatusVendedora
+        public enum StatusVendedora
         {
             Ativada,
             Desativada,
@@ -51,11 +51,15 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         QueryStringServices _queryString;
         MainView MainView;
-        //Control Control;
 
         private VendedoraServices _vendedoraServices;
         private TelefoneVendedoraServices _telefoneVendedoraServices;
         private TituloReceberServices _tituloReceberServices;
+
+        private List<VendedoraModel> ListVendedoras = new List<VendedoraModel>();
+        private IEnumerable<VendedoraModel> vendedorasDGV;
+
+        public StatusVendedora status = StatusVendedora.Ativada;
 
         private int indexDGV = 0;
         private static VendedorasListForm aForm = null;
@@ -83,39 +87,62 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.MainView = mainView;
         }
 
+        public void VendedorasListForm_Load(object sender, EventArgs e)
+        {
+            LoadListVednedoras();
+            LoadVendedorasToDataGridView();
 
-        //OWN METHODS
+
+        }
+
+        private void LoadListVednedoras()
+        {
+            ListVendedoras = (List<VendedoraModel>)_vendedoraServices.GetAll();
+        }
+
         public void LoadVendedorasToDataGridView()
         {
-            List<VendedoraModel> modelList = null;
-            try
-            {
-                modelList = (List<VendedoraModel>)_vendedoraServices.GetAll();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Não foi possível recuperar a lista de Vendedoras.\nMessage: {e.Message}", "Error Access List");
-            }
+            vendedorasDGV = ListVendedoras;
+
+            vendedorasDGV = ConfiguraDGVByStatus(status, vendedorasDGV);
 
             DataTable tableVendedoras = ModelaDataTable();
-            ModelaRowTable(tableVendedoras, modelList);
+            ModelaRowTable(tableVendedoras, vendedorasDGV);
 
             dgvVendedoras.DataSource = tableVendedoras;
             ConfiguraDataGridView();
         }
 
-        private void ModelaRowTable(DataTable tableVendedoras, List<VendedoraModel> modelList)
+        private IEnumerable<VendedoraModel> ConfiguraDGVByStatus(StatusVendedora status, IEnumerable<VendedoraModel> vendedorasDGV)
+        {
+            switch (status)
+            {
+                case StatusVendedora.Ativada:
+                    vendedorasDGV = vendedorasDGV.Where(stat => stat.Ativa);
+                    break;
+                case StatusVendedora.Desativada:
+                    vendedorasDGV = vendedorasDGV.Where(stat => !stat.Ativa);
+                    break;
+               default:
+                    break;
+            }
+
+            return vendedorasDGV;
+        }
+
+        private void ModelaRowTable(DataTable tableVendedoras, IEnumerable<VendedoraModel> vendedorasDGV)
         {
             DataRow row;
            
-            if (modelList.Count != 0)
+            if (vendedorasDGV.Any())
             {
-                foreach (VendedoraModel model in modelList)
+                foreach (VendedoraModel model in vendedorasDGV)
                 {
                     row = tableVendedoras.NewRow();
                     row["VendedoraId"] = int.Parse(model.VendedoraId.ToString());
                     row["Nome"] = model.Nome.ToString();
                     row["Cpf"] = model.Cpf;
+                    row["Status"] = model.Ativa ? "Ativa" : "Desativada";
 
                     tableVendedoras.Rows.Add(row);
                 }
@@ -130,6 +157,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             table.Columns.Add("VendedoraId", typeof(int));
             table.Columns.Add("Nome", typeof(string));
             table.Columns.Add("Cpf", typeof(string));
+            table.Columns.Add("Status", typeof(string));
 
             return table;
             
@@ -141,10 +169,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             dgvVendedoras.Columns[0].Width = 50;
 
             dgvVendedoras.Columns[1].HeaderText = "Nome";
-            dgvVendedoras.Columns[1].Width = 555;
+            dgvVendedoras.Columns[1].Width = 455;
 
             dgvVendedoras.Columns[2].HeaderText = "CPF";
             dgvVendedoras.Columns[2].Width = 108;
+
+            dgvVendedoras.Columns[3].HeaderText = "Status";
+            dgvVendedoras.Columns[3].Width = 50;
 
             if (indexDGV != 0)
             {
@@ -177,12 +208,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         #endregion
 
         //EVENTS FORM
-        public void VendedorasListForm_Load(object sender, EventArgs e)
-        {
-            LoadVendedorasToDataGridView();
 
 
-        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //SetUnselectedButtons();
@@ -288,7 +315,20 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
+        private void chkExibeInativos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkExibeInativos.Checked)
+            {
+                status = StatusVendedora.Todas;
+            }
+            else
+            {
+                status = StatusVendedora.Ativada;
+                indexDGV = 0;
+            }
+            LoadVendedorasToDataGridView();
 
+        }
     }
 
 }

@@ -32,6 +32,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedoraForm));
             this.panelContent = new System.Windows.Forms.Panel();
+            this.chkBoxDesativada = new System.Windows.Forms.CheckBox();
             this.textDataNascimento = new System.Windows.Forms.MaskedTextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
@@ -99,7 +100,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel = new System.Windows.Forms.Button();
             this.toolTipVendedoraForm = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.chkBoxDesativada = new System.Windows.Forms.CheckBox();
             this.panelContent.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -157,6 +157,17 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(800, 470);
             this.panelContent.TabIndex = 0;
+            // 
+            // chkBoxDesativada
+            // 
+            this.chkBoxDesativada.AutoSize = true;
+            this.chkBoxDesativada.Location = new System.Drawing.Point(187, 46);
+            this.chkBoxDesativada.Name = "chkBoxDesativada";
+            this.chkBoxDesativada.Size = new System.Drawing.Size(87, 18);
+            this.chkBoxDesativada.TabIndex = 39;
+            this.chkBoxDesativada.Text = "Desativada";
+            this.chkBoxDesativada.UseVisualStyleBackColor = true;
+            this.chkBoxDesativada.CheckedChanged += new System.EventHandler(this.chkBoxDesativada_CheckedChanged);
             // 
             // textDataNascimento
             // 
@@ -904,16 +915,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // chkBoxDesativada
-            // 
-            this.chkBoxDesativada.AutoSize = true;
-            this.chkBoxDesativada.Location = new System.Drawing.Point(187, 46);
-            this.chkBoxDesativada.Name = "chkBoxDesativada";
-            this.chkBoxDesativada.Size = new System.Drawing.Size(87, 18);
-            this.chkBoxDesativada.TabIndex = 39;
-            this.chkBoxDesativada.Text = "Desativada";
-            this.chkBoxDesativada.UseVisualStyleBackColor = true;
             // 
             // VendedoraForm
             // 

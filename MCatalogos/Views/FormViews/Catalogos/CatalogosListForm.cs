@@ -96,6 +96,15 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
         //OWN METHODS
         //CÓDIGO / NOME DO CATÁLOGO/ FORNECEDOR (NOME FANTASIA)  / CAMPANHA ATUAL /ATIVO
+        private void CatalogosListForm_Load(object sender, EventArgs e)
+        {
+            LoadListCatalogos();
+            LoadCatalogosToDataGridView();
+        }
+        private void LoadListCatalogos()
+        {
+            ListCatalogos = (List<CatalogoModel>)_catalogoServices.GetAll();
+        }
 
         public void LoadCatalogosToDataGridView()
         {
@@ -108,6 +117,23 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
             ConfiguraDataGridView(tableCatalogos);
 
+        }
+        private IEnumerable<CatalogoModel> ConfiguraDGVByStatus(StatusCatalogo status, IEnumerable<CatalogoModel> catalogosDGV)
+        {
+            switch (status)
+            {
+                case StatusCatalogo.Ativo:
+                    catalogosDGV = catalogosDGV.Where(stat => stat.Ativo);
+                    break;
+                case StatusCatalogo.Inativo:
+                    catalogosDGV = catalogosDGV.Where(stat => stat.Ativo == false);
+                    break;
+                default:
+                    break;
+
+            }
+
+            return catalogosDGV;
         }
 
         private void ModelaDataRowTableCatalogos(DataTable tableCatalogos, IEnumerable<CatalogoModel> catalogosDGV)
@@ -143,23 +169,6 @@ namespace MCatalogos.Views.FormViews.Catalogos
             return table;
         }
 
-        private IEnumerable<CatalogoModel> ConfiguraDGVByStatus(StatusCatalogo status, IEnumerable<CatalogoModel> catalogosDGV)
-        {
-            switch (status)
-            {
-                case StatusCatalogo.Ativo:
-                    catalogosDGV = catalogosDGV.Where(stat => stat.Ativo);
-                    break;
-                case StatusCatalogo.Inativo:
-                    catalogosDGV = catalogosDGV.Where(stat => stat.Ativo == false);
-                    break;
-                default:
-                    break;
-
-            }
-
-            return catalogosDGV;
-        }
 
         private void ConfiguraDataGridView(DataTable tableCatalogos)
         {
@@ -203,16 +212,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             }
         }
 
-        private void CatalogosListForm_Load(object sender, EventArgs e)
-        {
-            LoadListCatalogos();
-            LoadCatalogosToDataGridView();
-        }
 
-        private void LoadListCatalogos()
-        {
-            ListCatalogos = (List<CatalogoModel>)_catalogoServices.GetAll();
-        }
 
         private void CatalogosListForm_FormClosing(object sender, FormClosingEventArgs e)
         {

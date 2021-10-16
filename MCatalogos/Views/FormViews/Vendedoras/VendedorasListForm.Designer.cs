@@ -31,6 +31,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VendedorasListForm));
             this.panelListView = new System.Windows.Forms.Panel();
+            this.chkExibeInativos = new System.Windows.Forms.CheckBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
@@ -41,7 +42,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.chkExibeInativos = new System.Windows.Forms.CheckBox();
             this.panelListView.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -62,6 +62,18 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.panelListView.Name = "panelListView";
             this.panelListView.Size = new System.Drawing.Size(800, 440);
             this.panelListView.TabIndex = 4;
+            // 
+            // chkExibeInativos
+            // 
+            this.chkExibeInativos.AutoSize = true;
+            this.chkExibeInativos.ForeColor = System.Drawing.Color.White;
+            this.chkExibeInativos.Location = new System.Drawing.Point(684, 46);
+            this.chkExibeInativos.Name = "chkExibeInativos";
+            this.chkExibeInativos.Size = new System.Drawing.Size(102, 18);
+            this.chkExibeInativos.TabIndex = 3;
+            this.chkExibeInativos.Text = "Exibir Inativas";
+            this.chkExibeInativos.UseVisualStyleBackColor = true;
+            this.chkExibeInativos.CheckedChanged += new System.EventHandler(this.chkExibeInativos_CheckedChanged);
             // 
             // panelTitle
             // 
@@ -222,17 +234,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // chkExibeInativos
-            // 
-            this.chkExibeInativos.AutoSize = true;
-            this.chkExibeInativos.ForeColor = System.Drawing.Color.White;
-            this.chkExibeInativos.Location = new System.Drawing.Point(684, 46);
-            this.chkExibeInativos.Name = "chkExibeInativos";
-            this.chkExibeInativos.Size = new System.Drawing.Size(102, 18);
-            this.chkExibeInativos.TabIndex = 3;
-            this.chkExibeInativos.Text = "Exibir Inativas";
-            this.chkExibeInativos.UseVisualStyleBackColor = true;
             // 
             // VendedorasListForm
             // 

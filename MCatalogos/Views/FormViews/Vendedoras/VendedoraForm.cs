@@ -635,6 +635,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             VendedoraForm_Load(sender, e);
         }
 
+        private void chkBoxDesativada_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBoxDesativada.Checked)
+            {
+                VendedorasListForm.status = VendedorasListForm.StatusVendedora.Todas;
+            }
+        }
 
 
 
@@ -972,5 +979,6 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
                 textDataNascimento.BackColor = SystemColors.Window;
         }
+
     }
 }
