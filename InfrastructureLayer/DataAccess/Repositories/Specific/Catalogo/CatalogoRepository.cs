@@ -105,22 +105,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo
                             throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
                         }
 
-                        //CONFIRMAÇÃO DE INSERÇÃO DE DADOS
-                        try
-                        {
-
-                        }
-                        catch (DataAccessException e)
-                        {
-                            e.DataAccessStatusInfo.Status = "Error";
-                            e.DataAccessStatusInfo.OperationSucceeded = false;
-                            e.DataAccessStatusInfo.CustomMessage = "Falha ao buscar Catálogo no DataBase após a inserção.";
-                            e.DataAccessStatusInfo.ExceptionMessage = e.Message;
-                            e.DataAccessStatusInfo.StackTrace = e.StackTrace;
-
-
-                            throw e;
-                        }
+                       
                     }
                 }
                 catch (SqlException e)

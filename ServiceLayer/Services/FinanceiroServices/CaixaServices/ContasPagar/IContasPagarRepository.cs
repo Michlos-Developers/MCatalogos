@@ -16,6 +16,5 @@ namespace ServiceLayer.Services.FinanceiroServices.CaixaServices.ContasPagar
         IEnumerable<ContasPagarModel> GetAllByMonthAndYear(int month, int year);
         IEnumerable<ContasPagarModel> GetAllByData(DateTime dataRegistro);
         IEnumerable<ContasPagarModel> GetAllByOrigem(ParcelaTituloPagar origem);
-
     }
 }

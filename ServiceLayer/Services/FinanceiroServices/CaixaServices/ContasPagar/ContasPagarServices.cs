@@ -57,5 +57,6 @@ namespace ServiceLayer.Services.FinanceiroServices.CaixaServices.ContasPagar
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(contasPagar);
             _modelDataAnnotationCheck.ValidateModelDataAnnotations(contasPagar);
         }
+
     }
 }

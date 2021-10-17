@@ -1,17 +1,34 @@
-﻿using DomainLayer.Models.Fornecedores;
+﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.Financeiro.Caixa.ContasPagar;
+using DomainLayer.Models.Fornecedores;
+using DomainLayer.Models.PedidosVendedoras;
+using DomainLayer.Models.Produtos;
+using DomainLayer.Models.TitulosPagar;
 
 using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Financeiro.Caixa;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
+using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
+using InfrastructureLayer.DataAccess.Repositories.Specific.TituloPagar;
 
 using Microsoft.Win32;
 
 using ServiceLayer.CommonServices;
+using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.FinanceiroServices.CaixaServices.ContasPagar;
 using ServiceLayer.Services.FornecedorServices;
+using ServiceLayer.Services.PedidosVendedorasServices;
+using ServiceLayer.Services.ProdutoServices;
 using ServiceLayer.Services.TelefoneFornecedorServices;
+using ServiceLayer.Services.TitulosPagarServices;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -30,7 +47,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         #endregion
 
 
-        QueryStringServices _queryString;
         MainView MainView;
 
         //Instância de MainView. Evita que mais de uma janela seja aberta.
@@ -48,8 +64,25 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             return aForm;
         }
 
+        QueryStringServices _queryString;
         private FornecedorServices _fornecedorServices;
         private TelefoneFornecedorServices _telefoneFornecedorServices;
+        private CatalogoServices _catalogoServices;
+        private CampanhaServices _campanhaServices;
+        private ProdutoServices _produtoServices;
+        private DetalhePedidoSerivces _detalhePedidoServices;
+        private TituloPagarServices _tituloPagarServices;
+
+
+        private IEnumerable<TelefoneFornecedorModel> TelefonesList;
+        private IEnumerable<CatalogoModel> CatalogosList;
+        private IEnumerable<CampanhaModel> CampanhasList;
+        private IEnumerable<ProdutoModel> ProdutosList;
+        private IEnumerable<DetalhePedidoModel> DetalhesPedidosList;
+        private IEnumerable<TituloPagarModel> TitulosPagarList;
+
+
+
         private int indexDGV = 0;
 
         public FornecedoresListForm(MainView mainView)
@@ -57,9 +90,21 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             _queryString = new QueryStringServices(new QueryString());
             _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _telefoneFornecedorServices = new TelefoneFornecedorServices(new TelefoneFornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _campanhaServices = new CampanhaServices(new CampanhaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _produtoServices = new ProdutoServices(new ProdutoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _detalhePedidoServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _tituloPagarServices = new TituloPagarServices(new TituloPagarRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+
+
 
             InitializeComponent();
             this.MainView = mainView;
+        }
+        public void FornecedoresListForm_Load(object sender, EventArgs e)
+        {
+            LoadFornecedoresToDataGrid();
+
         }
 
 
@@ -99,11 +144,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             aForm = null;
         }
 
-        public void FornecedoresListForm_Load(object sender, EventArgs e)
-        {
-            LoadFornecedoresToDataGrid();
-
-        }
 
         private void LoadFornecedoresToDataGrid()
         {
@@ -194,26 +234,96 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apgar o cadastro do Fornecedor\n{dgvFornecedores.CurrentRow.Cells[1].Value.ToString()}. " +
-                $"\nTem certeza disso?", "CUIDADO!!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apgar o cadastro do Fornecedor\n{dgvFornecedores.CurrentRow.Cells[1].Value.ToString()}.\nIsso implicará em apagar todos os Catálogos/Campanhas/Produtos/Pedidos desse fornecedor.\n " +
+                $"\nDeseja continuar?", "CUIDADO!!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
                 FornecedorModel model = new FornecedorModel();
                 model = _fornecedorServices.GetById(int.Parse(dgvFornecedores.CurrentRow.Cells[0].Value.ToString()));
 
-                List<TelefoneFornecedorModel> telefonesList = (List<TelefoneFornecedorModel>)_telefoneFornecedorServices.GetByFornecedorId(model.FornecedorId);
-                try
+                //coletando dados para deleção
+                TelefonesList = (List<TelefoneFornecedorModel>)_telefoneFornecedorServices.GetByFornecedorId(model.FornecedorId);
+                CatalogosList = (List<CatalogoModel>)_catalogoServices.GetByFornecedorId(model.FornecedorId);
+                TitulosPagarList = (List<TituloPagarModel>)_tituloPagarServices.GetAllByFornecedorId(model.FornecedorId);
+
+                //CAMPANHAS E PRODUTOS
+                foreach (var catalogo in CatalogosList)
                 {
-                    if (telefonesList.Count > 0)
+                    IEnumerable<CampanhaModel> campanhas = (List<CampanhaModel>)_campanhaServices.GetByCatalogoId(catalogo.CatalogoId);
+                    foreach (var campanha in campanhas)
                     {
-                        foreach (TelefoneFornecedorModel telModel in telefonesList)
+                        CampanhasList.Append(campanha);
+                        //PRODUTOS
+                        IEnumerable<ProdutoModel> produtos = (List<ProdutoModel>)_produtoServices.GetAllByCampanhaId(campanha.CampanhaId);
+                        foreach (var produto in produtos)
                         {
-                            _telefoneFornecedorServices.Delete(telModel);
+                            ProdutosList.Append(produto);
+                        }
+
+                        //ITENS DE PEDIDOS
+                        IEnumerable<DetalhePedidoModel> detalhesPedidos = (List<DetalhePedidoModel>)_detalhePedidoServices.GetAllByCampanha(campanha);
+                        foreach (var detalhe in detalhesPedidos)
+                        {
+                            DetalhesPedidosList.Append(detalhe);
                         }
                     }
-                    _fornecedorServices.Delete(model);
-                    MessageBox.Show($"Fornecedor {model.NomeFantasia} excluído com sucesso.");
+                }
+
+
+                try
+                {
+                    if (DetalhesPedidosList.Any())
+                    {
+                        throw new Exception("O Fornecedor possui pedido cadastro em um de seus catálogos. Impossível Deletar o Registro.");
+                    }
+                    else if (TitulosPagarList.Any())
+                    {
+                        throw new Exception("Existe um título a Pagar registrado em nome desse fornecedor. Impossível Deletar o Registro.");
+                    }
+                    else
+                    {
+                        if (TelefonesList.Any())
+                        {
+                            foreach (TelefoneFornecedorModel telModel in TelefonesList)
+                            {
+                                _telefoneFornecedorServices.Delete(telModel);
+                            }
+                        }
+
+
+                        if (ProdutosList.Any())
+                        {
+                            foreach (var item in ProdutosList)
+                            {
+                                _produtoServices.Delete(item);
+                            }
+                        }
+
+                        if (CampanhasList.Any())
+                        {
+                            foreach (var item in CampanhasList)
+                            {
+                                _campanhaServices.Delete(item);
+                            }
+                        }
+
+                        if (CatalogosList.Any())
+                        {
+                            foreach (var item in CatalogosList)
+                            {
+                                _catalogoServices.Delete(item);
+                            }
+                        }
+                        
+                        _fornecedorServices.Delete(model);
+                        MessageBox.Show($"Fornecedor {model.NomeFantasia} excluído com sucesso.");
+                        indexDGV -= 1;
+                    }
+
+
+
+
                 }
                 catch (Exception ex)
                 {
