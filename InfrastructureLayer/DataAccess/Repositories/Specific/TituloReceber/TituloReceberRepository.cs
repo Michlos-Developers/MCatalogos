@@ -159,20 +159,23 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            tituloReceber.TituloId = int.Parse(reader["TituloId"].ToString());
-                            tituloReceber.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
-                            tituloReceber.PedidoId = int.Parse(reader["PedidoId"].ToString());
-                            tituloReceber.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
-                            tituloReceber.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
-                            tituloReceber.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
-                            tituloReceber.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
-                            tituloReceber.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
-                            tituloReceber.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
-                            tituloReceber.DataVencimento = DateTime.Parse(reader["DataVemcimento"].ToString());
-                            tituloReceber.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
-                            tituloReceber.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
-                            tituloReceber.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
-                            tituloReceber.Parcelado = bool.Parse(reader["Parcelado"].ToString());
+                            while (reader.Read())
+                            {
+                                tituloReceber.TituloId = int.Parse(reader["TituloId"].ToString());
+                                tituloReceber.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
+                                tituloReceber.PedidoId = int.Parse(reader["PedidoId"].ToString());
+                                tituloReceber.TipoTituloId = int.Parse(reader["TipoTituloId"].ToString());
+                                tituloReceber.StatusTitulo = (StatusTitulo)Enum.Parse(typeof(StatusTitulo), reader["StatusTituloId"].ToString());
+                                tituloReceber.ValorTitulo = double.Parse(reader["ValorTitulo"].ToString());
+                                tituloReceber.ValorParcela = double.Parse(reader["ValorParcela"].ToString());
+                                tituloReceber.DataEmissao = DateTime.Parse(reader["DataEmissao"].ToString());
+                                tituloReceber.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                tituloReceber.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
+                                tituloReceber.ValorDesconto = double.Parse(reader["ValorDesconto"].ToString());
+                                tituloReceber.ValorLiquidado = double.Parse(reader["ValorLiquidado"].ToString());
+                                tituloReceber.QtdParcelas = int.Parse(reader["QtdParcelas"].ToString());
+                                tituloReceber.Parcelado = bool.Parse(reader["Parcelado"].ToString());
+                            }
 
                         }
 
