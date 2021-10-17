@@ -275,6 +275,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     }
                     _vendedoraServices.Delete(model);
                     MessageBox.Show($"Vendedora {model.Nome} apagada com sucesso.");
+                    indexDGV -= 1;
 
                 }
                 catch (DataAccessException)
