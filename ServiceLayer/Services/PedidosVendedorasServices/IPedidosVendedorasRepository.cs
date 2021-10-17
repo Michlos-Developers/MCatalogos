@@ -1,5 +1,4 @@
-﻿using DomainLayer.Models.Catalogos;
-using DomainLayer.Models.PedidosVendedoras;
+﻿using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Vendedora;
 
 using System;
@@ -10,6 +9,7 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
     public interface IPedidosVendedorasRepository
     {
         IPedidosVendedorasModel Add(IPedidosVendedorasModel pedido);
+        void Remove(IPedidosVendedorasModel pedido);
         void AtualizaTotaisPedido(IPedidosVendedorasModel pedido);
         
         IPedidosVendedorasModel GetById(int pedidoId);

@@ -1,6 +1,5 @@
 ﻿using CommonComponents;
 
-using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Vendedora;
 
@@ -9,8 +8,6 @@ using ServiceLayer.Services.PedidosVendedorasServices;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Net.Http.Headers;
-using System.Reflection.Emit;
 
 namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
 {
@@ -629,5 +626,35 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             }
         }
 
+        public void Remove(IPedidosVendedorasModel pedido)
+        {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
+            string query = " DELETE PedidosVendedoras " +
+                           " WHERE PedidoId = @PedidoId";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@PedidoId", pedido.PedidoId);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    dataAccessStatus.setValues("Error", false, e.Message, "Nâo foi possível remover o registro do Pedido.", e.HelpLink,
+                        e.ErrorCode, e.StackTrace);
+                    throw new DataAccessException(e.Message, e.InnerException, dataAccessStatus);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

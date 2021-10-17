@@ -10,6 +10,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using ServiceLayer.CommonServices;
+using ServiceLayer.Services.DetalhePedidoServices;
 using ServiceLayer.Services.HistoricoTituloReceberServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
 using ServiceLayer.Services.TipoTituloServices;
@@ -49,6 +50,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private List<VendedoraModel> VendedorasList = new List<VendedoraModel>();
         private List<TipoTituloModel> TiposTitulosList = new List<TipoTituloModel>();
         private List<TituloReceberModel> TitulosReceberList = new List<TituloReceberModel>();
+        private IEnumerable<DetalhePedidoModel> DetalhePedidoList = new List<DetalhePedidoModel>();
 
 
         private VendedoraModel VendedoraFilter = new VendedoraModel();
@@ -64,6 +66,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private TituloReceberServices _tituloReceberServices;
         private TipoTituloServices _tipoTituloServices;
         private HistoricoTituloReceberServices _historicoTituloReceberServices;
+        private DetalhePedidoSerivces _detalhePedidoSerivces;
 
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
@@ -78,6 +81,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             _tituloReceberServices = new TituloReceberServices(new TituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _tipoTituloServices = new TipoTituloServices(new TipoTituloRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _historicoTituloReceberServices = new HistoricoTituloReceberServices(new HistoricoTituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _detalhePedidoSerivces = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             MainView = mainView;
@@ -472,63 +476,64 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void EditarPedido(PedidosVendedorasModel pedido, RequestType requestType)
         {
             PedidoAddForm pedidoForm = null;
-            if (requestType == RequestType.Add)
-            {
-                pedidoForm = PedidoAddForm.Instance(null, null, this, RequestType.Add);
-            }
-            else if (requestType == RequestType.Edit)
-            {
-                SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
-                pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, RequestType.Edit);
-                pedidoForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
 
-            }
-            else if (requestType == RequestType.Confere)
+            switch (requestType)
             {
-                SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
-                if (pedido.StatusPed != ((int)StatusPedido.Finalizado))
-                {
-                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, RequestType.Confere);
-                    pedidoForm.Text = $"Conferindo Pedido - Vendedora: {SelectedVendedora.Nome}";
-                }
-                else
-                {
-                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, RequestType.Edit);
-                    pedidoForm.Text = $"Conferindo pedido - Vendedora: {SelectedVendedora.Nome}";
-                }
-
-            }
-            else if (requestType == RequestType.Finaliza)
-            {
-                try
-                {
-
-
-                    _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
-                    if (TemContasReceber(pedido))
+                case RequestType.Add:
+                    pedidoForm = PedidoAddForm.Instance(null, null, this, requestType);
+                    pedidoForm.Show();
+                    break;
+                case RequestType.Edit:
+                    SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
+                    pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, requestType);
+                    pedidoForm.Text = $"Editando Pedido - Vendedora: {SelectedVendedora.Nome}";
+                    pedidoForm.Show();
+                    break;
+                case RequestType.Remove:
+                    _pedidosServices.Remove(pedido);
+                    break;
+                case RequestType.Liquidar:
+                    break;
+                case RequestType.Abater:
+                    break;
+                case RequestType.Confere:
+                    SelectedVendedora = _vendedoraServices.GetById(pedido.VendedoraId);
+                    if (pedido.StatusPed != ((int)StatusPedido.Finalizado))
                     {
-                        AtualizaContaReceber(pedido);
-                        GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
+                        pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, requestType);
+                        pedidoForm.Text = $"Conferindo Pedido - Vendedora: {SelectedVendedora.Nome}";
                     }
                     else
                     {
-                        GeraContasReceber(pedido);
-                        GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
+                        pedidoForm = PedidoAddForm.Instance(SelectedVendedora, pedido, this, requestType);
+                        pedidoForm.Text = $"Conferindo pedido - Vendedora: {SelectedVendedora.Nome}";
                     }
-                }
-                catch (Exception e)
-                {
+                    pedidoForm.Show();
+                    break;
+                case RequestType.Finaliza:
+                    try
+                    {
+                        _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
+                        if (TemContasReceber(pedido))
+                        {
+                            AtualizaContaReceber(pedido);
+                            GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
+                        }
+                        else
+                        {
+                            GeraContasReceber(pedido);
+                            GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
+                        }
+                    }
+                    catch (Exception e)
+                    {
 
-                    MessageBox.Show($"Não foi possível finalizar o pedido. {pedido.PedidoId} \nMessage: {e.Message}");
-                }
-
-
+                        MessageBox.Show($"Não foi possível finalizar o pedido. {pedido.PedidoId} \nMessage: {e.Message}");
+                    }
+                    break;
+                default:
+                    break;
             }
-
-            if (requestType != RequestType.Finaliza)
-                pedidoForm.Show();
-
-
         }
 
         private void GeraHistoricoContasReceber(PedidosVendedorasModel pedido, PedidoReceberHistorico tipoHistorico)
@@ -772,6 +777,37 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 indexDGV = dgvPedidos.CurrentRow.Index;
             }
         }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+
+            if (SelectedPedido.StatusPed != (int)StatusPedido.Aberto)
+            {
+                MessageBox.Show("Somente pedidos em Aberto podem ser apagados");
+            }
+            else
+            {
+                SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+                var result = MessageBox.Show($"Você está prestes a apagar o pedido {SelectedPedido.PedidoId} da Vendedora {SelectedVendedora.Nome}.\n Deseja Continuar?", "Deleção de Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); ;
+                if (result == DialogResult.Yes)
+                {
+                    LimpaPedido(SelectedPedido);
+                    EditarPedido(SelectedPedido, RequestType.Remove);
+
+                }
+                AtualizaDGV();
+            }
+
+        }
+
+        private void LimpaPedido(PedidosVendedorasModel selectedPedido)
+        {
+            DetalhePedidoList = (IEnumerable<DetalhePedidoModel>)_detalhePedidoSerivces.GetAllByPedido(selectedPedido);
+            foreach (var item in DetalhePedidoList)
+            {
+                _detalhePedidoSerivces.Delete(item);
+            }
+        }
 
 
         #region SET BG COLOR CONTROLS
@@ -818,5 +854,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             SetBgColorUnfocused(mTextCpf);
         }
         #endregion
+
     }
 }

@@ -279,7 +279,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 }
                 catch (DataAccessException)
                 {
-                    MessageBox.Show("Não foi possível apagar o registro da vendedora.\nEla possui um registro em Contas a Receber\nAo invés de excluir altere o STATUS da Vendedora.");
+                    MessageBox.Show("Não foi possível apagar o registro da vendedora.\nEla possui algum outro registro no sistema.\nSe ela tiver um pedido cadastrado não pode ser apagada.\nAo invés de excluir altere o STATUS da Vendedora.");
                 }
                 catch (Exception ex)
                 {

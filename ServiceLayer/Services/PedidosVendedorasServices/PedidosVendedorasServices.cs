@@ -94,5 +94,9 @@ namespace ServiceLayer.Services.PedidosVendedorasServices
             _pedidosVendedorasRepository.SetStatus(status, pedido);
         }
 
+        public void Remove(IPedidosVendedorasModel pedido)
+        {
+            _pedidosVendedorasRepository.Remove(pedido);
+        }
     }
 }
