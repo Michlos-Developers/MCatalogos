@@ -177,6 +177,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textDataNascimento.Size = new System.Drawing.Size(75, 22);
             this.textDataNascimento.TabIndex = 3;
             this.textDataNascimento.ValidatingType = typeof(System.DateTime);
+            this.textDataNascimento.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textDataNascimento_MouseClick);
             this.textDataNascimento.Enter += new System.EventHandler(this.textDataNascimento_Enter);
             this.textDataNascimento.Leave += new System.EventHandler(this.textDataNascimento_Leave);
             this.textDataNascimento.Validating += new System.ComponentModel.CancelEventHandler(this.textDataNascimento_Validating);
@@ -381,6 +382,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCep.TabIndex = 2;
             this.maskedTextCep.Enter += new System.EventHandler(this.maskedTextCep_Enter);
             this.maskedTextCep.Leave += new System.EventHandler(this.maskedTextCep_Leave);
+            this.maskedTextCep.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCep_MouseDoubleClick);
             // 
             // label4
             // 
@@ -461,6 +463,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textComplemento.TabIndex = 3;
             this.textComplemento.Enter += new System.EventHandler(this.textComplemento_Enter);
             this.textComplemento.Leave += new System.EventHandler(this.textComplemento_Leave);
+            this.textComplemento.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textComplemento_MouseDoubleClick);
             // 
             // label5
             // 
@@ -479,6 +482,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textLogradouro.TabIndex = 0;
             this.textLogradouro.Enter += new System.EventHandler(this.textLogradouro_Enter);
             this.textLogradouro.Leave += new System.EventHandler(this.textLogradouro_Leave);
+            this.textLogradouro.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textLogradouro_MouseDoubleClick);
             this.textLogradouro.Validating += new System.ComponentModel.CancelEventHandler(this.textLogradouro_Validating);
             // 
             // label2
@@ -550,6 +554,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomeMae.TabIndex = 1;
             this.textNomeMae.Enter += new System.EventHandler(this.textNomeMae_Enter);
             this.textNomeMae.Leave += new System.EventHandler(this.textNomeMae_Leave);
+            this.textNomeMae.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textNomeMae_MouseDoubleClick);
             // 
             // label14
             // 
@@ -569,6 +574,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomePai.TabIndex = 0;
             this.textNomePai.Enter += new System.EventHandler(this.textNomePai_Enter);
             this.textNomePai.Leave += new System.EventHandler(this.textNomePai_Leave);
+            this.textNomePai.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textNomePai_MouseDoubleClick);
             // 
             // label15
             // 
@@ -633,6 +639,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCpf.TabIndex = 0;
             this.maskedTextCpf.Enter += new System.EventHandler(this.maskedTextCpf_Enter);
             this.maskedTextCpf.Leave += new System.EventHandler(this.maskedTextCpf_Leave);
+            this.maskedTextCpf.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCpf_MouseDoubleClick);
             this.maskedTextCpf.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextCpf_Validating);
             // 
             // comboBoxEstadoCivil
@@ -775,6 +782,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textConjuge.TabIndex = 10;
             this.textConjuge.Enter += new System.EventHandler(this.textConjuge_Enter);
             this.textConjuge.Leave += new System.EventHandler(this.textConjuge_Leave);
+            this.textConjuge.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textConjuge_MouseDoubleClick);
             this.textConjuge.Validating += new System.ComponentModel.CancelEventHandler(this.textConjuge_Validating);
             // 
             // label10
@@ -795,6 +803,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNome.TabIndex = 2;
             this.textNome.Enter += new System.EventHandler(this.textNome_Enter);
             this.textNome.Leave += new System.EventHandler(this.textNome_Leave);
+            this.textNome.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textNome_MouseDoubleClick);
             this.textNome.Validating += new System.ComponentModel.CancelEventHandler(this.textNome_Validating);
             // 
             // lblConjunge
@@ -908,7 +917,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.btnCancel.TabIndex = 1;
             this.btnCancel.TabStop = false;
             this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 

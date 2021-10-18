@@ -238,7 +238,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.TituloPagar
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             List<TituloPagarModel> modelList = new List<TituloPagarModel>();
-            string query = " SELECT * FROM TitulosPagar WHERE ForencedorId = @FornecedorId ";
+            string query = " SELECT * FROM TitulosPagar WHERE FornecedorId = @FornecedorId ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

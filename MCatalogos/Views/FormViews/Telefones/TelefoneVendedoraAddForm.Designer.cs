@@ -124,6 +124,7 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.maskedTextNumero.Name = "maskedTextNumero";
             this.maskedTextNumero.Size = new System.Drawing.Size(117, 22);
             this.maskedTextNumero.TabIndex = 4;
+            this.maskedTextNumero.MouseClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextNumero_MouseClick);
             // 
             // TelefoneVendedoraAddForm
             // 

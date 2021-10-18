@@ -923,6 +923,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void textNome_Enter(object sender, EventArgs e)
         {
             textNome.BackColor = SystemColors.ActiveCaption;
+            
         }
         private void textNome_Leave(object sender, EventArgs e)
         {
@@ -980,5 +981,50 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 textDataNascimento.BackColor = SystemColors.Window;
         }
 
+
+        private void textDataNascimento_MouseClick(object sender, MouseEventArgs e)
+        {
+            textDataNascimento.SelectAll();
+        }
+
+        private void textNome_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textNome.SelectAll();
+        }
+
+        private void maskedTextCpf_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            maskedTextCpf.SelectAll();
+        }
+
+        private void textNomePai_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textNomePai.SelectAll();
+        }
+
+        private void textNomeMae_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textNomeMae.SelectAll();
+        }
+
+        private void textConjuge_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textConjuge.SelectAll();
+        }
+
+        private void maskedTextCep_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            maskedTextCep.SelectAll();
+        }
+
+        private void textLogradouro_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textLogradouro.SelectAll();
+        }
+
+        private void textComplemento_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textComplemento.SelectAll();
+        }
     }
 }

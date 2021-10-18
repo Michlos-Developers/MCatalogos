@@ -189,5 +189,10 @@ namespace MCatalogos.Views.FormViews.Telefones
         {
             this.Close();
         }
+
+        private void maskedTextNumero_MouseClick(object sender, MouseEventArgs e)
+        {
+            maskedTextNumero.SelectionStart = 0;
+        }
     }
 }

@@ -234,7 +234,8 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apgar o cadastro do Fornecedor\n{dgvFornecedores.CurrentRow.Cells[1].Value.ToString()}.\nIsso implicará em apagar todos os Catálogos/Campanhas/Produtos/Pedidos desse fornecedor.\n " +
+            var result = MessageBox.Show($"CUIDADO!!\nVocê está prestes a apgar o cadastro do Fornecedor\n{dgvFornecedores.CurrentRow.Cells[1].Value.ToString()}.\n" +
+                $"Isso implicará em apagar todos os Catálogos/Campanhas/Produtos desse fornecedor.\n " +
                 $"\nDeseja continuar?", "CUIDADO!!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
@@ -247,9 +248,11 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 CatalogosList = (List<CatalogoModel>)_catalogoServices.GetByFornecedorId(model.FornecedorId);
                 TitulosPagarList = (List<TituloPagarModel>)_tituloPagarServices.GetAllByFornecedorId(model.FornecedorId);
 
-                //CAMPANHAS E PRODUTOS
+                //CAMPANHAS PRODUTOS E PEDIDOS
                 foreach (var catalogo in CatalogosList)
                 {
+                    //SE NÃO TEM CAMPANHA NÃO PRODUTO NEM PEDIDO
+
                     IEnumerable<CampanhaModel> campanhas = (List<CampanhaModel>)_campanhaServices.GetByCatalogoId(catalogo.CatalogoId);
                     foreach (var campanha in campanhas)
                     {
@@ -273,55 +276,48 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
                 try
                 {
-                    if (DetalhesPedidosList.Any())
+                    if (DetalhesPedidosList != null && DetalhesPedidosList.Any())
                     {
                         throw new Exception("O Fornecedor possui pedido cadastro em um de seus catálogos. Impossível Deletar o Registro.");
                     }
-                    else if (TitulosPagarList.Any())
+                    else if (TitulosPagarList != null && TitulosPagarList.Any())
                     {
                         throw new Exception("Existe um título a Pagar registrado em nome desse fornecedor. Impossível Deletar o Registro.");
                     }
-                    else
+
+
+                    if (TelefonesList != null && TelefonesList.Any())
                     {
-                        if (TelefonesList.Any())
+                        foreach (TelefoneFornecedorModel telModel in TelefonesList)
                         {
-                            foreach (TelefoneFornecedorModel telModel in TelefonesList)
-                            {
-                                _telefoneFornecedorServices.Delete(telModel);
-                            }
+                            _telefoneFornecedorServices.Delete(telModel);
                         }
-
-
-                        if (ProdutosList.Any())
-                        {
-                            foreach (var item in ProdutosList)
-                            {
-                                _produtoServices.Delete(item);
-                            }
-                        }
-
-                        if (CampanhasList.Any())
-                        {
-                            foreach (var item in CampanhasList)
-                            {
-                                _campanhaServices.Delete(item);
-                            }
-                        }
-
-                        if (CatalogosList.Any())
-                        {
-                            foreach (var item in CatalogosList)
-                            {
-                                _catalogoServices.Delete(item);
-                            }
-                        }
-                        
-                        _fornecedorServices.Delete(model);
-                        MessageBox.Show($"Fornecedor {model.NomeFantasia} excluído com sucesso.");
-                        indexDGV -= 1;
                     }
 
 
+                    if (ProdutosList != null && ProdutosList.Any())
+                    {
+                        foreach (var item in ProdutosList)
+                        {
+                            _produtoServices.Delete(item);
+                        }
+                    }
+
+                    if (CampanhasList != null && CampanhasList.Any())
+                    {
+                        foreach (var item in CampanhasList)
+                        {
+                            _campanhaServices.Delete(item);
+                        }
+                    }
+
+                    if (CatalogosList != null && CatalogosList.Any())
+                    {
+                        foreach (var item in CatalogosList)
+                        {
+                            _catalogoServices.Delete(item);
+                        }
+                    }
 
 
                 }
@@ -329,7 +325,14 @@ namespace MCatalogos.Views.FormViews.Fornecedores
                 {
                     MessageBox.Show($"Não foi possível apagar o registro do forneceddor.\nErrorMessage: \n{ex.Message}.", "Error");
                 }
+
+                _fornecedorServices.Delete(model);
+                MessageBox.Show($"Fornecedor {model.NomeFantasia} excluído com sucesso.");
+                indexDGV -= 1;
+
+
                 this.FornecedoresListForm_Load(sender, e);
+                
             }
         }
 
