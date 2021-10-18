@@ -175,6 +175,7 @@ namespace MCatalogos.Views.FormViews.Telefones
             this.mTextNumero.Name = "mTextNumero";
             this.mTextNumero.Size = new System.Drawing.Size(100, 22);
             this.mTextNumero.TabIndex = 10;
+            this.mTextNumero.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextNumero_MouseClick);
             this.mTextNumero.Enter += new System.EventHandler(this.mTextNumero_Enter);
             this.mTextNumero.Leave += new System.EventHandler(this.mTextNumero_Leave);
             // 

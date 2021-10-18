@@ -211,6 +211,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         {
             FornecedorForm fornecedorForm = new FornecedorForm(this);
             fornecedorForm.textFornecedorId.Text = this.dgvFornecedores.CurrentRow.Cells[0].Value.ToString();
+            fornecedorForm.mTextCnpj.ReadOnly = true;
             fornecedorForm.ShowDialog();
         }
 
@@ -229,6 +230,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         {
             FornecedorForm fornecedorForm = new FornecedorForm(this);
             fornecedorForm.textFornecedorId.Text = this.dgvFornecedores.CurrentRow.Cells[0].Value.ToString();
+            fornecedorForm.mTextCnpj.ReadOnly = true;
             fornecedorForm.ShowDialog();
         }
 

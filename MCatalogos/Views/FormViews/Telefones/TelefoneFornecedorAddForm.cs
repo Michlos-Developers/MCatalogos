@@ -160,6 +160,7 @@ namespace MCatalogos.Views.FormViews.Telefones
                     textContato.Text = model.Contato != null || model.Contato != "" ? model.Contato : "";
                     textDepartamento.Text = model.Departamento;
                     cbTipoTelefone.Text = _tipoTelefoneServices.GetById(model.TipoTelefoneId).TipoTelefone;
+                    SetMaskTelefoneNumero(cbTipoTelefone.Text);
 
                 }
             }
@@ -176,7 +177,7 @@ namespace MCatalogos.Views.FormViews.Telefones
                 cbTipoTelefone.Items.Add(model);
             }
         }
-        private void SEtMaskTelefoneNumero(string tipo)
+        private void SetMaskTelefoneNumero(string tipo)
         {
             if (tipo == "Fixo")
             {
@@ -258,7 +259,7 @@ namespace MCatalogos.Views.FormViews.Telefones
         }
         private void cbTipoTelefone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEtMaskTelefoneNumero(cbTipoTelefone.Text);
+            SetMaskTelefoneNumero(cbTipoTelefone.Text);
         }
 
 
@@ -306,6 +307,11 @@ namespace MCatalogos.Views.FormViews.Telefones
         private void textRamal_Leave(object sender, EventArgs e)
         {
             textRamal.BackColor = SystemColors.Window;
+        }
+
+        private void mTextNumero_MouseClick(object sender, MouseEventArgs e)
+        {
+            mTextNumero.SelectionStart = 0;
         }
     }
 }

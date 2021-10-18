@@ -117,7 +117,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             if (RType == RequestType.Add)
             { //NOVO PEDIDO
 
-                VendedoraModel = SelecionarVendedora() != null ? SelecionarVendedora() : null;
+                VendedoraModel = SelecionarVendedora();
                 if (VendedoraModel == null)
                 {
                     this.Close();

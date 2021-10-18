@@ -1,14 +1,23 @@
 ﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.Estoques;
+using DomainLayer.Models.PedidosVendedoras;
+using DomainLayer.Models.Produtos;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Estoque;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Fornecedor;
+using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
 using MCatalogos.Commons;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.EstoqueServices;
 using ServiceLayer.Services.FornecedorServices;
+using ServiceLayer.Services.ProdutoServices;
 
 using System;
 using System.Collections.Generic;
@@ -57,6 +66,14 @@ namespace MCatalogos.Views.FormViews.Catalogos
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaServices;
         private FornecedorServices _fornecedorServices;
+        private DetalhePedidoSerivces _detalhePedidoSerivces;
+        private EstoqueServices _estoqueServices;
+        private ProdutoServices _produtoServices;
+
+        private IEnumerable<CampanhaModel> CampanhasList;
+        private IEnumerable<DetalhePedidoModel> PedidosList;
+        private IEnumerable<EstoqueModel> EstoqueList;
+        private IEnumerable<ProdutoModel> ProdutosList;
 
         private IEnumerable<CatalogoModel> catalogosDGV;
 
@@ -89,6 +106,10 @@ namespace MCatalogos.Views.FormViews.Catalogos
             _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _campanhaServices = new CampanhaServices(new CampanhaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _fornecedorServices = new FornecedorServices(new FornecedorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+
+            _detalhePedidoSerivces = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _estoqueServices = new EstoqueServices(new EstoqueRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _produtoServices = new ProdutoServices(new ProdutoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.MainView = mainView;
@@ -223,7 +244,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
                     components.Dispose();
                 }
             }
-            
+
             base.Dispose(Disposing);
             aForm = null;
         }
@@ -266,27 +287,49 @@ namespace MCatalogos.Views.FormViews.Catalogos
 
             if (result == DialogResult.Yes)
             {
-                CatalogoModel model = new CatalogoModel();
-                model = _catalogoServices.GetById(int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString()));
+                CatalogoModel catalogoModel = new CatalogoModel();
+                catalogoModel = _catalogoServices.GetById(int.Parse(dgvCatalogos.CurrentRow.Cells[0].Value.ToString()));
+                CampanhasList = (List<CampanhaModel>)_campanhaServices.GetByCatalogoId(catalogoModel.CatalogoId);
+                PedidosList = (List<DetalhePedidoModel>)_detalhePedidoSerivces.GetAll();
+                PedidosList = PedidosList.Where(catalogo => catalogo.CatalogoId == catalogoModel.CatalogoId);
+                EstoqueList = (List<EstoqueModel>)_estoqueServices.GetAllByCatalogo(catalogoModel);
+                ProdutosList = (List<ProdutoModel>)_produtoServices.GetAllByCatalogoId(catalogoModel.CatalogoId);
 
-                List<CampanhaModel> campanhasList = (List<CampanhaModel>)_campanhaServices.GetByCatalogoId(model.CatalogoId);
-                if (campanhasList.Count > 0)
+
+                try
                 {
-                    MessageBox.Show("Este catálogos possui campanhas cadastradas e NÃO PODE ser apagado.\nPor favor, desative o catálogo para reduzir os inconvenientes.", "Possui Campanhas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (PedidosList.Any() && PedidosList != null)
+                    {
+                        throw new Exception("Existe pedido cadastrado desse catálogo.");
+                    }
+                    else if (EstoqueList.Any() && EstoqueList != null)
+                    {
+                        throw new Exception("Existe produto cadastrado no estoque para esse catálogo.");
+                    }
+                    else
+                    {
+                        foreach (var produto in ProdutosList)
+                        {
+                            _produtoServices.Delete(produto);
+                        }
+
+                        foreach (var campanha in CampanhasList)
+                        {
+                            _campanhaServices.Delete(campanha);
+                        }
+
+                        _catalogoServices.Delete(catalogoModel);
+                    }
+                    _catalogoServices.Delete(catalogoModel);
                 }
-                else
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        _catalogoServices.Delete(model);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Não foi possível apagar o registro do Catálogo.\nErrorMessage: \n{ex.Message}", "Error");
-                    }
-                    LoadListCatalogos();
-                    LoadCatalogosToDataGridView();
+                    MessageBox.Show($"Não foi possível apagar o Catálogo do sistema. \nMessage: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                LoadListCatalogos();
+                LoadCatalogosToDataGridView();
+
             }
         }
 
