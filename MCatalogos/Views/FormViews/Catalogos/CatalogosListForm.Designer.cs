@@ -162,7 +162,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             this.btnCancel.Size = new System.Drawing.Size(91, 27);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 

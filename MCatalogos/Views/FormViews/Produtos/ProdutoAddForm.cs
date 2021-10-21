@@ -1,4 +1,6 @@
-﻿using DomainLayer.Models.Catalogos;
+﻿using CommonComponents;
+
+using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.Formatos;
 using DomainLayer.Models.Produtos;
 using DomainLayer.Models.Tamanho;
@@ -68,9 +70,9 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void ProdutoAddForm_Load(object sender, EventArgs e)
         {
+            PreencheComboBoxFormato();
             CarregaFormato(TamanhosModel);
             ConfiguraDataGridView(TamanhosList);
-            PreencheComboBoxFormato();
             if (ProdutoModel != null) //EDITANDO
             {
                 CarregaListaTamanhosProduto(ProdutoModel);
@@ -79,7 +81,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             else
             {
                 PreencheCampos(null, TamanhosList);
-                
+
             }
 
             if (!CatalogoModel.VariacaoDeValor)
@@ -91,7 +93,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                 textValorGG.Enabled = true;
             }
 
-            
+
 
 
         }
@@ -105,7 +107,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         {
             TamanhosList = (List<TamanhosModel>)_tamanhoServices.GetByProdutoModel(produtoModel);
 
-            if (TamanhosList.Count != 0)
+            if (TamanhosList.Count > 0)
             {
                 TamanhosModel = TamanhosList[0];
             }
@@ -122,6 +124,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             List<FormatosTamanhosModel> FormatosList = (List<FormatosTamanhosModel>)_formatoServices.GetAll();
             cbFormatoTamanho.DataSource = FormatosList;
             cbFormatoTamanho.DisplayMember = "NomeFormato";
+            cbFormatoTamanho.SelectedIndex = 1;
 
         }
 
@@ -256,6 +259,7 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void UpdateProduto(ProdutoModel produtoModel)
         {
+            DataAccessStatus dataAccessStatus = new DataAccessStatus();
             produtoModel.Referencia = textReferencia.Text;
             produtoModel.Descricao = textDescricao.Text;
             produtoModel.ValorCatalogo = float.Parse(textValor.Text);
@@ -264,15 +268,24 @@ namespace MCatalogos.Views.FormViews.Produtos
             produtoModel.MargemVendedora = textMargemVendedora.Text;
             produtoModel.MargemDistribuidor = textMargemDistribuidor.Text;
             ProdutoModel.Ativo = true;
+            
+            try
+            {
+                if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
+                {
+                    _produtoServices.UpdateNoMargem(produtoModel);
+                }
+                else
+                {
+                    _produtoServices.UpdateWithMargem(produtoModel);
+                }
+                MessageBox.Show($"Produto {ProdutoModel.Referencia} atualizado com sucesso.");
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Não foi possível alterar o produto {produtoModel.Referencia}.\nMensagem: {e.Message}");
+            }
 
-            if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
-            {
-                _produtoServices.UpdateNoMargem(produtoModel);
-            }
-            else
-            {
-                _produtoServices.UpdateWithMargem(produtoModel);
-            }
 
         }
         private void InsertProduto()
@@ -288,14 +301,21 @@ namespace MCatalogos.Views.FormViews.Produtos
             produto.CatalogoId = CatalogoModel.CatalogoId;
             produto.CampanhaId = CampanhaModel.CampanhaId;
             produto.Ativo = true;
-
-            if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
+            try
             {
-                this.ProdutoModel = _produtoServices.AddNoMargens(produto);
+                if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
+                {
+                    this.ProdutoModel = _produtoServices.AddNoMargens(produto);
+                }
+                else
+                {
+                    this.ProdutoModel = _produtoServices.AddWithMargens(produto);
+                }
+                MessageBox.Show($"Produto {produto.Referencia} registrado com sucesso.");
             }
-            else
+            catch(Exception e)
             {
-                this.ProdutoModel = _produtoServices.AddWithMargens(produto);
+                throw new Exception($"Não foi possivel registrar o produto no sistema.\nMessagem: {e.Message}");
             }
         }
 
@@ -608,6 +628,8 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+            //todo: checar se tem registro ativo na tela e perguntar se quer salvar antes de fechar.
+            //TODO: remover verificação de campos obrigatórios caso clique em cancelar.
         }
 
         private bool ValidaCampo(Control control)
@@ -657,6 +679,18 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void textPagina_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = ValidaCampo(textPagina);
+        }
+
+        private void chkTamanho_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chkTamanho.Checked)
+            {
+                groupBoxTamanhos.Enabled = true;
+            }
+            else
+            {
+                groupBoxTamanhos.Enabled = false;
+            }
         }
     }
 }

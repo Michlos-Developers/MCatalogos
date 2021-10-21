@@ -120,7 +120,15 @@ namespace MCatalogos.Views.FormViews.Produtos
                 if (model.Ativo == true)
                     cbCatalogo.Items.Add(model);
             }
-            cbCatalogo.SelectedItem = "== Todos ==";
+
+            if (catalogoModelList.Count > 1)
+            {
+                cbCatalogo.SelectedItem = "== Todos ==";
+            }
+            else
+            {
+                cbCatalogo.SelectedIndex = 1;
+            }
         }
 
         public void PopulaComboBoxCampanhas(CatalogoModel catalogoModel)
@@ -206,7 +214,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         private DataTable ModelaTableGrid()
         {
             DataTable table = new DataTable();
-            
+
 
             table.Columns.Add("ProdutoId", typeof(int));
             table.Columns.Add("Catalogo", typeof(string));

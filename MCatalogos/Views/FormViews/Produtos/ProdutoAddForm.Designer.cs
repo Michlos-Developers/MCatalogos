@@ -61,6 +61,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textCampanha = new System.Windows.Forms.TextBox();
             this.textCatalogo = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chkTamanho = new System.Windows.Forms.CheckBox();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBoxTamanhos.SuspendLayout();
@@ -75,7 +76,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelCommands.Controls.Add(this.btnSave);
             this.panelCommands.Controls.Add(this.btnCancel);
             this.panelCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommands.Location = new System.Drawing.Point(0, 315);
+            this.panelCommands.Location = new System.Drawing.Point(0, 355);
             this.panelCommands.Name = "panelCommands";
             this.panelCommands.Size = new System.Drawing.Size(454, 36);
             this.panelCommands.TabIndex = 8;
@@ -121,6 +122,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
+            this.panelContainer.Controls.Add(this.chkTamanho);
             this.panelContainer.Controls.Add(this.groupBoxTamanhos);
             this.panelContainer.Controls.Add(this.label4);
             this.panelContainer.Controls.Add(this.label7);
@@ -140,7 +142,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(454, 315);
+            this.panelContainer.Size = new System.Drawing.Size(454, 355);
             this.panelContainer.TabIndex = 0;
             // 
             // groupBoxTamanhos
@@ -150,7 +152,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.groupBoxTamanhos.Controls.Add(this.label10);
             this.groupBoxTamanhos.Controls.Add(this.label11);
             this.groupBoxTamanhos.Enabled = false;
-            this.groupBoxTamanhos.Location = new System.Drawing.Point(15, 163);
+            this.groupBoxTamanhos.Location = new System.Drawing.Point(8, 192);
             this.groupBoxTamanhos.Name = "groupBoxTamanhos";
             this.groupBoxTamanhos.Size = new System.Drawing.Size(269, 146);
             this.groupBoxTamanhos.TabIndex = 7;
@@ -393,11 +395,23 @@ namespace MCatalogos.Views.FormViews.Produtos
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // chkTamanho
+            // 
+            this.chkTamanho.AutoSize = true;
+            this.chkTamanho.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTamanho.Location = new System.Drawing.Point(8, 168);
+            this.chkTamanho.Name = "chkTamanho";
+            this.chkTamanho.Size = new System.Drawing.Size(107, 18);
+            this.chkTamanho.TabIndex = 8;
+            this.chkTamanho.Text = "Tem Tamanho?";
+            this.chkTamanho.UseVisualStyleBackColor = true;
+            this.chkTamanho.CheckStateChanged += new System.EventHandler(this.chkTamanho_CheckStateChanged);
+            // 
             // ProdutoAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 351);
+            this.ClientSize = new System.Drawing.Size(454, 391);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panelCommands);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -456,5 +470,6 @@ namespace MCatalogos.Views.FormViews.Produtos
         public System.Windows.Forms.DataGridView dgvTamanhos;
         public System.Windows.Forms.TextBox textReferencia;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.CheckBox chkTamanho;
     }
 }

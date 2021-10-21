@@ -294,10 +294,7 @@ namespace MCatalogos.Views.FormViews.Catalogos
             }
             else
             {
-                {
-                    CatalogoUpdate();
-                    this.Close();
-                }
+                CatalogoUpdate();
 
             }
 
