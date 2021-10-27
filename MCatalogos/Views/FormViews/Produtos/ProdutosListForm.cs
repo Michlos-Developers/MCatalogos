@@ -1,14 +1,21 @@
 ﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.Estoques;
+using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Produtos;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Estoque;
+using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
 using MCatalogos.Views.FormViews.Bairros;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.EstoqueServices;
+using ServiceLayer.Services.PedidosVendedorasServices;
 using ServiceLayer.Services.ProdutoServices;
 
 using System;
@@ -44,10 +51,16 @@ namespace MCatalogos.Views.FormViews.Produtos
         private ProdutoServices _produtosServices;
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaService;
+        private DetalhePedidoSerivces _detalhePedidoServices;
+        private EstoqueServices _estoqueServices;
 
         private List<CatalogoModel> catalogoModelList;
         private List<CampanhaModel> campanhaModelList;
         private List<ProdutoModel> produtoModelList = null;
+        
+        private IEnumerable<DetalhePedidoModel> DetalhePedidosList;
+        private IEnumerable<EstoqueModel> EstoqueList;
+        private IEnumerable<CampanhaModel> CampanhasList;
 
         private CatalogoModel CatalogoModel;
         private CampanhaModel CampanhaModel;
@@ -61,6 +74,9 @@ namespace MCatalogos.Views.FormViews.Produtos
             _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _campanhaService = new CampanhaServices(new CampanhaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _produtosServices = new ProdutoServices(new ProdutoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _detalhePedidoServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _estoqueServices = new EstoqueServices(new EstoqueRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            
 
             InitializeComponent();
             this.MainView = mainView;
@@ -372,6 +388,62 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            //ESTÁGIOS DO PRODO QUE NÃO PODEM SER APGADOS
+            var result = MessageBox.Show($"Cuidado!!\nVocê está prestes a apgar um produto do sistema.\nProduto: {dgvProdutos.CurrentRow.Cells[3].Value}.\nReferência: {dgvProdutos.CurrentRow.Cells[2].Value}" +
+                $"\nDeseja continuar?", "Cuidado!!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                //GET PRODUCT FOR DELETE FROM GRID
+                ProdutoModel produtoForDelete = new ProdutoModel();
+                produtoForDelete = _produtosServices.GetById(int.Parse(dgvProdutos.CurrentRow.Cells[0].Value.ToString()));
+
+                //GET DETALHEPEDIDOSLIST WHERE CATALOG LIKE SELECTED PRODUCT CATALOG
+                DetalhePedidosList = (List<DetalhePedidoModel>)_detalhePedidoServices.GetAll();
+                DetalhePedidosList = DetalhePedidosList.Where(produto => produto.ProdutoId == produtoForDelete.ProdutoId);
+
+                //GET ESTOQUE WHERE CATALOGO LIKE SELECTED PRODUCT
+                EstoqueList = (List<EstoqueModel>)_estoqueServices.GetAll();
+                EstoqueList = EstoqueList.Where(produto => produto.ProdutoId == produtoForDelete.ProdutoId);
+
+                //GET CAMPANHAS WITH DATA ENCERRAMENTO > TODAY
+                CampanhasList = (List<CampanhaModel>)_campanhaService.GetByCatalogoId(produtoForDelete.CampanhaId);
+                CampanhasList = CampanhasList.Where(dataVenc => dataVenc.DataEncerramento > DateTime.Today);
+                
+
+
+                try
+                {
+                    if (DetalhePedidosList.Any() && DetalhePedidosList != null)
+                    {
+                        throw new Exception($"Produto está registrado em um pedido.\nPedido: {(DetalhePedidosList.Select(ped => ped.PedidoId)).First()}");
+                    }
+                    else if (EstoqueList.Any() && EstoqueList != null)
+                    {
+                        throw new Exception("Produto está registrado em estoque.");
+                    }
+                    else if (CampanhasList.Any() && CampanhasList != null)
+                    {
+                        throw new Exception($"Produto pertence a uma campanha em vigor.\nCampanha: {CampanhasList.Select(camp => camp.Nome).First()}");
+                    }
+                    else
+                    {
+                        _produtosServices.Delete(produtoForDelete);
+                        MessageBox.Show("Produto removido com sucesso.");
+                        indexDGV = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"Não foi possível pagar o Produto \n\"{produtoForDelete.Descricao}\".\nMessage: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                PopulaComboBoxCatalogos();
+
+                
+                
+            }
 
         }
 

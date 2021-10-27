@@ -89,6 +89,7 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
             this.btnProtestar.Tag = "";
             this.btnProtestar.Text = "Protestar";
             this.btnProtestar.UseVisualStyleBackColor = false;
+            this.btnProtestar.Click += new System.EventHandler(this.btnProtestar_Click);
             // 
             // btnReceber
             // 

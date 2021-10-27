@@ -35,6 +35,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.chkTamanho = new System.Windows.Forms.CheckBox();
             this.groupBoxTamanhos = new System.Windows.Forms.GroupBox();
             this.cbFormatoTamanho = new System.Windows.Forms.ComboBox();
             this.panelTamanhosUC = new System.Windows.Forms.Panel();
@@ -61,7 +62,6 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textCampanha = new System.Windows.Forms.TextBox();
             this.textCatalogo = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.chkTamanho = new System.Windows.Forms.CheckBox();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBoxTamanhos.SuspendLayout();
@@ -115,7 +115,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.btnCancel.TabIndex = 1;
             this.btnCancel.TabStop = false;
             this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -144,6 +144,18 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Size = new System.Drawing.Size(454, 355);
             this.panelContainer.TabIndex = 0;
+            // 
+            // chkTamanho
+            // 
+            this.chkTamanho.AutoSize = true;
+            this.chkTamanho.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTamanho.Location = new System.Drawing.Point(8, 168);
+            this.chkTamanho.Name = "chkTamanho";
+            this.chkTamanho.Size = new System.Drawing.Size(107, 18);
+            this.chkTamanho.TabIndex = 8;
+            this.chkTamanho.Text = "Tem Tamanho?";
+            this.chkTamanho.UseVisualStyleBackColor = true;
+            this.chkTamanho.CheckStateChanged += new System.EventHandler(this.chkTamanho_CheckStateChanged);
             // 
             // groupBoxTamanhos
             // 
@@ -394,18 +406,6 @@ namespace MCatalogos.Views.FormViews.Produtos
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // chkTamanho
-            // 
-            this.chkTamanho.AutoSize = true;
-            this.chkTamanho.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTamanho.Location = new System.Drawing.Point(8, 168);
-            this.chkTamanho.Name = "chkTamanho";
-            this.chkTamanho.Size = new System.Drawing.Size(107, 18);
-            this.chkTamanho.TabIndex = 8;
-            this.chkTamanho.Text = "Tem Tamanho?";
-            this.chkTamanho.UseVisualStyleBackColor = true;
-            this.chkTamanho.CheckStateChanged += new System.EventHandler(this.chkTamanho_CheckStateChanged);
             // 
             // ProdutoAddForm
             // 

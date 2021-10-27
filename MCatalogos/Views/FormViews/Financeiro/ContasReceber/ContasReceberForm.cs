@@ -352,5 +352,10 @@ namespace MCatalogos.Views.FormViews.Financeiro.ContasReceber
                 throw new Exception();
             }
         }
+
+        private void btnProtestar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

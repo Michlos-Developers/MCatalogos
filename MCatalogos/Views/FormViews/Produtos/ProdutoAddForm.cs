@@ -142,13 +142,16 @@ namespace MCatalogos.Views.FormViews.Produtos
                 textPagina.Text = produto.Pagina.ToString();
                 textMargemVendedora.Text = produto.MargemVendedora.ToString();
                 textMargemDistribuidor.Text = produto.MargemDistribuidor.ToString();
-                groupBoxTamanhos.Enabled = true;
+                chkTamanho.Checked = false;
+                
             }
 
             if (tamanhos != null && tamanhos.Count > 0)
             {
+                
                 panelTamanhosUC.Enabled = true;
                 cbFormatoTamanho.SelectedItem = FormatoModel;
+                chkTamanho.Checked = true;
 
                 ConfiguraDataGridView(tamanhos);
             }
@@ -159,7 +162,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void ConfiguraDataGridView(List<TamanhosModel> tamanhos)
         {
 
-            //TEM QUE SER DATATABLE
+            
             DataTable tableTamanhos = new DataTable();
             DataColumn column;
             DataRow row;
@@ -354,6 +357,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                     {
                         //NÃO TEM TAMANHOS NO BANCO DE DADOS
                         InsertTamanhos(null, dgvTamanhos.Rows);
+
                     }
                 }
             }
