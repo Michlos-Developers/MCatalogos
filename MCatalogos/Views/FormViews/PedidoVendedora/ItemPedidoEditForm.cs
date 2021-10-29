@@ -128,6 +128,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             try
             {
                 _detalheServices.Update(itemPedido);
+                //TODO: ATUALIZAR PEDIDO
+                //TODO: ATUALIZAR GRID.
                 MessageBox.Show("Item alterado com sucesso");
 
             }

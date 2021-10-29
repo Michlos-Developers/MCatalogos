@@ -23,7 +23,7 @@ namespace DomainLayer.Models.PedidosVendedoras
         double ValorLucroVendedoraItem { get; set; }
         double ValorPagarFornecedorItem { get; set; }
         double ValorProduto { get; set; }
-        double ValorTotalItem { get; set; }
+        double ValorTotalItem { get; }
         int TamanhoId { get; set; }
         double ValorTaxaItem { get; set; }
     }

@@ -777,7 +777,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             ItemPedido.ValorProduto = valorProduto;
             ItemPedido.Quantidade = quantidade;
             ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * quantidade : 0;
-            ItemPedido.ValorTotalItem = quantidade * ItemPedido.ValorProduto;
+            //ItemPedido.ValorTotalItem = quantidade * ItemPedido.ValorProduto;
             ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
             ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
             ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
@@ -794,7 +794,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 { //EDITA QTD DO PRODUTO
                     ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
                     ItemPedido.Quantidade += quantidade;
-                    ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
+                    //ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
                     ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedido.Quantidade : 0;
                     ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
                     ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
@@ -815,7 +815,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 {
                     ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
                     ItemPedido.Quantidade += quantidade;
-                    ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
+                    //ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
                     ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedido.Quantidade : 0;
                     ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
                     ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
@@ -907,6 +907,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             itemPedidoEdit.Text = $"Editando Item - {itemPedido.Referencia}";
             itemPedidoEdit.StartPosition = FormStartPosition.CenterScreen;
             itemPedidoEdit.ShowDialog();
+            CalculaTotais(null);
             LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
             dgvDetalhePedido.CurrentRow.Selected = currentRow.Selected;
         }

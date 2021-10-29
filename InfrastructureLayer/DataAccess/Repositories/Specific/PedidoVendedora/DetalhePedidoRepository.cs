@@ -196,7 +196,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
-                                model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
+//                                model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
                                 model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
@@ -313,7 +313,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
-                                model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
+                                //model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
                                 model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
@@ -373,7 +373,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
-                                model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
+                                //model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
                                 model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
@@ -431,7 +431,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
-                                model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
+                                //model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
                                 model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
                                 model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
                                 model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());

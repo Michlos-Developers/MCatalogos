@@ -53,7 +53,13 @@ namespace DomainLayer.Models.PedidosVendedoras
         public int TamanhoId { get; set; }
         public double ValorTaxaItem { get; set; }
 
-        public double ValorTotalItem { get; set; }
+        public double ValorTotalItem
+        {
+            get
+            {
+                return ValorProduto * Quantidade;
+            }
+        }
 
         public double ValorLucroVendedoraItem { get; set; }
         public double ValorLucroDistribuidorItem { get; set; }
