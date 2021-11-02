@@ -61,9 +61,27 @@ namespace DomainLayer.Models.PedidosVendedoras
             }
         }
 
-        public double ValorLucroVendedoraItem { get; set; }
-        public double ValorLucroDistribuidorItem { get; set; }
-        public double ValorPagarFornecedorItem { get; set; }
+        public double ValorLucroVendedoraItem
+        {
+            get
+            {
+                return (((ValorProduto * (MargemVendedora / 100)) * Quantidade) - ValorTaxaItem);
+            }
+        }
+        public double ValorLucroDistribuidorItem
+        {
+            get
+            {
+                return (((ValorProduto * (MargemDistribuidor / 100)) * Quantidade) - ValorLucroVendedoraItem);
+            }
+        }
+        public double ValorPagarFornecedorItem
+        {
+            get
+            {
+                return (ValorTotalItem - ValorLucroDistribuidorItem - ValorLucroVendedoraItem);
+            }
+        }
         public bool Faltou { get; set; }
 
 

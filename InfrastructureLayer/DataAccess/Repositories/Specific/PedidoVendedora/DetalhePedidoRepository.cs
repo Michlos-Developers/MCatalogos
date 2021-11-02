@@ -197,9 +197,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
 //                                model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
-                                model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
-                                model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
-                                model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
+                                //model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
+                                //model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
+                                //model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
                                 model.Faltou = bool.Parse(reader["Faltou"].ToString());
 
                                 DetalheListModel.Add(model);
@@ -314,9 +314,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
                                 //model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
-                                model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
-                                model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
-                                model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
+                                //model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
+                                //model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
+                                //model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
                                 model.Faltou = bool.Parse(reader["Faltou"].ToString());
 
                                 DetalheListModel.Add(model);
@@ -374,9 +374,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = int.Parse(reader["TamanhoId"].ToString());
                                 //model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
-                                model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
-                                model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
-                                model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
+                                //model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
+                                //model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
+                                //model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
                                 model.Faltou = bool.Parse(reader["Faltou"].ToString());
 
                                 DetalheListModel.Add(model);
@@ -432,9 +432,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.Quantidade = int.Parse(reader["Quantidade"].ToString());
                                 model.TamanhoId = string.IsNullOrEmpty(reader["TamanhoId"].ToString()) ? 0 : int.Parse(reader["TamanhoId"].ToString());
                                 //model.ValorTotalItem = double.Parse(reader["ValorTotalItem"].ToString());
-                                model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
-                                model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
-                                model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
+                                //model.ValorLucroVendedoraItem = double.Parse(reader["ValorLucroVendedoraItem"].ToString());
+                                //model.ValorLucroDistribuidorItem = double.Parse(reader["ValorLucroDistribuidorItem"].ToString());
+                                //model.ValorPagarFornecedorItem = double.Parse(reader["ValorPagarFornecedorItem"].ToString());
                                 model.Faltou = bool.Parse(reader["Faltou"].ToString());
 
                             }

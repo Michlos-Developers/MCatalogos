@@ -47,8 +47,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private CampanhaModel SelectedCampanha = null;
         private CatalogoModel SelectedCatalogo = null;
 
-        private ProdutoModel ProdutoToAddGrid = null;
-        private DetalhePedidoModel ItemPedido = new DetalhePedidoModel();
+        private ProdutoModel ProdutoModelToAddGrid = null;
+        private DetalhePedidoModel ItemPedidoModel = new DetalhePedidoModel();
 
         private RotaModel rota = new RotaModel();
         private RotaLetraModel rotaLetra = new RotaLetraModel();
@@ -223,7 +223,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
                 SelectedCatalogo = cbCatalogo.SelectedItem as CatalogoModel;
                 gbAddItem.Enabled = LoadComboBoxCampanhas(SelectedCatalogo);
-                LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+                //LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
 
 
 
@@ -232,7 +232,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
                 cbCampanha.DataSource = null;
                 gbAddItem.Enabled = false;
-                LoadDetalhesPedido(PedidoModel, null);
+                //LoadDetalhesPedido(PedidoModel, null);
 
 
 
@@ -276,11 +276,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             textNomeVendedora.Text = vendedora.Nome;
             textRotaVendedora.Text = rotaLetra.RotaLetra + "-" + rota.Numero.ToString();
 
-            if (requestType == RequestType.Edit)
-            {
-                LoadDetalhesPedido(pedido, null);
-            }
-            else if (requestType == RequestType.Add)
+            if (requestType == RequestType.Add)
             {
                 if (VendedoraTemPedidoAberto(vendedora))
                 {
@@ -545,14 +541,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 textReferencia.BackColor = SystemColors.Window;
                 if (ProdutoExiste(textReferencia.Text))
                 { //SE EXISTE ADICIONA VERIFICA SE TEM TAMANHO PARA DEPOIS ADI9CIONAR AO GRID.
-                    ProdutoToAddGrid = _produtoServices.GetByReference(textReferencia.Text);
+                    ProdutoModelToAddGrid = _produtoServices.GetByReference(textReferencia.Text);
 
-                    if (ProdutoToAddGrid.CatalogoId != SelectedCatalogo.CatalogoId)
+                    if (ProdutoModelToAddGrid.CatalogoId != SelectedCatalogo.CatalogoId)
                     {
                         MessageBox.Show("Produto não pertence ao catálogo selecionado.");
                         textReferencia.Focus();
                     }
-                    else if (ProdutoToAddGrid.CampanhaId != SelectedCampanha.CampanhaId)
+                    else if (ProdutoModelToAddGrid.CampanhaId != SelectedCampanha.CampanhaId)
                     {
                         var result = MessageBox.Show($"Produto não pertence à campanha selecionada.\nDeseja Adicionar esse produto à campanha: \n{SelectedCampanha.Nome} ?", "Produto Fora da Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
@@ -561,17 +557,17 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                             produto = _produtoServices.GetByReference(textReferencia.Text);
                             produto.CampanhaId = SelectedCampanha.CampanhaId;
                             if (produto.MargemVendedora != null)
-                                this.ProdutoToAddGrid = _produtoServices.AddWithMargens(produto);
+                                this.ProdutoModelToAddGrid = _produtoServices.AddWithMargens(produto);
                             else
-                                this.ProdutoToAddGrid = _produtoServices.AddNoMargens(produto);
+                                this.ProdutoModelToAddGrid = _produtoServices.AddNoMargens(produto);
 
-                            result = MessageBox.Show($"O Produto {this.ProdutoToAddGrid.Referencia} foi adicionado à campanha {this.SelectedCampanha}.\n Deseja revisar o preço do produto agora?", "Adicionando Produto à Campanha Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            result = MessageBox.Show($"O Produto {this.ProdutoModelToAddGrid.Referencia} foi adicionado à campanha {this.SelectedCampanha}.\n Deseja revisar o preço do produto agora?", "Adicionando Produto à Campanha Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (result == DialogResult.Yes)
                             {   // ABRIR EDIÇÃO DE PRODUTO
-                                ProdutoAddForm editaProduto = new ProdutoAddForm(ProdutoToAddGrid, SelectedCatalogo, SelectedCampanha, this);
+                                ProdutoAddForm editaProduto = new ProdutoAddForm(ProdutoModelToAddGrid, SelectedCatalogo, SelectedCampanha, this);
                                 editaProduto.StartPosition = FormStartPosition.CenterScreen;
                                 editaProduto.ShowDialog();
-                                this.ProdutoToAddGrid = editaProduto.ProdutoModel;
+                                this.ProdutoModelToAddGrid = editaProduto.ProdutoModel;
                             }
                             else
                             {
@@ -589,15 +585,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 }
                 else
                 { //adicionar produto no catalogo.
-                    ProdutoToAddGrid = AdicionarNovoProduto(textReferencia.Text);
+                    ProdutoModelToAddGrid = AdicionarNovoProduto(textReferencia.Text);
 
                 }
 
 
-                if (ProdutoToAddGrid != null)
+                if (ProdutoModelToAddGrid != null)
                 {
 
-                    ProdutoTemTamanho(ProdutoToAddGrid);
+                    ProdutoTemTamanho(ProdutoModelToAddGrid);
                 }
                 else
                 {
@@ -662,28 +658,47 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 cbTamanho.Text = string.Empty;
             }
         }
+
+        /// <summary>
+        /// Saída do campo tamanho gera add no Grid automático.
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textQtd_Leave(object sender, EventArgs e)
         {
+            //verifica se o usuário digitou a referência do produto.
             if (string.IsNullOrEmpty(textReferencia.Text))
             {
+                //se o usuário não digitou a referência ele simplesmente vai para o campo de referência.
                 textReferencia.Focus();
             }
-            else if (!string.IsNullOrEmpty(textQtd.Text))
+            else if (!string.IsNullOrEmpty(textQtd.Text)) //verifica se o usuário digitou algum valor no campo quantidade.
             {
-
-                if (int.TryParse(textQtd.Text, out int result))
+                //tenta converter o valor digitado em quantidade em inteiro para checar o campo.
+                if (int.TryParse(textQtd.Text, out int qtdParsed))
                 {
-                    if (result != 0)
+                    //se valor inteiro retornado for diferente de zero ele continua.
+                    if (qtdParsed != 0)
                     {
+                        //se combobox tamanho não estiver habilitada quer dizer que o produto não tem tamanho.
+                        //se produto não tem tamanho pode adicionar o produto no datagrid.
                         if (!cbTamanho.Enabled)
                         {
-                            AddProdutoInDGV(ProdutoToAddGrid, result, null);
+                            //chama o métido para adicionar produto no grid do pedido.
+                            //valores passados para o método:
+                            //- ProdutoModel.
+                            //- Quantidade informada no resultado do tryparse int.
+                            //- Tamanho do produto como nulo.
+                            AddProdutoInDGV(ProdutoModelToAddGrid, qtdParsed, null);
+
+                            //Depois de incluído o produto no grid limpa os dados informados no form dentro do GroupBox Item.
                             LimpaAddPanel();
                         }
                     }
 
                 }
-                else
+                else //se valor digitado no campo quantidade não for numérico lança um alerta e retorna para o campo quantidade.
                 {
                     MessageBox.Show("Só é aceito valor numérico", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     textQtd.Focus();
@@ -710,7 +725,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 if (!string.IsNullOrEmpty(textQtd.Text))
                 {
 
-                    AddProdutoInDGV(ProdutoToAddGrid, int.Parse(textQtd.Text), (TamanhosModel)cbTamanho.SelectedItem);
+                    AddProdutoInDGV(ProdutoModelToAddGrid, int.Parse(textQtd.Text), (TamanhosModel)cbTamanho.SelectedItem);
                     LimpaAddPanel();
                 }
 
@@ -740,13 +755,88 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         }
 
-        private void AddProdutoInDGV(ProdutoModel produto, int quantidade, TamanhosModel tamanho)
+        /// <summary>
+        /// Adiciona produto no pedido.
+        /// </summary>
+        /// <param name="produtoModelToAdd"></param>
+        /// <param name="quantidade"></param>
+        /// <param name="tamanho"></param>
+        private void AddProdutoInDGV(ProdutoModel produtoModelToAdd, int quantidade, TamanhosModel tamanho)
         {
+            DataGridViewRow ProdutoNoGrid = new DataGridViewRow();
 
-            double valorProduto = 0;
+            //valor do produto pode variar conforme o tamanho.
+            //Produtos a partir de GG deve assumir outro valor.
+            double valorProduto = VerificaValorProduto(produtoModelToAdd, tamanho);
+
+            //VERIFICA SE O PRODUTO EXISTE NO PEDIDO.
+            ProdutoNoGrid = ProdutoJaEstaNoGrid(produtoModelToAdd.Referencia, tamanho);
+
+
+            //SE TEM TAXA POR PRODUTO ADICIONA A TAXA SENÃO TAXA RECEBE 0
+            ItemPedidoModel.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedidoModel.Quantidade : 0; ///////VAI PARA O FINAL
+
+            ///SE PRODUTO TEM TAMANHO ENTÃO BUSCA O TAMANHO ID INFORMADO
+            ///SENÃO INFORMA TAMNHOID = 0
+            ItemPedidoModel.TamanhoId = string.IsNullOrEmpty(tamanho.TamanhoId.ToString()) ? 0 : tamanho.TamanhoId;
+
+
+
+            ///SE PRODUTO JÁ EXISTE NO PEDIDO ATUALIZA
+            ///SENÃO ADICIONA O PRODUTO NO PEDIDO.
+            if (ProdutoNoGrid != null)
+            {
+                //GERA O MODEL POR MEIO DO PRODUTO EXISTENTE NO PEDIDO
+                ItemPedidoModel = _detalheServices.GetById(int.Parse(ProdutoNoGrid.Cells["DetalheId"].Value.ToString()));
+
+                //ADICIONA A QUANTIDADE INFORMADA À QUANTIDADE EXISTENTE NO PEDIDO.
+                ItemPedidoModel.Quantidade += quantidade;
+                //Atualiza produto existente no pedido.
+                _detalheServices.Update(ItemPedidoModel);
+
+            }
+            else
+            {
+                ItemPedidoModel.PedidoId = PedidoModel.PedidoId;
+                ItemPedidoModel.CatalogoId = SelectedCatalogo.CatalogoId;
+                ItemPedidoModel.CampanhaId = SelectedCampanha.CampanhaId;
+                ItemPedidoModel.ProdutoId = produtoModelToAdd.ProdutoId;
+                ItemPedidoModel.Referencia = produtoModelToAdd.Referencia;
+                ItemPedidoModel.Quantidade = quantidade;
+                ItemPedidoModel.MargemVendedora = string.IsNullOrEmpty(produtoModelToAdd.MargemVendedora) ? SelectedCatalogo.MargemPadraoVendedora : double.Parse(produtoModelToAdd.MargemVendedora);
+                ItemPedidoModel.MargemDistribuidor = string.IsNullOrEmpty(produtoModelToAdd.MargemDistribuidor) ? SelectedCatalogo.MargemPadraoDistribuidor : double.Parse(produtoModelToAdd.MargemDistribuidor);
+                ItemPedidoModel.ValorProduto = valorProduto;
+                ItemPedidoModel.Faltou = false;
+
+                if (ItemPedidoModel.TamanhoId == 0)
+                {
+                    _detalheServices.AddNoTamanho(ItemPedidoModel);
+                }
+                else
+                {
+                    _detalheServices.AddWithTamanho(ItemPedidoModel);
+                }
+
+
+
+            }
+
+            LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+            LimpaAddPanel();
+        }
+
+        /// <summary>
+        /// Retorna o valor do produto dependendo do tamanho solicitado.
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <param name="tamanho"></param>
+        /// <returns></returns>
+        private double VerificaValorProduto(ProdutoModel produto, TamanhosModel tamanho)
+        {
+            double valorProduto;
+            //verifica se produto tem tamanho para tratar o valor do produto.
             if (tamanho != null)
-            {   //TEM TAMANHO TRATAR VALOR DO PRODUTO E ADD TAMANHO NO ITEM.
-                //Tamanhos tamanhos = (Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho);
+            {
                 int tamanhos = ((int)(Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho));
                 if (tamanhos >= ((int)Tamanhos.GG))
                 {
@@ -757,81 +847,16 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     valorProduto = produto.ValorCatalogo;
                 }
 
-                ItemPedido.TamanhoId = tamanho.TamanhoId;
+                ItemPedidoModel.TamanhoId = tamanho.TamanhoId;
 
 
             }
-            else
-            { //NÃO TEM TAMANHO PASSAR O VALOR DO PRODUTO PADRÃO E NÃO ADICIOANR TAMNAHO NO ITEM
+            else //se não tem TAMANHO pega o valor padrão do produto.
+            {
                 valorProduto = produto.ValorCatalogo;
             }
 
-
-            ItemPedido.PedidoId = PedidoModel.PedidoId;
-            ItemPedido.CatalogoId = SelectedCatalogo.CatalogoId;
-            ItemPedido.CampanhaId = SelectedCampanha.CampanhaId;
-            ItemPedido.ProdutoId = produto.ProdutoId;
-            ItemPedido.Referencia = produto.Referencia;
-            ItemPedido.MargemVendedora = string.IsNullOrEmpty(produto.MargemVendedora) ? SelectedCatalogo.MargemPadraoVendedora : double.Parse(produto.MargemVendedora);
-            ItemPedido.MargemDistribuidor = string.IsNullOrEmpty(produto.MargemDistribuidor) ? SelectedCatalogo.MargemPadraoDistribuidor : double.Parse(produto.MargemDistribuidor);
-            ItemPedido.ValorProduto = valorProduto;
-            ItemPedido.Quantidade = quantidade;
-            ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * quantidade : 0;
-            //ItemPedido.ValorTotalItem = quantidade * ItemPedido.ValorProduto;
-            ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
-            ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
-            ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
-            ItemPedido.Faltou = false;
-
-            DataGridViewRow rowInGrid = new DataGridViewRow();
-            rowInGrid = ProdutoJaEstaNoGrid(produto.Referencia, tamanho);
-
-            if (tamanho != null)
-            {
-
-
-                if (rowInGrid != null)
-                { //EDITA QTD DO PRODUTO
-                    ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
-                    ItemPedido.Quantidade += quantidade;
-                    //ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
-                    ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedido.Quantidade : 0;
-                    ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
-                    ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
-                    ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
-
-                    _detalheServices.Update(ItemPedido);
-
-                }
-                else
-                {   //NOVO
-                    _detalheServices.AddWithTamanho(ItemPedido);
-
-                }
-            }
-            else
-            {
-                if (rowInGrid != null)
-                {
-                    ItemPedido = _detalheServices.GetById(int.Parse(rowInGrid.Cells["DetalheId"].Value.ToString()));
-                    ItemPedido.Quantidade += quantidade;
-                    //ItemPedido.ValorTotalItem = ItemPedido.Quantidade * ItemPedido.ValorProduto;
-                    ItemPedido.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedido.Quantidade : 0;
-                    ItemPedido.ValorLucroVendedoraItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemVendedora / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorTaxaItem;
-                    ItemPedido.ValorLucroDistribuidorItem = ((ItemPedido.ValorProduto * (ItemPedido.MargemDistribuidor / 100)) * ItemPedido.Quantidade) - ItemPedido.ValorLucroVendedoraItem;
-                    ItemPedido.ValorPagarFornecedorItem = ItemPedido.ValorTotalItem - ItemPedido.ValorLucroDistribuidorItem - ItemPedido.ValorLucroVendedoraItem;
-
-                    _detalheServices.Update(ItemPedido);
-
-                }
-                else
-                {
-                    _detalheServices.AddNoTamanho(ItemPedido);
-                }
-            }
-
-            LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
-            LimpaAddPanel();
+            return valorProduto;
         }
 
         private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, TamanhosModel tamanho)
