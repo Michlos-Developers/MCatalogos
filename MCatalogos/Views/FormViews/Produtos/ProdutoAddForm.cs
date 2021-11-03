@@ -653,6 +653,26 @@ namespace MCatalogos.Views.FormViews.Produtos
                     eventArgs = false;
                     errorProvider.SetError(control, null);
                 }
+
+
+                ///VALIDAÇÃO DA MARGEM DO DISTRIBUIDOR
+                ///MARGEM DA VENDEDORA É COLETADA DA MARGEM TOTAL DO DISTRIBUIDOR
+                ///PORTANTO A MARGEM DO DISTRIBUIDOR NÃO PODE SER MENOR QUE A MARGEM DA VENDEDORA.
+                if (control == textMargemDistribuidor && !string.IsNullOrEmpty(control.Text.Trim()))
+                {
+                    if (double.Parse(textMargemDistribuidor.Text) < double.Parse(textMargemVendedora.Text))
+                    {
+                        eventArgs = true;
+                        control.BackColor = Color.Red;
+                        errorProvider.SetError(control, "Margem do distribuidor não pode ser menor que margem da vendedora");
+                    }
+                    else
+                    {
+                        eventArgs = false;
+                        errorProvider.SetError(control, null);
+                    }
+
+                }
             }
             return eventArgs;
         }
@@ -695,6 +715,11 @@ namespace MCatalogos.Views.FormViews.Produtos
             {
                 groupBoxTamanhos.Enabled = false;
             }
+        }
+
+        private void textMargemDistribuidor_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = ValidaCampo(textMargemDistribuidor);
         }
     }
 }

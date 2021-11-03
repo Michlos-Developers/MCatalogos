@@ -302,6 +302,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             this.textMargemDistribuidor.TabIndex = 6;
             this.textMargemDistribuidor.Enter += new System.EventHandler(this.textMargemDistribuidor_Enter);
             this.textMargemDistribuidor.Leave += new System.EventHandler(this.textMargemDistribuidor_Leave);
+            this.textMargemDistribuidor.Validating += new System.ComponentModel.CancelEventHandler(this.textMargemDistribuidor_Validating);
             // 
             // textMargemVendedora
             // 

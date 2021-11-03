@@ -215,8 +215,8 @@ namespace MCatalogos.Views.FormViews.Produtos
                     row["Descricao"] = model.Descricao.ToString();
                     row["ValorCatalogo"] = double.Parse(model.ValorCatalogo.ToString()).ToString("C2");
                     row["Pagina"] = int.Parse(model.Pagina.ToString());
-                    row["MargemVendedora"] = string.IsNullOrEmpty(model.MargemVendedora.ToString()) ? "" : double.Parse(model.MargemVendedora.ToString()).ToString("C2");
-                    row["MargemDistribuidor"] = string.IsNullOrEmpty(model.MargemDistribuidor.ToString()) ? "" : double.Parse(model.MargemDistribuidor.ToString()).ToString("C2");
+                    row["MargemVendedora"] = string.IsNullOrEmpty(model.MargemVendedora.ToString()) ? "" : double.Parse(model.MargemVendedora.ToString()).ToString("F");
+                    row["MargemDistribuidor"] = string.IsNullOrEmpty(model.MargemDistribuidor.ToString()) ? "" : double.Parse(model.MargemDistribuidor.ToString()).ToString("F");
                     row["CatalogoId"] = model.CatalogoId;
                     row["CampanhaId"] = model.CampanhaId;
 
