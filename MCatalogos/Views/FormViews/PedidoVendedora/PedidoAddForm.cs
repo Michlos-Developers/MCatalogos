@@ -778,7 +778,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             ///SE PRODUTO TEM TAMANHO ENTÃO BUSCA O TAMANHO ID INFORMADO
             ///SENÃO INFORMA TAMNHOID = 0
-            ItemPedidoModel.TamanhoId = string.IsNullOrEmpty(tamanho.TamanhoId.ToString()) ? 0 : tamanho.TamanhoId;
+            ItemPedidoModel.TamanhoId = tamanho != null ? tamanho.TamanhoId : 0;
 
 
 
@@ -825,7 +825,13 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             LimpaAddPanel();
         }
 
-
+        /// <summary>
+        /// VERIFICA SE O PRODUTO JÁ EXISTE NO PEDIDO.
+        /// PARA POSSIBILITAR ADICIONAR QUANTIDADE A UM ITEM SELECIONADO.
+        /// </summary>
+        /// <param name="referencia"></param>
+        /// <param name="tamanho"></param>
+        /// <returns></returns>
         private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, TamanhosModel tamanho)
         {
             DataGridViewRow row = null;
@@ -859,7 +865,11 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         }
 
-
+        /// <summary>
+        /// SALVA A CAMPANHA SELECIONADA NA MEMÓRIA PARA MANIPULAÇÃO DO PEDIDO/PRODUTO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbCampanha_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbCampanha.SelectedIndex > -1)
@@ -871,6 +881,11 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private void dgvDetalhePedido_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
+            if (PedidoModel.StatusPed == (((int)StatusPedido.Aberto)))
+            {
+                EditarItemPedido(dgvDetalhePedido.CurrentRow);
+
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -958,8 +973,33 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void dgvDetalhePedido_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+            //TODO: CHECAR FALTA DE QUANTIDADE MENOR DO QUE A SOLICITADA.
+            ///SISTEMA DEVE PERMITIR PRODUTO COM MESMA REFERÊNCIA DESDE QUE ALGUM TENHA FALTA.
+            ///TENHO QUE PERMITIR PEDIR 2 FALTAR 1.
             if (e.ColumnIndex == dgvDetalhePedido.Columns["Faltou"].Index)
             {
+                var resultDialog = MessageBox.Show("Faltaram Todos?", "Tirando Falta", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (resultDialog == DialogResult.Yes)
+                {
+
+                }
+                else if (resultDialog == DialogResult.Cancel)
+                {
+
+                }
+                else
+                {
+                    ///
+                    /// TODO: QUANTOS PRODUTOS FALTARAM?
+                    ///NÃO PODE SER MAIOR QUE A QUANTIDADE ATUAL DO ITEM.
+                    ///
+
+
+
+                }
+
+
                 dgvDetalhePedido.EndEdit();
                 DetalhePedidoModel itemPedido = _detalheServices.GetById(int.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 itemPedido.Faltou = bool.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells["Faltou"].Value.ToString());
