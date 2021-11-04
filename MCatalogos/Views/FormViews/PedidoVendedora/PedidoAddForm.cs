@@ -40,7 +40,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
     public partial class PedidoAddForm : Form
     {
 
-
+        GetProductValue GetProductValue = new GetProductValue();
         PedidosListForm PedidoListForm;
         PedidosVendedorasModel PedidoModel = new PedidosVendedorasModel();
         public VendedoraModel VendedoraModel = new VendedoraModel();
@@ -767,7 +767,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             //valor do produto pode variar conforme o tamanho.
             //Produtos a partir de GG deve assumir outro valor.
-            double valorProduto = VerificaValorProduto(produtoModelToAdd, tamanho);
+            double valorProduto = GetProductValue.VerificaValorProduto(produtoModelToAdd, tamanho);
 
             //VERIFICA SE O PRODUTO EXISTE NO PEDIDO.
             ProdutoNoGrid = ProdutoJaEstaNoGrid(produtoModelToAdd.Referencia, tamanho);
@@ -825,39 +825,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             LimpaAddPanel();
         }
 
-        /// <summary>
-        /// Retorna o valor do produto dependendo do tamanho solicitado.
-        /// </summary>
-        /// <param name="produto"></param>
-        /// <param name="tamanho"></param>
-        /// <returns></returns>
-        private double VerificaValorProduto(ProdutoModel produto, TamanhosModel tamanho)
-        {
-            double valorProduto;
-            //verifica se produto tem tamanho para tratar o valor do produto.
-            if (tamanho != null)
-            {
-                int tamanhos = ((int)(Tamanhos)Enum.Parse(typeof(Tamanhos), tamanho.Tamanho));
-                if (tamanhos >= ((int)Tamanhos.GG))
-                {
-                    valorProduto = produto.ValorCatalogo2 != 0 ? produto.ValorCatalogo2 : produto.ValorCatalogo;
-                }
-                else
-                {
-                    valorProduto = produto.ValorCatalogo;
-                }
-
-                ItemPedidoModel.TamanhoId = tamanho.TamanhoId;
-
-
-            }
-            else //se não tem TAMANHO pega o valor padrão do produto.
-            {
-                valorProduto = produto.ValorCatalogo;
-            }
-
-            return valorProduto;
-        }
 
         private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, TamanhosModel tamanho)
         {

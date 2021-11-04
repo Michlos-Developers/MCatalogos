@@ -167,6 +167,7 @@
     <Compile Include="Views\FormViews\Fornecedores\FornecedorForm.Designer.cs">
       <DependentUpon>FornecedorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\PedidoVendedora\GetProductValue.cs" />
     <Compile Include="Views\FormViews\PedidoVendedora\ItemPedidoEditForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -33,6 +33,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         public DetalhePedidoModel ItemPedido;
         private List<TamanhosModel> ListTamanhos;
         private ProdutoModel Produto;
+        private TamanhosModel Tamanho = new TamanhosModel();
+        private GetProductValue GetProductValue = new GetProductValue();
 
         public ItemPedidoEditForm(DetalhePedidoModel itemPedido)
         {
@@ -58,7 +60,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             textQtd.Text = ItemPedido.Quantidade.ToString();
             if (ListTamanhos != null)
             {
-                cbTamanho.SelectedValue = ListTamanhos.Where(tam => tam.TamanhoId == ItemPedido.TamanhoId);
+                cbTamanho.Text = _tamanhoServices.GetById(int.Parse(ItemPedido.TamanhoId.ToString())).Tamanho;
             }
 
         }
@@ -94,6 +96,10 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
             ItemPedido.Quantidade = int.Parse(textQtd.Text);
             ItemPedido.TamanhoId = string.IsNullOrEmpty(cbTamanho.Text) ? 0 : ((TamanhosModel)cbTamanho.SelectedItem).TamanhoId;
+            Tamanho = ItemPedido.TamanhoId != 0 ? _tamanhoServices.GetById(ItemPedido.TamanhoId) : null;
+
+            ItemPedido.ValorProduto = GetProductValue.VerificaValorProduto(Produto,  Tamanho);
+
             if (int.Parse(textQtd.Text) != 0)
                 SaveItemPedido(ItemPedido);
             else
