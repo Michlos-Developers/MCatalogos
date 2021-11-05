@@ -30,14 +30,16 @@ namespace MCatalogos
         private ButtonHelper buttonHelper = new ButtonHelper();
         List<Button> btnCollection = new List<Button>();
         IEnumerable<ModulosModel> modulosModelList;
-        IEnumerable<ModuloCommandModel> commandsModelList;
+        //IEnumerable<ModuloCommandModel> commandsModelList;
 
 
         private QueryStringServices _queryString;
         private ModulosSerivces _modulosSerivces;
-        private ModuloCommandServices _commandServices;
+        //private ModuloCommandServices _commandServices;
 
-
+        /// <summary>
+        /// Método de instância para controlar todos os forms abertos
+        /// </summary>
         public MainView Instance
         {
             get
@@ -50,18 +52,26 @@ namespace MCatalogos
             }
 
         }
-
+        /// <summary>
+        /// método principal EnterPoint
+        /// </summary>
+        /// Services: _queryString / _módulosServices
         public MainView()
         {
             _queryString = new QueryStringServices(new QueryString());
             _modulosSerivces = new ModulosSerivces(new ModulosRepository(_queryString.GetQueryApp()));
-            _commandServices = new ModuloCommandServices(new ModuloCommandRepository(_queryString.GetQueryApp()));
+            //_commandServices = new ModuloCommandServices(new ModuloCommandRepository(_queryString.GetQueryApp()));
 
 
             IsMdiContainer = true;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Menu colapse and stick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureMenuMobile_Click(object sender, EventArgs e)
         {
             if (panelMenu.Width == 48)
@@ -74,6 +84,11 @@ namespace MCatalogos
             }
         }
 
+        /// <summary>
+        /// StripToolTip for icon colpase menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureMenuMobile_MouseHover(object sender, EventArgs e)
         {
             if (panelMenu.Width == 48)
@@ -86,6 +101,12 @@ namespace MCatalogos
             }
         }
 
+        /// <summary>
+        /// LOAD FORM. CHAMA O MÉTODO 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <methodcall name="GenerateButtons"</methodcall>
         private void MainView_Load(object sender, EventArgs e)
         {
             
@@ -96,6 +117,9 @@ namespace MCatalogos
            
         }
 
+        /// <summary>
+        /// MÉTODO PARA GERAR OS BOTÕES DO MENU CONFORME MÓDULOS ATIVOS NO BANCO DE DADOS.
+        /// </summary>
         private void GenerateButtons()
         {
             try
@@ -120,6 +144,12 @@ namespace MCatalogos
 
         }
 
+        /// <summary>
+        /// COMANDOS DOS BOTÕES DO MENU.
+        /// UTILIZA SWITCH CASE PARA DETERMINAR QUAL COMANDO FOI ACIONADO.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnClickButtonMenu(object sender, EventArgs e)
         {
             buttonHelper.SetUnselectedButtons(btnCollection);
