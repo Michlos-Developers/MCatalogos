@@ -19,7 +19,9 @@ namespace DomainLayer.Models.CommonModels.Enums
         [Description("Confere")]
         Confere = 6,
         [Description("Finaliza")]
-        Finaliza = 7
+        Finaliza = 7,
+        [Description("Cancela")]
+        Cancela = 8
     }
 
     public static class extetionClass

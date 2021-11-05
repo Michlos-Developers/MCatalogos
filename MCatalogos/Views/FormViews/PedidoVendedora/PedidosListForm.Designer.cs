@@ -66,6 +66,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.label3 = new System.Windows.Forms.Label();
             this.cbNomeVendedora = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
@@ -112,6 +113,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // panelCommands
             // 
             this.panelCommands.Controls.Add(this.btnConferir);
+            this.panelCommands.Controls.Add(this.btnCancelar);
             this.panelCommands.Controls.Add(this.btnFinalizar);
             this.panelCommands.Controls.Add(this.btnAdd);
             this.panelCommands.Controls.Add(this.btnEdit);
@@ -550,6 +552,23 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.cbNomeVendedora.Enter += new System.EventHandler(this.cbNomeVendedora_Enter);
             this.cbNomeVendedora.Leave += new System.EventHandler(this.cbNomeVendedora_Leave);
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.ForeColor = System.Drawing.Color.White;
+            this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelar.Location = new System.Drawing.Point(171, 9);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(64, 27);
+            this.btnCancelar.TabIndex = 2;
+            this.btnCancelar.Tag = "";
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // PedidosListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -618,5 +637,6 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private System.Windows.Forms.Button btnConferir;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.RadioButton rbTodos;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

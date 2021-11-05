@@ -1026,5 +1026,10 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         {
             textComplemento.SelectAll();
         }
+
+        private void comboBoxUfRg_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

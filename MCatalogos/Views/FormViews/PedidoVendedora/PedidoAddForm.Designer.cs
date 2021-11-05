@@ -374,6 +374,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             // 
             // cbTamanho
             // 
+            this.cbTamanho.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbTamanho.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbTamanho.FormattingEnabled = true;
             this.cbTamanho.Location = new System.Drawing.Point(286, 21);
             this.cbTamanho.Name = "cbTamanho";

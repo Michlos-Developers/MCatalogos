@@ -625,6 +625,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfRg.Name = "comboBoxUfRg";
             this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
             this.comboBoxUfRg.TabIndex = 6;
+            this.comboBoxUfRg.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfRg_SelectedIndexChanged);
             this.comboBoxUfRg.Enter += new System.EventHandler(this.comboBoxUfRg_Enter);
             this.comboBoxUfRg.Leave += new System.EventHandler(this.comboBoxUfRg_Leave);
             this.comboBoxUfRg.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxUfRg_Validating);

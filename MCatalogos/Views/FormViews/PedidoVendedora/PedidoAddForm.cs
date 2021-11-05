@@ -514,12 +514,20 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private bool VendedoraTemPedidoAberto(VendedoraModel vendedora)
         {
-            IEnumerable<PedidosVendedorasModel> PedidosCollection = ListPedidos.Where(ped => ped.VendedoraId == vendedora.VendedoraId);
-            PedidosCollection = PedidosCollection.Where(ped => ped.StatusPed == ((int)StatusPedido.Aberto));
-
-            if (PedidosCollection.Any())
+            if (vendedora != null)
             {
-                return true;
+
+                IEnumerable<PedidosVendedorasModel> PedidosCollection = ListPedidos.Where(ped => ped.VendedoraId == vendedora.VendedoraId);
+                PedidosCollection = PedidosCollection.Where(ped => ped.StatusPed == ((int)StatusPedido.Aberto));
+
+                if (PedidosCollection.Any())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -771,16 +779,22 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
             //VERIFICA SE O PRODUTO EXISTE NO PEDIDO.
             ProdutoNoGrid = ProdutoJaEstaNoGrid(produtoModelToAdd.Referencia, tamanho);
+            //ItemPedidoModel.Quantidade = quantidade;
 
-
-            //SE TEM TAXA POR PRODUTO ADICIONA A TAXA SENÃO TAXA RECEBE 0
-            ItemPedidoModel.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedidoModel.Quantidade : 0; ///////VAI PARA O FINAL
 
             ///SE PRODUTO TEM TAMANHO ENTÃO BUSCA O TAMANHO ID INFORMADO
             ///SENÃO INFORMA TAMNHOID = 0
             ItemPedidoModel.TamanhoId = tamanho != null ? tamanho.TamanhoId : 0;
 
+            if (SelectedCatalogo == null)
+            {
+                SelectedCatalogo = _catalogoServices.GetById(int.Parse(dgvDetalhePedido.CurrentRow.Cells["CatalogoId"].Value.ToString()));
+            }
 
+            if (SelectedCampanha == null)
+            {
+                SelectedCampanha = (CampanhaModel)_campanhaServices.GetByCatalogoId(SelectedCatalogo.CatalogoId).Last();
+            }
 
             ///SE PRODUTO JÁ EXISTE NO PEDIDO ATUALIZA
             ///SENÃO ADICIONA O PRODUTO NO PEDIDO.
@@ -791,6 +805,8 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
                 //ADICIONA A QUANTIDADE INFORMADA À QUANTIDADE EXISTENTE NO PEDIDO.
                 ItemPedidoModel.Quantidade += quantidade;
+                //SE TEM TAXA POR PRODUTO ADICIONA A TAXA SENÃO TAXA RECEBE 0
+                ItemPedidoModel.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedidoModel.Quantidade : 0; ///////VAI PARA O FINAL
                 //Atualiza produto existente no pedido.
                 _detalheServices.Update(ItemPedidoModel);
 
@@ -803,6 +819,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 ItemPedidoModel.ProdutoId = produtoModelToAdd.ProdutoId;
                 ItemPedidoModel.Referencia = produtoModelToAdd.Referencia;
                 ItemPedidoModel.Quantidade = quantidade;
+                ItemPedidoModel.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedidoModel.Quantidade : 0; ///////VAI PARA O FINAL
                 ItemPedidoModel.MargemVendedora = string.IsNullOrEmpty(produtoModelToAdd.MargemVendedora) ? SelectedCatalogo.MargemPadraoVendedora : double.Parse(produtoModelToAdd.MargemVendedora);
                 ItemPedidoModel.MargemDistribuidor = string.IsNullOrEmpty(produtoModelToAdd.MargemDistribuidor) ? SelectedCatalogo.MargemPadraoDistribuidor : double.Parse(produtoModelToAdd.MargemDistribuidor);
                 ItemPedidoModel.ValorProduto = valorProduto;
@@ -835,16 +852,27 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private DataGridViewRow ProdutoJaEstaNoGrid(string referencia, TamanhosModel tamanho)
         {
             DataGridViewRow row = null;
+            DetalhePedidoModel itemDetalheModel = new DetalhePedidoModel();
+
 
             foreach (DataGridViewRow item in dgvDetalhePedido.Rows)
             {
+                itemDetalheModel = _detalheServices.GetById(int.Parse(item.Cells["DetalheId"].Value.ToString()));
                 if (item.Cells["Referencia"].Value.ToString() == referencia)
                 {
                     if (tamanho != null)
                     {
                         if (tamanho.Tamanho == item.Cells["Tamanho"].Value.ToString())
                         {
-                            return item;
+                            if (itemDetalheModel.Faltou)
+                            {
+                                row = null;
+                            }
+                            else
+                            {
+                                return item;
+
+                            }
 
                         }
                         else
@@ -854,7 +882,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     }
                     else
                     {
-                        return item;
+                        if (itemDetalheModel.Faltou)
+                        {
+                            row = null;
+                        }
+                        else
+                        {
+                            return item;
+
+                        }
                     }
                 }
 
@@ -943,7 +979,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 totalPedido = ListItemsDetalhe.Where(c => c.CatalogoId == SelectedCatalogo.CatalogoId).Where(ped => !ped.Faltou).Sum(valor => valor.ValorTotalItem);
 
                 taxaPorPedido = totalPedido * (taxaPorPedido / 100);
-                //taxaPorProduto = taxaPorProduto * ListItemsDetalhe.Where(t => t.CatalogoId == SelectedCatalogo.CatalogoId).Count(); JÁ FOI CALCULADO NA INCLUSÃO DO ITEM.
+
                 if (taxaPorPedido > 0)
                 {
                     totalReceber += taxaPorPedido;
@@ -977,36 +1013,70 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             //TODO: CHECAR FALTA DE QUANTIDADE MENOR DO QUE A SOLICITADA.
             ///SISTEMA DEVE PERMITIR PRODUTO COM MESMA REFERÊNCIA DESDE QUE ALGUM TENHA FALTA.
             ///TENHO QUE PERMITIR PEDIR 2 FALTAR 1.
+            DetalhePedidoModel itemPedido = _detalheServices.GetById(int.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells[0].Value.ToString()));
+            int qtdAtual = itemPedido.Quantidade;
+            int qtdItemFalta = 0;
+            int qtdRestante = 0;
+            ProdutoModel produtoFaltante = new ProdutoModel();
+            TamanhosModel tamanhoProdutoFaltante = new TamanhosModel();
+
             if (e.ColumnIndex == dgvDetalhePedido.Columns["Faltou"].Index)
             {
-                var resultDialog = MessageBox.Show("Faltaram Todos?", "Tirando Falta", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (resultDialog == DialogResult.Yes)
-                {
 
-                }
-                else if (resultDialog == DialogResult.Cancel)
+
+                var resultDialog = MessageBox.Show("Faltaram Todos?", "Tirando Falta", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (resultDialog == DialogResult.No)
                 {
+                    QuantidadeItemFaltaForm qtdFalta = new QuantidadeItemFaltaForm(qtdAtual);
+                    qtdFalta.ShowDialog();
+                    qtdItemFalta = qtdFalta.valorDigitado;
+                    if (qtdItemFalta == qtdAtual)
+                    {
+                        TirarFaltaItem(itemPedido, qtdAtual, e);
+                    }
+                    else
+                    {
+                        //altera a quantidade do item selecionado para a quantidade de falta.
+                        itemPedido.Quantidade = qtdItemFalta;
+                        //tirar falta do item
+                        TirarFaltaItem(itemPedido, qtdItemFalta, e);
+                        //adicionar produto com a quantidade restante.
+                        qtdRestante = qtdAtual - qtdItemFalta;
+                        produtoFaltante = _produtoServices.GetById(itemPedido.ProdutoId);
+                        tamanhoProdutoFaltante = itemPedido.TamanhoId != 0 ? _tamanhoServices.GetById(itemPedido.TamanhoId) : null;
+                        AddProdutoInDGV(produtoFaltante, qtdRestante, tamanhoProdutoFaltante);
+                        CalculaTotais(null);
+                        AtualizaPedido(VendedoraModel, PedidoModel);
+
+                    }
+                }
+                else if (resultDialog == DialogResult.Yes)
+                {
+                    ///FALTOU TUDO.
+                    TirarFaltaItem(itemPedido, qtdAtual, e);
 
                 }
                 else
                 {
-                    ///
-                    /// TODO: QUANTOS PRODUTOS FALTARAM?
-                    ///NÃO PODE SER MAIOR QUE A QUANTIDADE ATUAL DO ITEM.
-                    ///
 
-
+                    LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
 
                 }
-
-
-                dgvDetalhePedido.EndEdit();
-                DetalhePedidoModel itemPedido = _detalheServices.GetById(int.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells[0].Value.ToString()));
-                itemPedido.Faltou = bool.Parse(dgvDetalhePedido.Rows[e.RowIndex].Cells["Faltou"].Value.ToString());
-                _detalheServices.Update(itemPedido);
-                CalculaTotais(null);
-                AtualizaPedido(VendedoraModel, PedidoModel);
             }
+
+
+
+
+        }
+
+
+        private void TirarFaltaItem(DetalhePedidoModel itemPedido, int qtdIem, DataGridViewCellEventArgs cellRowIndex)
+        {
+            dgvDetalhePedido.EndEdit();
+            itemPedido.Faltou = bool.Parse(dgvDetalhePedido.Rows[cellRowIndex.RowIndex].Cells["Faltou"].Value.ToString());
+            _detalheServices.Update(itemPedido);
+            CalculaTotais(null);
+            AtualizaPedido(VendedoraModel, PedidoModel);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using DomainLayer.Models.CommonModels.Enums;
+using DomainLayer.Models.Modulos;
 using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.TitulosReceber;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Commons;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Modulos;
 using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.TituloReceber;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
@@ -12,6 +14,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.DetalhePedidoServices;
 using ServiceLayer.Services.HistoricoTituloReceberServices;
+using ServiceLayer.Services.ModulosServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
 using ServiceLayer.Services.TipoTituloServices;
 using ServiceLayer.Services.TitulosReceberServices;
@@ -51,6 +54,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private List<TipoTituloModel> TiposTitulosList = new List<TipoTituloModel>();
         private List<TituloReceberModel> TitulosReceberList = new List<TituloReceberModel>();
         private IEnumerable<DetalhePedidoModel> DetalhePedidoList = new List<DetalhePedidoModel>();
+        private IEnumerable<ModulosModel> ModulosList = new List<ModulosModel>();
 
 
         private VendedoraModel VendedoraFilter = new VendedoraModel();
@@ -58,6 +62,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private VendedoraModel SelectedVendedora = new VendedoraModel();
         private TipoTituloModel TipoTituloModel = new TipoTituloModel();
         private TituloReceberModel TituloReceberModel = new TituloReceberModel();
+        private ModulosModel ModuloFinanceiro = new ModulosModel();
 
 
         private QueryStringServices _queryString;
@@ -67,6 +72,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private TipoTituloServices _tipoTituloServices;
         private HistoricoTituloReceberServices _historicoTituloReceberServices;
         private DetalhePedidoSerivces _detalhePedidoSerivces;
+        private ModulosSerivces _modulosSerivces;
 
         private IEnumerable<PedidosVendedorasModel> pedidoVendedoraDGV;
 
@@ -82,9 +88,12 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             _tipoTituloServices = new TipoTituloServices(new TipoTituloRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _historicoTituloReceberServices = new HistoricoTituloReceberServices(new HistoricoTituloReceberRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _detalhePedidoSerivces = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _modulosSerivces = new ModulosSerivces(new ModulosRepository(_queryString.GetQueryApp()));
 
             InitializeComponent();
             MainView = mainView;
+            ModulosList = (List<ModulosModel>)_modulosSerivces.GetAll();
+            ModuloFinanceiro = ModulosList.Where(mod => mod.Nome == "Financeiro").First();
         }
         private void PedidosListForm_Load(object sender, EventArgs e)
         {
@@ -397,8 +406,15 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         {
 
             SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
-            EditarPedido(SelectedPedido, RequestType.Confere);
-            AtualizaDGV();
+            if (SelectedPedido.StatusPed == (int)StatusPedido.Aberto || SelectedPedido.StatusPed == (int)StatusPedido.Conferido)
+            {
+                EditarPedido(SelectedPedido, RequestType.Confere);
+                AtualizaDGV();
+            }
+            else
+            {
+                MessageBox.Show("Somente pedidos em Aberto ou em Conferência podem ser conferidos", "Conferência de Pedidos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
@@ -514,21 +530,39 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                     try
                     {
                         _pedidosServices.SetStatus(((int)StatusPedido.Finalizado), pedido);
-                        if (TemContasReceber(pedido))
+
+                        ///VERIFICA SE MODULO FINANCEIRO ESTÁ TIVO
+                        ///SE ESTIVER ATIVO EXECUTA OS MÉTODOS DO FINANCEIRO
+                        ///
+                        if (ModuloFinanceiro.Ativo)
                         {
-                            AtualizaContaReceber(pedido);
-                            GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
-                        }
-                        else
-                        {
-                            GeraContasReceber(pedido);
-                            GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
+
+                            if (TemContasReceber(pedido))
+                            {
+                                AtualizaContaReceber(pedido);
+                                GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Update);
+                            }
+                            else
+                            {
+                                GeraContasReceber(pedido);
+                                GeraHistoricoContasReceber(pedido, PedidoReceberHistorico.Novo);
+                            }
                         }
                     }
                     catch (Exception e)
                     {
 
                         MessageBox.Show($"Não foi possível finalizar o pedido. {pedido.PedidoId} \nMessage: {e.Message}");
+                    }
+                    break;
+                case RequestType.Cancela:
+                    try
+                    {
+                        _pedidosServices.SetStatus(((int)StatusPedido.Cancelado), pedido);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show($"Não foi possível cancelar o pedido {pedido.PedidoId}.\nMessage: {e.Message}");
                     }
                     break;
                 default:
@@ -855,5 +889,29 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         }
         #endregion
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            //TODO: Cancelar contas a receber e contas a pagar.
+            SelectedPedido = (PedidosVendedorasModel)_pedidosServices.GetById(int.Parse(dgvPedidos.CurrentRow.Cells[0].Value.ToString()));
+            SelectedVendedora = _vendedoraServices.GetById(SelectedPedido.VendedoraId);
+
+            if (SelectedPedido.StatusPed == (int)StatusPedido.Finalizado)
+            {
+                MessageBox.Show("Pedidos finalizados não podem ser cancelados");
+            }
+            else
+            {
+
+                var result = MessageBox.Show($"Você está prestes a CANCELAR o pedido {SelectedPedido.PedidoId} da Vendedora {SelectedVendedora.Nome}.\n Deseja Continuar?", "Deleção de Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); ;
+                if (result == DialogResult.Yes)
+                {
+                    LimpaPedido(SelectedPedido);
+                    EditarPedido(SelectedPedido, RequestType.Cancela);
+
+                }
+
+                AtualizaDGV();
+            }
+        }
     }
 }
