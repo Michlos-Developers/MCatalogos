@@ -218,6 +218,12 @@
     <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidoForm.Designer.cs">
       <DependentUpon>ReportPedidoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\UCConfigReportPedido.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\UCConfigReportPedido.Designer.cs">
+      <DependentUpon>UCConfigReportPedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Reports\ReportControleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -390,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Produtos\ProdutosListForm.resx">
       <DependentUpon>ProdutosListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\UCConfigReportPedido.resx">
+      <DependentUpon>UCConfigReportPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Reports\ReportControleForm.resx">
       <DependentUpon>ReportControleForm.cs</DependentUpon>
