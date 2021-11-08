@@ -87,6 +87,25 @@ namespace MCatalogos.Commons
 
         }
 
+        public void SetDesabledButtons(List<Button> buttons, Button buttonEnabled)
+        {
+            foreach (var btn in buttons)
+            {
+                if (btn != buttonEnabled)
+                {
+                    btn.Enabled = false;
+                }
+            }
+        }
+
+        public void SetEnabledButtons(List<Button> buttons)
+        {
+            foreach (var btn in buttons)
+            {
+                btn.Enabled = true;
+            }
+        }
+
         public void SetPictureSelectedButton(Button button, PictureBox pictureBox)
         {
             Point pictureLocation = new Point(button.Location.X + button.Width, button.Location.Y);
