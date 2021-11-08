@@ -57,27 +57,69 @@ namespace MCatalogos.Views.FormViews.Reports
         {
             InitializeComponent();
             this.MainView = mainView;
+
+            SetCollectionButtons();
         }
 
+        /// <summary>
+        /// Add Buttons in ButtonsCollection to use ButtonHelper 
+        /// </summary>
         public void SetCollectionButtons()
         {
             ButtonsCollection.Add(btnReportPedidos);
             ButtonsCollection.Add(btnReportPromissorias);
-            //ButtonsCollection.Add(btnReportContasPagar);
-            //ButtonsCollection.Add(btnReportContasReceber);
+            ButtonsCollection.Add(btnReportContasPagar);
+            ButtonsCollection.Add(btnReportContasReceber);
 
         }
 
         private void btnReportPedidos_Click(object sender, EventArgs e)
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPedidos);
-            panelCommandsReport.Visible = true;
+            panelConfigReport.Visible = true;
         }
 
         private void btnReportPromissorias_Click(object sender, EventArgs e)
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPromissorias);
-            panelCommandsReport.Visible = true;
+            panelConfigReport.Visible = true;
+        }
+
+
+        private void btnCancelReport_Click(object sender, EventArgs e)
+        {
+            panelConfigReport.Visible = false;
+            ButtonHelper.SetEnabledButtons(ButtonsCollection);
+        }
+
+        /// <summary>
+        /// Close Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        /// <summary>
+        /// Disposing Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReportControleForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+
+            base.Dispose(Disposing);
+            aForm = null;
         }
     }
 }

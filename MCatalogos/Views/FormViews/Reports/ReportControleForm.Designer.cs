@@ -77,6 +77,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnCancel.Tag = "Pedidos";
             this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.pictureClose_Click);
             // 
             // panelTitle
             // 
@@ -100,6 +101,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.pictureClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureClose.TabIndex = 1;
             this.pictureClose.TabStop = false;
+            this.pictureClose.Click += new System.EventHandler(this.pictureClose_Click);
             // 
             // title
             // 
@@ -151,6 +153,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnReportContasPagar.Text = "Contas a Pagar";
             this.btnReportContasPagar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnReportContasPagar.UseVisualStyleBackColor = true;
+            this.btnReportContasPagar.Visible = false;
             // 
             // btnReportPedidos
             // 
@@ -195,6 +198,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnReportContasReceber.Text = "Contas a Receber";
             this.btnReportContasReceber.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnReportContasReceber.UseVisualStyleBackColor = true;
+            this.btnReportContasReceber.Visible = false;
             // 
             // panelCommandsReport
             // 
@@ -222,6 +226,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnCancelReport.Tag = "";
             this.btnCancelReport.Text = "Cancelar";
             this.btnCancelReport.UseVisualStyleBackColor = false;
+            this.btnCancelReport.Click += new System.EventHandler(this.btnCancelReport_Click);
             // 
             // btnGenerateReport
             // 
@@ -255,6 +260,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReportControleForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportControleForm_FormClosing);
             this.panelCommands.ResumeLayout(false);
             this.panelTitle.ResumeLayout(false);
             this.panelTitle.PerformLayout();

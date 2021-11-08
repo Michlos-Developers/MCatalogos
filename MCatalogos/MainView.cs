@@ -11,6 +11,7 @@ using MCatalogos.Views.FormViews.Financeiro;
 using MCatalogos.Views.FormViews.Fornecedores;
 using MCatalogos.Views.FormViews.PedidoVendedora;
 using MCatalogos.Views.FormViews.Produtos;
+using MCatalogos.Views.FormViews.Reports;
 using MCatalogos.Views.FormViews.Rotas;
 using MCatalogos.Views.FormViews.Vendedoras;
 
@@ -20,6 +21,7 @@ using ServiceLayer.Services.ModulosServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MCatalogos
@@ -208,8 +210,9 @@ namespace MCatalogos
                     rotasFormView.Show();
                     break;
                 case 9:
-                    //TODO: montar formulário de relatórios
-                    MessageBox.Show("Relatórios");
+                    ReportControleForm reportControleForm = ReportControleForm.Instance(this);
+                    reportControleForm.MdiParent = this;
+                    reportControleForm.Show();
                     break;
                 case 10:
                     ConfiguracoesForm configuracoesForm = ConfiguracoesForm.Instance(this);
