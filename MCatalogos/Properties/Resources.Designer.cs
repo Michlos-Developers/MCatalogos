@@ -433,6 +433,26 @@ namespace MCatalogos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconReportPedidos35x35 {
+            get {
+                object obj = ResourceManager.GetObject("IconReportPedidos35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconReportPromissorias35x35 {
+            get {
+                object obj = ResourceManager.GetObject("IconReportPromissorias35x35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconRotas35x35 {
             get {
                 object obj = ResourceManager.GetObject("IconRotas35x35", resourceCulture);
