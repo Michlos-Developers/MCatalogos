@@ -32,12 +32,12 @@ namespace MCatalogos
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.panelButtons = new System.Windows.Forms.Panel();
             this.pictureLogo = new System.Windows.Forms.PictureBox();
             this.panelSecondaryMenu = new System.Windows.Forms.Panel();
             this.pictureMenuMobile = new System.Windows.Forms.PictureBox();
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panelButtons = new System.Windows.Forms.Panel();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).BeginInit();
             this.panelSecondaryMenu.SuspendLayout();
@@ -54,6 +54,15 @@ namespace MCatalogos
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(168, 571);
             this.panelMenu.TabIndex = 0;
+            // 
+            // panelButtons
+            // 
+            this.panelButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelButtons.Location = new System.Drawing.Point(2, 54);
+            this.panelButtons.Name = "panelButtons";
+            this.panelButtons.Size = new System.Drawing.Size(165, 514);
+            this.panelButtons.TabIndex = 3;
             // 
             // pictureLogo
             // 
@@ -104,15 +113,6 @@ namespace MCatalogos
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
-            // 
-            // panelButtons
-            // 
-            this.panelButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelButtons.Location = new System.Drawing.Point(2, 54);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(165, 514);
-            this.panelButtons.TabIndex = 3;
             // 
             // MainView
             // 

@@ -141,5 +141,11 @@ namespace MCatalogos.Views.FormViews.Reports
             base.Dispose(Disposing);
             aForm = null;
         }
+
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            ReportPedidoForm reportPedido = new ReportPedidoForm();
+            reportPedido.Show();
+        }
     }
 }

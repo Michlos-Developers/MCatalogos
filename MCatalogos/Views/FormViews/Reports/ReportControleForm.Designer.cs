@@ -177,6 +177,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnGenerateReport.Tag = "";
             this.btnGenerateReport.Text = "Gerar";
             this.btnGenerateReport.UseVisualStyleBackColor = false;
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // btnCancelReport
             // 

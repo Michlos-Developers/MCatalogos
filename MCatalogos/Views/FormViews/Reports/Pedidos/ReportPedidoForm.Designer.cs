@@ -29,12 +29,35 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.reportViewerPedidos = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.SuspendLayout();
+            // 
+            // reportViewerPedidos
+            // 
+            this.reportViewerPedidos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewerPedidos.LocalReport.ReportEmbeddedResource = "MCatalogos.Reports.Pedidos.PedidosVendedorasReport.rdlc";
+            this.reportViewerPedidos.Location = new System.Drawing.Point(0, 0);
+            this.reportViewerPedidos.Name = "reportViewerPedidos";
+            this.reportViewerPedidos.ServerReport.BearerToken = null;
+            this.reportViewerPedidos.Size = new System.Drawing.Size(879, 450);
+            this.reportViewerPedidos.TabIndex = 0;
+            // 
+            // ReportPedidoForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "ReportPedidoForm";
+            this.ClientSize = new System.Drawing.Size(879, 450);
+            this.Controls.Add(this.reportViewerPedidos);
+            this.Name = "ReportPedidoForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Relatório de Pedidos";
+            this.Load += new System.EventHandler(this.ReportPedidoForm_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewerPedidos;
     }
 }
