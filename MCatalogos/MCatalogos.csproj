@@ -50,7 +50,7 @@
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -232,11 +232,11 @@
     <Compile Include="Views\FormViews\Produtos\ProdutosListForm.Designer.cs">
       <DependentUpon>ProdutosListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidoForm.cs">
+    <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidosForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidoForm.Designer.cs">
-      <DependentUpon>ReportPedidoForm.cs</DependentUpon>
+    <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidosForm.Designer.cs">
+      <DependentUpon>ReportPedidosForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormViews\Reports\Pedidos\UCConfigReportPedido.cs">
       <SubType>UserControl</SubType>
@@ -418,8 +418,8 @@
     <EmbeddedResource Include="Views\FormViews\Produtos\ProdutosListForm.resx">
       <DependentUpon>ProdutosListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ReportPedidoForm.resx">
-      <DependentUpon>ReportPedidoForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ReportPedidosForm.resx">
+      <DependentUpon>ReportPedidosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\UCConfigReportPedido.resx">
       <DependentUpon>UCConfigReportPedido.cs</DependentUpon>
@@ -466,6 +466,8 @@
     <EmbeddedResource Include="Views\FormViews\Vendedoras\VendedorasListForm.resx">
       <DependentUpon>VendedorasListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DomainLayer.Models.PedidosVendedoras.IDetalhePedidoModel.datasource" />
+    <None Include="DomainLayer.Models.PedidosVendedoras.IPedidosVendedorasModel.datasource" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -647,10 +649,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll" />
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll" />
-    <Content Include="SqlServerTypes\x86\msvcr120.dll" />
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

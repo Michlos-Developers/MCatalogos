@@ -144,8 +144,8 @@ namespace MCatalogos.Views.FormViews.Reports
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            ReportPedidoForm reportPedido = new ReportPedidoForm();
-            reportPedido.Show();
+            //ReportPedidoForm reportPedido = new ReportPedidoForm();
+            //reportPedido.Show();
         }
     }
 }
