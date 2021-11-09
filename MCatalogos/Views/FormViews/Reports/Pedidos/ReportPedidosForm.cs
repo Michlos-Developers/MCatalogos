@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,14 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
         public ReportPedidosForm()
         {
             InitializeComponent();
+        }
+
+        private void ReportPedidosForm_Load(object sender, EventArgs e)
+        {
+            reportViewerPedidos.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewerPedidos.ZoomMode = ZoomMode.Percent;
+            reportViewerPedidos.ZoomPercent = 75;
+            this.reportViewerPedidos.RefreshReport();
         }
     }
 }

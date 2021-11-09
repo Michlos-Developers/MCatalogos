@@ -84,8 +84,8 @@ namespace MCatalogos.Views.FormViews.Reports
         private void LoadUserControlReporPedidos()
         {
             UCConfigReportPedido configReportPedido = new UCConfigReportPedido(this);
-            panelConfigReport.Controls.Clear();
-            panelConfigReport.Controls.Add(configReportPedido);
+            panelCallConfigReport.Controls.Clear();
+            panelCallConfigReport.Controls.Add(configReportPedido);
             configReportPedido.Dock = DockStyle.Fill;
         }
 
@@ -134,8 +134,8 @@ namespace MCatalogos.Views.FormViews.Reports
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            //ReportPedidoForm reportPedido = new ReportPedidoForm();
-            //reportPedido.Show();
+            ReportPedidosForm reportPedido = new ReportPedidosForm();
+            reportPedido.Show();
         }
     }
 }
