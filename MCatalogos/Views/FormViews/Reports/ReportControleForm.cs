@@ -35,7 +35,6 @@ namespace MCatalogos.Views.FormViews.Reports
 
         private MainView MainView;
         private static ReportControleForm aForm = null;
-        private static UCConfigReportPedido configReportPedido;
 
         private ButtonHelper ButtonHelper = new ButtonHelper();
         List<Button> ButtonsCollection = new List<Button>();
@@ -84,9 +83,9 @@ namespace MCatalogos.Views.FormViews.Reports
 
         private void LoadUserControlReporPedidos()
         {
-            configReportPedido = new UCConfigReportPedido(this);
-            panelCallConfigReport.Controls.Clear();
-            panelCallConfigReport.Controls.Add(configReportPedido);
+            UCConfigReportPedido configReportPedido = new UCConfigReportPedido(this);
+            panelConfigReport.Controls.Clear();
+            panelConfigReport.Controls.Add(configReportPedido);
             configReportPedido.Dock = DockStyle.Fill;
         }
 
@@ -101,15 +100,6 @@ namespace MCatalogos.Views.FormViews.Reports
         {
             panelConfigReport.Visible = false;
             ButtonHelper.SetEnabledButtons(ButtonsCollection);
-
-            ///SE REPORTPEDIDO AINDA ESTIVER ATIVO DESTROI O USERCONTROL.
-            ///TODO: LEMBRAR DE FAZER ISSO COM AS PROMISSÓRIAS TAMBÉM.
-            if (configReportPedido != null)
-            {
-                configReportPedido.Dispose();
-            }
-
-            
         }
 
         /// <summary>
