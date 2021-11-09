@@ -1,5 +1,4 @@
 ﻿using MCatalogos.Commons;
-using MCatalogos.Views.FormViews.Reports.Pedidos;
 
 using System;
 using System.Collections.Generic;
@@ -77,16 +76,7 @@ namespace MCatalogos.Views.FormViews.Reports
         private void btnReportPedidos_Click(object sender, EventArgs e)
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPedidos);
-            LoadUserControlReporPedidos();
             panelConfigReport.Visible = true;
-        }
-
-        private void LoadUserControlReporPedidos()
-        {
-            UCConfigReportPedido configReportPedido = new UCConfigReportPedido(this);
-            panelCallConfigReport.Controls.Clear();
-            panelCallConfigReport.Controls.Add(configReportPedido);
-            configReportPedido.Dock = DockStyle.Fill;
         }
 
         private void btnReportPromissorias_Click(object sender, EventArgs e)
@@ -130,12 +120,6 @@ namespace MCatalogos.Views.FormViews.Reports
 
             base.Dispose(Disposing);
             aForm = null;
-        }
-
-        private void btnGenerateReport_Click(object sender, EventArgs e)
-        {
-            ReportPedidosForm reportPedido = new ReportPedidosForm();
-            reportPedido.Show();
         }
     }
 }
