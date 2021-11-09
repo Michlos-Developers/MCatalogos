@@ -79,6 +79,14 @@ namespace MCatalogos.Views.FormViews.Reports
             panelConfigReport.Visible = true;
         }
 
+        private void LoadUserControlReporPedidos()
+        {
+            //UCConfigReportPedido configReportPedido = new UCConfigReportPedido(this);
+            //panelConfigReport.Controls.Clear();
+            //panelConfigReport.Controls.Add(configReportPedido);
+            //configReportPedido.Dock = DockStyle.Fill;
+        }
+
         private void btnReportPromissorias_Click(object sender, EventArgs e)
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPromissorias);
@@ -120,6 +128,12 @@ namespace MCatalogos.Views.FormViews.Reports
 
             base.Dispose(Disposing);
             aForm = null;
+        }
+
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            //ReportPedidosForm reportPedido = new ReportPedidosForm();
+            //reportPedido.Show();
         }
     }
 }
