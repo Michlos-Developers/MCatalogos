@@ -325,6 +325,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\Pedidos\PedidosVendedorasReport.rdlc" />
     <EmbeddedResource Include="Views\FormViews\Bairros\BairroAddForm.resx">
       <DependentUpon>BairroAddForm.cs</DependentUpon>
     </EmbeddedResource>
