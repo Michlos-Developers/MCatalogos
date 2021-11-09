@@ -86,7 +86,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.Controls.Add(this.cbMes);
             this.Controls.Add(this.chk_printPromissoria);
             this.Controls.Add(this.label2);

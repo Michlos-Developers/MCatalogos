@@ -37,13 +37,14 @@ namespace MCatalogos.Views.FormViews.Reports
             this.title = new System.Windows.Forms.Label();
             this.panelContainer = new System.Windows.Forms.Panel();
             this.panelConfigReport = new System.Windows.Forms.Panel();
+            this.panelCallConfigReport = new System.Windows.Forms.Panel();
+            this.panelCommandsReport = new System.Windows.Forms.Panel();
+            this.btnGenerateReport = new System.Windows.Forms.Button();
+            this.btnCancelReport = new System.Windows.Forms.Button();
             this.btnReportContasPagar = new System.Windows.Forms.Button();
             this.btnReportPedidos = new System.Windows.Forms.Button();
             this.btnReportPromissorias = new System.Windows.Forms.Button();
             this.btnReportContasReceber = new System.Windows.Forms.Button();
-            this.panelCommandsReport = new System.Windows.Forms.Panel();
-            this.btnCancelReport = new System.Windows.Forms.Button();
-            this.btnGenerateReport = new System.Windows.Forms.Button();
             this.panelCommands.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -132,13 +133,67 @@ namespace MCatalogos.Views.FormViews.Reports
             // panelConfigReport
             // 
             this.panelConfigReport.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panelConfigReport.Controls.Add(this.panelCallConfigReport);
             this.panelConfigReport.Controls.Add(this.panelCommandsReport);
             this.panelConfigReport.ForeColor = System.Drawing.Color.Black;
-            this.panelConfigReport.Location = new System.Drawing.Point(135, 47);
+            this.panelConfigReport.Location = new System.Drawing.Point(134, 31);
             this.panelConfigReport.Name = "panelConfigReport";
-            this.panelConfigReport.Size = new System.Drawing.Size(653, 411);
+            this.panelConfigReport.Size = new System.Drawing.Size(661, 449);
             this.panelConfigReport.TabIndex = 10;
             this.panelConfigReport.Visible = false;
+            // 
+            // panelCallConfigReport
+            // 
+            this.panelCallConfigReport.BackColor = System.Drawing.Color.Silver;
+            this.panelCallConfigReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCallConfigReport.Location = new System.Drawing.Point(0, 0);
+            this.panelCallConfigReport.Name = "panelCallConfigReport";
+            this.panelCallConfigReport.Size = new System.Drawing.Size(661, 419);
+            this.panelCallConfigReport.TabIndex = 13;
+            // 
+            // panelCommandsReport
+            // 
+            this.panelCommandsReport.BackColor = System.Drawing.SystemColors.Control;
+            this.panelCommandsReport.Controls.Add(this.btnGenerateReport);
+            this.panelCommandsReport.Controls.Add(this.btnCancelReport);
+            this.panelCommandsReport.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelCommandsReport.Location = new System.Drawing.Point(0, 419);
+            this.panelCommandsReport.Name = "panelCommandsReport";
+            this.panelCommandsReport.Size = new System.Drawing.Size(661, 30);
+            this.panelCommandsReport.TabIndex = 12;
+            // 
+            // btnGenerateReport
+            // 
+            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerateReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnGenerateReport.FlatAppearance.BorderSize = 0;
+            this.btnGenerateReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerateReport.ForeColor = System.Drawing.Color.White;
+            this.btnGenerateReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGenerateReport.Location = new System.Drawing.Point(256, 4);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(66, 23);
+            this.btnGenerateReport.TabIndex = 2;
+            this.btnGenerateReport.Tag = "";
+            this.btnGenerateReport.Text = "Gerar";
+            this.btnGenerateReport.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelReport
+            // 
+            this.btnCancelReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnCancelReport.FlatAppearance.BorderSize = 0;
+            this.btnCancelReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelReport.ForeColor = System.Drawing.Color.White;
+            this.btnCancelReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelReport.Location = new System.Drawing.Point(342, 4);
+            this.btnCancelReport.Name = "btnCancelReport";
+            this.btnCancelReport.Size = new System.Drawing.Size(66, 23);
+            this.btnCancelReport.TabIndex = 2;
+            this.btnCancelReport.Tag = "";
+            this.btnCancelReport.Text = "Cancelar";
+            this.btnCancelReport.UseVisualStyleBackColor = false;
+            this.btnCancelReport.Click += new System.EventHandler(this.btnCancelReport_Click);
             // 
             // btnReportContasPagar
             // 
@@ -200,50 +255,6 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnReportContasReceber.UseVisualStyleBackColor = true;
             this.btnReportContasReceber.Visible = false;
             // 
-            // panelCommandsReport
-            // 
-            this.panelCommandsReport.BackColor = System.Drawing.SystemColors.Control;
-            this.panelCommandsReport.Controls.Add(this.btnGenerateReport);
-            this.panelCommandsReport.Controls.Add(this.btnCancelReport);
-            this.panelCommandsReport.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCommandsReport.Location = new System.Drawing.Point(0, 381);
-            this.panelCommandsReport.Name = "panelCommandsReport";
-            this.panelCommandsReport.Size = new System.Drawing.Size(653, 30);
-            this.panelCommandsReport.TabIndex = 12;
-            // 
-            // btnCancelReport
-            // 
-            this.btnCancelReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnCancelReport.FlatAppearance.BorderSize = 0;
-            this.btnCancelReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelReport.ForeColor = System.Drawing.Color.White;
-            this.btnCancelReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelReport.Location = new System.Drawing.Point(559, 3);
-            this.btnCancelReport.Name = "btnCancelReport";
-            this.btnCancelReport.Size = new System.Drawing.Size(91, 23);
-            this.btnCancelReport.TabIndex = 2;
-            this.btnCancelReport.Tag = "";
-            this.btnCancelReport.Text = "Cancelar";
-            this.btnCancelReport.UseVisualStyleBackColor = false;
-            this.btnCancelReport.Click += new System.EventHandler(this.btnCancelReport_Click);
-            // 
-            // btnGenerateReport
-            // 
-            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnGenerateReport.FlatAppearance.BorderSize = 0;
-            this.btnGenerateReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerateReport.ForeColor = System.Drawing.Color.White;
-            this.btnGenerateReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerateReport.Location = new System.Drawing.Point(447, 3);
-            this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(91, 23);
-            this.btnGenerateReport.TabIndex = 2;
-            this.btnGenerateReport.Tag = "";
-            this.btnGenerateReport.Text = "Gerar";
-            this.btnGenerateReport.UseVisualStyleBackColor = false;
-            // 
             // ReportControleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -288,5 +299,6 @@ namespace MCatalogos.Views.FormViews.Reports
         private System.Windows.Forms.Panel panelCommandsReport;
         private System.Windows.Forms.Button btnCancelReport;
         private System.Windows.Forms.Button btnGenerateReport;
+        private System.Windows.Forms.Panel panelCallConfigReport;
     }
 }

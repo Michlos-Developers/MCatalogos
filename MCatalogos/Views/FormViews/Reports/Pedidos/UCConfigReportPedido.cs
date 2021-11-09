@@ -75,7 +75,8 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
         private void LoadPedidosModels()
         {
             ListPedidosVendedorasModels = (List<PedidosVendedorasModel>)_pedidosVendedorasServices.GetAll();
-            ListPedidosVendedorasModels = ListPedidosVendedorasModels.Where(data => data.DataRegistro.Month == DateTime.Parse(cbMes.SelectedItem.ToString()).Month);
+            //TODO: CORRIGIR A DATA
+            ListPedidosVendedorasModels = ListPedidosVendedorasModels.Where(data => data.DataRegistro.Month == cbMes.SelectedIndex + 1);
         }
 
 
