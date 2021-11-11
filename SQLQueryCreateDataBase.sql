@@ -1,3 +1,5 @@
+DROP DATABASE MCatalogoDB
+
 CREATE 
 DATABASE MCatalogoDB ON PRIMARY 
 	(NAME = N'MCatalogoDB',
