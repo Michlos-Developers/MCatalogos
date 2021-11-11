@@ -143,12 +143,12 @@ namespace MCatalogos.Views.FormViews.Produtos
                 textMargemVendedora.Text = produto.MargemVendedora.ToString();
                 textMargemDistribuidor.Text = produto.MargemDistribuidor.ToString();
                 chkTamanho.Checked = false;
-                
+
             }
 
             if (tamanhos != null && tamanhos.Count > 0)
             {
-                
+
                 panelTamanhosUC.Enabled = true;
                 cbFormatoTamanho.SelectedItem = FormatoModel;
                 chkTamanho.Checked = true;
@@ -162,7 +162,7 @@ namespace MCatalogos.Views.FormViews.Produtos
         private void ConfiguraDataGridView(List<TamanhosModel> tamanhos)
         {
 
-            
+
             DataTable tableTamanhos = new DataTable();
             DataColumn column;
             DataRow row;
@@ -271,7 +271,7 @@ namespace MCatalogos.Views.FormViews.Produtos
             produtoModel.MargemVendedora = textMargemVendedora.Text;
             produtoModel.MargemDistribuidor = textMargemDistribuidor.Text;
             ProdutoModel.Ativo = true;
-            
+
             try
             {
                 if (textMargemVendedora.Text.ToString().Trim() == string.Empty)
@@ -316,7 +316,7 @@ namespace MCatalogos.Views.FormViews.Produtos
                 }
                 MessageBox.Show($"Produto {produto.Referencia} registrado com sucesso.");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Não foi possivel registrar o produto no sistema.\nMessagem: {e.Message}");
             }
@@ -660,11 +660,20 @@ namespace MCatalogos.Views.FormViews.Produtos
                 ///PORTANTO A MARGEM DO DISTRIBUIDOR NÃO PODE SER MENOR QUE A MARGEM DA VENDEDORA.
                 if (control == textMargemDistribuidor && !string.IsNullOrEmpty(control.Text.Trim()))
                 {
-                    if (double.Parse(textMargemDistribuidor.Text) < double.Parse(textMargemVendedora.Text))
+                    if (!string.IsNullOrEmpty(textMargemVendedora.Text.Trim()))
                     {
-                        eventArgs = true;
-                        control.BackColor = Color.Red;
-                        errorProvider.SetError(control, "Margem do distribuidor não pode ser menor que margem da vendedora");
+
+                        if (double.Parse(textMargemDistribuidor.Text) < double.Parse(textMargemVendedora.Text))
+                        {
+                            eventArgs = true;
+                            control.BackColor = Color.Red;
+                            errorProvider.SetError(control, "Margem do distribuidor não pode ser menor que margem da vendedora");
+                        }
+                        else
+                        {
+                            eventArgs = false;
+                            errorProvider.SetError(control, null);
+                        }
                     }
                     else
                     {
@@ -719,7 +728,11 @@ namespace MCatalogos.Views.FormViews.Produtos
 
         private void textMargemDistribuidor_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = ValidaCampo(textMargemDistribuidor);
+            if (!string.IsNullOrEmpty(textMargemVendedora.Text.Trim()))
+            {
+
+                e.Cancel = ValidaCampo(textMargemDistribuidor);
+            }
         }
     }
 }

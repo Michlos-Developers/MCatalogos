@@ -13,6 +13,21 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -231,11 +246,17 @@
     <Compile Include="Views\FormViews\Produtos\ProdutosListForm.Designer.cs">
       <DependentUpon>ProdutosListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FormViews\Reports\ReportControleForm.cs">
+    <Compile Include="Views\FormViews\Reports\ControleRelatoriosForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FormViews\Reports\ReportControleForm.Designer.cs">
-      <DependentUpon>ReportControleForm.cs</DependentUpon>
+    <Compile Include="Views\FormViews\Reports\ControleRelatoriosForm.Designer.cs">
+      <DependentUpon>ControleRelatoriosForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.Designer.cs">
+      <DependentUpon>ConfigReportPedidosUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormViews\Rotas\RotasFormView.cs">
       <SubType>Form</SubType>
@@ -332,6 +353,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\Pedidos\ReportPedidosVendedoras.rdlc" />
     <EmbeddedResource Include="Views\FormViews\Bairros\BairroAddForm.resx">
       <DependentUpon>BairroAddForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -404,8 +426,11 @@
     <EmbeddedResource Include="Views\FormViews\Produtos\ProdutosListForm.resx">
       <DependentUpon>ProdutosListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FormViews\Reports\ReportControleForm.resx">
-      <DependentUpon>ReportControleForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\FormViews\Reports\ControleRelatoriosForm.resx">
+      <DependentUpon>ControleRelatoriosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.resx">
+      <DependentUpon>ConfigReportPedidosUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Rotas\RotasFormView.resx">
       <DependentUpon>RotasFormView.cs</DependentUpon>
@@ -512,6 +537,10 @@
       <Project>{BF2D907C-0BA0-478D-AE7B-4930EC5E0DD4}</Project>
       <Name>InfrastructureLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReportsLayer\ReportsLayer.csproj">
+      <Project>{4300806c-1f30-4c69-ac9d-feed80d8b988}</Project>
+      <Name>ReportsLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
       <Project>{6225ABFE-9E55-4B43-AE65-B3856A5846D7}</Project>
       <Name>ServiceLayer</Name>
@@ -614,9 +643,7 @@
     <None Include="Resources\IconFluxoCaixa35x35.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Reports\Pedidos\" />
     <Folder Include="Views\FormViews\Financeiro\FluxoCaixa\" />
-    <Folder Include="Views\FormViews\Reports\Pedidos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IconBanco35x35.png" />
@@ -626,6 +653,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IconReportPromissorias35x35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

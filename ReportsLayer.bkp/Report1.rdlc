@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <Height>2.3622in</Height>
+    <Style />
+  </Body>
+  <Width>8.85827in</Width>
+  <Page>
+    <PageHeader>
+      <Height>2.54cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox70">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>RELATÓRIO DE VENDAS</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox70</rd:DefaultName>
+          <Top>1.18745cm</Top>
+          <Left>6.71724cm</Left>
+          <Height>0.6cm</Height>
+          <Width>5.62208cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageHeader>
+    <PageFooter>
+      <Height>2.54cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DomainLayerModelsReportsPedidos">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>180ec6f1-3d4a-4fe8-a1c2-2006fc665aa8</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CampanhaId">
+          <DataField>CampanhaId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CampanhaModel">
+          <DataField>CampanhaModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Catalogos.CampanhaModel</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoId">
+          <DataField>CatalogoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoModel">
+          <DataField>CatalogoModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Catalogos.CatalogoModel</rd:TypeName>
+        </Field>
+        <Field Name="DetalheId">
+          <DataField>DetalheId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Faltou">
+          <DataField>Faltou</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="MargemDistribuidor">
+          <DataField>MargemDistribuidor</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="MargemVendedora">
+          <DataField>MargemVendedora</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="PedidoId">
+          <DataField>PedidoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PedidosVendedorasModel">
+          <DataField>PedidosVendedorasModel</DataField>
+          <rd:TypeName>DomainLayer.Models.PedidosVendedoras.PedidosVendedorasModel</rd:TypeName>
+        </Field>
+        <Field Name="ProdutoId">
+          <DataField>ProdutoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ProdutoModel">
+          <DataField>ProdutoModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Produtos.ProdutoModel</rd:TypeName>
+        </Field>
+        <Field Name="Quantidade">
+          <DataField>Quantidade</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Referencia">
+          <DataField>Referencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TamanhoId">
+          <DataField>TamanhoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroDistribuidorItem">
+          <DataField>ValorLucroDistribuidorItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroVendedoraItem">
+          <DataField>ValorLucroVendedoraItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorPagarFornecedorItem">
+          <DataField>ValorPagarFornecedorItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorProduto">
+          <DataField>ValorProduto</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaItem">
+          <DataField>ValorTaxaItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorTotalItem">
+          <DataField>ValorTotalItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>DetalhePedidos</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>7bc43a7b-8341-4118-aac7-e0bd2a90ac49</rd:ReportID>
+</Report>

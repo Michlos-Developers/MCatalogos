@@ -120,6 +120,7 @@
     <Compile Include="Models\PedidosVendedoras\DetalhePedidoModel.cs" />
     <Compile Include="Models\PedidosVendedoras\PedidosVendedorasModel.cs" />
     <Compile Include="Models\Produtos\IProdutoModel.cs" />
+    <Compile Include="Models\Reports\Pedidos\ReportPedidosVendedorasModel.cs" />
     <Compile Include="Models\Tamanho\ITamanhosModel.cs" />
     <Compile Include="Models\Produtos\ProdutoModel.cs" />
     <Compile Include="Models\Tamanho\TamanhosModel.cs" />

@@ -26,6 +26,7 @@ namespace DomainLayer.Models.PedidosVendedoras
         double ValorTotalItem { get; }
         int TamanhoId { get; set; }
         double ValorTaxaItem { get; set; }
-
+        double ValorTotalBruto { get; }
+        string Descricao { get; set; }
     }
 }

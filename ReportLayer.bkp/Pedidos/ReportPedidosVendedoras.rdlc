@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <Height>2in</Height>
+    <Style />
+  </Body>
+  <Width>6.5in</Width>
+  <Page>
+    <PageHeader>
+      <Height>2.205cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <ReportItems>
+        <Textbox Name="textNomeFantasiaDistribuidor">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!NomeFantasiaDistribuidor.Value, "DSReportModelDistribuidor")</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Height>0.6cm</Height>
+          <Width>8.30792cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="textTituloRelatorio">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Relatório de Vendas</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>16pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Top>0.6525cm</Top>
+          <Height>0.83813cm</Height>
+          <Width>16.51cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="textNomeVendedora">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Nome Completo da Vendedora</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Top>1.605cm</Top>
+          <Height>0.6cm</Height>
+          <Width>8.30792cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageHeader>
+    <PageFooter>
+      <Height>1.24933cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="textCodigoVendedora">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Vendedora: 654</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Top>0.32466cm</Top>
+          <Height>0.6cm</Height>
+          <Width>5.02708cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="textPaginacao">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Página X de Y</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Right</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <Top>0.32466cm</Top>
+          <Left>11.48292cm</Left>
+          <Height>0.6cm</Height>
+          <Width>5.02708cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DomainLayerModelsPedidosVendedoras">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>ca24efbe-ea28-482a-bfe6-9d8ffbafc50b</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DomainLayerModelsReportsPedidos">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>76c05a11-d3a9-4871-96e8-fce77d653d38</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DomainLayerModelsReportsPedidos1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>d5339f41-b9f8-4c38-aaa3-4bcae63733b9</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DomainLayerModelsReportsPedidos2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>afbc8ee0-abe7-4033-a686-0547fdc7f23a</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DomainLayerModelsReportsPedidos3">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>ba42c5ea-780d-4434-99da-b42e513bc996</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DomainLayerModelsReportsPedidos4">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>36716488-36ef-4f0d-8ad3-3b7c065f0ab5</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DomainLayerModelsReportsPedidos5">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>9edf962e-ce88-4fc2-9a2b-6987d86a71ad</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DSPedidos">
+      <Query>
+        <DataSourceName>DomainLayerModelsPedidosVendedoras</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="DataRegistro">
+          <DataField>DataRegistro</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="PedidoId">
+          <DataField>PedidoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="QtdCatalogos">
+          <DataField>QtdCatalogos</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="StatusPed">
+          <DataField>StatusPed</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroDistribuidor">
+          <DataField>ValorLucroDistribuidor</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroVendedora">
+          <DataField>ValorLucroVendedora</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaPedido">
+          <DataField>ValorTaxaPedido</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorTotalPedido">
+          <DataField>ValorTotalPedido</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="VendedoraId">
+          <DataField>VendedoraId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="VendedoraModel">
+          <DataField>VendedoraModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Vendedora.VendedoraModel</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.PedidosVendedoras</rd:DataSetName>
+        <rd:TableName>PedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceType>DomainLayer.Models.PedidosVendedoras.PedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSDetalhesPedido">
+      <Query>
+        <DataSourceName>DomainLayerModelsPedidosVendedoras</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CampanhaId">
+          <DataField>CampanhaId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CampanhaModel">
+          <DataField>CampanhaModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Catalogos.CampanhaModel</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoId">
+          <DataField>CatalogoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoModel">
+          <DataField>CatalogoModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Catalogos.CatalogoModel</rd:TypeName>
+        </Field>
+        <Field Name="DetalheId">
+          <DataField>DetalheId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Faltou">
+          <DataField>Faltou</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="MargemDistribuidor">
+          <DataField>MargemDistribuidor</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="MargemVendedora">
+          <DataField>MargemVendedora</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="PedidoId">
+          <DataField>PedidoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PedidosVendedorasModel">
+          <DataField>PedidosVendedorasModel</DataField>
+          <rd:TypeName>DomainLayer.Models.PedidosVendedoras.PedidosVendedorasModel</rd:TypeName>
+        </Field>
+        <Field Name="ProdutoId">
+          <DataField>ProdutoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ProdutoModel">
+          <DataField>ProdutoModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Produtos.ProdutoModel</rd:TypeName>
+        </Field>
+        <Field Name="Quantidade">
+          <DataField>Quantidade</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Referencia">
+          <DataField>Referencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TamanhoId">
+          <DataField>TamanhoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroDistribuidorItem">
+          <DataField>ValorLucroDistribuidorItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroVendedoraItem">
+          <DataField>ValorLucroVendedoraItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorPagarFornecedorItem">
+          <DataField>ValorPagarFornecedorItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorProduto">
+          <DataField>ValorProduto</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaItem">
+          <DataField>ValorTaxaItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorTotalItem">
+          <DataField>ValorTotalItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.PedidosVendedoras</rd:DataSetName>
+        <rd:TableName>DetalhePedidoModel</rd:TableName>
+        <rd:ObjectDataSourceType>DomainLayer.Models.PedidosVendedoras.DetalhePedidoModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSDistribuidor">
+      <Query>
+        <DataSourceName>DomainLayerModelsPedidosVendedoras</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="BairroId">
+          <DataField>BairroId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Cep">
+          <DataField>Cep</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CidadeId">
+          <DataField>CidadeId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Cnpj">
+          <DataField>Cnpj</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Complemento">
+          <DataField>Complemento</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DistribuidorId">
+          <DataField>DistribuidorId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InscricaoEstadual">
+          <DataField>InscricaoEstadual</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Logradouro">
+          <DataField>Logradouro</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomeFantasia">
+          <DataField>NomeFantasia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomeResponsavel">
+          <DataField>NomeResponsavel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Numero">
+          <DataField>Numero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RazaoSocial">
+          <DataField>RazaoSocial</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefoneContato">
+          <DataField>TelefoneContato</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UfId">
+          <DataField>UfId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="WebSite">
+          <DataField>WebSite</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Distribuidor</rd:DataSetName>
+        <rd:TableName>DistribuidorModel</rd:TableName>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Distribuidor.DistribuidorModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSReportModelDistribuidor">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NomeFantasiaDistribuidor">
+          <DataField>NomeFantasiaDistribuidor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSReportModelVendedoras">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos1</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Ativa">
+          <DataField>Ativa</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="Bairro">
+          <DataField>Bairro</DataField>
+          <rd:TypeName>DomainLayer.Models.CommonModels.Address.BairroModel</rd:TypeName>
+        </Field>
+        <Field Name="BairroId">
+          <DataField>BairroId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Cep">
+          <DataField>Cep</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cidade">
+          <DataField>Cidade</DataField>
+          <rd:TypeName>DomainLayer.Models.CommonModels.Address.CidadeModel</rd:TypeName>
+        </Field>
+        <Field Name="CidadeId">
+          <DataField>CidadeId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Complemento">
+          <DataField>Complemento</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cpf">
+          <DataField>Cpf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DataNascimento">
+          <DataField>DataNascimento</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Estado">
+          <DataField>Estado</DataField>
+          <rd:TypeName>DomainLayer.Models.CommonModels.Address.EstadoModel</rd:TypeName>
+        </Field>
+        <Field Name="EstadoCivil">
+          <DataField>EstadoCivil</DataField>
+          <rd:TypeName>DomainLayer.Models.Vendedora.EstadoCivilModel</rd:TypeName>
+        </Field>
+        <Field Name="EstadoCivilId">
+          <DataField>EstadoCivilId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="EstadoId">
+          <DataField>EstadoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Logradouro">
+          <DataField>Logradouro</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nome">
+          <DataField>Nome</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomeConjuge">
+          <DataField>NomeConjuge</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomeMae">
+          <DataField>NomeMae</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomePai">
+          <DataField>NomePai</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Numero">
+          <DataField>Numero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Rg">
+          <DataField>Rg</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RgEmissor">
+          <DataField>RgEmissor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RotaLetra">
+          <DataField>RotaLetra</DataField>
+          <rd:TypeName>DomainLayer.Models.Vendedora.RotaLetraModel</rd:TypeName>
+        </Field>
+        <Field Name="RotaLetraId">
+          <DataField>RotaLetraId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="UfRg">
+          <DataField>UfRg</DataField>
+          <rd:TypeName>DomainLayer.Models.CommonModels.Address.EstadoModel</rd:TypeName>
+        </Field>
+        <Field Name="UfRgId">
+          <DataField>UfRgId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="VendedoraId">
+          <DataField>VendedoraId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>Vendedoras</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSReportModelCatalogos">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Ativo">
+          <DataField>Ativo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoId">
+          <DataField>CatalogoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FornecedorId">
+          <DataField>FornecedorId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ImportaProdutos">
+          <DataField>ImportaProdutos</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="MargemPadraoDistribuidor">
+          <DataField>MargemPadraoDistribuidor</DataField>
+          <rd:TypeName>System.Single</rd:TypeName>
+        </Field>
+        <Field Name="MargemPadraoVendedora">
+          <DataField>MargemPadraoVendedora</DataField>
+          <rd:TypeName>System.Single</rd:TypeName>
+        </Field>
+        <Field Name="Nome">
+          <DataField>Nome</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumeracaoValorVariavel">
+          <DataField>NumeracaoValorVariavel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TamanhoValorVariavel">
+          <DataField>TamanhoValorVariavel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TaxaPedido">
+          <DataField>TaxaPedido</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="TaxaProduto">
+          <DataField>TaxaProduto</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaPedido">
+          <DataField>ValorTaxaPedido</DataField>
+          <rd:TypeName>System.Single</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaProduto">
+          <DataField>ValorTaxaProduto</DataField>
+          <rd:TypeName>System.Single</rd:TypeName>
+        </Field>
+        <Field Name="VariacaoDeValor">
+          <DataField>VariacaoDeValor</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>Catalogos</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSReportModelCampanhas">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos3</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Ativa">
+          <DataField>Ativa</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="CampanhaId">
+          <DataField>CampanhaId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoId">
+          <DataField>CatalogoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="DataEncerramento">
+          <DataField>DataEncerramento</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="DataLancamento">
+          <DataField>DataLancamento</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Nome">
+          <DataField>Nome</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>Campanhas</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSReportModelPedidos">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos4</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="DataRegistro">
+          <DataField>DataRegistro</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="PedidoId">
+          <DataField>PedidoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="QtdCatalogos">
+          <DataField>QtdCatalogos</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="StatusPed">
+          <DataField>StatusPed</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroDistribuidor">
+          <DataField>ValorLucroDistribuidor</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroVendedora">
+          <DataField>ValorLucroVendedora</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaPedido">
+          <DataField>ValorTaxaPedido</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorTotalPedido">
+          <DataField>ValorTotalPedido</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="VendedoraId">
+          <DataField>VendedoraId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="VendedoraModel">
+          <DataField>VendedoraModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Vendedora.VendedoraModel</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>Pedidos</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSReporModelDetalhesPedidos">
+      <Query>
+        <DataSourceName>DomainLayerModelsReportsPedidos5</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CampanhaId">
+          <DataField>CampanhaId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CampanhaModel">
+          <DataField>CampanhaModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Catalogos.CampanhaModel</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoId">
+          <DataField>CatalogoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CatalogoModel">
+          <DataField>CatalogoModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Catalogos.CatalogoModel</rd:TypeName>
+        </Field>
+        <Field Name="DetalheId">
+          <DataField>DetalheId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Faltou">
+          <DataField>Faltou</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="MargemDistribuidor">
+          <DataField>MargemDistribuidor</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="MargemVendedora">
+          <DataField>MargemVendedora</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="PedidoId">
+          <DataField>PedidoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PedidosVendedorasModel">
+          <DataField>PedidosVendedorasModel</DataField>
+          <rd:TypeName>DomainLayer.Models.PedidosVendedoras.PedidosVendedorasModel</rd:TypeName>
+        </Field>
+        <Field Name="ProdutoId">
+          <DataField>ProdutoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ProdutoModel">
+          <DataField>ProdutoModel</DataField>
+          <rd:TypeName>DomainLayer.Models.Produtos.ProdutoModel</rd:TypeName>
+        </Field>
+        <Field Name="Quantidade">
+          <DataField>Quantidade</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Referencia">
+          <DataField>Referencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TamanhoId">
+          <DataField>TamanhoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroDistribuidorItem">
+          <DataField>ValorLucroDistribuidorItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorLucroVendedoraItem">
+          <DataField>ValorLucroVendedoraItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorPagarFornecedorItem">
+          <DataField>ValorPagarFornecedorItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorProduto">
+          <DataField>ValorProduto</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorTaxaItem">
+          <DataField>ValorTaxaItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ValorTotalItem">
+          <DataField>ValorTotalItem</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DomainLayer.Models.Reports.Pedidos</rd:DataSetName>
+        <rd:TableName>ReportPedidosVendedorasModel</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>DetalhePedidos</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel, DomainLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>f24b01c9-8533-4c17-9968-99cc9265e432</rd:ReportID>
+</Report>

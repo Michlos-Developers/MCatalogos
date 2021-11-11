@@ -210,7 +210,7 @@ namespace MCatalogos
                     rotasFormView.Show();
                     break;
                 case 9:
-                    ReportControleForm reportControleForm = ReportControleForm.Instance(this);
+                    ControleRelatoriosForm reportControleForm = ControleRelatoriosForm.Instance(this);
                     reportControleForm.MdiParent = this;
                     reportControleForm.Show();
                     break;

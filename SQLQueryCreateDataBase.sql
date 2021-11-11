@@ -6195,6 +6195,7 @@ CREATE TABLE DetalhesPedidosVendedoras(
 	CampanhaId INT NOT NULL,
 	ProdutoId INT NOT NULL,
 	Referencia VARCHAR(100) NOT NULL,
+	Descricao VARCHAR(500) NOT NULL,
 	MargemVendedora FLOAT NOT NULL,
 	MargemDistribuidor FLOAT NOT NULL,
 	ValorProduto MONEY NOT NULL,

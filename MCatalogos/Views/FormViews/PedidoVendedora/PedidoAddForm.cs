@@ -818,6 +818,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 ItemPedidoModel.CampanhaId = SelectedCampanha.CampanhaId;
                 ItemPedidoModel.ProdutoId = produtoModelToAdd.ProdutoId;
                 ItemPedidoModel.Referencia = produtoModelToAdd.Referencia;
+                ItemPedidoModel.Descricao = produtoModelToAdd.Descricao;
                 ItemPedidoModel.Quantidade = quantidade;
                 ItemPedidoModel.ValorTaxaItem = SelectedCatalogo.TaxaProduto ? SelectedCatalogo.ValorTaxaProduto * ItemPedidoModel.Quantidade : 0; ///////VAI PARA O FINAL
                 ItemPedidoModel.MargemVendedora = string.IsNullOrEmpty(produtoModelToAdd.MargemVendedora) ? SelectedCatalogo.MargemPadraoVendedora : double.Parse(produtoModelToAdd.MargemVendedora);

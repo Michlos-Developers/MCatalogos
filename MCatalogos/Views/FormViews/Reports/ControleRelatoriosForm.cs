@@ -1,4 +1,12 @@
-﻿using MCatalogos.Commons;
+﻿using DomainLayer.Models.Vendedora;
+
+using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
+
+using MCatalogos.Commons;
+using MCatalogos.Views.FormViews.Reports.Pedidos;
+
+
+using ReportsLayer.Forms.Pedidos;
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +21,7 @@ using System.Windows.Forms;
 
 namespace MCatalogos.Views.FormViews.Reports
 {
-    public partial class ReportControleForm : Form
+    public partial class ControleRelatoriosForm : Form
     {
 
         #region PROPRIEDADES PARA MOVER A JANELA
@@ -33,16 +41,18 @@ namespace MCatalogos.Views.FormViews.Reports
         #endregion
 
         private MainView MainView;
-        private static ReportControleForm aForm = null;
+        private static ControleRelatoriosForm aForm = null;
 
         private ButtonHelper ButtonHelper = new ButtonHelper();
         List<Button> ButtonsCollection = new List<Button>();
 
-        internal static ReportControleForm Instance(MainView mainView)
+        private ConfigReportPedidosUC UCPedidos = null;
+
+        internal static ControleRelatoriosForm Instance(MainView mainView)
         {
             if (aForm == null)
             {
-                aForm = new ReportControleForm(mainView);
+                aForm = new ControleRelatoriosForm(mainView);
 
             }
             else
@@ -53,7 +63,7 @@ namespace MCatalogos.Views.FormViews.Reports
             return aForm;
         }
 
-        public ReportControleForm(MainView mainView)
+        public ControleRelatoriosForm(MainView mainView)
         {
             InitializeComponent();
             this.MainView = mainView;
@@ -73,27 +83,50 @@ namespace MCatalogos.Views.FormViews.Reports
 
         }
 
+
+        /// <summary>
+        /// MÉTODO DE EVENTO QUE CHAMA A TELA DE CONFIGURAÇÃO DE RELATÓRIO DE PEDIDOS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReportPedidos_Click(object sender, EventArgs e)
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPedidos);
             panelConfigReport.Visible = true;
+            LoadUserControlReporPedidos();
         }
 
+        /// <summary>
+        /// INSTANCIA O USERCONTROL "ConfigReporPedidosUS" NOMEADO DE "UCPedidos"
+        /// INCLUI O UCPedidos NO PANEL "panelCallConfigRepor" QUE ESTÁ DENTRO DO OUTRO PAINEL DE COMANDOS 
+        /// CHAMADO DE "panelConfigReport"
+        /// </summary>
         private void LoadUserControlReporPedidos()
         {
-            //UCConfigReportPedido configReportPedido = new UCConfigReportPedido(this);
-            //panelConfigReport.Controls.Clear();
-            //panelConfigReport.Controls.Add(configReportPedido);
-            //configReportPedido.Dock = DockStyle.Fill;
+
+            UCPedidos = new ConfigReportPedidosUC(this);
+            panelCallConfigReport.Controls.Clear();
+            panelCallConfigReport.Controls.Add(UCPedidos);
+            UCPedidos.Dock = DockStyle.Fill;
         }
 
+
+        /// <summary>
+        /// MÉTODO DE EVENTO QUE CHAMA A TELA DE CONFIGURAÇÕES DE RELATÓRIO DE PROMISSÓRIAS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReportPromissorias_Click(object sender, EventArgs e)
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPromissorias);
             panelConfigReport.Visible = true;
         }
 
-
+        /// <summary>
+        /// MÉTODO DE EVENTO QUE FECHA A TELA DE CONFIGURAÇÃO DE RELATÓRIO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelReport_Click(object sender, EventArgs e)
         {
             panelConfigReport.Visible = false;
@@ -130,10 +163,34 @@ namespace MCatalogos.Views.FormViews.Reports
             aForm = null;
         }
 
+
+        /// <summary>
+        /// MÉTODO DE EVENTO QUE CHAMAO O RELATÓRIO CONFORME 
+        /// O USER CONTROL QUE ESTIVER NA TELA.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            //ReportPedidosForm reportPedido = new ReportPedidosForm();
-            //reportPedido.Show();
+            IEnumerable<VendedoraModel> vendedorasList = UCPedidos.vendedorasModelsList;
+            int selectedMonth = UCPedidos.cbMes.SelectedIndex + 1;
+            bool printPromissorias = UCPedidos.chkPrintPromissorias.Checked;
+            if (UCPedidos != null)
+            {
+
+
+                ///VERIFICA SE A SELEÇÃO É PARA APENAS UMA VENDEDORA
+                if (UCPedidos.cbVendedoras.SelectedIndex != 0)
+                {
+                    VendedoraModel selectedVendedora = (VendedoraModel)UCPedidos.cbVendedoras.SelectedItem;
+                    vendedorasList = vendedorasList.Where(vend => vend.VendedoraId == selectedVendedora.VendedoraId);
+                    
+                }
+
+                ReportPedidosForm reportPedidos = new ReportPedidosForm(vendedorasList, selectedMonth, printPromissorias);
+                
+                reportPedidos.Show();
+            }
         }
     }
 }

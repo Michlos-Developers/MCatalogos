@@ -3,6 +3,7 @@ using DomainLayer.Models.Produtos;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace DomainLayer.Models.PedidosVendedoras
 {
@@ -82,7 +83,17 @@ namespace DomainLayer.Models.PedidosVendedoras
                 return (ValorTotalItem - ValorLucroDistribuidorItem - ValorLucroVendedoraItem);
             }
         }
+
+        public double ValorTotalBruto
+        {
+            get
+            {
+                return (ValorTotalItem - ValorLucroVendedoraItem);
+            }
+        }
         public bool Faltou { get; set; }
+
+        public string Descricao{ get; set; }
 
 
     }

@@ -107,29 +107,6 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
         }
 
-
-        public void ConfigraDataGridView()
-        {
-            dgvFornecedores.Columns[0].HeaderText = "Código";
-            dgvFornecedores.Columns[0].Width = 50;
-
-            dgvFornecedores.Columns[1].HeaderText = "Razao Social";
-            dgvFornecedores.Columns[1].Width = 275;
-
-            dgvFornecedores.Columns[2].HeaderText = "Nome Fantasia";
-            dgvFornecedores.Columns[2].Width = 225;
-
-            dgvFornecedores.Columns[3].HeaderText = "CNPJ";
-            dgvFornecedores.Columns[3].Width = 213;
-
-            if (indexDGV != 0)
-            {
-                dgvFornecedores.Rows[0].Selected = false;
-                dgvFornecedores.Rows[indexDGV].Selected = true;
-            }
-
-        }
-
         private void FornecedoresListForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Disposing)
@@ -196,6 +173,28 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             table.Columns.Add("Cnpj", typeof(string));
 
             return table;
+
+        }
+
+        public void ConfigraDataGridView()
+        {
+            dgvFornecedores.Columns[0].HeaderText = "Código";
+            dgvFornecedores.Columns[0].Width = 50;
+
+            dgvFornecedores.Columns[1].HeaderText = "Razao Social";
+            dgvFornecedores.Columns[1].Width = 275;
+
+            dgvFornecedores.Columns[2].HeaderText = "Nome Fantasia";
+            dgvFornecedores.Columns[2].Width = 225;
+
+            dgvFornecedores.Columns[3].HeaderText = "CNPJ";
+            dgvFornecedores.Columns[3].Width = 213;
+
+            if (indexDGV != 0)
+            {
+                dgvFornecedores.Rows[0].Selected = false;
+                dgvFornecedores.Rows[indexDGV].Selected = true;
+            }
 
         }
 

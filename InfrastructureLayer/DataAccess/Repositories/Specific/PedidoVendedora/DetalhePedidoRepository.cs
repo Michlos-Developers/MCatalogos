@@ -35,10 +35,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
             string query = "INSERT INTO DetalhesPedidosVendedoras " +
-                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
+                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Descricao, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
                            " OUTPUT INSERTED.DetalheId " +
                            " VALUES " +
-                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Referencia, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
+                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Descricao, @Referencia, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -53,6 +53,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Parameters.AddWithValue("@CampanhaId", detalhePedidoModel.CampanhaId);
                         cmd.Parameters.AddWithValue("@ProdutoId", detalhePedidoModel.ProdutoId);
                         cmd.Parameters.AddWithValue("@Referencia", detalhePedidoModel.Referencia);
+                        cmd.Parameters.AddWithValue("@Descricao", detalhePedidoModel.Descricao);
                         cmd.Parameters.AddWithValue("@MargemVendedora", detalhePedidoModel.MargemVendedora);
                         cmd.Parameters.AddWithValue("@MargemDistribuidor", detalhePedidoModel.MargemDistribuidor);
                         cmd.Parameters.AddWithValue("@ValorProduto", detalhePedidoModel.ValorProduto);
@@ -89,10 +90,10 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
             string query = "INSERT INTO DetalhesPedidosVendedoras " +
-                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
+                           " (PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, Descricao, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou) " +
                            " OUTPUT INSERTED.DetalheId " +
                            " VALUES " +
-                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Referencia, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @TamanhoId, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
+                           " (@PedidoId, @CatalogoId, @CampanhaId, @ProdutoId, @Referencia, @Descricao, @MargemVendedora, @MargemDistribuidor, @ValorProduto, @Quantidade, @TamanhoId, @ValorTotalItem, @ValorLucroVendedoraItem, @ValorLucroDistribuidorItem, @ValorPagarFornecedorItem, @Faltou) ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -107,6 +108,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Parameters.AddWithValue("@CampanhaId", detalhePedidoModel.CampanhaId);
                         cmd.Parameters.AddWithValue("@ProdutoId", detalhePedidoModel.ProdutoId);
                         cmd.Parameters.AddWithValue("@Referencia", detalhePedidoModel.Referencia);
+                        cmd.Parameters.AddWithValue("@Descricao", detalhePedidoModel.Descricao);
                         cmd.Parameters.AddWithValue("@MargemVendedora", detalhePedidoModel.MargemVendedora);
                         cmd.Parameters.AddWithValue("@MargemDistribuidor", detalhePedidoModel.MargemDistribuidor);
                         cmd.Parameters.AddWithValue("@ValorProduto", detalhePedidoModel.ValorProduto);
@@ -191,6 +193,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
                                 model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
                                 model.Referencia = reader["Referencia"].ToString();
+                                model.Descricao = reader["Descricao"].ToString();
                                 model.MargemVendedora = double.Parse(reader["MargemVendedora"].ToString());
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
@@ -249,6 +252,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 detalheModel.CatalogoId = int.Parse(reader["CatalogoId"].ToString());
                                 detalheModel.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
                                 detalheModel.Referencia = reader["Referencia"].ToString();
+                                detalheModel.Descricao = reader["Descricao"].ToString();
                                 detalheModel.MargemVendedora = double.Parse(reader["MargemVendedora"].ToString());
                                 detalheModel.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 detalheModel.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
@@ -282,7 +286,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             List<DetalhePedidoModel> DetalheListModel = new List<DetalhePedidoModel>();
-            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
+            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, Descricao, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
                            " FROM DetalhesPedidosVendedoras " +
                            " WHERE PedidoId = @PedidoId ";
 
@@ -308,6 +312,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
                                 model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
                                 model.Referencia = reader["Referencia"].ToString();
+                                model.Descricao = reader["Descricao"].ToString();
                                 model.MargemVendedora = double.Parse(reader["MargemVendedora"].ToString());
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
@@ -341,7 +346,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             List<DetalhePedidoModel> DetalheListModel = new List<DetalhePedidoModel>();
-            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, Tamanho, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
+            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, Descricao,MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, Tamanho, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
                            " FROM DetalhesPedidosVendedoras " +
                            " WHERE PedidoId = @PedidoId AND CatalogoId = @CatalogoId";
 
@@ -368,6 +373,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
                                 model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
                                 model.Referencia = reader["Referencia"].ToString();
+                                model.Descricao = reader["Descricao"].ToString();
                                 model.MargemVendedora = double.Parse(reader["MargemVendedora"].ToString());
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
@@ -401,7 +407,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
         {
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             DetalhePedidoModel model = new DetalhePedidoModel();
-            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
+            string query = "SELECT DetalheId, PedidoId, CatalogoId, CampanhaId, ProdutoId, Referencia, Descricao, MargemVendedora, MargemDistribuidor, ValorProduto, Quantidade, TamanhoId, ValorTotalItem, ValorLucroVendedoraItem, ValorLucroDistribuidorItem, ValorPagarFornecedorItem, Faltou " +
                            " FROM DetalhesPedidosVendedoras " +
                            " WHERE DetalheId = @DetalheId";
 
@@ -426,6 +432,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.CampanhaId = int.Parse(reader["CampanhaId"].ToString());
                                 model.ProdutoId = int.Parse(reader["ProdutoId"].ToString());
                                 model.Referencia = reader["Referencia"].ToString();
+                                model.Descricao = reader["Descricao"].ToString();
                                 model.MargemVendedora = double.Parse(reader["MargemVendedora"].ToString());
                                 model.MargemDistribuidor = double.Parse(reader["MargemDistribuidor"].ToString());
                                 model.ValorProduto = double.Parse(reader["ValorProduto"].ToString());
@@ -463,6 +470,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                            "CampanhaId = @CampanhaId, " +
                            "ProdutoId = @ProdutoId, " +
                            "Referencia = @Referencia , " +
+                           "Descricao = @Descricao, " +
                            "MargemVendedora = @MargemVendedora, " +
                            "MargemDistribuidor = @MargemDistribuidor, " +
                            "ValorProduto = @ValorProduto, " +
@@ -491,6 +499,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Parameters.AddWithValue("@CampanhaId", detalhePedidoModel.CampanhaId);
                         cmd.Parameters.AddWithValue("@ProdutoId", detalhePedidoModel.ProdutoId);
                         cmd.Parameters.AddWithValue("@Referencia", detalhePedidoModel.Referencia);
+                        cmd.Parameters.AddWithValue("@Descricao", detalhePedidoModel.Descricao);
                         cmd.Parameters.AddWithValue("@MargemVendedora", detalhePedidoModel.MargemVendedora);
                         cmd.Parameters.AddWithValue("@MargemDistribuidor", detalhePedidoModel.MargemDistribuidor);
                         cmd.Parameters.AddWithValue("@ValorProduto", detalhePedidoModel.ValorProduto);

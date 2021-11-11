@@ -1,7 +1,7 @@
 ﻿
 namespace MCatalogos.Views.FormViews.Reports
 {
-    partial class ReportControleForm
+    partial class ControleRelatoriosForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace MCatalogos.Views.FormViews.Reports
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportControleForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControleRelatoriosForm));
             this.panelCommands = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelTitle = new System.Windows.Forms.Panel();
