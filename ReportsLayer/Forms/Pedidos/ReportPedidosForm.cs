@@ -315,7 +315,7 @@ namespace ReportsLayer.Forms.Pedidos
                 table.Columns.Add("VendedoraId", typeof(int));
                 table.Columns.Add("ValorTotalPedido", typeof(double));
                 table.Columns.Add("ValorLucroVendedora", typeof(double));
-                table.Columns.Add("TotalPagar", typeof(double));
+                table.Columns.Add("ValorTotalPagar", typeof(double));
 
 
                 row = table.NewRow();
@@ -323,7 +323,7 @@ namespace ReportsLayer.Forms.Pedidos
                 row["VendedoraId"] = int.Parse(item.VendedoraId.ToString());
                 row["ValorTotalPedido"] = item.ValorTotalPedido;
                 row["ValorLucroVendedora"] = item.ValorLucroVendedora;
-                row["TotalPagar"] = item.ValorTotalPedido = item.ValorLucroVendedora;
+                row["ValorTotalPagar"] = item.ValorTotalPagar;
 
 
                 table.Rows.Add(row);

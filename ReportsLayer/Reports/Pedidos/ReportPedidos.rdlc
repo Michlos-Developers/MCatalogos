@@ -369,7 +369,6 @@
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="Descricao">
-                      <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -396,6 +395,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -967,7 +967,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!ValorTotalPedido.Value, "DSPedidoHeader")</Value>
+                <Value>=First(Fields!ValorTotalPagar.Value, "DSPedidoHeader")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
@@ -1400,6 +1400,10 @@
         </Field>
         <Field Name="ValorTaxaPedido">
           <DataField>ValorTaxaPedido</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="ValorTotalPagar">
+          <DataField>ValorTotalPagar</DataField>
           <rd:TypeName>System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
         <Field Name="ValorTotalPedido">
