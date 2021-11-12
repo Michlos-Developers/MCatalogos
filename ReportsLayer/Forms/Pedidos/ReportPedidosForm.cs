@@ -12,6 +12,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 
 using Microsoft.Reporting.WinForms;
+using Microsoft.SqlServer.Server;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
@@ -26,6 +27,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -252,10 +254,10 @@ namespace ReportsLayer.Forms.Pedidos
             table.Columns.Add("Referencia", typeof(string));
             table.Columns.Add("Descricao", typeof(string));
             table.Columns.Add("MargemVendedora", typeof(string));
-            table.Columns.Add("ValorProduto", typeof(string));
+            table.Columns.Add("ValorProduto", typeof(double));
             table.Columns.Add("Quantidade", typeof(int));
-            table.Columns.Add("ValorTotalItem", typeof(string));
-            table.Columns.Add("ValorTotalBruto", typeof(string));//FAZER ESSE CAMPO SEPARADO EM SOMA
+            table.Columns.Add("ValorTotalItem", typeof(double));
+            table.Columns.Add("ValorTotalBruto", typeof(double));//FAZER ESSE CAMPO SEPARADO EM SOMA
             table.Columns.Add("Faltou", typeof(string));
             table.Clear();
 
@@ -269,10 +271,10 @@ namespace ReportsLayer.Forms.Pedidos
                 row["Referencia"] = item.Referencia.ToString();
                 row["Descricao"] = item.Descricao.ToString();
                 row["MargemVendedora"] =  String.Format("{0:00%}", item.MargemVendedora /100);
-                row["ValorProduto"] = item.Faltou ? "-" :  String.Format("{0:n2}", item.ValorProduto);
+                row["ValorProduto"] = item.Faltou ? 0 :  item.ValorProduto;
                 row["Quantidade"] = int.Parse(item.Quantidade.ToString());
-                row["ValorTotalItem"] = item.Faltou ? "-" : String.Format("{0:n2}", item.ValorTotalItem);
-                row["ValorTotalBruto"] = item.Faltou ? "-" : String.Format("{0:n2}", item.ValorTotalBruto);
+                row["ValorTotalItem"] = item.Faltou ? 0 : item.ValorTotalItem;
+                row["ValorTotalBruto"] = item.Faltou ? 0 : item.ValorTotalBruto;
                 row["Faltou"] = item.Faltou ? "F" : "";
 
 
@@ -311,10 +313,18 @@ namespace ReportsLayer.Forms.Pedidos
             {
                 table.Columns.Add("PedidoId", typeof(int));
                 table.Columns.Add("VendedoraId", typeof(int));
+                table.Columns.Add("ValorTotalPedido", typeof(double));
+                table.Columns.Add("ValorLucroVendedora", typeof(double));
+                table.Columns.Add("TotalPagar", typeof(double));
+
 
                 row = table.NewRow();
                 row["PedidoId"] = int.Parse(item.PedidoId.ToString());
                 row["VendedoraId"] = int.Parse(item.VendedoraId.ToString());
+                row["ValorTotalPedido"] = item.ValorTotalPedido;
+                row["ValorLucroVendedora"] = item.ValorLucroVendedora;
+                row["TotalPagar"] = item.ValorTotalPedido = item.ValorLucroVendedora;
+
 
                 table.Rows.Add(row);
 
