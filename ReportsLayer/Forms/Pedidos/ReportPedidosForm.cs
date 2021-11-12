@@ -251,11 +251,12 @@ namespace ReportsLayer.Forms.Pedidos
             table.Columns.Add("ProdutoId", typeof(int));
             table.Columns.Add("Referencia", typeof(string));
             table.Columns.Add("Descricao", typeof(string));
-            table.Columns.Add("MargemVendedora", typeof(int));
-            table.Columns.Add("ValorProduto", typeof(double));
+            table.Columns.Add("MargemVendedora", typeof(string));
+            table.Columns.Add("ValorProduto", typeof(string));
             table.Columns.Add("Quantidade", typeof(int));
-            table.Columns.Add("ValorTotalItem", typeof(double));
-            table.Columns.Add("ValorTotalBruto", typeof(double));//FAZER ESSE CAMPO SEPARADO EM SOMA
+            table.Columns.Add("ValorTotalItem", typeof(string));
+            table.Columns.Add("ValorTotalBruto", typeof(string));//FAZER ESSE CAMPO SEPARADO EM SOMA
+            table.Columns.Add("Faltou", typeof(string));
             table.Clear();
 
             foreach (var item in detalhesModelsList)
@@ -267,11 +268,12 @@ namespace ReportsLayer.Forms.Pedidos
                 row["ProdutoId"] = int.Parse(item.ProdutoId.ToString());
                 row["Referencia"] = item.Referencia.ToString();
                 row["Descricao"] = item.Descricao.ToString();
-                row["MargemVendedora"] = int.Parse(item.MargemVendedora.ToString());
-                row["ValorProduto"] = double.Parse(item.ValorProduto.ToString());
+                row["MargemVendedora"] =  String.Format("{0:00%}", item.MargemVendedora /100);
+                row["ValorProduto"] = item.Faltou ? "-" :  String.Format("{0:n2}", item.ValorProduto);
                 row["Quantidade"] = int.Parse(item.Quantidade.ToString());
-                row["ValorTotalItem"] = double.Parse(item.ValorTotalItem.ToString());
-                row["ValorTotalBruto"] = double.Parse(item.ValorTotalBruto.ToString());
+                row["ValorTotalItem"] = item.Faltou ? "-" : String.Format("{0:n2}", item.ValorTotalItem);
+                row["ValorTotalBruto"] = item.Faltou ? "-" : String.Format("{0:n2}", item.ValorTotalBruto);
+                row["Faltou"] = item.Faltou ? "F" : "";
 
 
                 table.Rows.Add(row);
