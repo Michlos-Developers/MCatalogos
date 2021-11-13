@@ -1,6 +1,9 @@
 ﻿using DomainLayer.Models.Vendedora;
 
+using Microsoft.SqlServer.Server;
+
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,6 +34,8 @@ namespace DomainLayer.Models.PedidosVendedoras
 
         [Required()]
         public int StatusPed { get; set; }
+
+        public DateTime DataVencimento => DateTime.Parse($"{DataRegistro.Year}/{DataRegistro.Month + 1}/10");
 
     }
 }

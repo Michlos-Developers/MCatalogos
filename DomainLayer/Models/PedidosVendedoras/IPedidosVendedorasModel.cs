@@ -17,5 +17,6 @@ namespace DomainLayer.Models.PedidosVendedoras
         int? QtdCatalogos { get; set; }
         double? ValorTaxaPedido { get; set; }
         double? ValorTotalPagar { get; }
+        DateTime DataVencimento { get; }
     }
 }
