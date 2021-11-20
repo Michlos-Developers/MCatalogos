@@ -765,7 +765,14 @@ namespace MCatalogos.Views.FormViews.Distribuidor
 
         private void mTextTelefone_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrEmpty(mTextTelefone.Text))
+            string textoTelefone = mTextTelefone.Text.Replace("/", "");
+            textoTelefone = textoTelefone.Replace("_", "");
+            textoTelefone = textoTelefone.Replace("(", "");
+            textoTelefone = textoTelefone.Replace(")", "");
+            textoTelefone = textoTelefone.Replace(".", "");
+            textoTelefone = textoTelefone.Replace("-", "");
+
+            if (string.IsNullOrEmpty(textoTelefone.Trim()))
             {
 
                 mTextTelefone.SelectionStart = 0;
@@ -775,7 +782,14 @@ namespace MCatalogos.Views.FormViews.Distribuidor
 
         private void mTextCnpj_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrEmpty(mTextCnpj.Text))
+            string textoCnpj = mTextCnpj.Text.Replace("/", "");
+            textoCnpj = textoCnpj.Replace("_", "");
+            textoCnpj = textoCnpj.Replace(".", "");
+            textoCnpj = textoCnpj.Replace("-", "");
+
+
+
+            if (string.IsNullOrEmpty(textoCnpj.Trim()))
             {
 
                 mTextCnpj.SelectionStart = 0;
@@ -784,7 +798,12 @@ namespace MCatalogos.Views.FormViews.Distribuidor
 
         private void mTextInscricaoEstadual_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrEmpty(mTextInscricaoEstadual.Text))
+            string textoIncricaoEstadual = mTextInscricaoEstadual.Text.Replace("/", "");
+            textoIncricaoEstadual = textoIncricaoEstadual.Replace("_", "");
+            textoIncricaoEstadual = textoIncricaoEstadual.Replace(".", "");
+            textoIncricaoEstadual = textoIncricaoEstadual.Replace("-", "");
+            
+            if (string.IsNullOrEmpty(textoIncricaoEstadual.Trim()))
             {
 
                 mTextInscricaoEstadual.SelectionStart = 0;
@@ -793,7 +812,14 @@ namespace MCatalogos.Views.FormViews.Distribuidor
 
         private void mTextCep_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrEmpty(mTextCep.Text))
+
+            string textoCep = mTextCep.Text.Replace("/", "");
+            textoCep = textoCep.Replace("_", "");
+            textoCep = textoCep.Replace(".", "");
+            textoCep = textoCep.Replace("-", "");
+
+
+            if (string.IsNullOrEmpty(textoCep.Trim()))
             {
 
                 mTextCep.SelectionStart = 0;
