@@ -145,6 +145,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
         private void TelefonesFornecedorListUC_Load(object sender, EventArgs e)
         {
             LoadTelefonesToDataGridView();
+            SetEnableButtons();
             ConfiguraDGV();
         }
         private void dgvTeleForn_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -174,6 +175,8 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             TelefoneFornecedorAddForm telefoneFornecedorAddForm = new TelefoneFornecedorAddForm(this.FornecedorForm, this);
             telefoneFornecedorAddForm.Text = "Adicionar Contato";
             telefoneFornecedorAddForm.ShowDialog();
+            //LoadTelefonesToDataGridView();
+            SetEnableButtons();
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -181,6 +184,7 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             telefoneFornecedorAddForm.telefoneId = int.Parse(dgvTeleForn.CurrentRow.Cells[0].Value.ToString());
             telefoneFornecedorAddForm.Text = "Editar Contato";
             telefoneFornecedorAddForm.ShowDialog();
+            SetEnableButtons();
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -204,6 +208,51 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                     LoadTelefonesToDataGridView();
                 }
             }
+
+            SetEnableButtons();
+        }
+
+        private void SetEnableButtons()
+        {
+            int fornecedorId = 0;
+            if (this.FornecedorForm.textFornecedorId.Text != "")
+            {
+                fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
+                btnAdd.Enabled = true;
+                if (CkeckTelefoneExistFornecedor(fornecedorId))
+                {
+                    btnDelete.Enabled = true;
+                    btnEdit.Enabled = true;
+                }
+                else
+                {
+                    btnDelete.Enabled = false;
+                    btnEdit.Enabled = false;
+                }
+            }
+
+
+
+        }
+
+        private bool CkeckTelefoneExistFornecedor(int fornecedorId)
+        {
+            bool result = false;
+            List<TelefoneFornecedorModel> modelList = null;
+
+            try
+            {
+                modelList = (List<TelefoneFornecedorModel>)_telefoneServices.GetByFornecedorId(fornecedorId);
+            }
+            finally
+            {
+
+                if (modelList.Count != 0)
+                {
+                    result = true;
+                }
+            }
+            return result;
         }
     }
 }

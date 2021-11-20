@@ -78,6 +78,11 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                 {
                     modelList = (List<CatalogoModel>)_catalogoServices.GetByFornecedorId(fornecedorId);
                 }
+                else
+                {
+                    btnEdit.Enabled = true;
+                    btnDelete.Enabled = true;
+                }
             }
             catch (Exception e)
             {
@@ -165,13 +170,14 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                     btnDelete.Enabled = true;
                     btnEdit.Enabled = true;
                 }
+                else
+                {
+                    btnDelete.Enabled = false;
+                    btnEdit.Enabled = false;
+                }
             }
-            else
-            {
-                btnAdd.Enabled = false;
-                btnDelete.Enabled = false;
-                btnEdit.Enabled = false;
-            }
+
+            
 
         }
 
@@ -231,11 +237,10 @@ namespace MCatalogos.Views.UserControls.Fornecedores
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
-                finally
-                {
-                    LoadCatalogos();
-                }
+                
             }
+            LoadCatalogos();
+            SetEnableButtons();
 
         }
         private void btnAdd_Click(object sender, EventArgs e)
@@ -244,6 +249,8 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             catalogoForm.Text = "Adicionar Catálogo";
             catalogoForm.fornecedorId = int.Parse(this.FornecedorForm.textFornecedorId.Text);
             catalogoForm.ShowDialog();
+            LoadCatalogos();
+            SetEnableButtons();
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -251,6 +258,8 @@ namespace MCatalogos.Views.UserControls.Fornecedores
             catalogoForm.Text = "Editar Catálogo";
             catalogoForm.catalogoId = int.Parse(this.dgvCatalogos.CurrentRow.Cells[0].Value.ToString());
             catalogoForm.ShowDialog();
+            LoadCatalogos();
+            SetEnableButtons();
         }
         private void dgvCatalogos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {

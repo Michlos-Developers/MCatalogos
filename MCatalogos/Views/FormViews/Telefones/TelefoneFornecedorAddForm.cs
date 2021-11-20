@@ -230,9 +230,12 @@ namespace MCatalogos.Views.FormViews.Telefones
                     {
                         ClearControls();
                     }
+                    else
+                    {
 
-                    this.TelefonesFornecedorListUC.LoadTelefonesToDataGridView();
-                    this.Close();
+                        this.TelefonesFornecedorListUC.LoadTelefonesToDataGridView();
+                        this.Close();
+                    }
 
                 }
             }

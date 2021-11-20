@@ -143,7 +143,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
 
             if (operationSucceeded)
             {
-                MessageBox.Show("Registro adicionar dom suceddo!", "Adicionar Fornecedor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Registro adicionar com suceddo!", "Adicionar Fornecedor", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return returnModel;
