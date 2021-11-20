@@ -163,7 +163,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.chkBoxDesativada.AutoSize = true;
             this.chkBoxDesativada.Location = new System.Drawing.Point(187, 46);
             this.chkBoxDesativada.Name = "chkBoxDesativada";
-            this.chkBoxDesativada.Size = new System.Drawing.Size(87, 18);
+            this.chkBoxDesativada.Size = new System.Drawing.Size(97, 22);
             this.chkBoxDesativada.TabIndex = 39;
             this.chkBoxDesativada.Text = "Desativada";
             this.chkBoxDesativada.UseVisualStyleBackColor = true;
@@ -174,7 +174,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textDataNascimento.Location = new System.Drawing.Point(692, 77);
             this.textDataNascimento.Mask = "00/00/0000";
             this.textDataNascimento.Name = "textDataNascimento";
-            this.textDataNascimento.Size = new System.Drawing.Size(75, 22);
+            this.textDataNascimento.Size = new System.Drawing.Size(75, 26);
             this.textDataNascimento.TabIndex = 3;
             this.textDataNascimento.ValidatingType = typeof(System.DateTime);
             this.textDataNascimento.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textDataNascimento_MouseClick);
@@ -213,7 +213,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.titleFicha.ForeColor = System.Drawing.SystemColors.ControlText;
             this.titleFicha.Location = new System.Drawing.Point(10, 8);
             this.titleFicha.Name = "titleFicha";
-            this.titleFicha.Size = new System.Drawing.Size(121, 14);
+            this.titleFicha.Size = new System.Drawing.Size(135, 18);
             this.titleFicha.TabIndex = 0;
             this.titleFicha.Text = "Ficha da Vendedoras";
             // 
@@ -222,7 +222,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaNumero.FormattingEnabled = true;
             this.comboBoxRotaNumero.Location = new System.Drawing.Point(704, 45);
             this.comboBoxRotaNumero.Name = "comboBoxRotaNumero";
-            this.comboBoxRotaNumero.Size = new System.Drawing.Size(40, 22);
+            this.comboBoxRotaNumero.Size = new System.Drawing.Size(40, 26);
             this.comboBoxRotaNumero.TabIndex = 37;
             this.comboBoxRotaNumero.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaNumero_SelectedIndexChanged);
             this.comboBoxRotaNumero.Enter += new System.EventHandler(this.comboBoxRotaNumero_Enter);
@@ -254,12 +254,11 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxRotaLetra.FormattingEnabled = true;
             this.comboBoxRotaLetra.Location = new System.Drawing.Point(641, 45);
             this.comboBoxRotaLetra.Name = "comboBoxRotaLetra";
-            this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 22);
+            this.comboBoxRotaLetra.Size = new System.Drawing.Size(40, 26);
             this.comboBoxRotaLetra.TabIndex = 1;
             this.comboBoxRotaLetra.SelectedIndexChanged += new System.EventHandler(this.comboBoxRotaLetra_SelectedIndexChanged);
             this.comboBoxRotaLetra.Enter += new System.EventHandler(this.comboBoxRotaLetra_Enter);
             this.comboBoxRotaLetra.Leave += new System.EventHandler(this.comboBoxRotaLetra_Leave);
-            this.comboBoxRotaLetra.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxRotaLetra_Validating);
             // 
             // btnAddRotaLetra
             // 
@@ -298,7 +297,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(8, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(64, 14);
+            this.label18.Size = new System.Drawing.Size(73, 18);
             this.label18.TabIndex = 3;
             this.label18.Text = "Telefones:";
             // 
@@ -370,7 +369,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(9, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 14);
+            this.label16.Size = new System.Drawing.Size(70, 18);
             this.label16.TabIndex = 2;
             this.label16.Text = "Endereço:";
             // 
@@ -379,7 +378,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCep.Location = new System.Drawing.Point(208, 63);
             this.maskedTextCep.Mask = "00000-999";
             this.maskedTextCep.Name = "maskedTextCep";
-            this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
+            this.maskedTextCep.Size = new System.Drawing.Size(75, 26);
             this.maskedTextCep.TabIndex = 2;
             this.maskedTextCep.MouseClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCep_MouseClick);
             this.maskedTextCep.Enter += new System.EventHandler(this.maskedTextCep_Enter);
@@ -391,7 +390,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(172, 66);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 14);
+            this.label4.Size = new System.Drawing.Size(35, 18);
             this.label4.TabIndex = 12;
             this.label4.Text = "CEP:";
             // 
@@ -399,7 +398,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textNumero.Location = new System.Drawing.Point(86, 63);
             this.textNumero.Name = "textNumero";
-            this.textNumero.Size = new System.Drawing.Size(77, 22);
+            this.textNumero.Size = new System.Drawing.Size(77, 26);
             this.textNumero.TabIndex = 1;
             this.textNumero.Enter += new System.EventHandler(this.textNumero_Enter);
             this.textNumero.Leave += new System.EventHandler(this.textNumero_Leave);
@@ -410,7 +409,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(27, 66);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 14);
+            this.label3.Size = new System.Drawing.Size(63, 18);
             this.label3.TabIndex = 12;
             this.label3.Text = "Número:";
             // 
@@ -421,7 +420,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxBairro.FormattingEnabled = true;
             this.comboBoxBairro.Location = new System.Drawing.Point(101, 165);
             this.comboBoxBairro.Name = "comboBoxBairro";
-            this.comboBoxBairro.Size = new System.Drawing.Size(292, 22);
+            this.comboBoxBairro.Size = new System.Drawing.Size(292, 26);
             this.comboBoxBairro.TabIndex = 6;
             this.comboBoxBairro.Enter += new System.EventHandler(this.comboBoxBairro_Enter);
             this.comboBoxBairro.Leave += new System.EventHandler(this.comboBoxBairro_Leave);
@@ -434,7 +433,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxCidade.FormattingEnabled = true;
             this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
             this.comboBoxCidade.Name = "comboBoxCidade";
-            this.comboBoxCidade.Size = new System.Drawing.Size(185, 22);
+            this.comboBoxCidade.Size = new System.Drawing.Size(185, 26);
             this.comboBoxCidade.TabIndex = 5;
             this.comboBoxCidade.SelectedIndexChanged += new System.EventHandler(this.comboBoxCidade_SelectedIndexChanged);
             this.comboBoxCidade.Enter += new System.EventHandler(this.comboBoxCidade_Enter);
@@ -450,7 +449,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             "-"});
             this.comboBoxUfEndereco.Location = new System.Drawing.Point(86, 131);
             this.comboBoxUfEndereco.Name = "comboBoxUfEndereco";
-            this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 22);
+            this.comboBoxUfEndereco.Size = new System.Drawing.Size(47, 26);
             this.comboBoxUfEndereco.TabIndex = 4;
             this.comboBoxUfEndereco.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfEndereco_SelectedIndexChanged);
             this.comboBoxUfEndereco.Enter += new System.EventHandler(this.comboBoxUfEndereco_Enter);
@@ -461,7 +460,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textComplemento.Location = new System.Drawing.Point(101, 97);
             this.textComplemento.Name = "textComplemento";
-            this.textComplemento.Size = new System.Drawing.Size(292, 22);
+            this.textComplemento.Size = new System.Drawing.Size(292, 26);
             this.textComplemento.TabIndex = 3;
             this.textComplemento.Enter += new System.EventHandler(this.textComplemento_Enter);
             this.textComplemento.Leave += new System.EventHandler(this.textComplemento_Leave);
@@ -472,7 +471,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 100);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 14);
+            this.label5.Size = new System.Drawing.Size(101, 18);
             this.label5.TabIndex = 12;
             this.label5.Text = "Complemento:";
             // 
@@ -480,7 +479,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textLogradouro.Location = new System.Drawing.Point(86, 29);
             this.textLogradouro.Name = "textLogradouro";
-            this.textLogradouro.Size = new System.Drawing.Size(307, 22);
+            this.textLogradouro.Size = new System.Drawing.Size(307, 26);
             this.textLogradouro.TabIndex = 0;
             this.textLogradouro.Enter += new System.EventHandler(this.textLogradouro_Enter);
             this.textLogradouro.Leave += new System.EventHandler(this.textLogradouro_Leave);
@@ -492,7 +491,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(9, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 14);
+            this.label2.Size = new System.Drawing.Size(82, 18);
             this.label2.TabIndex = 12;
             this.label2.Text = "Logradouro:";
             // 
@@ -501,7 +500,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(37, 168);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 14);
+            this.label8.Size = new System.Drawing.Size(49, 18);
             this.label8.TabIndex = 13;
             this.label8.Text = "Bairro:";
             // 
@@ -510,7 +509,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(53, 134);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(24, 14);
+            this.label6.Size = new System.Drawing.Size(28, 18);
             this.label6.TabIndex = 13;
             this.label6.Text = "UF:";
             // 
@@ -519,7 +518,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(152, 134);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 14);
+            this.label7.Size = new System.Drawing.Size(55, 18);
             this.label7.TabIndex = 13;
             this.label7.Text = "Cidade:";
             // 
@@ -543,7 +542,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(7, -1);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(54, 14);
+            this.label17.Size = new System.Drawing.Size(59, 18);
             this.label17.TabIndex = 2;
             this.label17.Text = "Filiação:";
             // 
@@ -552,7 +551,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textNomeMae.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textNomeMae.Location = new System.Drawing.Point(421, 20);
             this.textNomeMae.Name = "textNomeMae";
-            this.textNomeMae.Size = new System.Drawing.Size(307, 22);
+            this.textNomeMae.Size = new System.Drawing.Size(307, 26);
             this.textNomeMae.TabIndex = 1;
             this.textNomeMae.Enter += new System.EventHandler(this.textNomeMae_Enter);
             this.textNomeMae.Leave += new System.EventHandler(this.textNomeMae_Leave);
@@ -564,7 +563,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(388, 23);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(34, 14);
+            this.label14.Size = new System.Drawing.Size(39, 18);
             this.label14.TabIndex = 0;
             this.label14.Text = "Mãe:";
             // 
@@ -572,7 +571,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textNomePai.Location = new System.Drawing.Point(42, 20);
             this.textNomePai.Name = "textNomePai";
-            this.textNomePai.Size = new System.Drawing.Size(307, 22);
+            this.textNomePai.Size = new System.Drawing.Size(307, 26);
             this.textNomePai.TabIndex = 0;
             this.textNomePai.Enter += new System.EventHandler(this.textNomePai_Enter);
             this.textNomePai.Leave += new System.EventHandler(this.textNomePai_Leave);
@@ -583,7 +582,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(9, 23);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(27, 14);
+            this.label15.Size = new System.Drawing.Size(31, 18);
             this.label15.TabIndex = 0;
             this.label15.Text = "Pai:";
             // 
@@ -605,7 +604,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblNomeMae.AutoSize = true;
             this.lblNomeMae.Location = new System.Drawing.Point(390, 23);
             this.lblNomeMae.Name = "lblNomeMae";
-            this.lblNomeMae.Size = new System.Drawing.Size(34, 14);
+            this.lblNomeMae.Size = new System.Drawing.Size(39, 18);
             this.lblNomeMae.TabIndex = 0;
             this.lblNomeMae.Text = "Mãe:";
             // 
@@ -614,7 +613,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblNomePai.AutoSize = true;
             this.LblNomePai.Location = new System.Drawing.Point(9, 23);
             this.LblNomePai.Name = "LblNomePai";
-            this.LblNomePai.Size = new System.Drawing.Size(27, 14);
+            this.LblNomePai.Size = new System.Drawing.Size(31, 18);
             this.LblNomePai.TabIndex = 0;
             this.LblNomePai.Text = "Pai:";
             // 
@@ -625,7 +624,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxUfRg.FormattingEnabled = true;
             this.comboBoxUfRg.Location = new System.Drawing.Point(363, 108);
             this.comboBoxUfRg.Name = "comboBoxUfRg";
-            this.comboBoxUfRg.Size = new System.Drawing.Size(44, 22);
+            this.comboBoxUfRg.Size = new System.Drawing.Size(44, 26);
             this.comboBoxUfRg.TabIndex = 6;
             this.comboBoxUfRg.SelectedIndexChanged += new System.EventHandler(this.comboBoxUfRg_SelectedIndexChanged);
             this.comboBoxUfRg.Enter += new System.EventHandler(this.comboBoxUfRg_Enter);
@@ -638,7 +637,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCpf.Location = new System.Drawing.Point(479, 45);
             this.maskedTextCpf.Mask = "000,000,000-99";
             this.maskedTextCpf.Name = "maskedTextCpf";
-            this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
+            this.maskedTextCpf.Size = new System.Drawing.Size(99, 26);
             this.maskedTextCpf.TabIndex = 0;
             this.maskedTextCpf.MouseClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCpf_MouseClick);
             this.maskedTextCpf.Enter += new System.EventHandler(this.maskedTextCpf_Enter);
@@ -655,7 +654,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             "-"});
             this.comboBoxEstadoCivil.Location = new System.Drawing.Point(217, 211);
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
-            this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 22);
+            this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 26);
             this.comboBoxEstadoCivil.TabIndex = 9;
             this.comboBoxEstadoCivil.SelectedIndexChanged += new System.EventHandler(this.comboBoxEstadoCivil_SelectedIndexChanged);
             this.comboBoxEstadoCivil.Enter += new System.EventHandler(this.comboBoxEstadoCivil_Enter);
@@ -668,7 +667,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(445, 49);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(28, 14);
+            this.label12.Size = new System.Drawing.Size(35, 18);
             this.label12.TabIndex = 16;
             this.label12.Text = "CPF:";
             // 
@@ -679,7 +678,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblNascimento.AutoSize = true;
             this.LblNascimento.Location = new System.Drawing.Point(611, 80);
             this.LblNascimento.Name = "LblNascimento";
-            this.LblNascimento.Size = new System.Drawing.Size(75, 14);
+            this.LblNascimento.Size = new System.Drawing.Size(86, 18);
             this.LblNascimento.TabIndex = 15;
             this.LblNascimento.Text = "Nascimento:";
             // 
@@ -690,7 +689,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblCpf.AutoSize = true;
             this.LblCpf.Location = new System.Drawing.Point(447, 49);
             this.LblCpf.Name = "LblCpf";
-            this.LblCpf.Size = new System.Drawing.Size(28, 14);
+            this.LblCpf.Size = new System.Drawing.Size(35, 18);
             this.LblCpf.TabIndex = 16;
             this.LblCpf.Text = "CPF:";
             // 
@@ -699,7 +698,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmissorRg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textEmissorRg.Location = new System.Drawing.Point(283, 108);
             this.textEmissorRg.Name = "textEmissorRg";
-            this.textEmissorRg.Size = new System.Drawing.Size(52, 22);
+            this.textEmissorRg.Size = new System.Drawing.Size(52, 26);
             this.textEmissorRg.TabIndex = 5;
             this.textEmissorRg.Enter += new System.EventHandler(this.textEmissorRg_Enter);
             this.textEmissorRg.Leave += new System.EventHandler(this.textEmissorRg_Leave);
@@ -710,7 +709,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblUf.AutoSize = true;
             this.LblUf.Location = new System.Drawing.Point(337, 111);
             this.LblUf.Name = "LblUf";
-            this.LblUf.Size = new System.Drawing.Size(24, 14);
+            this.LblUf.Size = new System.Drawing.Size(28, 18);
             this.LblUf.TabIndex = 17;
             this.LblUf.Text = "UF:";
             // 
@@ -719,7 +718,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblEmissor.AutoSize = true;
             this.lblEmissor.Location = new System.Drawing.Point(194, 111);
             this.lblEmissor.Name = "lblEmissor";
-            this.lblEmissor.Size = new System.Drawing.Size(88, 14);
+            this.lblEmissor.Size = new System.Drawing.Size(100, 18);
             this.lblEmissor.TabIndex = 18;
             this.lblEmissor.Text = "Órgão Emissor:";
             // 
@@ -727,7 +726,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textRg.Location = new System.Drawing.Point(67, 108);
             this.textRg.Name = "textRg";
-            this.textRg.Size = new System.Drawing.Size(121, 22);
+            this.textRg.Size = new System.Drawing.Size(121, 26);
             this.textRg.TabIndex = 4;
             this.textRg.Enter += new System.EventHandler(this.textRg_Enter);
             this.textRg.Leave += new System.EventHandler(this.textRg_Leave);
@@ -740,7 +739,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblRg.AutoSize = true;
             this.lblRg.Location = new System.Drawing.Point(36, 111);
             this.lblRg.Name = "lblRg";
-            this.lblRg.Size = new System.Drawing.Size(25, 14);
+            this.lblRg.Size = new System.Drawing.Size(29, 18);
             this.lblRg.TabIndex = 20;
             this.lblRg.Text = "RG:";
             // 
@@ -750,7 +749,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(418, 112);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(45, 14);
+            this.label11.Size = new System.Drawing.Size(51, 18);
             this.label11.TabIndex = 19;
             this.label11.Text = "E-mail:";
             // 
@@ -761,7 +760,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.textEmail.Location = new System.Drawing.Point(471, 108);
             this.textEmail.Name = "textEmail";
-            this.textEmail.Size = new System.Drawing.Size(294, 22);
+            this.textEmail.Size = new System.Drawing.Size(294, 26);
             this.textEmail.TabIndex = 7;
             this.textEmail.Enter += new System.EventHandler(this.textEmail_Enter);
             this.textEmail.Leave += new System.EventHandler(this.textEmail_Leave);
@@ -773,7 +772,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblEmail.AutoSize = true;
             this.lblEmail.Location = new System.Drawing.Point(420, 112);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(45, 14);
+            this.lblEmail.Size = new System.Drawing.Size(51, 18);
             this.lblEmail.TabIndex = 19;
             this.lblEmail.Text = "E-mail:";
             // 
@@ -784,7 +783,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textConjuge.Enabled = false;
             this.textConjuge.Location = new System.Drawing.Point(430, 211);
             this.textConjuge.Name = "textConjuge";
-            this.textConjuge.Size = new System.Drawing.Size(239, 22);
+            this.textConjuge.Size = new System.Drawing.Size(239, 26);
             this.textConjuge.TabIndex = 10;
             this.textConjuge.Enter += new System.EventHandler(this.textConjuge_Enter);
             this.textConjuge.Leave += new System.EventHandler(this.textConjuge_Leave);
@@ -797,7 +796,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(362, 214);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(60, 14);
+            this.label10.Size = new System.Drawing.Size(71, 18);
             this.label10.TabIndex = 14;
             this.label10.Text = "Conjunge:";
             // 
@@ -805,7 +804,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textNome.Location = new System.Drawing.Point(67, 76);
             this.textNome.Name = "textNome";
-            this.textNome.Size = new System.Drawing.Size(404, 22);
+            this.textNome.Size = new System.Drawing.Size(404, 26);
             this.textNome.TabIndex = 2;
             this.textNome.Enter += new System.EventHandler(this.textNome_Enter);
             this.textNome.Leave += new System.EventHandler(this.textNome_Leave);
@@ -819,7 +818,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.lblConjunge.AutoSize = true;
             this.lblConjunge.Location = new System.Drawing.Point(364, 214);
             this.lblConjunge.Name = "lblConjunge";
-            this.lblConjunge.Size = new System.Drawing.Size(60, 14);
+            this.lblConjunge.Size = new System.Drawing.Size(71, 18);
             this.lblConjunge.TabIndex = 14;
             this.lblConjunge.Text = "Conjunge:";
             // 
@@ -828,7 +827,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblEstadoCivil.AutoSize = true;
             this.LblEstadoCivil.Location = new System.Drawing.Point(138, 214);
             this.LblEstadoCivil.Name = "LblEstadoCivil";
-            this.LblEstadoCivil.Size = new System.Drawing.Size(73, 14);
+            this.LblEstadoCivil.Size = new System.Drawing.Size(83, 18);
             this.LblEstadoCivil.TabIndex = 13;
             this.LblEstadoCivil.Text = "Estado Civil:";
             // 
@@ -837,7 +836,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblNome.AutoSize = true;
             this.LblNome.Location = new System.Drawing.Point(20, 80);
             this.LblNome.Name = "LblNome";
-            this.LblNome.Size = new System.Drawing.Size(42, 14);
+            this.LblNome.Size = new System.Drawing.Size(50, 18);
             this.LblNome.TabIndex = 12;
             this.LblNome.Text = "Nome:";
             // 
@@ -847,7 +846,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(599, 48);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 14);
+            this.label9.Size = new System.Drawing.Size(40, 18);
             this.label9.TabIndex = 10;
             this.label9.Text = "Rota:";
             // 
@@ -858,7 +857,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(601, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 14);
+            this.label1.Size = new System.Drawing.Size(40, 18);
             this.label1.TabIndex = 10;
             this.label1.Text = "Rota:";
             // 
@@ -867,7 +866,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textVendedoraId.Enabled = false;
             this.textVendedoraId.Location = new System.Drawing.Point(67, 45);
             this.textVendedoraId.Name = "textVendedoraId";
-            this.textVendedoraId.Size = new System.Drawing.Size(100, 22);
+            this.textVendedoraId.Size = new System.Drawing.Size(100, 26);
             this.textVendedoraId.TabIndex = 0;
             // 
             // LblCodigo
@@ -875,7 +874,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.LblCodigo.AutoSize = true;
             this.LblCodigo.Location = new System.Drawing.Point(20, 48);
             this.LblCodigo.Name = "LblCodigo";
-            this.LblCodigo.Size = new System.Drawing.Size(47, 14);
+            this.LblCodigo.Size = new System.Drawing.Size(55, 18);
             this.LblCodigo.TabIndex = 9;
             this.LblCodigo.Text = "Codigo:";
             // 
@@ -933,7 +932,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // VendedoraForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 515);
             this.Controls.Add(this.panelContent);

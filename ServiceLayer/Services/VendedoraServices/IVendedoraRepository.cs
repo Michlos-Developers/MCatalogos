@@ -51,5 +51,6 @@ namespace ServiceLayer.Services.VendedoraServices
         /// <param name="vendedoraId"></param>
         /// <param name="rotaLetraId"></param>
         void AlteraRotaLetra(int vendedoraId, int rotaLetraId);
+
     }
 }

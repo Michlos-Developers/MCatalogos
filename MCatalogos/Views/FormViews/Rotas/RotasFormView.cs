@@ -196,7 +196,7 @@ namespace MCatalogos.Views.FormViews.Rotas
                     row = tableVendedoras.NewRow();
                     row["VendedoraId"] = int.Parse(model.VendedoraId.ToString());
                     row["Nome"] = model.Nome;
-                    row["Letra"] = _rotaLetraServices.GetById(model.RotaLetraId).RotaLetra.ToString();
+                    row["Letra"] = model.RotaLetraId != 0 ? _rotaLetraServices.GetById(model.RotaLetraId).RotaLetra.ToString() : string.Empty;
 
                     tableVendedoras.Rows.Add(row);
                 }
@@ -310,7 +310,7 @@ namespace MCatalogos.Views.FormViews.Rotas
             this.pictureArrowUp.Visible = true;
             idGrid = e.RowIndex;
             this.vendedoraModel = _vendedoraServices.GetById(int.Parse(dgvVendedoraSemRota.CurrentRow.Cells["VendedoraId"].Value.ToString()));
-            this.rotaLetraModel = _rotaLetraServices.GetById(vendedoraModel.RotaLetraId);
+            this.rotaLetraModel = this.vendedoraModel.RotaLetraId != 0 ? _rotaLetraServices.GetById(vendedoraModel.RotaLetraId) : null;
 
             LoadUserControlRotasEdit();
             this.gboxEditRotas.Enabled = true;

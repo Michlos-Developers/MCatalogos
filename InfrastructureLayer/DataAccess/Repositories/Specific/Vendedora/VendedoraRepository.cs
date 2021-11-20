@@ -34,6 +34,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
         {
             _connectionString = connectionString;
         }
+        
         public VendedoraModel Add(IVendedoraModel vendedoraModel)
         {
             int idReturned = 0;
@@ -136,6 +137,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
 
             return vendedoraReturn;
         }
+
+       
         public void Update(IVendedoraModel vendedoraModel)
         {
             int result = -1;
@@ -332,8 +335,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
                                 vendedoraModel.Ativa = bool.Parse(reader["Ativa"].ToString());
+                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
 
                                 vendedoraModelsList.Add(vendedoraModel);
                             }
@@ -397,7 +400,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 vendedoraModel.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 vendedoraModel.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 vendedoraModel.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                vendedoraModel.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString())  == 0 ? 0 : int.Parse(reader["RotaLetraId"].ToString());
                                 vendedoraModel.Ativa = bool.Parse(reader["Ativa"].ToString());
 
                             }
@@ -474,7 +477,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora
                                 model.EstadoId = Int32.Parse(reader["EstadoId"].ToString());
                                 model.CidadeId = Int32.Parse(reader["CidadeId"].ToString());
                                 model.BairroId = Int32.Parse(reader["BairroId"].ToString());
-                                model.RotaLetraId = int.Parse(reader["RotaLetraId"].ToString());
+                                model.RotaLetraId = reader["RotaLetraId"] != null ? int.Parse(reader["RotaLetraId"].ToString()) : 0;
                                 model.Ativa = bool.Parse(reader["Ativa"].ToString());
                             }
                         }

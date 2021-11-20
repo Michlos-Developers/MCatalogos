@@ -116,7 +116,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
                 BairroId = bairroId,
-                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId,
+                RotaLetraId = string.IsNullOrEmpty(comboBoxRotaLetra.Text) ? 0 : _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId,
                 Ativa = true
 
             };
@@ -127,7 +127,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             try
             {
+
                 returnModel = _vendedoraServices.Add(vendedoraModel);
+
                 operationSucceeded = true;
 
             }
@@ -186,8 +188,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 EstadoId = estadoId,
                 CidadeId = cidadeId,
                 BairroId = bairroId,
-                RotaLetraId = _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId,
-                Ativa = chkBoxDesativada.Checked ? false : true                                                 
+                RotaLetraId = string.IsNullOrEmpty(comboBoxRotaLetra.Text) ? 0 : _rotaLetraServices.GetByLetra(comboBoxRotaLetra.Text).RotaLetraId,
+                Ativa = chkBoxDesativada.Checked ? false : true
 
             };
 
@@ -197,6 +199,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
             try
             {
+
                 _vendedoraServices.Update(vendedoraModel);
                 operationSucceeded = true;
 
@@ -301,8 +304,9 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     EstadoCivilModel ecm = null;
                     CidadeModel cm = null;
                     BairroModel bm = null;
-                    RotaLetraModel rlm = null;
-                    RotaModel rm = null;
+                    RotaLetraModel rlm = vm.RotaLetraId != 0 ? _rotaLetraServices.GetById(vm.RotaLetraId) : null;
+                    RotaModel rm = vm.RotaLetraId != 0 ? _rotaServices.GetByVendedoraId(vm.VendedoraId) : null;
+
 
                     this.Text = $"Ficha de {vm.Nome}";
                     this.titleFicha.Text = this.Text;
@@ -324,8 +328,8 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                     comboBoxUfEndereco.Text = (em = _estadoServices.GetById(vm.EstadoId)).Uf;
                     comboBoxCidade.Text = (cm = _cidadeServices.GetById(vm.CidadeId)).Nome;
                     comboBoxBairro.Text = (bm = _bairroServices.GetById(vm.BairroId)).Nome;
-                    comboBoxRotaLetra.Text = (rlm = _rotaLetraServices.GetById(vm.RotaLetraId)).RotaLetra.ToString();
-                    comboBoxRotaNumero.Text = (rm = _rotaServices.GetByVendedoraId(vm.VendedoraId)).Numero.ToString();
+                    comboBoxRotaLetra.Text = rlm != null ? rlm.RotaLetra.ToString() : string.Empty;
+                    comboBoxRotaNumero.Text = rm != null ? rm.Numero.ToString() : string.Empty;
                     chkBoxDesativada.Checked = vm.Ativa ? false : true;
                 }
 
@@ -706,14 +710,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
                 }
             }
         }
-        private void comboBoxRotaLetra_Validating(object sender, CancelEventArgs e)
-        {
-            if (comboBoxRotaLetra.Items.Count != 0)
-            {
 
-                e.Cancel = ValidaCampo(comboBoxRotaLetra);
-            }
-        }
         private void textNome_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = ValidaCampo(textNome);
@@ -923,7 +920,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void textNome_Enter(object sender, EventArgs e)
         {
             textNome.BackColor = SystemColors.ActiveCaption;
-            
+
         }
         private void textNome_Leave(object sender, EventArgs e)
         {
@@ -972,13 +969,13 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private void textDataNascimento_Enter(object sender, EventArgs e)
         {
-           textDataNascimento.BackColor = SystemColors.ActiveCaption;
+            textDataNascimento.BackColor = SystemColors.ActiveCaption;
 
         }
 
         private void textDataNascimento_Leave(object sender, EventArgs e)
         {
-                textDataNascimento.BackColor = SystemColors.Window;
+            textDataNascimento.BackColor = SystemColors.Window;
         }
 
 
@@ -989,7 +986,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             {
                 textDataNascimento.SelectionStart = 0;
             }
-            
+
         }
 
         private void textNome_MouseDoubleClick(object sender, MouseEventArgs e)

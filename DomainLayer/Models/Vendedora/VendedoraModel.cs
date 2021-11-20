@@ -70,7 +70,7 @@ namespace DomainLayer.Models.Vendedora
 
         public virtual ObservableCollection<TelefoneVendedoraModel> Telefones { get; set; }
 
-        [Required(AllowEmptyStrings = true)]
+        [Required( AllowEmptyStrings  = true)]
         public int RotaLetraId { get; set; }
         public RotaLetraModel RotaLetra { get; set; }
 
