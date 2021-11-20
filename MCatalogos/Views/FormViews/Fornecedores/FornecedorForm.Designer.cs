@@ -373,6 +373,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextCep.Name = "mTextCep";
             this.mTextCep.Size = new System.Drawing.Size(80, 22);
             this.mTextCep.TabIndex = 2;
+            this.mTextCep.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextCep_MouseClick);
             this.mTextCep.Enter += new System.EventHandler(this.mTextCep_Enter);
             this.mTextCep.Leave += new System.EventHandler(this.mTextCep_Leave);
             // 
@@ -539,6 +540,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextInscricaoEstadual.Name = "mTextInscricaoEstadual";
             this.mTextInscricaoEstadual.Size = new System.Drawing.Size(118, 22);
             this.mTextInscricaoEstadual.TabIndex = 1;
+            this.mTextInscricaoEstadual.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextInscricaoEstadual_MouseClick);
             this.mTextInscricaoEstadual.Enter += new System.EventHandler(this.mTextInscricaoEstadual_Enter);
             this.mTextInscricaoEstadual.Leave += new System.EventHandler(this.mTextInscricaoEstadual_Leave);
             // 
@@ -560,6 +562,7 @@ namespace MCatalogos.Views.FormViews.Fornecedores
             this.mTextCnpj.Name = "mTextCnpj";
             this.mTextCnpj.Size = new System.Drawing.Size(118, 22);
             this.mTextCnpj.TabIndex = 0;
+            this.mTextCnpj.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextCnpj_MouseClick);
             this.mTextCnpj.Enter += new System.EventHandler(this.mTextCnpj_Enter);
             this.mTextCnpj.Leave += new System.EventHandler(this.mTextCnpj_Leave);
             this.mTextCnpj.Validating += new System.ComponentModel.CancelEventHandler(this.mTextCnpj_Validating);

@@ -759,5 +759,50 @@ namespace MCatalogos.Views.FormViews.Fornecedores
         }
 
         #endregion
+
+        private void mTextCnpj_MouseClick(object sender, MouseEventArgs e)
+        {
+            string textoCnpj = mTextCnpj.Text.Replace("/", "");
+            textoCnpj = textoCnpj.Replace("_", "");
+            textoCnpj = textoCnpj.Replace(".", "");
+            textoCnpj = textoCnpj.Replace("-", "");
+
+
+
+            if (string.IsNullOrEmpty(textoCnpj.Trim()))
+            {
+
+                mTextCnpj.SelectionStart = 0;
+            }
+        }
+
+        private void mTextInscricaoEstadual_MouseClick(object sender, MouseEventArgs e)
+        {
+            string textoIncricaoEstadual = mTextInscricaoEstadual.Text.Replace("/", "");
+            textoIncricaoEstadual = textoIncricaoEstadual.Replace("_", "");
+            textoIncricaoEstadual = textoIncricaoEstadual.Replace(".", "");
+            textoIncricaoEstadual = textoIncricaoEstadual.Replace("-", "");
+
+            if (string.IsNullOrEmpty(textoIncricaoEstadual.Trim()))
+            {
+
+                mTextInscricaoEstadual.SelectionStart = 0;
+            }
+        }
+
+        private void mTextCep_MouseClick(object sender, MouseEventArgs e)
+        {
+            string textoCep = mTextCep.Text.Replace("/", "");
+            textoCep = textoCep.Replace("_", "");
+            textoCep = textoCep.Replace(".", "");
+            textoCep = textoCep.Replace("-", "");
+
+
+            if (string.IsNullOrEmpty(textoCep.Trim()))
+            {
+
+                mTextCep.SelectionStart = 0;
+            }
+        }
     }
 }
