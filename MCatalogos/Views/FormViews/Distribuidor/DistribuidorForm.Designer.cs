@@ -160,8 +160,9 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.btnCancel.TabIndex = 1;
             this.btnCancel.TabStop = false;
             this.btnCancel.Tag = "Pedidos";
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "Fechar";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.pictureClose_Click);
             // 
             // panelContainer
             // 
@@ -306,6 +307,8 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             // cbBairro
             // 
+            this.cbBairro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbBairro.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbBairro.FormattingEnabled = true;
             this.cbBairro.Location = new System.Drawing.Point(432, 76);
             this.cbBairro.Name = "cbBairro";
@@ -317,6 +320,8 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             // cbCidade
             // 
+            this.cbCidade.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbCidade.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCidade.FormattingEnabled = true;
             this.cbCidade.Location = new System.Drawing.Point(242, 78);
             this.cbCidade.Name = "cbCidade";
@@ -401,6 +406,8 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             // cbUf
             // 
+            this.cbUf.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbUf.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbUf.FormattingEnabled = true;
             this.cbUf.Location = new System.Drawing.Point(88, 78);
             this.cbUf.Name = "cbUf";
@@ -437,6 +444,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextCep.Name = "mTextCep";
             this.mTextCep.Size = new System.Drawing.Size(79, 22);
             this.mTextCep.TabIndex = 3;
+            this.mTextCep.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextCep_MouseClick);
             this.mTextCep.Enter += new System.EventHandler(this.mTextCep_Enter);
             this.mTextCep.Leave += new System.EventHandler(this.mTextCep_Leave);
             // 
@@ -457,7 +465,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextTelefone.Name = "mTextTelefone";
             this.mTextTelefone.Size = new System.Drawing.Size(95, 22);
             this.mTextTelefone.TabIndex = 7;
-            this.mTextTelefone.Text = "99999999999";
+            this.mTextTelefone.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextTelefone_MouseClick);
             this.mTextTelefone.Enter += new System.EventHandler(this.mTextTelefone_Enter);
             this.mTextTelefone.Leave += new System.EventHandler(this.mTextTelefone_Leave);
             this.mTextTelefone.Validating += new System.ComponentModel.CancelEventHandler(this.mTextTelefone_Validating);
@@ -468,6 +476,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextInscricaoEstadual.Name = "mTextInscricaoEstadual";
             this.mTextInscricaoEstadual.Size = new System.Drawing.Size(121, 22);
             this.mTextInscricaoEstadual.TabIndex = 3;
+            this.mTextInscricaoEstadual.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextInscricaoEstadual_MouseClick);
             this.mTextInscricaoEstadual.Enter += new System.EventHandler(this.mTextInscricaoEstadual_Enter);
             this.mTextInscricaoEstadual.Leave += new System.EventHandler(this.mTextInscricaoEstadual_Leave);
             // 
@@ -478,6 +487,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextCnpj.Name = "mTextCnpj";
             this.mTextCnpj.Size = new System.Drawing.Size(121, 22);
             this.mTextCnpj.TabIndex = 1;
+            this.mTextCnpj.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextCnpj_MouseClick);
             this.mTextCnpj.Enter += new System.EventHandler(this.mTextCnpj_Enter);
             this.mTextCnpj.Leave += new System.EventHandler(this.mTextCnpj_Leave);
             this.mTextCnpj.Validating += new System.ComponentModel.CancelEventHandler(this.mTextCnpj_Validating);

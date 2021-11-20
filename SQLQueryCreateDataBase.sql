@@ -3,22 +3,22 @@ DROP DATABASE MCatalogoDB
 CREATE 
 DATABASE MCatalogoDB ON PRIMARY 
 	(NAME = N'MCatalogoDB',
-		FILENAME = N'D:\DB\MCatalogo\MCatalogoDB.mdf',
+		FILENAME = N'C:\DB\MCatalogo\MCatalogoDB.mdf',
 		SIZE = 3MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10%),
 	
 FILEGROUP FG1 DEFAULT 
 	(NAME = N'MCatalogoDBFG1_Dat1',
-		FILENAME = N'D:\DB\MCatalogo\FG1\MCatalogoDB_1.ndf',
+		FILENAME = N'C:\DB\MCatalogo\FG1\MCatalogoDB_1.ndf',
 		SIZE = 2MB, MAXSIZE = UNLIMITED, FILEGROWTH = 2MB),
 	(NAME = N'MCatalogoDBFG1_Dat2',
-		FILENAME = N'D:\DB\MCatalogo\FG1\MCatalogoDB_2.ndf',
+		FILENAME = N'C:\DB\MCatalogo\FG1\MCatalogoDB_2.ndf',
 		SIZE = 2MB, MAXSIZE = UNLIMITED, FILEGROWTH = 2MB),
 	(NAME = N'MCatalogoDBFG1_Dat3',
-		FILENAME = N'D:\DB\MCatalogo\FG1\MCatalogoDB_3.ndf',
+		FILENAME = N'C:\DB\MCatalogo\FG1\MCatalogoDB_3.ndf',
 		SIZE = 2MB, MAXSIZE = UNLIMITED, FILEGROWTH = 2MB)
 LOG ON
 	(NAME = N'MCatalogoDB_Log',
-		FILENAME = N'D:\DB\MCatalogo\LOG\MCatlogoDB.ldf',
+		FILENAME = N'C:\DB\MCatalogo\LOG\MCatlogoDB.ldf',
 		SIZE = 2MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB)
 GO
 

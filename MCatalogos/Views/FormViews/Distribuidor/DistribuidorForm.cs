@@ -762,5 +762,42 @@ namespace MCatalogos.Views.FormViews.Distribuidor
                 MessageBox.Show("Não foi possível adicioanr um novo bairro à cidade");
             }
         }
+
+        private void mTextTelefone_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (string.IsNullOrEmpty(mTextTelefone.Text))
+            {
+
+                mTextTelefone.SelectionStart = 0;
+            }
+
+        }
+
+        private void mTextCnpj_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (string.IsNullOrEmpty(mTextCnpj.Text))
+            {
+
+                mTextCnpj.SelectionStart = 0;
+            }
+        }
+
+        private void mTextInscricaoEstadual_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (string.IsNullOrEmpty(mTextInscricaoEstadual.Text))
+            {
+
+                mTextInscricaoEstadual.SelectionStart = 0;
+            }
+        }
+
+        private void mTextCep_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (string.IsNullOrEmpty(mTextCep.Text))
+            {
+
+                mTextCep.SelectionStart = 0;
+            }
+        }
     }
 }
