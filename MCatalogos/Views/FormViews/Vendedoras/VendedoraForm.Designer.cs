@@ -180,6 +180,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.textDataNascimento.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textDataNascimento_MouseClick);
             this.textDataNascimento.Enter += new System.EventHandler(this.textDataNascimento_Enter);
             this.textDataNascimento.Leave += new System.EventHandler(this.textDataNascimento_Leave);
+            this.textDataNascimento.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textDataNascimento_MouseDoubleClick);
             this.textDataNascimento.Validating += new System.ComponentModel.CancelEventHandler(this.textDataNascimento_Validating);
             // 
             // panelTitle
@@ -380,6 +381,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCep.Name = "maskedTextCep";
             this.maskedTextCep.Size = new System.Drawing.Size(75, 22);
             this.maskedTextCep.TabIndex = 2;
+            this.maskedTextCep.MouseClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCep_MouseClick);
             this.maskedTextCep.Enter += new System.EventHandler(this.maskedTextCep_Enter);
             this.maskedTextCep.Leave += new System.EventHandler(this.maskedTextCep_Leave);
             this.maskedTextCep.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCep_MouseDoubleClick);
@@ -414,7 +416,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxBairro
             // 
-            this.comboBoxBairro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxBairro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxBairro.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxBairro.FormattingEnabled = true;
             this.comboBoxBairro.Location = new System.Drawing.Point(101, 165);
@@ -427,7 +429,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxCidade
             // 
-            this.comboBoxCidade.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxCidade.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxCidade.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCidade.FormattingEnabled = true;
             this.comboBoxCidade.Location = new System.Drawing.Point(208, 131);
@@ -441,7 +443,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxUfEndereco
             // 
-            this.comboBoxUfEndereco.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxUfEndereco.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxUfEndereco.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxUfEndereco.FormattingEnabled = true;
             this.comboBoxUfEndereco.Items.AddRange(new object[] {
@@ -618,7 +620,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxUfRg
             // 
-            this.comboBoxUfRg.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxUfRg.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxUfRg.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxUfRg.FormattingEnabled = true;
             this.comboBoxUfRg.Location = new System.Drawing.Point(363, 108);
@@ -638,6 +640,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.maskedTextCpf.Name = "maskedTextCpf";
             this.maskedTextCpf.Size = new System.Drawing.Size(99, 22);
             this.maskedTextCpf.TabIndex = 0;
+            this.maskedTextCpf.MouseClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCpf_MouseClick);
             this.maskedTextCpf.Enter += new System.EventHandler(this.maskedTextCpf_Enter);
             this.maskedTextCpf.Leave += new System.EventHandler(this.maskedTextCpf_Leave);
             this.maskedTextCpf.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.maskedTextCpf_MouseDoubleClick);
@@ -645,7 +648,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             // comboBoxEstadoCivil
             // 
-            this.comboBoxEstadoCivil.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxEstadoCivil.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxEstadoCivil.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxEstadoCivil.FormattingEnabled = true;
             this.comboBoxEstadoCivil.Items.AddRange(new object[] {
@@ -654,6 +657,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(115, 22);
             this.comboBoxEstadoCivil.TabIndex = 9;
+            this.comboBoxEstadoCivil.SelectedIndexChanged += new System.EventHandler(this.comboBoxEstadoCivil_SelectedIndexChanged);
             this.comboBoxEstadoCivil.Enter += new System.EventHandler(this.comboBoxEstadoCivil_Enter);
             this.comboBoxEstadoCivil.Leave += new System.EventHandler(this.comboBoxEstadoCivil_Leave);
             this.comboBoxEstadoCivil.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxEstadoCivil_Validating);
@@ -777,6 +781,7 @@ namespace MCatalogos.Views.FormViews.Vendedoras
             // 
             this.textConjuge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textConjuge.Enabled = false;
             this.textConjuge.Location = new System.Drawing.Point(430, 211);
             this.textConjuge.Name = "textConjuge";
             this.textConjuge.Size = new System.Drawing.Size(239, 22);

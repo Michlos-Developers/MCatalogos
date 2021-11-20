@@ -984,7 +984,12 @@ namespace MCatalogos.Views.FormViews.Vendedoras
 
         private void textDataNascimento_MouseClick(object sender, MouseEventArgs e)
         {
-            textDataNascimento.SelectAll();
+            string dataNascimento = textDataNascimento.Text.Replace("/", "");
+            if (string.IsNullOrEmpty(dataNascimento.Trim()))
+            {
+                textDataNascimento.SelectionStart = 0;
+            }
+            
         }
 
         private void textNome_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -1030,6 +1035,42 @@ namespace MCatalogos.Views.FormViews.Vendedoras
         private void comboBoxUfRg_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void maskedTextCpf_MouseClick(object sender, MouseEventArgs e)
+        {
+            string textoCPF = ReplaceCpf(maskedTextCpf.Text);
+            if (string.IsNullOrEmpty(textoCPF))
+            {
+                maskedTextCpf.SelectionStart = 0;
+            }
+        }
+
+        private void textDataNascimento_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textDataNascimento.SelectAll();
+        }
+
+        private void maskedTextCep_MouseClick(object sender, MouseEventArgs e)
+        {
+            string textoCEP = ReplaceCep(maskedTextCep.Text);
+            if (string.IsNullOrEmpty(textoCEP.Trim()))
+            {
+                maskedTextCep.SelectionStart = 0;
+            }
+        }
+
+        private void comboBoxEstadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxEstadoCivil.Text == "Casado")
+            {
+                textConjuge.Enabled = true;
+            }
+            else
+            {
+                textConjuge.Text = "";
+                textConjuge.Enabled = false;
+            }
         }
     }
 }
