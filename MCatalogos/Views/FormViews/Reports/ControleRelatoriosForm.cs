@@ -6,7 +6,7 @@ using MCatalogos.Commons;
 using MCatalogos.Views.FormViews.Reports.Pedidos;
 
 
-using ReportsLayer.Forms.Pedidos;
+//using ReportsLayer.Forms.Pedidos;
 
 using System;
 using System.Collections.Generic;
@@ -186,10 +186,8 @@ namespace MCatalogos.Views.FormViews.Reports
                     vendedorasList = vendedorasList.Where(vend => vend.VendedoraId == selectedVendedora.VendedoraId);
                     
                 }
-
-                ReportPedidosForm reportPedidos = new ReportPedidosForm(vendedorasList, selectedMonth, printPromissorias);
-                
-                reportPedidos.Show();
+                ReportPedidosVendedoras reportPedidosVendedoras = new ReportPedidosVendedoras(vendedorasList, selectedMonth, printPromissorias);
+                reportPedidosVendedoras.Show();
             }
         }
     }

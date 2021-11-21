@@ -223,7 +223,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
                 SelectedCatalogo = cbCatalogo.SelectedItem as CatalogoModel;
                 gbAddItem.Enabled = LoadComboBoxCampanhas(SelectedCatalogo);
-                //LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
+                LoadDetalhesPedido(PedidoModel, SelectedCatalogo);
 
 
 
@@ -232,7 +232,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
                 cbCampanha.DataSource = null;
                 gbAddItem.Enabled = false;
-                //LoadDetalhesPedido(PedidoModel, null);
+                LoadDetalhesPedido(PedidoModel, null);
 
 
 
@@ -544,6 +544,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
 
         private void textReferencia_Leave(object sender, EventArgs e)
         {
+            /*
             if (!string.IsNullOrEmpty(textReferencia.Text))
             {
                 textReferencia.BackColor = SystemColors.Window;
@@ -613,6 +614,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             {
                 textReferencia.BackColor = Color.Red;
             }
+            */
         }
 
         private ProdutoModel AdicionarNovoProduto(string referencia)
@@ -1078,6 +1080,79 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             _detalheServices.Update(itemPedido);
             CalculaTotais(null);
             AtualizaPedido(VendedoraModel, PedidoModel);
+        }
+
+        private void textQtd_Enter(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textReferencia.Text))
+            {
+                textReferencia.BackColor = SystemColors.Window;
+                if (ProdutoExiste(textReferencia.Text))
+                { //SE EXISTE ADICIONA VERIFICA SE TEM TAMANHO PARA DEPOIS ADI9CIONAR AO GRID.
+                    ProdutoModelToAddGrid = _produtoServices.GetByReference(textReferencia.Text);
+
+                    if (ProdutoModelToAddGrid.CatalogoId != SelectedCatalogo.CatalogoId)
+                    {
+                        MessageBox.Show("Produto não pertence ao catálogo selecionado.");
+                        textReferencia.Focus();
+                    }
+                    else if (ProdutoModelToAddGrid.CampanhaId != SelectedCampanha.CampanhaId)
+                    {
+                        var result = MessageBox.Show($"Produto não pertence à campanha selecionada.\nDeseja Adicionar esse produto à campanha: \n{SelectedCampanha.Nome} ?", "Produto Fora da Campanha", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {//ADICIONAR O PRODUTO CADASTRADO NA CAMPANHA ATUAL
+                            ProdutoModel produto = new ProdutoModel();
+                            produto = _produtoServices.GetByReference(textReferencia.Text);
+                            produto.CampanhaId = SelectedCampanha.CampanhaId;
+                            if (produto.MargemVendedora != null)
+                                this.ProdutoModelToAddGrid = _produtoServices.AddWithMargens(produto);
+                            else
+                                this.ProdutoModelToAddGrid = _produtoServices.AddNoMargens(produto);
+
+                            result = MessageBox.Show($"O Produto {this.ProdutoModelToAddGrid.Referencia} foi adicionado à campanha {this.SelectedCampanha}.\n Deseja revisar o preço do produto agora?", "Adicionando Produto à Campanha Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (result == DialogResult.Yes)
+                            {   // ABRIR EDIÇÃO DE PRODUTO
+                                ProdutoAddForm editaProduto = new ProdutoAddForm(ProdutoModelToAddGrid, SelectedCatalogo, SelectedCampanha, this);
+                                editaProduto.StartPosition = FormStartPosition.CenterScreen;
+                                editaProduto.ShowDialog();
+                                this.ProdutoModelToAddGrid = editaProduto.ProdutoModel;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Não se equeça de revisar o preço do produto e em seguida editar esse pedido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else if (result == DialogResult.No)
+                        {
+                            textReferencia.Focus();
+                        }
+
+
+                    }
+
+                }
+                else
+                { //adicionar produto no catalogo.
+                    ProdutoModelToAddGrid = AdicionarNovoProduto(textReferencia.Text);
+
+                }
+
+
+                if (ProdutoModelToAddGrid != null)
+                {
+
+                    ProdutoTemTamanho(ProdutoModelToAddGrid);
+                }
+                else
+                {
+                    LimpaAddPanel();
+                }
+
+            }
+            else
+            {
+                textReferencia.BackColor = Color.Red;
+            }
         }
     }
 }

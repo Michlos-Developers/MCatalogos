@@ -229,13 +229,13 @@ namespace ReportsLayer.Forms.Pedidos
             DataRow row = null;
 
             table.Columns.Add("CatalogoId", typeof(int));
-            table.Columns.Add("Nome", typeof(string));
+            table.Columns.Add("NomeCatalogo", typeof(string));
 
             foreach (var item in catalogosModelsList)
             {
                 row = table.NewRow();
                 row["CatalogoId"] = int.Parse(item.CatalogoId.ToString());
-                row["Nome"] = item.Nome.ToString();
+                row["NomeCatalogo"] = item.Nome.ToString();
 
                 table.Rows.Add(row);
             }
@@ -288,14 +288,15 @@ namespace ReportsLayer.Forms.Pedidos
 
             DataTable table = new DataTable();
             DataRow row = null;
+            table.Clear();
 
             foreach (var item in vendedorasModelsList)
             {
-                table.Columns.Add("VendedoraId", typeof(int));
+                //table.Columns.Add("VendedoraId", typeof(int));
                 table.Columns.Add("Nome", typeof(string));
 
                 row = table.NewRow();
-                row["VendedoraId"] = int.Parse(item.VendedoraId.ToString());
+                //row["VendedoraId"] = int.Parse(item.VendedoraId.ToString());
                 row["Nome"] = item.Nome.ToString();
 
                 table.Rows.Add(row);

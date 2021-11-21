@@ -389,6 +389,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             this.textQtd.Name = "textQtd";
             this.textQtd.Size = new System.Drawing.Size(40, 23);
             this.textQtd.TabIndex = 1;
+            this.textQtd.Enter += new System.EventHandler(this.textQtd_Enter);
             this.textQtd.Leave += new System.EventHandler(this.textQtd_Leave);
             // 
             // textReferencia

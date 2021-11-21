@@ -258,6 +258,12 @@
     <Compile Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.Designer.cs">
       <DependentUpon>ConfigReportPedidosUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidosVendedoras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidosVendedoras.Designer.cs">
+      <DependentUpon>ReportPedidosVendedoras.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Rotas\RotasFormView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -432,6 +438,9 @@
     <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.resx">
       <DependentUpon>ConfigReportPedidosUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ReportPedidosVendedoras.resx">
+      <DependentUpon>ReportPedidosVendedoras.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Rotas\RotasFormView.resx">
       <DependentUpon>RotasFormView.cs</DependentUpon>
     </EmbeddedResource>
@@ -472,6 +481,7 @@
       <DependentUpon>VendedorasListForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -643,6 +653,7 @@
     <None Include="Resources\IconFluxoCaixa35x35.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Reports\Adapters\" />
     <Folder Include="Views\FormViews\Financeiro\FluxoCaixa\" />
   </ItemGroup>
   <ItemGroup>
