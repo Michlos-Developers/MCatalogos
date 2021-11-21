@@ -6,8 +6,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DomainLayer.Models.Vendedora
 {
-    public class VendedoraModel : IVendedoraModel
+    public class VendedoraModel : IVendedoraModel, IDisposable
     {
+        void IDisposable.Dispose() { }
+        public void Dispose() { }
+        
+        
         public int VendedoraId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Nome é campo obrigatório")]

@@ -1,9 +1,21 @@
-﻿using DomainLayer.Models.Vendedora;
+﻿using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.PedidosVendedoras;
+using DomainLayer.Models.Reports.Pedidos;
+using DomainLayer.Models.Vendedora;
 
+using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using MCatalogos.Commons;
 using MCatalogos.Views.FormViews.Reports.Pedidos;
+
+using ServiceLayer.CommonServices;
+using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.PedidosVendedorasServices;
+using ServiceLayer.Services.VendedoraServices;
 
 
 //using ReportsLayer.Forms.Pedidos;
@@ -40,6 +52,16 @@ namespace MCatalogos.Views.FormViews.Reports
 
         #endregion
 
+        /// <summary>
+        /// SERVICES
+        /// </summary>
+        private QueryStringServices _queryString;
+        private CatalogoServices _catalogoServices;
+        private PedidosVendedorasServices _pedidoServices;
+        private DetalhePedidoSerivces _detalheServices;
+        private VendedoraServices _vendedoraServices;
+
+
         private MainView MainView;
         private static ControleRelatoriosForm aForm = null;
 
@@ -47,6 +69,12 @@ namespace MCatalogos.Views.FormViews.Reports
         List<Button> ButtonsCollection = new List<Button>();
 
         private ConfigReportPedidosUC UCPedidos = null;
+
+        private IEnumerable<IVendedoraModel> vendedorasListModel;
+        private IEnumerable<ICatalogoModel> catalogosListModel;
+        private IEnumerable<IPedidosVendedorasModel> pedidosListModel;
+        private IEnumerable<IDetalhePedidoModel> detalheListModel;
+        private List<IDadosRelatoriosPedidosVendedora> dadosRelatorioListModel = new List<IDadosRelatoriosPedidosVendedora>();
 
         internal static ControleRelatoriosForm Instance(MainView mainView)
         {
@@ -65,10 +93,25 @@ namespace MCatalogos.Views.FormViews.Reports
 
         public ControleRelatoriosForm(MainView mainView)
         {
+            _queryString = new QueryStringServices(new QueryString());
+            _vendedoraServices = new VendedoraServices(new VendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _pedidoServices = new PedidosVendedorasServices(new PedidoVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _detalheServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+
             InitializeComponent();
             this.MainView = mainView;
 
-            SetCollectionButtons();
+            
+        }
+
+        private void LoadListModels()
+        {
+            vendedorasListModel = _vendedoraServices.GetAll();
+            catalogosListModel = _catalogoServices.GetAll();
+            pedidosListModel = _pedidoServices.GetAll();
+            detalheListModel = _detalheServices.GetAll();
+
         }
 
         /// <summary>
@@ -172,6 +215,8 @@ namespace MCatalogos.Views.FormViews.Reports
         /// <param name="e"></param>
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //dadosRelatorioListModel.Clear();
+
             IEnumerable<VendedoraModel> vendedorasList = UCPedidos.vendedorasModelsList;
             int selectedMonth = UCPedidos.cbMes.SelectedIndex + 1;
             bool printPromissorias = UCPedidos.chkPrintPromissorias.Checked;
@@ -186,9 +231,57 @@ namespace MCatalogos.Views.FormViews.Reports
                     vendedorasList = vendedorasList.Where(vend => vend.VendedoraId == selectedVendedora.VendedoraId);
                     
                 }
-                ReportPedidosVendedoras reportPedidosVendedoras = new ReportPedidosVendedoras(vendedorasList, selectedMonth, printPromissorias);
-                reportPedidosVendedoras.Show();
+                
+
+                foreach (var vendedora in vendedorasList)
+                {
+                    
+                    pedidosListModel = pedidosListModel.Where(pedVend => pedVend.VendedoraId == vendedora.VendedoraId);
+                }
+
+                foreach (var pedido in pedidosListModel)
+                {
+                    detalheListModel = detalheListModel.Where(pedId => pedId.PedidoId == pedido.PedidoId);
+                }
+
+                foreach (var detalhe in detalheListModel)
+                {
+                    IDadosRelatoriosPedidosVendedora dadosRelatorio = new DadosRelatoriosPedidosVendedora()
+                    {
+                        PedidoId = detalhe.PedidoId,
+                        //UNSOLVED: NÃO ESTÁ TRAZENDO O NOME DA VENDEDORA QUANDO É PRA VIR TODAS AS VENDEDORAS
+                        VendedoraNome = vendedorasList
+                            .Where(vend => vend.VendedoraId == pedidosListModel
+                                .Where(pedId => pedId.PedidoId == detalhe.PedidoId)
+                                .Select(vnedId => vnedId.VendedoraId).FirstOrDefault())
+                            .Select(vendNom => vendNom.Nome).FirstOrDefault(),
+                        CatalogoNome = catalogosListModel.Where(catId => catId.CatalogoId == detalhe.CatalogoId).Select(catNom => catNom.Nome).FirstOrDefault(),
+                        DataVencimento = pedidosListModel.Where(pedVenc => pedVenc.PedidoId == detalhe.PedidoId).Select(venc => venc.DataVencimento).FirstOrDefault(),
+                        ItemReferencia = detalhe.Referencia,
+                        ItemDescricao = detalhe.Descricao,
+                        ItemQuantidade = detalhe.Quantidade,
+                        ItemValorUnitario = detalhe.ValorProduto,
+                        ItemValorTotal = detalhe.ValorTotalItem
+                    };
+
+                    dadosRelatorioListModel.Add(dadosRelatorio);
+                }
+
+                RelatorioPedidosVendedorasForm relatorioPedidos = new RelatorioPedidosVendedorasForm(dadosRelatorioListModel);
+                relatorioPedidos.Show();
+
+                
+                //ReportPedidosVendedoras reportPedidosVendedoras = new ReportPedidosVendedoras(vendedorasList, selectedMonth, printPromissorias);
+                //reportPedidosVendedoras.Show();
             }
+        }
+
+       
+
+        private void ControleRelatoriosForm_Load(object sender, EventArgs e)
+        {
+            SetCollectionButtons();
+            LoadListModels();
         }
     }
 }

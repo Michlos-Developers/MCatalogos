@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DomainLayer.Models.Catalogos
 {
-    public class CatalogoModel : ICatalogoModel
+    public class CatalogoModel : ICatalogoModel, IDisposable
     {
+        void IDisposable.Dispose() { }
+        public void Dispose() { }
         public int CatalogoId { get; set; }
         
         [Required(AllowEmptyStrings = false, ErrorMessage = "Nome do Catálogo é campo obrigatório")]

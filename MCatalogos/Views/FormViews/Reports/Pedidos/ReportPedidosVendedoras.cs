@@ -113,7 +113,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
 
             reportView.SetDisplayMode(DisplayMode.PrintLayout);
             reportView.ZoomMode = ZoomMode.Percent;
-            reportView.ZoomPercent = 75;
+            reportView.ZoomPercent = 100;
             this.reportView.RefreshReport();
         }
 

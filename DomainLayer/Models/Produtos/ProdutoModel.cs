@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DomainLayer.Models.Produtos
 {
-    public class ProdutoModel : IProdutoModel
+    public class ProdutoModel : IProdutoModel, IDisposable
     {
+        void IDisposable.Dispose() { }
+        public void Dispose() { }
         [Key]
         public int ProdutoId { get; set; }
 

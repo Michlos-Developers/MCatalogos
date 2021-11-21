@@ -56,6 +56,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.reportView);
             this.Name = "ReportPedidosVendedoras";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReportPedidosVendedoras";
             this.Load += new System.EventHandler(this.ReportPedidosVendedoras_Load);
             ((System.ComponentModel.ISupportInitialize)(this.reportPedidosVendedorasModelBindingSource)).EndInit();

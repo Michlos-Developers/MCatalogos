@@ -1,6 +1,8 @@
-﻿namespace DomainLayer.Models.Catalogos
+﻿using System;
+
+namespace DomainLayer.Models.Catalogos
 {
-    public interface ICatalogoModel
+    public interface ICatalogoModel : IDisposable
     {
         bool TaxaProduto { get; set; }
         bool TaxaPedido { get; set; }

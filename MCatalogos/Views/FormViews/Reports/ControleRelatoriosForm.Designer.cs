@@ -256,7 +256,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnReportContasReceber.UseVisualStyleBackColor = true;
             this.btnReportContasReceber.Visible = false;
             // 
-            // ReportControleForm
+            // ControleRelatoriosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -268,11 +268,12 @@ namespace MCatalogos.Views.FormViews.Reports
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ReportControleForm";
+            this.Name = "ControleRelatoriosForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReportControleForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportControleForm_FormClosing);
+            this.Load += new System.EventHandler(this.ControleRelatoriosForm_Load);
             this.panelCommands.ResumeLayout(false);
             this.panelTitle.ResumeLayout(false);
             this.panelTitle.PerformLayout();

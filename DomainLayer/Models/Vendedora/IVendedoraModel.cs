@@ -5,8 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace DomainLayer.Models.Vendedora
 {
-    public interface IVendedoraModel
+    public interface IVendedoraModel : IDisposable
     {
+        
+
         BairroModel Bairro { get; set; }
         int BairroId { get; set; }
         string Cep { get; set; }

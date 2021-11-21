@@ -1,14 +1,17 @@
 ﻿using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.Produtos;
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace DomainLayer.Models.PedidosVendedoras
 {
-    public class DetalhePedidoModel : IDetalhePedidoModel
+    public class DetalhePedidoModel : IDetalhePedidoModel, IDisposable
     {
+        void IDisposable.Dispose() { }
+        public void Dispose() { }
         [Key()]
         public int DetalheId { get; set; }
 

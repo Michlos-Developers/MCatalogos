@@ -1,9 +1,11 @@
 ﻿using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.Produtos;
 
+using System;
+
 namespace DomainLayer.Models.PedidosVendedoras
 {
-    public interface IDetalhePedidoModel
+    public interface IDetalhePedidoModel : IDisposable
     {
         int CampanhaId { get; set; }
         CampanhaModel CampanhaModel { get; set; }

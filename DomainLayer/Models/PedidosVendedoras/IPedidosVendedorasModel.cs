@@ -4,7 +4,7 @@ using System;
 
 namespace DomainLayer.Models.PedidosVendedoras
 {
-    public interface IPedidosVendedorasModel
+    public interface IPedidosVendedorasModel : IDisposable
     {
         DateTime DataRegistro { get; set; }
         int PedidoId { get; set; }

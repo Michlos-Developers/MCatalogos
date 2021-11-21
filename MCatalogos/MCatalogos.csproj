@@ -258,6 +258,12 @@
     <Compile Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.Designer.cs">
       <DependentUpon>ConfigReportPedidosUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\RelatorioPedidosVendedorasForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormViews\Reports\Pedidos\RelatorioPedidosVendedorasForm.Designer.cs">
+      <DependentUpon>RelatorioPedidosVendedorasForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormViews\Reports\Pedidos\ReportPedidosVendedoras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -359,6 +365,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\PedidosVendedoras\RelatorioPedidosVendedoras.rdlc" />
     <EmbeddedResource Include="Reports\Pedidos\ReportPedidosVendedoras.rdlc" />
     <EmbeddedResource Include="Views\FormViews\Bairros\BairroAddForm.resx">
       <DependentUpon>BairroAddForm.cs</DependentUpon>
@@ -438,6 +445,9 @@
     <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ConfigReportPedidosUC.resx">
       <DependentUpon>ConfigReportPedidosUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\RelatorioPedidosVendedorasForm.resx">
+      <DependentUpon>RelatorioPedidosVendedorasForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormViews\Reports\Pedidos\ReportPedidosVendedoras.resx">
       <DependentUpon>ReportPedidosVendedoras.cs</DependentUpon>
     </EmbeddedResource>
@@ -481,6 +491,7 @@
       <DependentUpon>VendedorasListForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DomainLayer.Models.Reports.Pedidos.IDadosRelatoriosPedidosVendedora.datasource" />
     <None Include="Properties\DataSources\DomainLayer.Models.Reports.Pedidos.ReportPedidosVendedorasModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

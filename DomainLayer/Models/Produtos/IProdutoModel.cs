@@ -1,6 +1,8 @@
-﻿namespace DomainLayer.Models.Produtos
+﻿using System;
+
+namespace DomainLayer.Models.Produtos
 {
-    public interface IProdutoModel
+    public interface IProdutoModel : IDisposable
     {
         bool Ativo { get; set; }
         int CampanhaId { get; set; }

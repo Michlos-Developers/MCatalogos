@@ -9,8 +9,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DomainLayer.Models.PedidosVendedoras
 {
-    public class PedidosVendedorasModel : IPedidosVendedorasModel
+    public class PedidosVendedorasModel : IPedidosVendedorasModel, IDisposable
     {
+        void IDisposable.Dispose() { }
+        public void Dispose() { }
         [Key()]
         public int PedidoId { get; set; }
 
