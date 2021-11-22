@@ -13,5 +13,9 @@ namespace DomainLayer.Models.Reports.Pedidos
         double ItemValorUnitario { get; set; }
         int PedidoId { get; set; }
         string VendedoraNome { get; set; }
+        double ItemMargemVendedora { get; set; }
+        double ItemLucroVendedora { get; set; }
+        string VendedoraRotaLetra { get; set; }
+        int VendedoraRotaNumero { get; set; }
     }
 }

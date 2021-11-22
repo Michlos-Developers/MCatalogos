@@ -24,9 +24,12 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
         {
 
             var dataSource = new ReportDataSource("DataSetPedidosVendedoras", DadosRelatorio);
-            this.reportViewer.LocalReport.DataSources.Clear();
-            this.reportViewer.LocalReport.DataSources.Add(dataSource);
-            this.reportViewer.RefreshReport();
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.DataSources.Add(dataSource);
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 100;
+            reportViewer.RefreshReport();
         }
 
     }

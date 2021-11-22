@@ -15,6 +15,7 @@ using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.DetalhePedidoServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
+using ServiceLayer.Services.RotaServices;
 using ServiceLayer.Services.VendedoraServices;
 
 
@@ -60,6 +61,8 @@ namespace MCatalogos.Views.FormViews.Reports
         private PedidosVendedorasServices _pedidoServices;
         private DetalhePedidoSerivces _detalheServices;
         private VendedoraServices _vendedoraServices;
+        private RotaLetraServices _rotaLetraServices;
+        private RotaServices _rotaNumeroServices;
 
 
         private MainView MainView;
@@ -70,10 +73,12 @@ namespace MCatalogos.Views.FormViews.Reports
 
         private ConfigReportPedidosUC UCPedidos = null;
 
-        private IEnumerable<IVendedoraModel> vendedorasListModel;
+        //private IEnumerable<IVendedoraModel> vendedorasListModel;
         private IEnumerable<ICatalogoModel> catalogosListModel;
         private IEnumerable<IPedidosVendedorasModel> pedidosListModel;
         private IEnumerable<IDetalhePedidoModel> detalheListModel;
+        private IEnumerable<IRotaLetraModel> rotaLetraListModel;
+        private IEnumerable<IRotaModel> rotaNumeroListModel;
         private List<IDadosRelatoriosPedidosVendedora> dadosRelatorioListModel = new List<IDadosRelatoriosPedidosVendedora>();
 
         internal static ControleRelatoriosForm Instance(MainView mainView)
@@ -98,19 +103,24 @@ namespace MCatalogos.Views.FormViews.Reports
             _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _pedidoServices = new PedidosVendedorasServices(new PedidoVendedoraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _detalheServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _rotaNumeroServices = new RotaServices(new RotaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.MainView = mainView;
 
-            
+
         }
 
         private void LoadListModels()
         {
-            vendedorasListModel = _vendedoraServices.GetAll();
+            //vendedorasListModel = _vendedoraServices.GetAll();
             catalogosListModel = _catalogoServices.GetAll();
             pedidosListModel = _pedidoServices.GetAll();
             detalheListModel = _detalheServices.GetAll();
+            rotaLetraListModel = _rotaLetraServices.GetAll();
+            rotaNumeroListModel = _rotaNumeroServices.GetAll();
+
 
         }
 
@@ -229,13 +239,13 @@ namespace MCatalogos.Views.FormViews.Reports
                 {
                     VendedoraModel selectedVendedora = (VendedoraModel)UCPedidos.cbVendedoras.SelectedItem;
                     vendedorasList = vendedorasList.Where(vend => vend.VendedoraId == selectedVendedora.VendedoraId);
-                    
+
                 }
-                
+
 
                 foreach (var vendedora in vendedorasList)
                 {
-                    
+
                     pedidosListModel = pedidosListModel.Where(pedVend => pedVend.VendedoraId == vendedora.VendedoraId);
                 }
 
@@ -246,23 +256,37 @@ namespace MCatalogos.Views.FormViews.Reports
 
                 foreach (var detalhe in detalheListModel)
                 {
-                    IDadosRelatoriosPedidosVendedora dadosRelatorio = new DadosRelatoriosPedidosVendedora()
-                    {
-                        PedidoId = detalhe.PedidoId,
-                        //UNSOLVED: NÃO ESTÁ TRAZENDO O NOME DA VENDEDORA QUANDO É PRA VIR TODAS AS VENDEDORAS
-                        VendedoraNome = vendedorasList
+                    int pedVendedoraId = vendedorasList.Where(vendId => vendId.VendedoraId ==
+                        (
+                            pedidosListModel.Where(pedIdVend => pedIdVend.PedidoId == detalhe.PedidoId).Select(idVend => idVend.VendedoraId).First())
+                        ).Select(idvend => idvend.VendedoraId).FirstOrDefault();
+
+                    int pedRotaLetraId = Convert.ToInt32(vendedorasList.Where(vendRotLetId => vendRotLetId.VendedoraId == pedVendedoraId).Select(rotaLtId => rotaLtId.RotaLetraId).First());
+                    int pedRotaNumeroId = Convert.ToInt32(rotaNumeroListModel.Where(vendRotNumId => vendRotNumId.VendedoraId == pedVendedoraId).Select(rotNumId => rotNumId.RotaId).First());
+
+
+                    IDadosRelatoriosPedidosVendedora dadosRelatorio = new DadosRelatoriosPedidosVendedora();
+
+                    dadosRelatorio.PedidoId = detalhe.PedidoId;
+                    //UNSOLVED: NÃO ESTÁ TRAZENDO O NOME DA VENDEDORA QUANDO É PRA VIR TODAS AS VENDEDORAS
+                    dadosRelatorio.VendedoraNome = vendedorasList
                             .Where(vend => vend.VendedoraId == pedidosListModel
                                 .Where(pedId => pedId.PedidoId == detalhe.PedidoId)
                                 .Select(vnedId => vnedId.VendedoraId).FirstOrDefault())
-                            .Select(vendNom => vendNom.Nome).FirstOrDefault(),
-                        CatalogoNome = catalogosListModel.Where(catId => catId.CatalogoId == detalhe.CatalogoId).Select(catNom => catNom.Nome).FirstOrDefault(),
-                        DataVencimento = pedidosListModel.Where(pedVenc => pedVenc.PedidoId == detalhe.PedidoId).Select(venc => venc.DataVencimento).FirstOrDefault(),
-                        ItemReferencia = detalhe.Referencia,
-                        ItemDescricao = detalhe.Descricao,
-                        ItemQuantidade = detalhe.Quantidade,
-                        ItemValorUnitario = detalhe.ValorProduto,
-                        ItemValorTotal = detalhe.ValorTotalItem
-                    };
+                            .Select(vendNom => vendNom.Nome).FirstOrDefault();
+                    dadosRelatorio.CatalogoNome = catalogosListModel.Where(catId => catId.CatalogoId == detalhe.CatalogoId).Select(catNom => catNom.Nome).FirstOrDefault();
+                    dadosRelatorio.DataVencimento = pedidosListModel.Where(pedVenc => pedVenc.PedidoId == detalhe.PedidoId).Select(venc => venc.DataVencimento).FirstOrDefault();
+                    dadosRelatorio.ItemReferencia = detalhe.Referencia;
+                    dadosRelatorio.ItemDescricao = detalhe.Descricao;
+                    dadosRelatorio.ItemQuantidade = detalhe.Quantidade;
+                    dadosRelatorio.ItemValorUnitario = detalhe.ValorProduto;
+                    dadosRelatorio.ItemValorTotal = detalhe.ValorTotalItem;
+                    dadosRelatorio.ItemMargemVendedora = detalhe.MargemVendedora;
+                    dadosRelatorio.ItemLucroVendedora = detalhe.ValorLucroVendedoraItem;
+                    dadosRelatorio.VendedoraRotaLetra = _rotaLetraServices.GetById(_vendedoraServices.GetById(pedVendedoraId).RotaLetraId).RotaLetra;
+                    dadosRelatorio.VendedoraRotaNumero = _rotaNumeroServices.GetByVendedoraId(pedVendedoraId).Numero;
+
+
 
                     dadosRelatorioListModel.Add(dadosRelatorio);
                 }
@@ -270,13 +294,13 @@ namespace MCatalogos.Views.FormViews.Reports
                 RelatorioPedidosVendedorasForm relatorioPedidos = new RelatorioPedidosVendedorasForm(dadosRelatorioListModel);
                 relatorioPedidos.Show();
 
-                
+
                 //ReportPedidosVendedoras reportPedidosVendedoras = new ReportPedidosVendedoras(vendedorasList, selectedMonth, printPromissorias);
                 //reportPedidosVendedoras.Show();
             }
         }
 
-       
+
 
         private void ControleRelatoriosForm_Load(object sender, EventArgs e)
         {

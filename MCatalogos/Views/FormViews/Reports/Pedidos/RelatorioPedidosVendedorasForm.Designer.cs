@@ -31,10 +31,14 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.IDadosRelatoriosPedidosVendedoraBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.IDadosRelatoriosPedidosVendedoraBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // IDadosRelatoriosPedidosVendedoraBindingSource
+            // 
+            this.IDadosRelatoriosPedidosVendedoraBindingSource.DataSource = typeof(DomainLayer.Models.Reports.Pedidos.IDadosRelatoriosPedidosVendedora);
             // 
             // reportViewer
             // 
@@ -48,18 +52,14 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             this.reportViewer.Location = new System.Drawing.Point(0, 0);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(800, 450);
+            this.reportViewer.Size = new System.Drawing.Size(871, 468);
             this.reportViewer.TabIndex = 0;
-            // 
-            // IDadosRelatoriosPedidosVendedoraBindingSource
-            // 
-            this.IDadosRelatoriosPedidosVendedoraBindingSource.DataSource = typeof(DomainLayer.Models.Reports.Pedidos.IDadosRelatoriosPedidosVendedora);
             // 
             // RelatorioPedidosVendedorasForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(871, 468);
             this.Controls.Add(this.reportViewer);
             this.Name = "RelatorioPedidosVendedorasForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
