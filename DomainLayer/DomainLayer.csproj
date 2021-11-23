@@ -120,10 +120,10 @@
     <Compile Include="Models\PedidosVendedoras\DetalhePedidoModel.cs" />
     <Compile Include="Models\PedidosVendedoras\PedidosVendedorasModel.cs" />
     <Compile Include="Models\Produtos\IProdutoModel.cs" />
-    <Compile Include="Models\Reports\Pedidos\DadosRelatoriosPedidosVendedora.cs" />
-    <Compile Include="Models\Reports\Pedidos\IDadosRelatoriosPedidosVendedora.cs" />
-    <Compile Include="Models\Reports\Pedidos\IReportPedidosVendedorasModel.cs" />
-    <Compile Include="Models\Reports\Pedidos\ReportPedidosVendedorasModel.cs" />
+    <Compile Include="Models\Reports\PedidosVendedoras\IRelatorioPedidosVendedorasDetalhesModel.cs" />
+    <Compile Include="Models\Reports\PedidosVendedoras\IRelatorioPedidosVendedorasMasterModel.cs" />
+    <Compile Include="Models\Reports\PedidosVendedoras\RelatorioPedidosVendedorasDetalhesModel.cs" />
+    <Compile Include="Models\Reports\PedidosVendedoras\RelatorioPedidosVendedorasMasterModel.cs" />
     <Compile Include="Models\Tamanho\ITamanhosModel.cs" />
     <Compile Include="Models\Produtos\ProdutoModel.cs" />
     <Compile Include="Models\Tamanho\TamanhosModel.cs" />

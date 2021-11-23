@@ -145,5 +145,14 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
 
             return false;
         }
+
+        private void cbVendedoras_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbVendedoras.SelectedIndex != 0)
+            {
+                int idVendedora = (cbVendedoras.SelectedItem as VendedoraModel).VendedoraId;
+                vendedorasModelsList.Where(vendId => vendId.VendedoraId == idVendedora);
+            }
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.PedidosVendedoras;
-using DomainLayer.Models.Reports.Pedidos;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
@@ -10,6 +9,7 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using MCatalogos.Commons;
 using MCatalogos.Views.FormViews.Reports.Pedidos;
+using MCatalogos.Views.FormViews.Reports.PedidoVendedora;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
@@ -79,7 +79,6 @@ namespace MCatalogos.Views.FormViews.Reports
         private IEnumerable<IDetalhePedidoModel> detalheListModel;
         private IEnumerable<IRotaLetraModel> rotaLetraListModel;
         private IEnumerable<IRotaModel> rotaNumeroListModel;
-        private List<IDadosRelatoriosPedidosVendedora> dadosRelatorioListModel = new List<IDadosRelatoriosPedidosVendedora>();
 
         internal static ControleRelatoriosForm Instance(MainView mainView)
         {
@@ -225,9 +224,13 @@ namespace MCatalogos.Views.FormViews.Reports
         /// <param name="e"></param>
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            //dadosRelatorioListModel.Clear();
+            //dadosRelatorioListModel = new List<IDadosRelatoriosPedidosVendedora>();
+            //pedidosListModel = new List<IPedidosVendedorasModel>();
+            //detalheListModel = new List<IDetalhePedidoModel>();
 
-            IEnumerable<VendedoraModel> vendedorasList = UCPedidos.vendedorasModelsList;
+            IEnumerable<VendedoraModel> vendedorasList = new List<VendedoraModel>();
+
+            vendedorasList = UCPedidos.vendedorasModelsList;
             int selectedMonth = UCPedidos.cbMes.SelectedIndex + 1;
             bool printPromissorias = UCPedidos.chkPrintPromissorias.Checked;
             if (UCPedidos != null)
@@ -242,61 +245,77 @@ namespace MCatalogos.Views.FormViews.Reports
 
                 }
 
+                #region DADOS DE RELATÓRIO TENTATIVA 3
+                //foreach (var vendedora in vendedorasList)
+                //{
 
-                foreach (var vendedora in vendedorasList)
-                {
+                //    IEnumerable<IPedidosVendedorasModel> pedidos = pedidosListModel.Where(pedVend => pedVend.VendedoraId == vendedora.VendedoraId);
 
-                    pedidosListModel = pedidosListModel.Where(pedVend => pedVend.VendedoraId == vendedora.VendedoraId);
-                }
+                //    foreach (var pedido in pedidos)
+                //    {
 
-                foreach (var pedido in pedidosListModel)
-                {
-                    detalheListModel = detalheListModel.Where(pedId => pedId.PedidoId == pedido.PedidoId);
-                }
+                //       IEnumerable<IDetalhePedidoModel> detalhes = detalheListModel.Where(pedId => pedId.PedidoId == pedido.PedidoId);
 
-                foreach (var detalhe in detalheListModel)
-                {
-                    int pedVendedoraId = vendedorasList.Where(vendId => vendId.VendedoraId ==
-                        (
-                            pedidosListModel.Where(pedIdVend => pedIdVend.PedidoId == detalhe.PedidoId).Select(idVend => idVend.VendedoraId).First())
-                        ).Select(idvend => idvend.VendedoraId).FirstOrDefault();
+                //        foreach (var detalhe in detalhes)
+                //        {
+                //            int pedVendedoraId = vendedorasList.Where(vendId => vendId.VendedoraId ==
+                //                (
+                //                    pedidos.Where(pedIdVend => pedIdVend.PedidoId == detalhe.PedidoId).Select(idVend => idVend.VendedoraId).First())
+                //                ).Select(idvend => idvend.VendedoraId).FirstOrDefault();
 
-                    int pedRotaLetraId = Convert.ToInt32(vendedorasList.Where(vendRotLetId => vendRotLetId.VendedoraId == pedVendedoraId).Select(rotaLtId => rotaLtId.RotaLetraId).First());
-                    int pedRotaNumeroId = Convert.ToInt32(rotaNumeroListModel.Where(vendRotNumId => vendRotNumId.VendedoraId == pedVendedoraId).Select(rotNumId => rotNumId.RotaId).First());
-
-
-                    IDadosRelatoriosPedidosVendedora dadosRelatorio = new DadosRelatoriosPedidosVendedora();
-
-                    dadosRelatorio.PedidoId = detalhe.PedidoId;
-                    //UNSOLVED: NÃO ESTÁ TRAZENDO O NOME DA VENDEDORA QUANDO É PRA VIR TODAS AS VENDEDORAS
-                    dadosRelatorio.VendedoraNome = vendedorasList
-                            .Where(vend => vend.VendedoraId == pedidosListModel
-                                .Where(pedId => pedId.PedidoId == detalhe.PedidoId)
-                                .Select(vnedId => vnedId.VendedoraId).FirstOrDefault())
-                            .Select(vendNom => vendNom.Nome).FirstOrDefault();
-                    dadosRelatorio.CatalogoNome = catalogosListModel.Where(catId => catId.CatalogoId == detalhe.CatalogoId).Select(catNom => catNom.Nome).FirstOrDefault();
-                    dadosRelatorio.DataVencimento = pedidosListModel.Where(pedVenc => pedVenc.PedidoId == detalhe.PedidoId).Select(venc => venc.DataVencimento).FirstOrDefault();
-                    dadosRelatorio.ItemReferencia = detalhe.Referencia;
-                    dadosRelatorio.ItemDescricao = detalhe.Descricao;
-                    dadosRelatorio.ItemQuantidade = detalhe.Quantidade;
-                    dadosRelatorio.ItemValorUnitario = detalhe.ValorProduto;
-                    dadosRelatorio.ItemValorTotal = detalhe.ValorTotalItem;
-                    dadosRelatorio.ItemMargemVendedora = detalhe.MargemVendedora;
-                    dadosRelatorio.ItemLucroVendedora = detalhe.ValorLucroVendedoraItem;
-                    dadosRelatorio.VendedoraRotaLetra = _rotaLetraServices.GetById(_vendedoraServices.GetById(pedVendedoraId).RotaLetraId).RotaLetra;
-                    dadosRelatorio.VendedoraRotaNumero = _rotaNumeroServices.GetByVendedoraId(pedVendedoraId).Numero;
+                //            int pedRotaLetraId = Convert.ToInt32(vendedorasList.Where(vendRotLetId => vendRotLetId.VendedoraId == pedVendedoraId).Select(rotaLtId => rotaLtId.RotaLetraId).First());
+                //            int pedRotaNumeroId = Convert.ToInt32(rotaNumeroListModel.Where(vendRotNumId => vendRotNumId.VendedoraId == pedVendedoraId).Select(rotNumId => rotNumId.RotaId).First());
 
 
+                //            IDadosRelatoriosPedidosVendedora dadosRelatorio = new DadosRelatoriosPedidosVendedora();
 
-                    dadosRelatorioListModel.Add(dadosRelatorio);
-                }
+                //            dadosRelatorio.PedidoId = detalhe.PedidoId;
+                //            //UNSOLVED: NÃO ESTÁ TRAZENDO O NOME DA VENDEDORA QUANDO É PRA VIR TODAS AS VENDEDORAS
+                //            dadosRelatorio.VendedoraNome = vendedorasList
+                //                    .Where(vend => vend.VendedoraId == pedidos
+                //                        .Where(pedId => pedId.PedidoId == detalhe.PedidoId)
+                //                        .Select(vnedId => vnedId.VendedoraId).FirstOrDefault())
+                //                    .Select(vendNom => vendNom.Nome).FirstOrDefault();
+                //            dadosRelatorio.CatalogoNome = catalogosListModel.Where(catId => catId.CatalogoId == detalhe.CatalogoId).Select(catNom => catNom.Nome).FirstOrDefault();
+                //            dadosRelatorio.DataVencimento = pedidos.Where(pedVenc => pedVenc.PedidoId == detalhe.PedidoId).Select(venc => venc.DataVencimento).FirstOrDefault();
+                //            dadosRelatorio.ItemReferencia = detalhe.Referencia;
+                //            dadosRelatorio.ItemDescricao = detalhe.Descricao;
+                //            dadosRelatorio.ItemQuantidade = detalhe.Quantidade;
+                //            dadosRelatorio.ItemValorUnitario = detalhe.Faltou ? 0 : detalhe.ValorProduto;
+                //            dadosRelatorio.ItemValorTotal = detalhe.Faltou ? 0 : detalhe.ValorTotalItem;
+                //            dadosRelatorio.ItemMargemVendedora = detalhe.MargemVendedora;
+                //            dadosRelatorio.ItemLucroVendedora = detalhe.Faltou ? 0 : detalhe.ValorLucroVendedoraItem;
+                //            dadosRelatorio.VendedoraRotaLetra = _rotaLetraServices.GetById(_vendedoraServices.GetById(pedVendedoraId).RotaLetraId).RotaLetra;
+                //            dadosRelatorio.VendedoraRotaNumero = _rotaNumeroServices.GetByVendedoraId(pedVendedoraId).Numero;
+                //            dadosRelatorio.PedidoValorTotal = (double)pedido.ValorTotalPedido;
+                //            dadosRelatorio.PedidoValorTotalLucro = (double)pedido.ValorLucroVendedora;
+                //            dadosRelatorio.PedidoValorTotalPagar = (double)pedido.ValorTotalPagar;
+                //            dadosRelatorio.ItemFaltou = detalhe.Faltou ? "F" : string.Empty;
 
-                RelatorioPedidosVendedorasForm relatorioPedidos = new RelatorioPedidosVendedorasForm(dadosRelatorioListModel);
-                relatorioPedidos.Show();
 
 
-                //ReportPedidosVendedoras reportPedidosVendedoras = new ReportPedidosVendedoras(vendedorasList, selectedMonth, printPromissorias);
-                //reportPedidosVendedoras.Show();
+                //            dadosRelatorioListModel.Add(dadosRelatorio);
+                //        }
+                //    }
+                //}
+
+
+
+                //RelatorioPedidosVendedorasForm relatorioPedidos = new RelatorioPedidosVendedorasForm(dadosRelatorioListModel);
+                //relatorioPedidos.Show();
+
+
+                //    ReportPedidosVendedoras reportPedidosVendedoras = new ReportPedidosVendedoras(vendedorasList, selectedMonth, printPromissorias);
+                //    reportPedidosVendedoras.Show();
+
+
+
+                //RelatorioPedidosVendedorasForm relatorioPedidos = new RelatorioPedidosVendedorasForm(vendedorasList, selectedMonth, printPromissorias);
+                //relatorioPedidos.Show();
+                #endregion
+
+                RelatorioPedidoVendedoraGeral relatorioPedidosGeral = new RelatorioPedidoVendedoraGeral(vendedorasList, selectedMonth, printPromissorias);
+                relatorioPedidosGeral.Show();
             }
         }
 
@@ -307,5 +326,7 @@ namespace MCatalogos.Views.FormViews.Reports
             SetCollectionButtons();
             LoadListModels();
         }
+
+
     }
 }

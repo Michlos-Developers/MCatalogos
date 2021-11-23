@@ -43,6 +43,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             this.cbVendedoras.Name = "cbVendedoras";
             this.cbVendedoras.Size = new System.Drawing.Size(267, 21);
             this.cbVendedoras.TabIndex = 0;
+            this.cbVendedoras.SelectedIndexChanged += new System.EventHandler(this.cbVendedoras_SelectedIndexChanged);
             // 
             // label1
             // 
