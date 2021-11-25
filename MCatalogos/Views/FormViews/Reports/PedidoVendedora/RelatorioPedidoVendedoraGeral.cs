@@ -75,7 +75,6 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
         private void LocalReport_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
         {
             var dataSource = new ReportDataSource("DSPedidoVendedoraDetalhe", relatorioDetalhe);
-            //e.DataSources.Clear();
             e.DataSources.Add(dataSource);
         }
 
