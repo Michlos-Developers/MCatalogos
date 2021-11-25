@@ -31,9 +31,9 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
             PedidosVendedorasModel pedidoVendedora = new PedidosVendedorasModel();
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
             string query = "INSERT INTO PedidosVendedoras " +
-                           "(VendedoraId, StatusPed, ValorTaxaPedido) " +
+                           "(VendedoraId, StatusPed, ValorTaxaPedido, DataVencimento) " +
                            "output INSERTED.PedidoId " +
-                           "VALUES (@VendedoraId, @StatusPed, @ValorTaxaPedido)";
+                           "VALUES (@VendedoraId, @StatusPed, @ValorTaxaPedido, @DataVencimento)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -46,6 +46,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                         cmd.Parameters.AddWithValue("@VendedoraId", pedido.VendedoraId);
                         cmd.Parameters.AddWithValue("@StatusPed", pedido.StatusPed);
                         cmd.Parameters.AddWithValue("@ValorTaxaPedido", pedido.ValorTaxaPedido != null ? pedido.ValorTaxaPedido : 0);
+                        cmd.Parameters.AddWithValue("@DataVencimento", pedido.DataVencimento);
                         IdReturned = (int)cmd.ExecuteScalar();
                     }
 
@@ -121,6 +122,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
 
 
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
@@ -172,6 +174,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -221,6 +224,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -270,6 +274,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -319,6 +324,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -368,6 +374,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -417,6 +424,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -465,6 +473,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -512,6 +521,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());
@@ -560,6 +570,7 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora
                                 model.PedidoId = int.Parse(reader["PedidoId"].ToString());
                                 model.VendedoraId = int.Parse(reader["VendedoraId"].ToString());
                                 model.DataRegistro = DateTime.Parse(reader["DataRegistro"].ToString());
+                                model.DataVencimento = DateTime.Parse(reader["DataVencimento"].ToString());
                                 model.ValorTotalPedido = string.IsNullOrEmpty(reader["ValorTotalPedido"].ToString()) ? 0.0 : double.Parse(reader["ValorTotalPedido"].ToString());
                                 model.ValorLucroVendedora = string.IsNullOrEmpty(reader["ValorLucroVendedora"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroVendedora"].ToString());
                                 model.ValorLucroDistribuidor = string.IsNullOrEmpty(reader["ValorLucroDistribuidor"].ToString()) ? 0.0 : double.Parse(reader["ValorLucroDistribuidor"].ToString());

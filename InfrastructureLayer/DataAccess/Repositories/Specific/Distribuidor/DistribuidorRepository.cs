@@ -50,11 +50,11 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
             DataAccessStatus dataAccessStatus = new DataAccessStatus();
 
             string query = "INSERT INTO Distribuidor " +
-                "(NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, NomeResponsavel, TelefoneContato, " +
+                "(NomeFantasia, RazaoSocial, Cnpj, InscricaoEstadual, Email, WebSite, NomeResponsavel, DiaVencimento, DiaEmissaoPromissoria, TelefoneContato, " +
                 "Logradouro, Numero, Complemento, Cep, UfId, CidadeId, BairroId) " +
                 "OUTPUT INSERTED.DistribuidorId " +
                 "VALUES " +
-                "(@NomeFantasia, @RazaoSocial, @Cnpj, @InscricaoEstadual, @Email, @WebSite, @NomeResponsavel, @TelefoneContato, @Logradouro, @Numero, @Complemento, @Cep, @UfId, @CidadeId, @BairroId)";
+                "(@NomeFantasia, @RazaoSocial, @Cnpj, @InscricaoEstadual, @Email, @WebSite, @NomeResponsavel, @DiaVencimento, @DiaEmissaoPromissoria, @TelefoneContato, @Logradouro, @Numero, @Complemento, @Cep, @UfId, @CidadeId, @BairroId)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -72,6 +72,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
                         cmd.Parameters.AddWithValue("@Email", distribuidorModel.Email);
                         cmd.Parameters.AddWithValue("@WebSite", distribuidorModel.WebSite);
                         cmd.Parameters.AddWithValue("@NomeResponsavel", distribuidorModel.NomeResponsavel);
+                        cmd.Parameters.AddWithValue("@DiaVencimento", distribuidorModel.DiaVencimento);
+                        cmd.Parameters.AddWithValue("@DiaEmissaoPromissoria", distribuidorModel.DiaEmissaoPromissoria);
                         cmd.Parameters.AddWithValue("@TelefoneContato", distribuidorModel.TelefoneContato);
                         cmd.Parameters.AddWithValue("@Logradouro", distribuidorModel.Logradouro);
                         cmd.Parameters.AddWithValue("@Numero", distribuidorModel.Numero);
@@ -129,6 +131,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
                                 model.Email = reader["Email"] != null ? reader["Email"].ToString() : string.Empty;
                                 model.WebSite = reader["WebSite"] != null ? reader["WebSite"].ToString() : string.Empty;
                                 model.NomeResponsavel = reader["NomeResponsavel"].ToString();
+                                model.DiaVencimento = int.Parse(reader["DiaVencimento"].ToString());
+                                model.DiaEmissaoPromissoria = int.Parse(reader["DiaEmissaoPromissoria"].ToString());
                                 model.TelefoneContato = reader["TelefoneContato"].ToString();
                                 model.Logradouro = reader["Logradouro"].ToString();
                                 model.Numero = reader["Numero"].ToString();
@@ -162,7 +166,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
             string query = "UPDATE Distribuidor " +
                            "SET NomeFantasia = @NomeFantasia, RazaoSocial = @RazaoSocial, Cnpj = @Cnpj, " +
                            "InscricaoEstadual = @InscricaoEstadual, Email = @Email, WebSite = @WebSite, " +
-                           "NomeResponsavel = @NomeResponsavel, TelefoneContato = @TelefoneContato, " +
+                           "NomeResponsavel = @NomeResponsavel, DiaVencimento = @DiaVencimento, " +
+                           "DiaEmissaoPromissoria = @DiaEmissaoPromissoria, TelefoneContato = @TelefoneContato, " +
                            "Logradouro = @Logradouro, Numero = @Numero, Complemento = @Complemento, Cep = @Cep, " +
                            "UfId = @UfId, CidadeId = @CidadeId, BairroId = @BairroId " +
                            "WHERE DistribuidorId = @DistribuidorId";
@@ -183,6 +188,8 @@ namespace InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor
                         cmd.Parameters.AddWithValue("@Email", distribuidorModel.Email);
                         cmd.Parameters.AddWithValue("@WebSite", distribuidorModel.WebSite);
                         cmd.Parameters.AddWithValue("@NomeResponsavel", distribuidorModel.NomeResponsavel);
+                        cmd.Parameters.AddWithValue("@DiaVencimento", distribuidorModel.DiaVencimento);
+                        cmd.Parameters.AddWithValue("@DiaEmissaoPromissoria", distribuidorModel.DiaEmissaoPromissoria);
                         cmd.Parameters.AddWithValue("@TelefoneContato", distribuidorModel.TelefoneContato);
                         cmd.Parameters.AddWithValue("@Logradouro", distribuidorModel.Logradouro);
                         cmd.Parameters.AddWithValue("@Numero", distribuidorModel.Numero);

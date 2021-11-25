@@ -18,5 +18,7 @@
         string TelefoneContato { get; set; }
         int UfId { get; set; }
         string WebSite { get; set; }
+        int DiaVencimento { get; set; }
+        int DiaEmissaoPromissoria { get; set; }
     }
 }

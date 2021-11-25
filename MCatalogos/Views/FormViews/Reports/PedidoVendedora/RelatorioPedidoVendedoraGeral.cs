@@ -1,10 +1,16 @@
-﻿using DomainLayer.Models.Catalogos;
+﻿using CommonComponents;
+
+using DomainLayer.Models.Catalogos;
+using DomainLayer.Models.CommonModels.Address;
+using DomainLayer.Models.Distribuidor;
 using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Reports.PedidosVendedoras;
 using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
+using InfrastructureLayer.DataAccess.Repositories.Commons;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor;
 using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
@@ -12,7 +18,9 @@ using Microsoft.Reporting.WinForms;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
+using ServiceLayer.Services.CidadeServices;
 using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.DistribuidorServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
 using ServiceLayer.Services.RotaServices;
 
@@ -37,6 +45,8 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
         private DetalhePedidoSerivces _detalhesServices;
         private RotaLetraServices _rotaLetraServices;
         private RotaServices _rotaNumeroServices;
+        private CidadeServices _cidadeServices;
+        private DistribuidorServices _distribuidorServices;
 
         //LIST MODELS
         private IEnumerable<ICatalogoModel> catalogosListModel;
@@ -44,15 +54,19 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
         private IEnumerable<IDetalhePedidoModel> detalheListModel;
         private IEnumerable<IRotaLetraModel> rotaLetraListModel;
         private IEnumerable<IRotaModel> rotaNumeroListModel;
+        private IDistribuidorModel distribuidorModel;
+        private IEnumerable<ICidadeModel> cidadeListModel;
+
 
         private List<IRelatorioPedidosVendedorasMasterModel> relatorioMaster = new List<IRelatorioPedidosVendedorasMasterModel>();
         private List<IRelatorioPedidosVendedorasDetalhesModel> relatorioDetalhe = new List<IRelatorioPedidosVendedorasDetalhesModel>();
+        private List<IRelatorioPromissoriasModel> relatorioPromissoria = new List<IRelatorioPromissoriasModel>();
 
 
 
         private IEnumerable<VendedoraModel> vendedorasList;
         private int selectedMonth;
-        private bool printPromissorias;
+        public bool printPromissorias;
 
         public RelatorioPedidoVendedoraGeral(IEnumerable<VendedoraModel> vendedorasList, int selectedMonth, bool printPromissorias)
         {
@@ -62,7 +76,8 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
             _detalhesServices = new DetalhePedidoSerivces(new DetalhePedidoRepository(_queryStringServices.GetQueryApp()), new ModelDataAnnotationCheck());
             _rotaLetraServices = new RotaLetraServices(new RotaLetraRepository(_queryStringServices.GetQueryApp()), new ModelDataAnnotationCheck());
             _rotaNumeroServices = new RotaServices(new RotaRepository(_queryStringServices.GetQueryApp()), new ModelDataAnnotationCheck());
-
+            _cidadeServices = new CidadeServices(new CidadeRepository(_queryStringServices.GetQueryApp()), new ModelDataAnnotationCheck());
+            _distribuidorServices = new DistribuidorServices(new DistribuidorRepository(_queryStringServices.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             this.vendedorasList = vendedorasList;
@@ -76,6 +91,9 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
         {
             var dataSource = new ReportDataSource("DSPedidoVendedoraDetalhe", relatorioDetalhe);
             e.DataSources.Add(dataSource);
+            var dataSourcePromissoria = new ReportDataSource("DSRelatorioPromissorias", relatorioPromissoria);
+            e.DataSources.Add(dataSourcePromissoria);
+
         }
 
         private void RelatorioPedidoVendedoraGeral_Load(object sender, EventArgs e)
@@ -113,6 +131,26 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
                     relMaster.VendedoraRota = $"{rotaLetra}-{rotaNumero}";
                     relatorioMaster.Add(relMaster);
 
+                    RelatorioPromissoriasModel relProm = new RelatorioPromissoriasModel();
+                    relProm.PedidoId = pedido.PedidoId;
+                    relProm.DataEmissao = DateTime.Parse($"{pedido.DataRegistro.Year}/{pedido.DataRegistro.Month}/{distribuidorModel.DiaEmissaoPromissoria}");
+                    relProm.ValorPagar = (double)pedido.ValorTotalPagar;
+                    relProm.DataVencimento = pedido.DataVencimento;
+                    relProm.VendedoraId = pedido.VendedoraId;
+                    relProm.VendedoraCpf = string.Format(@"{0:000\.000\.000\-00}", long.Parse(vendedora.Cpf));
+                    relProm.VendedoraNome = vendedora.Nome;
+                    relProm.VendedoraEndereco = $"{vendedora.Logradouro}, {vendedora.Numero}, {vendedora.Complemento}";
+                    relProm.DistribuidorCidade = cidadeListModel.Where(cidId => cidId.CidadeId == distribuidorModel.CidadeId).Select(cidNome => cidNome.Nome).FirstOrDefault();
+                    relProm.DistribuidorRazao = distribuidorModel.RazaoSocial;
+                    relProm.DistribuidorCnpj = string.Format(@"{0:00\.000\.000\/0000\-00}", long.Parse(distribuidorModel.Cnpj));
+                    relProm.ExtensoValor = WriteCurrencyValue.GetExtesionValue((double)pedido.ValorTotalPagar).ToUpper();
+                    relProm.ExtensoDataVencimento = WriteDateTime.GetCompleteDate(pedido.DataVencimento).ToUpper();
+                    if (!printPromissorias)
+                    {
+                        relProm.PedidoId = 0;
+                    }
+                    relatorioPromissoria.Add(relProm);
+
                     IEnumerable<IDetalhePedidoModel> pedidoDetalhe = detalheListModel.Where(ped => ped.PedidoId == pedido.PedidoId);
                     foreach (var detalhe in pedidoDetalhe)
                     {
@@ -141,6 +179,8 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
             detalheListModel = _detalhesServices.GetAll();
             rotaLetraListModel = _rotaLetraServices.GetAll();
             rotaNumeroListModel = _rotaNumeroServices.GetAll();
+            distribuidorModel = _distribuidorServices.GetModel();
+            cidadeListModel = _cidadeServices.GetAll();
         }
     }
 }

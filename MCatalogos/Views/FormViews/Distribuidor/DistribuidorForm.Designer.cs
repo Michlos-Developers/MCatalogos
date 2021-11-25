@@ -72,12 +72,19 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.textNomeFantasia = new System.Windows.Forms.TextBox();
             this.formError = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.textVencimento = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textEmissao = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
             this.panelCommands.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formError)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTitle
@@ -112,7 +119,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.title.ForeColor = System.Drawing.SystemColors.ControlText;
             this.title.Location = new System.Drawing.Point(10, 8);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(141, 14);
+            this.title.Size = new System.Drawing.Size(158, 18);
             this.title.TabIndex = 0;
             this.title.Text = "Cadastro do Distribuidor";
             // 
@@ -168,6 +175,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.panelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(111)))), ((int)(((byte)(156)))));
             this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelContainer.Controls.Add(this.groupBox2);
             this.panelContainer.Controls.Add(this.label8);
             this.panelContainer.Controls.Add(this.label7);
             this.panelContainer.Controls.Add(this.label6);
@@ -196,7 +204,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(53, 166);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 14);
+            this.label8.Size = new System.Drawing.Size(67, 18);
             this.label8.TabIndex = 4;
             this.label8.Text = "Telefone:";
             // 
@@ -205,7 +213,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(80, 138);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 14);
+            this.label7.Size = new System.Drawing.Size(36, 18);
             this.label7.TabIndex = 4;
             this.label7.Text = "Site:";
             // 
@@ -214,7 +222,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(66, 110);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 14);
+            this.label6.Size = new System.Drawing.Size(51, 18);
             this.label6.TabIndex = 4;
             this.label6.Text = "E-mail:";
             // 
@@ -223,7 +231,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(31, 82);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 14);
+            this.label3.Size = new System.Drawing.Size(90, 18);
             this.label3.TabIndex = 4;
             this.label3.Text = "Responsável:";
             // 
@@ -232,7 +240,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(32, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 14);
+            this.label2.Size = new System.Drawing.Size(87, 18);
             this.label2.TabIndex = 4;
             this.label2.Text = "Razão Social:";
             // 
@@ -241,7 +249,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(465, 54);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(110, 14);
+            this.label5.Size = new System.Drawing.Size(121, 18);
             this.label5.TabIndex = 4;
             this.label5.Text = "Inscrição Estadual:";
             // 
@@ -250,7 +258,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(542, 27);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 14);
+            this.label4.Size = new System.Drawing.Size(42, 18);
             this.label4.TabIndex = 4;
             this.label4.Text = "CNPJ:";
             // 
@@ -259,7 +267,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 14);
+            this.label1.Size = new System.Drawing.Size(104, 18);
             this.label1.TabIndex = 4;
             this.label1.Text = "Nome Fantasia:";
             // 
@@ -312,7 +320,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.cbBairro.FormattingEnabled = true;
             this.cbBairro.Location = new System.Drawing.Point(432, 76);
             this.cbBairro.Name = "cbBairro";
-            this.cbBairro.Size = new System.Drawing.Size(121, 22);
+            this.cbBairro.Size = new System.Drawing.Size(121, 26);
             this.cbBairro.TabIndex = 6;
             this.cbBairro.Enter += new System.EventHandler(this.cbBairro_Enter);
             this.cbBairro.Leave += new System.EventHandler(this.cbBairro_Leave);
@@ -325,7 +333,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.cbCidade.FormattingEnabled = true;
             this.cbCidade.Location = new System.Drawing.Point(242, 78);
             this.cbCidade.Name = "cbCidade";
-            this.cbCidade.Size = new System.Drawing.Size(121, 22);
+            this.cbCidade.Size = new System.Drawing.Size(121, 26);
             this.cbCidade.TabIndex = 5;
             this.cbCidade.SelectedIndexChanged += new System.EventHandler(this.cbCidade_SelectedIndexChanged);
             this.cbCidade.Enter += new System.EventHandler(this.cbCidade_Enter);
@@ -337,7 +345,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(403, 52);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(28, 14);
+            this.label13.Size = new System.Drawing.Size(35, 18);
             this.label13.TabIndex = 4;
             this.label13.Text = "CEP:";
             // 
@@ -346,7 +354,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(408, 24);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(23, 14);
+            this.label11.Size = new System.Drawing.Size(28, 18);
             this.label11.TabIndex = 4;
             this.label11.Text = "Nº:";
             // 
@@ -355,7 +363,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(369, 82);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(43, 14);
+            this.label16.Size = new System.Drawing.Size(49, 18);
             this.label16.TabIndex = 4;
             this.label16.Text = "Bairro:";
             // 
@@ -364,7 +372,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(192, 82);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(48, 14);
+            this.label15.Size = new System.Drawing.Size(55, 18);
             this.label15.TabIndex = 4;
             this.label15.Text = "Cidade:";
             // 
@@ -373,7 +381,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(62, 82);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(24, 14);
+            this.label14.Size = new System.Drawing.Size(28, 18);
             this.label14.TabIndex = 4;
             this.label14.Text = "UF:";
             // 
@@ -382,7 +390,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(16, 52);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(86, 14);
+            this.label12.Size = new System.Drawing.Size(101, 18);
             this.label12.TabIndex = 4;
             this.label12.Text = "Complemento:";
             // 
@@ -391,7 +399,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(31, 24);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 14);
+            this.label10.Size = new System.Drawing.Size(82, 18);
             this.label10.TabIndex = 4;
             this.label10.Text = "Logradouro:";
             // 
@@ -400,7 +408,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(6, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(60, 14);
+            this.label9.Size = new System.Drawing.Size(70, 18);
             this.label9.TabIndex = 4;
             this.label9.Text = "Endereço:";
             // 
@@ -411,7 +419,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.cbUf.FormattingEnabled = true;
             this.cbUf.Location = new System.Drawing.Point(88, 78);
             this.cbUf.Name = "cbUf";
-            this.cbUf.Size = new System.Drawing.Size(55, 22);
+            this.cbUf.Size = new System.Drawing.Size(55, 26);
             this.cbUf.TabIndex = 4;
             this.cbUf.SelectedIndexChanged += new System.EventHandler(this.cbUf_SelectedIndexChanged);
             this.cbUf.Enter += new System.EventHandler(this.cbUf_Enter);
@@ -422,7 +430,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textNumero.Location = new System.Drawing.Point(432, 20);
             this.textNumero.Name = "textNumero";
-            this.textNumero.Size = new System.Drawing.Size(46, 22);
+            this.textNumero.Size = new System.Drawing.Size(46, 26);
             this.textNumero.TabIndex = 1;
             this.textNumero.Enter += new System.EventHandler(this.textNumero_Enter);
             this.textNumero.Leave += new System.EventHandler(this.textNumero_Leave);
@@ -432,7 +440,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textComplemento.Location = new System.Drawing.Point(103, 48);
             this.textComplemento.Name = "textComplemento";
-            this.textComplemento.Size = new System.Drawing.Size(260, 22);
+            this.textComplemento.Size = new System.Drawing.Size(260, 26);
             this.textComplemento.TabIndex = 2;
             this.textComplemento.Enter += new System.EventHandler(this.textComplemento_Enter);
             this.textComplemento.Leave += new System.EventHandler(this.textComplemento_Leave);
@@ -442,7 +450,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextCep.Location = new System.Drawing.Point(432, 48);
             this.mTextCep.Mask = "00,000-999";
             this.mTextCep.Name = "mTextCep";
-            this.mTextCep.Size = new System.Drawing.Size(79, 22);
+            this.mTextCep.Size = new System.Drawing.Size(79, 26);
             this.mTextCep.TabIndex = 3;
             this.mTextCep.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextCep_MouseClick);
             this.mTextCep.Enter += new System.EventHandler(this.mTextCep_Enter);
@@ -452,7 +460,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textLogradouro.Location = new System.Drawing.Point(103, 20);
             this.textLogradouro.Name = "textLogradouro";
-            this.textLogradouro.Size = new System.Drawing.Size(260, 22);
+            this.textLogradouro.Size = new System.Drawing.Size(260, 26);
             this.textLogradouro.TabIndex = 0;
             this.textLogradouro.Enter += new System.EventHandler(this.textLogradouro_Enter);
             this.textLogradouro.Leave += new System.EventHandler(this.textLogradouro_Leave);
@@ -463,7 +471,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextTelefone.Location = new System.Drawing.Point(112, 163);
             this.mTextTelefone.Mask = "(99) 9 0000-0000";
             this.mTextTelefone.Name = "mTextTelefone";
-            this.mTextTelefone.Size = new System.Drawing.Size(95, 22);
+            this.mTextTelefone.Size = new System.Drawing.Size(95, 26);
             this.mTextTelefone.TabIndex = 7;
             this.mTextTelefone.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextTelefone_MouseClick);
             this.mTextTelefone.Enter += new System.EventHandler(this.mTextTelefone_Enter);
@@ -474,7 +482,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.mTextInscricaoEstadual.Location = new System.Drawing.Point(576, 51);
             this.mTextInscricaoEstadual.Name = "mTextInscricaoEstadual";
-            this.mTextInscricaoEstadual.Size = new System.Drawing.Size(121, 22);
+            this.mTextInscricaoEstadual.Size = new System.Drawing.Size(121, 26);
             this.mTextInscricaoEstadual.TabIndex = 3;
             this.mTextInscricaoEstadual.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextInscricaoEstadual_MouseClick);
             this.mTextInscricaoEstadual.Enter += new System.EventHandler(this.mTextInscricaoEstadual_Enter);
@@ -485,7 +493,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.mTextCnpj.Location = new System.Drawing.Point(576, 23);
             this.mTextCnpj.Mask = "00,000,000/0000-99";
             this.mTextCnpj.Name = "mTextCnpj";
-            this.mTextCnpj.Size = new System.Drawing.Size(121, 22);
+            this.mTextCnpj.Size = new System.Drawing.Size(121, 26);
             this.mTextCnpj.TabIndex = 1;
             this.mTextCnpj.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTextCnpj_MouseClick);
             this.mTextCnpj.Enter += new System.EventHandler(this.mTextCnpj_Enter);
@@ -496,7 +504,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textSite.Location = new System.Drawing.Point(112, 135);
             this.textSite.Name = "textSite";
-            this.textSite.Size = new System.Drawing.Size(216, 22);
+            this.textSite.Size = new System.Drawing.Size(216, 26);
             this.textSite.TabIndex = 6;
             this.textSite.Enter += new System.EventHandler(this.textSite_Enter);
             this.textSite.Leave += new System.EventHandler(this.textSite_Leave);
@@ -505,7 +513,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textEmail.Location = new System.Drawing.Point(112, 107);
             this.textEmail.Name = "textEmail";
-            this.textEmail.Size = new System.Drawing.Size(217, 22);
+            this.textEmail.Size = new System.Drawing.Size(217, 26);
             this.textEmail.TabIndex = 5;
             this.textEmail.Enter += new System.EventHandler(this.textEmail_Enter);
             this.textEmail.Leave += new System.EventHandler(this.textEmail_Leave);
@@ -514,7 +522,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textResponsavel.Location = new System.Drawing.Point(111, 79);
             this.textResponsavel.Name = "textResponsavel";
-            this.textResponsavel.Size = new System.Drawing.Size(339, 22);
+            this.textResponsavel.Size = new System.Drawing.Size(339, 26);
             this.textResponsavel.TabIndex = 4;
             this.textResponsavel.Enter += new System.EventHandler(this.textResponsavel_Enter);
             this.textResponsavel.Leave += new System.EventHandler(this.textResponsavel_Leave);
@@ -524,7 +532,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textRazaoSocial.Location = new System.Drawing.Point(111, 51);
             this.textRazaoSocial.Name = "textRazaoSocial";
-            this.textRazaoSocial.Size = new System.Drawing.Size(339, 22);
+            this.textRazaoSocial.Size = new System.Drawing.Size(339, 26);
             this.textRazaoSocial.TabIndex = 2;
             this.textRazaoSocial.Enter += new System.EventHandler(this.textRazaoSocial_Enter);
             this.textRazaoSocial.Leave += new System.EventHandler(this.textRazaoSocial_Leave);
@@ -534,7 +542,7 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.textNomeFantasia.Location = new System.Drawing.Point(112, 23);
             this.textNomeFantasia.Name = "textNomeFantasia";
-            this.textNomeFantasia.Size = new System.Drawing.Size(338, 22);
+            this.textNomeFantasia.Size = new System.Drawing.Size(338, 26);
             this.textNomeFantasia.TabIndex = 0;
             this.textNomeFantasia.Enter += new System.EventHandler(this.textNomeFantasia_Enter);
             this.textNomeFantasia.Leave += new System.EventHandler(this.textNomeFantasia_Leave);
@@ -544,9 +552,69 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             // 
             this.formError.ContainerControl = this;
             // 
+            // textVencimento
+            // 
+            this.textVencimento.Location = new System.Drawing.Point(132, 30);
+            this.textVencimento.Name = "textVencimento";
+            this.textVencimento.Size = new System.Drawing.Size(46, 26);
+            this.textVencimento.TabIndex = 1;
+            this.textVencimento.Enter += new System.EventHandler(this.textNumero_Enter);
+            this.textVencimento.Leave += new System.EventHandler(this.textNumero_Leave);
+            this.textVencimento.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(24, 33);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(110, 18);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Dia Vencimento:";
+            // 
+            // textEmissao
+            // 
+            this.textEmissao.Location = new System.Drawing.Point(132, 58);
+            this.textEmissao.Name = "textEmissao";
+            this.textEmissao.Size = new System.Drawing.Size(46, 26);
+            this.textEmissao.TabIndex = 1;
+            this.textEmissao.Enter += new System.EventHandler(this.textNumero_Enter);
+            this.textEmissao.Leave += new System.EventHandler(this.textNumero_Leave);
+            this.textEmissao.Validating += new System.ComponentModel.CancelEventHandler(this.textNumero_Validating);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(49, 61);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(85, 18);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "Dia Emissão:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.textEmissao);
+            this.groupBox2.Controls.Add(this.textVencimento);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Location = new System.Drawing.Point(497, 89);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(11, -2);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(132, 18);
+            this.label19.TabIndex = 4;
+            this.label19.Text = "Dados Promissórias:";
+            // 
             // DistribuidorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(732, 422);
             this.Controls.Add(this.panelContainer);
@@ -570,6 +638,8 @@ namespace MCatalogos.Views.FormViews.Distribuidor
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formError)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -618,5 +688,11 @@ namespace MCatalogos.Views.FormViews.Distribuidor
         private System.Windows.Forms.ErrorProvider formError;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnAddBairro;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textEmissao;
+        private System.Windows.Forms.TextBox textVencimento;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
     }
 }

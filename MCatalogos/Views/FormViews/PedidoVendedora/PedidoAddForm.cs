@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models.Catalogos;
 using DomainLayer.Models.CommonModels.Enums;
+using DomainLayer.Models.Distribuidor;
 using DomainLayer.Models.PedidosVendedoras;
 using DomainLayer.Models.Produtos;
 using DomainLayer.Models.Tamanho;
@@ -7,6 +8,7 @@ using DomainLayer.Models.Vendedora;
 
 using InfrastructureLayer;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Catalogo;
+using InfrastructureLayer.DataAccess.Repositories.Specific.Distribuidor;
 using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Produto;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Tamanho;
@@ -17,6 +19,7 @@ using MCatalogos.Views.FormViews.Produtos;
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
 using ServiceLayer.Services.DetalhePedidoServices;
+using ServiceLayer.Services.DistribuidorServices;
 using ServiceLayer.Services.PedidosVendedorasServices;
 using ServiceLayer.Services.ProdutoServices;
 using ServiceLayer.Services.RotaServices;
@@ -44,6 +47,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         PedidosListForm PedidoListForm;
         PedidosVendedorasModel PedidoModel = new PedidosVendedorasModel();
         public VendedoraModel VendedoraModel = new VendedoraModel();
+        private DistribuidorModel distribuidorModel = new DistribuidorModel();
         private CampanhaModel SelectedCampanha = null;
         private CatalogoModel SelectedCatalogo = null;
 
@@ -69,6 +73,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
         private RotaServices _rotaServices;
         private CatalogoServices _catalogoServices;
         private CampanhaServices _campanhaServices;
+        private DistribuidorServices _distribuidorServices;
         private DataGridViewCheckBoxColumn Faltou;
 
         private RequestType RType;
@@ -98,12 +103,14 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
             _rotaServices = new RotaServices(new RotaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _catalogoServices = new CatalogoServices(new CatalogoRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
             _campanhaServices = new CampanhaServices(new CampanhaRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
+            _distribuidorServices = new DistribuidorServices(new DistribuidorRepository(_queryString.GetQueryApp()), new ModelDataAnnotationCheck());
 
             InitializeComponent();
             VendedoraModel = vendedoraModel;
             PedidoModel = pedidoModel;
             PedidoListForm = pedidosListForm;
             ListPedidos = (List<PedidosVendedorasModel>)_pedidoServices.GetAll();
+            distribuidorModel = _distribuidorServices.GetModel();
             RType = requestType;
 
         }
@@ -758,6 +765,7 @@ namespace MCatalogos.Views.FormViews.PedidoVendedora
                 PedidoModel = new PedidosVendedorasModel();
                 PedidoModel.VendedoraId = vendedora.VendedoraId;
                 PedidoModel.StatusPed = (((int)StatusPedido.Aberto));
+                PedidoModel.DataVencimento = DateTime.Parse($"{DateTime.Today.Year}-{DateTime.Today.Month}-{distribuidorModel.DiaVencimento}").AddMonths(1);
                 PedidoModel = (PedidosVendedorasModel)_pedidoServices.Add(PedidoModel);
 
             }

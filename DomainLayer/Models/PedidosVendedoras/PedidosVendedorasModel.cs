@@ -25,6 +25,7 @@ namespace DomainLayer.Models.PedidosVendedoras
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Data do Registro do Pedido deve ser preenchida.")]
         public DateTime DataRegistro { get; set; }
+        public DateTime DataVencimento { get; set; }
 
         public double? ValorTaxaPedido { get; set; }
         public double? ValorTotalPedido { get; set; }
@@ -37,7 +38,6 @@ namespace DomainLayer.Models.PedidosVendedoras
         [Required()]
         public int StatusPed { get; set; }
 
-        public DateTime DataVencimento => DateTime.Parse($"{DataRegistro.Year}/{DataRegistro.Month + 1}/10");
 
     }
 }

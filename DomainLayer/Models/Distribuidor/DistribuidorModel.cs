@@ -36,6 +36,9 @@ namespace DomainLayer.Models.Distribuidor
         [StringLength(300, MinimumLength = 10, ErrorMessage = "Nome do Responsável deve ter no mínimo 10 caracteres")]
         public string NomeResponsavel { get; set; }
 
+        public int DiaVencimento { get; set; }
+        public int DiaEmissaoPromissoria { get; set; }
+
         public string TelefoneContato { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório!")]
