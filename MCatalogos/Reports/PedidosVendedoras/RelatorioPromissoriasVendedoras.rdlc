@@ -97,7 +97,7 @@
                   <Width>3.29816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.99124cm</Width>
+                  <Width>2.54674cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.62083cm</Width>
@@ -1957,7 +1957,7 @@
             </TablixRowHierarchy>
             <DataSetName>DSRelatorioPromissorias</DataSetName>
             <Height>6.2cm</Height>
-            <Width>18.81012cm</Width>
+            <Width>18.36562cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1988,7 +1988,7 @@
         <Height>2.44094in</Height>
         <Style />
       </Body>
-      <Width>7.40556in</Width>
+      <Width>7.23056in</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>

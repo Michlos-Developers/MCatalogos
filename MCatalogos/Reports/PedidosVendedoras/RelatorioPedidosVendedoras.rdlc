@@ -76,7 +76,7 @@
                   <Width>1.50252cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>7.84148cm</Width>
+                  <Width>7.20648cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.21148cm</Width>
@@ -1065,7 +1065,7 @@
             </TablixRowHierarchy>
             <DataSetName>DSPedidoVendedoraDetalhe</DataSetName>
             <Height>3cm</Height>
-            <Width>18.92828cm</Width>
+            <Width>18.2933cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1080,7 +1080,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>7.45208in</Width>
+      <Width>7.20209in</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>

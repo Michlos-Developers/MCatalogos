@@ -74,7 +74,7 @@
                   <Width>2.81815cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.07938cm</Width>
+                  <Width>4.55021cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.75107cm</Width>
@@ -682,7 +682,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox106</rd:DefaultName>
@@ -690,6 +692,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1903,7 +1906,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -1911,6 +1916,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2234,7 +2240,7 @@
             </TablixRowHierarchy>
             <DataSetName>DSPedidoVendedoraHeader</DataSetName>
             <Height>7.8cm</Height>
-            <Width>18.90182cm</Width>
+            <Width>18.37264cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2245,7 +2251,7 @@
         <Height>3.24795in</Height>
         <Style />
       </Body>
-      <Width>7.47916in</Width>
+      <Width>7.23332in</Width>
       <Page>
         <PageHeader>
           <Height>2.00229cm</Height>
@@ -2275,7 +2281,7 @@
               <rd:DefaultName>Textbox46</rd:DefaultName>
               <Top>0.3175cm</Top>
               <Height>0.81167cm</Height>
-              <Width>18.99707cm</Width>
+              <Width>18.37264cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2315,7 +2321,6 @@
               </Paragraphs>
               <rd:DefaultName>Textbox47</rd:DefaultName>
               <Top>1.16445cm</Top>
-              <Left>0cm</Left>
               <Height>0.51727cm</Height>
               <Width>11.18779cm</Width>
               <ZIndex>1</ZIndex>
@@ -2361,8 +2366,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox47</rd:DefaultName>
-              <Top>0.07056cm</Top>
-              <Left>14.03645cm</Left>
+              <Top>0.08307cm</Top>
+              <Left>13.41202cm</Left>
               <Height>0.6cm</Height>
               <Width>4.96062cm</Width>
               <Style>
@@ -2397,7 +2402,7 @@
               <rd:DefaultName>Textbox47</rd:DefaultName>
               <Top>0.85946cm</Top>
               <Height>0.6cm</Height>
-              <Width>18.99707cm</Width>
+              <Width>18.37264cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
