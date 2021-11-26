@@ -17,6 +17,10 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="DistribuidorNomeFantasia">
+          <DataField>DistribuidorNomeFantasia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PedidoDataVencimento">
           <DataField>PedidoDataVencimento</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
@@ -61,22 +65,22 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.74049cm</Width>
+                  <Width>2.75107cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.74049cm</Width>
+                  <Width>2.75107cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.80757cm</Width>
+                  <Width>2.81815cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.74049cm</Width>
+                  <Width>5.07938cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.74049cm</Width>
+                  <Width>2.75107cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.74049cm</Width>
+                  <Width>2.75107cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1618,7 +1622,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2230,9 +2233,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DSPedidoVendedoraHeader</DataSetName>
-            <Left>0.15875cm</Left>
             <Height>7.8cm</Height>
-            <Width>16.51002cm</Width>
+            <Width>18.90182cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2240,13 +2242,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>3.07087in</Height>
+        <Height>3.24795in</Height>
         <Style />
       </Body>
-      <Width>6.64583in</Width>
+      <Width>7.47916in</Width>
       <Page>
         <PageHeader>
-          <Height>0.81167cm</Height>
+          <Height>2.00229cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2271,8 +2273,52 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox46</rd:DefaultName>
+              <Top>0.3175cm</Top>
               <Height>0.81167cm</Height>
-              <Width>16.8275cm</Width>
+              <Width>18.99707cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox50">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Distribuidor: </Value>
+                      <Style>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Fields!DistribuidorNomeFantasia.Value</Value>
+                      <Style>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox47</rd:DefaultName>
+              <Top>1.16445cm</Top>
+              <Left>0cm</Left>
+              <Height>0.51727cm</Height>
+              <Width>11.18779cm</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2291,7 +2337,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.36422cm</Height>
+          <Height>1.45946cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2315,10 +2361,78 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox47</rd:DefaultName>
-              <Top>0.76421cm</Top>
-              <Left>11.67638cm</Left>
+              <Top>0.07056cm</Top>
+              <Left>14.03645cm</Left>
               <Height>0.6cm</Height>
               <Width>4.96062cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox48">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>MCatalogos By Michlos Developers</Value>
+                      <Style>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox47</rd:DefaultName>
+              <Top>0.85946cm</Top>
+              <Height>0.6cm</Height>
+              <Width>18.99707cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox49">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Fields!DistribuidorNomeFantasia.Value</Value>
+                      <Style>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox47</rd:DefaultName>
+              <Top>0.07056cm</Top>
+              <Height>0.51727cm</Height>
+              <Width>11.18779cm</Width>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2338,10 +2452,10 @@
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
-        <LeftMargin>2cm</LeftMargin>
-        <RightMargin>2cm</RightMargin>
-        <TopMargin>2cm</TopMargin>
-        <BottomMargin>2cm</BottomMargin>
+        <LeftMargin>1cm</LeftMargin>
+        <RightMargin>1cm</RightMargin>
+        <TopMargin>0.5cm</TopMargin>
+        <BottomMargin>0.5cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>

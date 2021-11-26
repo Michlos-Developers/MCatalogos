@@ -11,5 +11,6 @@ namespace DomainLayer.Models.Reports.PedidosVendedoras
         double PedidoValorTotalPagar { get; set; }
         string VendedoraNome { get; set; }
         string VendedoraRota { get; set; }
+        string DistribuidorNomeFantasia { get; set; }
     }
 }

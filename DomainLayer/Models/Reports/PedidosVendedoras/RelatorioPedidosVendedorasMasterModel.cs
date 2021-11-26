@@ -11,6 +11,7 @@ namespace DomainLayer.Models.Reports.PedidosVendedoras
         public DateTime PedidoDataVencimento { get; set; }
         public string VendedoraNome { get; set; }
         public string VendedoraRota { get; set; }
+        public string DistribuidorNomeFantasia { get; set; }
 
     }
 }

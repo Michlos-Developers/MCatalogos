@@ -129,6 +129,7 @@ namespace MCatalogos.Views.FormViews.Reports.PedidoVendedora
                     relMaster.PedidoDataVencimento = pedido.DataVencimento;
                     relMaster.VendedoraNome = vendedora.Nome;
                     relMaster.VendedoraRota = $"{rotaLetra}-{rotaNumero}";
+                    relMaster.DistribuidorNomeFantasia = distribuidorModel.NomeFantasia;
                     relatorioMaster.Add(relMaster);
 
                     RelatorioPromissoriasModel relProm = new RelatorioPromissoriasModel();
