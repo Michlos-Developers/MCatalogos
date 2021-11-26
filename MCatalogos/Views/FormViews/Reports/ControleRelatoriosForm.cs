@@ -8,8 +8,8 @@ using InfrastructureLayer.DataAccess.Repositories.Specific.PedidoVendedora;
 using InfrastructureLayer.DataAccess.Repositories.Specific.Vendedora;
 
 using MCatalogos.Commons;
-using MCatalogos.Views.FormViews.Reports.Pedidos;
 using MCatalogos.Views.FormViews.Reports.PedidoVendedora;
+using MCatalogos.Views.FormViews.Reports.UserControls;
 
 using ServiceLayer.CommonServices;
 using ServiceLayer.Services.CatalogoServices;
@@ -72,6 +72,7 @@ namespace MCatalogos.Views.FormViews.Reports
         List<Button> ButtonsCollection = new List<Button>();
 
         private ConfigReportPedidosUC UCPedidos = null;
+        private ConfigReportPromissoriasUC UCPromissorias = null;
 
         //private IEnumerable<IVendedoraModel> vendedorasListModel;
         private IEnumerable<ICatalogoModel> catalogosListModel;
@@ -162,6 +163,14 @@ namespace MCatalogos.Views.FormViews.Reports
             UCPedidos.Dock = DockStyle.Fill;
         }
 
+        private void LoadUserControlReportPromissorias()
+        {
+            UCPromissorias = new ConfigReportPromissoriasUC(this);
+            panelCallConfigReport.Controls.Clear();
+            panelCallConfigReport.Controls.Add(UCPromissorias);
+            UCPromissorias.Dock = DockStyle.Fill;
+        }
+
 
         /// <summary>
         /// MÉTODO DE EVENTO QUE CHAMA A TELA DE CONFIGURAÇÕES DE RELATÓRIO DE PROMISSÓRIAS
@@ -172,6 +181,7 @@ namespace MCatalogos.Views.FormViews.Reports
         {
             ButtonHelper.SetDesabledButtons(ButtonsCollection, btnReportPromissorias);
             panelConfigReport.Visible = true;
+            LoadUserControlReportPromissorias();
         }
 
         /// <summary>
@@ -230,11 +240,11 @@ namespace MCatalogos.Views.FormViews.Reports
 
             IEnumerable<VendedoraModel> vendedorasList = new List<VendedoraModel>();
 
-            vendedorasList = UCPedidos.vendedorasModelsList;
-            int selectedMonth = UCPedidos.cbMes.SelectedIndex + 1;
-            bool printPromissorias = UCPedidos.chkPrintPromissorias.Checked;
             if (UCPedidos != null)
             {
+                vendedorasList = UCPedidos.vendedorasModelsList;
+                int selectedMonth = UCPedidos.cbMes.SelectedIndex + 1;
+                bool printPromissorias = UCPedidos.chkPrintPromissorias.Checked;
 
 
                 ///VERIFICA SE A SELEÇÃO É PARA APENAS UMA VENDEDORA
@@ -247,6 +257,23 @@ namespace MCatalogos.Views.FormViews.Reports
 
                 RelatorioPedidoVendedoraGeral relatorioPedidosGeral = new RelatorioPedidoVendedoraGeral(vendedorasList, selectedMonth, printPromissorias);
                 relatorioPedidosGeral.Show();
+            }
+
+            if (UCPromissorias != null)
+            {
+                vendedorasList = UCPromissorias.vendedorasModelsList;
+                int selectedMonth = UCPromissorias.cbMes.SelectedIndex + 1;
+
+                //VERIFICA A SELEÇÃO DE VENDEDORAS
+                if (UCPromissorias.cbVendedoras.SelectedIndex != 0)
+                {
+                    VendedoraModel selectedVendedora = (VendedoraModel)UCPromissorias.cbVendedoras.SelectedItem;
+                    vendedorasList = vendedorasList.Where(vend => vend.VendedoraId == selectedVendedora.VendedoraId);
+                }
+
+                //CHAMANDO FORMULÁRIO DO RELATÓRIO DE PROMISSÓRIAS
+                RelatorioPromissoriaVendedorasGeral reportPromissoriasGeral = new RelatorioPromissoriaVendedorasGeral(vendedorasList, selectedMonth);
+                reportPromissoriasGeral.Show(); 
             }
         }
 

@@ -45,7 +45,6 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnReportPedidos = new System.Windows.Forms.Button();
             this.btnReportPromissorias = new System.Windows.Forms.Button();
             this.btnReportContasReceber = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelCommands.SuspendLayout();
             this.panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureClose)).BeginInit();
@@ -111,7 +110,7 @@ namespace MCatalogos.Views.FormViews.Reports
             this.title.ForeColor = System.Drawing.SystemColors.ControlText;
             this.title.Location = new System.Drawing.Point(10, 8);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(138, 18);
+            this.title.Size = new System.Drawing.Size(123, 14);
             this.title.TabIndex = 0;
             this.title.Text = "Central de Relatórios";
             // 
@@ -155,7 +154,6 @@ namespace MCatalogos.Views.FormViews.Reports
             // panelCommandsReport
             // 
             this.panelCommandsReport.BackColor = System.Drawing.SystemColors.Control;
-            this.panelCommandsReport.Controls.Add(this.button1);
             this.panelCommandsReport.Controls.Add(this.btnGenerateReport);
             this.panelCommandsReport.Controls.Add(this.btnCancelReport);
             this.panelCommandsReport.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -258,26 +256,9 @@ namespace MCatalogos.Views.FormViews.Reports
             this.btnReportContasReceber.UseVisualStyleBackColor = true;
             this.btnReportContasReceber.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(175, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Tag = "";
-            this.button1.Text = "Promissoria";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // ControleRelatoriosForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 530);
             this.Controls.Add(this.panelTitle);
@@ -321,6 +302,5 @@ namespace MCatalogos.Views.FormViews.Reports
         private System.Windows.Forms.Button btnCancelReport;
         private System.Windows.Forms.Button btnGenerateReport;
         private System.Windows.Forms.Panel panelCallConfigReport;
-        private System.Windows.Forms.Button button1;
     }
 }

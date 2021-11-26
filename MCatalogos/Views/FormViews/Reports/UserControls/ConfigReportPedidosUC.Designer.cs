@@ -1,5 +1,5 @@
 ﻿
-namespace MCatalogos.Views.FormViews.Reports.Pedidos
+namespace MCatalogos.Views.FormViews.Reports.UserControls
 {
     partial class ConfigReportPedidosUC
     {
@@ -39,7 +39,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             // cbVendedoras
             // 
             this.cbVendedoras.FormattingEnabled = true;
-            this.cbVendedoras.Location = new System.Drawing.Point(155, 28);
+            this.cbVendedoras.Location = new System.Drawing.Point(175, 120);
             this.cbVendedoras.Name = "cbVendedoras";
             this.cbVendedoras.Size = new System.Drawing.Size(267, 21);
             this.cbVendedoras.TabIndex = 0;
@@ -48,7 +48,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(87, 32);
+            this.label1.Location = new System.Drawing.Point(107, 124);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 1;
@@ -57,7 +57,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             // cbMes
             // 
             this.cbMes.FormattingEnabled = true;
-            this.cbMes.Location = new System.Drawing.Point(155, 55);
+            this.cbMes.Location = new System.Drawing.Point(175, 147);
             this.cbMes.Name = "cbMes";
             this.cbMes.Size = new System.Drawing.Size(267, 21);
             this.cbMes.TabIndex = 0;
@@ -65,7 +65,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(122, 59);
+            this.label2.Location = new System.Drawing.Point(142, 151);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 1;
@@ -74,7 +74,7 @@ namespace MCatalogos.Views.FormViews.Reports.Pedidos
             // chkPrintPromissorias
             // 
             this.chkPrintPromissorias.AutoSize = true;
-            this.chkPrintPromissorias.Location = new System.Drawing.Point(155, 82);
+            this.chkPrintPromissorias.Location = new System.Drawing.Point(175, 174);
             this.chkPrintPromissorias.Name = "chkPrintPromissorias";
             this.chkPrintPromissorias.Size = new System.Drawing.Size(118, 17);
             this.chkPrintPromissorias.TabIndex = 2;
